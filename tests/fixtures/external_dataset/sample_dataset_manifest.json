@@ -1,0 +1,39 @@
+{
+  "manifest_id": "sample-external-dataset-v1",
+  "dataset_name": "Sample External Dataset",
+  "rows": [
+    {
+      "row_id": "sample-row-001",
+      "accession": "P00387",
+      "split": "train",
+      "pdb_id": "1Y01",
+      "measurement_family": "Kd",
+      "measurement_value": "22.5nM",
+      "provenance": {
+        "source_name": "bindingdb",
+        "pmid": "12345678"
+      },
+      "modalities": [
+        "sequence",
+        "structure",
+        "ligand"
+      ]
+    },
+    {
+      "row_id": "sample-row-002",
+      "accession": "Q9NZD4",
+      "split": "test",
+      "pdb_id": "4HHB",
+      "measurement_family": "IC50",
+      "measurement_value": "1.2uM",
+      "provenance": {
+        "source_name": "chembl",
+        "patent_id": "WO-2026-000001"
+      },
+      "modalities": [
+        "sequence",
+        "structure"
+      ]
+    }
+  ]
+}

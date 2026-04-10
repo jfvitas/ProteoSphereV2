@@ -1,0 +1,15 @@
+{
+  "manifest_id": "good-but-caveated-dataset",
+  "fixture_type": "good_but_caveated",
+  "rows": [
+    {
+      "accession": "P04637",
+      "split": "train",
+      "pdb_id": "4HG7",
+      "measurement_type": "Ki",
+      "measurement_value": "90 nM",
+      "provenance": "pmid:19118018",
+      "notes": "Valid-looking row that still needs provenance and structure handling to remain caveated."
+    }
+  ]
+}

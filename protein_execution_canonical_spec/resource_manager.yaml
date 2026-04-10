@@ -1,0 +1,10 @@
+
+resources:
+  cpu: dynamic
+  gpu: cuda
+  memory: monitored
+
+policies:
+  max_jobs_per_gpu: 2
+  fallback_to_cpu: true
+  priority_scheduling: true

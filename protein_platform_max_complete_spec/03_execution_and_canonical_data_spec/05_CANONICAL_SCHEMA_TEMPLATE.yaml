@@ -1,0 +1,24 @@
+schema_version: 1
+record_common_fields:
+  - internal_id
+  - provenance_refs
+  - quality_flags
+  - created_at
+  - updated_at
+  - schema_version
+
+required_record_types:
+  - ProteinRecord
+  - ChainRecord
+  - LigandRecord
+  - NucleicAcidRecord
+  - ComplexRecord
+  - AssayMeasurementRecord
+  - AnnotationRecord
+  - InteractionEvidenceRecord
+  - ProvenanceRecord
+
+validation_rules:
+  - all first-class records must have at least one provenance reference
+  - no record may omit schema_version
+  - all cross-record references must point to existing internal IDs or explicit unresolved placeholder records

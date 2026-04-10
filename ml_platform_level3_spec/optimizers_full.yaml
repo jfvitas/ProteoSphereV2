@@ -1,0 +1,65 @@
+adam:
+  lr:
+    type: float
+    default: 0.001
+  betas:
+    type: tuple[float]
+    default:
+    - 0.9
+    - 0.999
+  eps:
+    type: float
+    default: 1.0e-08
+  weight_decay:
+    type: float
+    default: 0.0
+  amsgrad:
+    type: bool
+    default: false
+adamw:
+  lr:
+    type: float
+    default: 0.001
+  betas:
+    type: tuple[float]
+    default:
+    - 0.9
+    - 0.999
+  eps:
+    type: float
+    default: 1.0e-08
+  weight_decay:
+    type: float
+    default: 0.01
+sgd:
+  lr:
+    type: float
+    default: 0.01
+  momentum:
+    type: float
+    default: 0.0
+  dampening:
+    type: float
+    default: 0.0
+  weight_decay:
+    type: float
+    default: 0.0
+  nesterov:
+    type: bool
+    default: false
+rmsprop:
+  lr:
+    type: float
+    default: 0.001
+  alpha:
+    type: float
+    default: 0.99
+  eps:
+    type: float
+    default: 1.0e-08
+  weight_decay:
+    type: float
+    default: 0.0
+  momentum:
+    type: float
+    default: 0.0

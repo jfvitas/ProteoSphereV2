@@ -1,0 +1,15 @@
+{
+  "manifest_id": "provenance-deficient-dataset",
+  "fixture_type": "provenance_deficient",
+  "rows": [
+    {
+      "accession": "Q9NZD4",
+      "split": "test",
+      "measurement_type": "Kd",
+      "measurement_value": "120 nM",
+      "provenance": "",
+      "source_url": "",
+      "notes": "Fixture should fail provenance completeness checks."
+    }
+  ]
+}

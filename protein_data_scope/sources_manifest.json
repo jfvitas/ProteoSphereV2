@@ -1,0 +1,320 @@
+{
+  "generated_for": "broad protein / PPI / PLI / PNA / pathway / motif ingest",
+  "default_destination": "D:/Documents/data",
+  "sources": [
+    {
+      "id": "reactome",
+      "name": "Reactome",
+      "category": "pathways_reactions_complexes",
+      "manual_review_required": false,
+      "notes": "Reactome's current download index exposes ReactionPMIDS.txt and ComplexParticipantsPubMedIdentifiers_human.txt; the old reactionPMIDS.txt and humanComplexes.txt names were stale. reactome.graphdb.tgz is still live in current_release, but the last seed sync failed before it landed.",
+      "top_level_files": [
+        {"filename": "UniProt2Reactome.txt", "url": "https://reactome.org/download/current/UniProt2Reactome.txt"},
+        {"filename": "UniProt2Reactome_All_Levels.txt", "url": "https://reactome.org/download/current/UniProt2Reactome_All_Levels.txt"},
+        {"filename": "UniProt2ReactomeReactions.txt", "url": "https://reactome.org/download/current/UniProt2ReactomeReactions.txt"},
+        {"filename": "ChEBI2Reactome.txt", "url": "https://reactome.org/download/current/ChEBI2Reactome.txt"},
+        {"filename": "ChEBI2Reactome_All_Levels.txt", "url": "https://reactome.org/download/current/ChEBI2Reactome_All_Levels.txt"},
+        {"filename": "ChEBI2ReactomeReactions.txt", "url": "https://reactome.org/download/current/ChEBI2ReactomeReactions.txt"},
+        {"filename": "NCBI2Reactome.txt", "url": "https://reactome.org/download/current/NCBI2Reactome.txt"},
+        {"filename": "NCBI2Reactome_All_Levels.txt", "url": "https://reactome.org/download/current/NCBI2Reactome_All_Levels.txt"},
+        {"filename": "NCBI2ReactomeReactions.txt", "url": "https://reactome.org/download/current/NCBI2ReactomeReactions.txt"},
+        {"filename": "Ensembl2Reactome.txt", "url": "https://reactome.org/download/current/Ensembl2Reactome.txt"},
+        {"filename": "Ensembl2Reactome_All_Levels.txt", "url": "https://reactome.org/download/current/Ensembl2Reactome_All_Levels.txt"},
+        {"filename": "Ensembl2ReactomeReactions.txt", "url": "https://reactome.org/download/current/Ensembl2ReactomeReactions.txt"},
+        {"filename": "miRBase2Reactome.txt", "url": "https://reactome.org/download/current/miRBase2Reactome.txt"},
+        {"filename": "miRBase2Reactome_All_Levels.txt", "url": "https://reactome.org/download/current/miRBase2Reactome_All_Levels.txt"},
+        {"filename": "miRBase2ReactomeReactions.txt", "url": "https://reactome.org/download/current/miRBase2ReactomeReactions.txt"},
+        {"filename": "GtoP2Reactome.txt", "url": "https://reactome.org/download/current/GtoP2Reactome.txt"},
+        {"filename": "GtoP2Reactome_All_Levels.txt", "url": "https://reactome.org/download/current/GtoP2Reactome_All_Levels.txt"},
+        {"filename": "GtoP2ReactomeReactions.txt", "url": "https://reactome.org/download/current/GtoP2ReactomeReactions.txt"},
+        {"filename": "ReactomePathways.txt", "url": "https://reactome.org/download/current/ReactomePathways.txt"},
+        {"filename": "ReactomePathwaysRelation.txt", "url": "https://reactome.org/download/current/ReactomePathwaysRelation.txt"},
+        {"filename": "Complex_2_Pathway_human.txt", "url": "https://reactome.org/download/current/Complex_2_Pathway_human.txt"},
+        {"filename": "ProteinRoleReaction.txt", "url": "https://reactome.org/download/current/ProteinRoleReaction.txt"},
+        {"filename": "ReactionPMIDS.txt", "url": "https://reactome.org/download/current/ReactionPMIDS.txt"},
+        {"filename": "reactome_stable_ids.txt", "url": "https://reactome.org/download/current/reactome_stable_ids.txt"},
+        {"filename": "ComplexParticipantsPubMedIdentifiers_human.txt", "url": "https://reactome.org/download/current/ComplexParticipantsPubMedIdentifiers_human.txt"},
+        {"filename": "reactome.graphdb.tgz", "url": "https://reactome.org/download/current/reactome.graphdb.tgz"},
+        {"filename": "reactome.graphdb.dump", "url": "https://reactome.org/download/current/reactome.graphdb.dump"},
+        {"filename": "IntAct_Static.txt", "url": "https://reactome.org/download/current/IntAct_Static.txt"}
+      ]
+    },
+    {
+      "id": "string",
+      "name": "STRING v12",
+      "category": "interaction_networks",
+      "manual_review_required": false,
+      "top_level_files": [
+        {"filename": "protein.links.v12.0.txt.gz", "url": "https://stringdb-downloads.org/download/protein.links.v12.0.txt.gz"},
+        {"filename": "protein.links.detailed.v12.0.txt.gz", "url": "https://stringdb-downloads.org/download/protein.links.detailed.v12.0.txt.gz"},
+        {"filename": "protein.links.full.v12.0.txt.gz", "url": "https://stringdb-downloads.org/download/protein.links.full.v12.0.txt.gz"},
+        {"filename": "protein.physical.links.v12.0.txt.gz", "url": "https://stringdb-downloads.org/download/protein.physical.links.v12.0.txt.gz"},
+        {"filename": "protein.physical.links.detailed.v12.0.txt.gz", "url": "https://stringdb-downloads.org/download/protein.physical.links.detailed.v12.0.txt.gz"},
+        {"filename": "protein.physical.links.full.v12.0.txt.gz", "url": "https://stringdb-downloads.org/download/protein.physical.links.full.v12.0.txt.gz"},
+        {"filename": "COG.links.v12.0.txt.gz", "url": "https://stringdb-downloads.org/download/COG.links.v12.0.txt.gz"},
+        {"filename": "COG.links.detailed.v12.0.txt.gz", "url": "https://stringdb-downloads.org/download/COG.links.detailed.v12.0.txt.gz"},
+        {"filename": "protein.info.v12.0.txt.gz", "url": "https://stringdb-downloads.org/download/protein.info.v12.0.txt.gz"},
+        {"filename": "protein.sequences.v12.0.fa.gz", "url": "https://stringdb-downloads.org/download/protein.sequences.v12.0.fa.gz"},
+        {"filename": "protein.aliases.v12.0.txt.gz", "url": "https://stringdb-downloads.org/download/protein.aliases.v12.0.txt.gz"},
+        {"filename": "protein.homology.v12.0.txt.gz", "url": "https://stringdb-downloads.org/download/protein.homology.v12.0.txt.gz"},
+        {"filename": "protein.enrichment.terms.v12.0.txt.gz", "url": "https://stringdb-downloads.org/download/protein.enrichment.terms.v12.0.txt.gz"},
+        {"filename": "clusters.proteins.v12.0.txt.gz", "url": "https://stringdb-downloads.org/download/clusters.proteins.v12.0.txt.gz"},
+        {"filename": "clusters.info.v12.0.txt.gz", "url": "https://stringdb-downloads.org/download/clusters.info.v12.0.txt.gz"},
+        {"filename": "clusters.tree.v12.0.txt.gz", "url": "https://stringdb-downloads.org/download/clusters.tree.v12.0.txt.gz"},
+        {"filename": "protein.network.embeddings.v12.0.h5", "url": "https://stringdb-downloads.org/download/protein.network.embeddings.v12.0.h5"},
+        {"filename": "protein.sequence.embeddings.v12.0.h5", "url": "https://stringdb-downloads.org/download/protein.sequence.embeddings.v12.0.h5"},
+        {"filename": "protein.orthology.v12.0.txt.gz", "url": "https://stringdb-downloads.org/download/protein.orthology.v12.0.txt.gz"},
+        {"filename": "COG.mappings.v12.0.txt.gz", "url": "https://stringdb-downloads.org/download/COG.mappings.v12.0.txt.gz"},
+        {"filename": "species.v12.0.txt", "url": "https://stringdb-downloads.org/download/species.v12.0.txt"},
+        {"filename": "species.tree.v12.0.txt", "url": "https://stringdb-downloads.org/download/species.tree.v12.0.txt"},
+        {"filename": "items_schema.v12.0.sql.gz", "url": "https://stringdb-downloads.org/download/items_schema.v12.0.sql.gz"},
+        {"filename": "network_schema.v12.0.sql.gz", "url": "https://stringdb-downloads.org/download/network_schema.v12.0.sql.gz"},
+        {"filename": "evidence_schema.v12.0.sql.gz", "url": "https://stringdb-downloads.org/download/evidence_schema.v12.0.sql.gz"},
+        {"filename": "database.schema.v12.0.pdf", "url": "https://stringdb-downloads.org/download/database.schema.v12.0.pdf"}
+      ]
+    },
+    {
+      "id": "sifts",
+      "name": "SIFTS",
+      "category": "structure_sequence_crosswalks",
+      "manual_review_required": false,
+      "top_level_files": [
+        {"filename": "pdb_chain_uniprot.tsv.gz", "url": "https://ftp.ebi.ac.uk/pub/databases/msd/sifts/flatfiles/tsv/pdb_chain_uniprot.tsv.gz"},
+        {"filename": "pdb_chain_taxonomy.tsv.gz", "url": "https://ftp.ebi.ac.uk/pub/databases/msd/sifts/flatfiles/tsv/pdb_chain_taxonomy.tsv.gz"},
+        {"filename": "pdb_pubmed.tsv.gz", "url": "https://ftp.ebi.ac.uk/pub/databases/msd/sifts/flatfiles/tsv/pdb_pubmed.tsv.gz"},
+        {"filename": "pdb_chain_enzyme.tsv.gz", "url": "https://ftp.ebi.ac.uk/pub/databases/msd/sifts/flatfiles/tsv/pdb_chain_enzyme.tsv.gz"},
+        {"filename": "pdb_chain_go.tsv.gz", "url": "https://ftp.ebi.ac.uk/pub/databases/msd/sifts/flatfiles/tsv/pdb_chain_go.tsv.gz"},
+        {"filename": "pdb_chain_interpro.tsv.gz", "url": "https://ftp.ebi.ac.uk/pub/databases/msd/sifts/flatfiles/tsv/pdb_chain_interpro.tsv.gz"},
+        {"filename": "pdb_chain_pfam.tsv.gz", "url": "https://ftp.ebi.ac.uk/pub/databases/msd/sifts/flatfiles/tsv/pdb_chain_pfam.tsv.gz"},
+        {"filename": "pdb_chain_cath_uniprot.tsv.gz", "url": "https://ftp.ebi.ac.uk/pub/databases/msd/sifts/flatfiles/tsv/pdb_chain_cath_uniprot.tsv.gz"},
+        {"filename": "pdb_chain_scop_uniprot.tsv.gz", "url": "https://ftp.ebi.ac.uk/pub/databases/msd/sifts/flatfiles/tsv/pdb_chain_scop_uniprot.tsv.gz"},
+        {"filename": "pdb_chain_scop2_uniprot.tsv.gz", "url": "https://ftp.ebi.ac.uk/pub/databases/msd/sifts/flatfiles/tsv/pdb_chain_scop2_uniprot.tsv.gz"},
+        {"filename": "pdb_chain_scop2b_sf_uniprot.tsv.gz", "url": "https://ftp.ebi.ac.uk/pub/databases/msd/sifts/flatfiles/tsv/pdb_chain_scop2b_sf_uniprot.tsv.gz"},
+        {"filename": "uniprot_pdb.tsv.gz", "url": "https://ftp.ebi.ac.uk/pub/databases/msd/sifts/flatfiles/tsv/uniprot_pdb.tsv.gz"},
+        {"filename": "pdb_chain_ensembl.tsv.gz", "url": "https://ftp.ebi.ac.uk/pub/databases/msd/sifts/flatfiles/tsv/pdb_chain_ensembl.tsv.gz"},
+        {"filename": "pdb_chain_hmmer.tsv.gz", "url": "https://ftp.ebi.ac.uk/pub/databases/msd/sifts/flatfiles/tsv/pdb_chain_hmmer.tsv.gz"},
+        {"filename": "uniprot_segments_observed.tsv.gz", "url": "https://ftp.ebi.ac.uk/pub/databases/msd/sifts/flatfiles/tsv/uniprot_segments_observed.tsv.gz"},
+        {"filename": "pdb_chain_uniprot.csv.gz", "url": "https://ftp.ebi.ac.uk/pub/databases/msd/sifts/flatfiles/csv/pdb_chain_uniprot.csv.gz"},
+        {"filename": "pdb_chain_taxonomy.csv.gz", "url": "https://ftp.ebi.ac.uk/pub/databases/msd/sifts/flatfiles/csv/pdb_chain_taxonomy.csv.gz"},
+        {"filename": "pdb_pubmed.csv.gz", "url": "https://ftp.ebi.ac.uk/pub/databases/msd/sifts/flatfiles/csv/pdb_pubmed.csv.gz"},
+        {"filename": "pdb_chain_enzyme.csv.gz", "url": "https://ftp.ebi.ac.uk/pub/databases/msd/sifts/flatfiles/csv/pdb_chain_enzyme.csv.gz"},
+        {"filename": "pdb_chain_go.csv.gz", "url": "https://ftp.ebi.ac.uk/pub/databases/msd/sifts/flatfiles/csv/pdb_chain_go.csv.gz"},
+        {"filename": "pdb_chain_interpro.csv.gz", "url": "https://ftp.ebi.ac.uk/pub/databases/msd/sifts/flatfiles/csv/pdb_chain_interpro.csv.gz"},
+        {"filename": "pdb_chain_pfam.csv.gz", "url": "https://ftp.ebi.ac.uk/pub/databases/msd/sifts/flatfiles/csv/pdb_chain_pfam.csv.gz"},
+        {"filename": "pdb_chain_cath_uniprot.csv.gz", "url": "https://ftp.ebi.ac.uk/pub/databases/msd/sifts/flatfiles/csv/pdb_chain_cath_uniprot.csv.gz"},
+        {"filename": "pdb_chain_scop_uniprot.csv.gz", "url": "https://ftp.ebi.ac.uk/pub/databases/msd/sifts/flatfiles/csv/pdb_chain_scop_uniprot.csv.gz"},
+        {"filename": "pdb_chain_scop2_uniprot.csv.gz", "url": "https://ftp.ebi.ac.uk/pub/databases/msd/sifts/flatfiles/csv/pdb_chain_scop2_uniprot.csv.gz"},
+        {"filename": "pdb_chain_scop2b_sf_uniprot.csv.gz", "url": "https://ftp.ebi.ac.uk/pub/databases/msd/sifts/flatfiles/csv/pdb_chain_scop2b_sf_uniprot.csv.gz"},
+        {"filename": "uniprot_pdb.csv.gz", "url": "https://ftp.ebi.ac.uk/pub/databases/msd/sifts/flatfiles/csv/uniprot_pdb.csv.gz"},
+        {"filename": "pdb_chain_ensembl.csv.gz", "url": "https://ftp.ebi.ac.uk/pub/databases/msd/sifts/flatfiles/csv/pdb_chain_ensembl.csv.gz"},
+        {"filename": "pdb_chain_hmmer.csv.gz", "url": "https://ftp.ebi.ac.uk/pub/databases/msd/sifts/flatfiles/csv/pdb_chain_hmmer.csv.gz"},
+        {"filename": "uniprot_segments_observed.csv.gz", "url": "https://ftp.ebi.ac.uk/pub/databases/msd/sifts/flatfiles/csv/uniprot_segments_observed.csv.gz"}
+      ]
+    },
+    {
+      "id": "uniprot",
+      "name": "UniProt / UniRef / ID Mapping",
+      "category": "sequence_reference_backbone",
+      "manual_review_required": false,
+      "top_level_files": [
+        {"filename": "uniprot_sprot.dat.gz", "url": "https://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/complete/uniprot_sprot.dat.gz"},
+        {"filename": "uniprot_sprot.fasta.gz", "url": "https://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/complete/uniprot_sprot.fasta.gz"},
+        {"filename": "uniprot_sprot.xml.gz", "url": "https://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/complete/uniprot_sprot.xml.gz"},
+        {"filename": "uniprot_trembl.dat.gz", "url": "https://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/complete/uniprot_trembl.dat.gz"},
+        {"filename": "uniprot_trembl.fasta.gz", "url": "https://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/complete/uniprot_trembl.fasta.gz"},
+        {"filename": "uniprot_trembl.xml.gz", "url": "https://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/complete/uniprot_trembl.xml.gz"},
+        {"filename": "uniprot_sprot_varsplic.fasta.gz", "url": "https://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/complete/uniprot_sprot_varsplic.fasta.gz"},
+        {"filename": "idmapping.dat.gz", "url": "https://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/idmapping/idmapping.dat.gz"},
+        {"filename": "idmapping_selected.tab.gz", "url": "https://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/idmapping/idmapping_selected.tab.gz"},
+        {"filename": "uniref100.fasta.gz", "url": "https://ftp.uniprot.org/pub/databases/uniprot/uniref/uniref100/uniref100.fasta.gz"},
+        {"filename": "uniref100.xml.gz", "url": "https://ftp.uniprot.org/pub/databases/uniprot/uniref/uniref100/uniref100.xml.gz"},
+        {"filename": "uniref90.fasta.gz", "url": "https://ftp.uniprot.org/pub/databases/uniprot/uniref/uniref90/uniref90.fasta.gz"},
+        {"filename": "uniref90.xml.gz", "url": "https://ftp.uniprot.org/pub/databases/uniprot/uniref/uniref90/uniref90.xml.gz"},
+        {"filename": "uniref50.fasta.gz", "url": "https://ftp.uniprot.org/pub/databases/uniprot/uniref/uniref50/uniref50.fasta.gz"},
+        {"filename": "uniref50.xml.gz", "url": "https://ftp.uniprot.org/pub/databases/uniprot/uniref/uniref50/uniref50.xml.gz"}
+      ]
+    },
+    {
+      "id": "alphafold_db",
+      "name": "AlphaFold DB",
+      "category": "predicted_structures",
+      "manual_review_required": true,
+      "notes": "The full site exposes many proteome tarballs. This manifest includes Swiss-Prot bulk files and representative entry points only.",
+      "top_level_files": [
+        {"filename": "swissprot_cif_v6.tar", "url": "https://ftp.ebi.ac.uk/pub/databases/alphafold/latest/swissprot_cif_v6.tar"},
+        {"filename": "swissprot_pdb_v6.tar", "url": "https://ftp.ebi.ac.uk/pub/databases/alphafold/latest/swissprot_pdb_v6.tar"}
+      ]
+    },
+    {
+      "id": "biogrid",
+      "name": "BioGRID",
+      "category": "interaction_networks",
+      "manual_review_required": false,
+      "top_level_files": [
+        {"filename": "BIOGRID-ALL-LATEST.mitab.zip", "url": "https://downloads.thebiogrid.org/Download/BioGRID/Latest-Release/BIOGRID-ALL-LATEST.mitab.zip"},
+        {"filename": "BIOGRID-ORGANISM-LATEST.mitab.zip", "url": "https://downloads.thebiogrid.org/Download/BioGRID/Latest-Release/BIOGRID-ORGANISM-LATEST.mitab.zip"},
+        {"filename": "BIOGRID-ORGANISM-LATEST.psi.zip", "url": "https://downloads.thebiogrid.org/Download/BioGRID/Latest-Release/BIOGRID-ORGANISM-LATEST.psi.zip"},
+        {"filename": "BIOGRID-ORGANISM-LATEST.psi25.zip", "url": "https://downloads.thebiogrid.org/Download/BioGRID/Latest-Release/BIOGRID-ORGANISM-LATEST.psi25.zip"}
+      ]
+    },
+    {
+      "id": "intact",
+      "name": "IntAct",
+      "category": "interaction_networks",
+      "manual_review_required": true,
+      "notes": "FTP layout can shift. Common bulk resources include PSI-MI XML 2.5, PSI-MI XML 3.0, MITAB 2.7, and mutation export tables.",
+      "top_level_files": [
+        {"filename": "intact.zip", "url": "https://ftp.ebi.ac.uk/pub/databases/intact/current/psimitab/intact.zip"},
+        {"filename": "mutation.tsv", "url": "https://ftp.ebi.ac.uk/pub/databases/intact/current/various/mutations.tsv"}
+      ]
+    },
+    {
+      "id": "complex_portal",
+      "name": "Complex Portal",
+      "category": "complexes",
+      "manual_review_required": true,
+      "notes": "The verified current-release root exposes a compact truth-first queue: released_complexes.txt plus the human complextab TSVs. Species fan-out and PSI packages remain resolver-gated.",
+      "top_level_files": [
+        {"filename": "released_complexes.txt", "url": "https://ftp.ebi.ac.uk/pub/databases/intact/complex/current/released_complexes.txt"},
+        {"filename": "complextab/9606.tsv", "url": "https://ftp.ebi.ac.uk/pub/databases/intact/complex/current/complextab/9606.tsv"},
+        {"filename": "complextab/9606_predicted.tsv", "url": "https://ftp.ebi.ac.uk/pub/databases/intact/complex/current/complextab/9606_predicted.tsv"}
+      ]
+    },
+    {
+      "id": "bindingdb",
+      "name": "BindingDB",
+      "category": "protein_ligand_affinity",
+      "manual_review_required": true,
+      "notes": "BindingDB updates monthly. The broad download page currently wraps many links in an HTML ready page, so the manifest uses direct file paths where verified. Update the YYYYMM stamp if needed.",
+      "top_level_files": [
+        {"filename": "BindingDB_All_202603_tsv.zip", "url": "https://www.bindingdb.org/rwd/bind/downloads/BindingDB_All_202603_tsv.zip"},
+        {"filename": "BindingDB_All_2D_202603_sdf.zip", "url": "https://www.bindingdb.org/rwd/bind/downloads/BindingDB_All_2D_202603_sdf.zip"},
+        {"filename": "BindingDB_All_3D_202603_sdf.zip", "url": "https://www.bindingdb.org/rwd/bind/downloads/BindingDB_All_3D_202603_sdf.zip"},
+        {"filename": "BindingDB_BindingDB_Articles_202603_tsv.zip", "url": "https://www.bindingdb.org/rwd/bind/downloads/BindingDB_BindingDB_Articles_202603_tsv.zip"},
+        {"filename": "BindingDB_ChEMBL_202603_tsv.zip", "url": "https://www.bindingdb.org/rwd/bind/downloads/BindingDB_ChEMBL_202603_tsv.zip"},
+        {"filename": "BindingDB_Patents_202603_tsv.zip", "url": "https://www.bindingdb.org/rwd/bind/downloads/BindingDB_Patents_202603_tsv.zip"},
+        {"filename": "BindingDBTargetSequences.fasta", "url": "https://www.bindingdb.org/rwd/bind/BindingDBTargetSequences.fasta"},
+        {"filename": "BindingDB_UniProt.txt", "url": "https://www.bindingdb.org/rwd/bind/BindingDB_UniProt.txt"},
+        {"filename": "BDB-mySQL_All_202603_dmp.zip", "url": "https://www.bindingdb.org/rwd/bind/BDB-mySQL_All_202603_dmp.zip"}
+      ]
+    },
+    {
+      "id": "chembl",
+      "name": "ChEMBL",
+      "category": "bioactivity_chemistry",
+      "manual_review_required": true,
+      "notes": "Pinned to the current ChEMBLdb latest bulk artifacts. Additional release drift should still be reviewed when the release token changes.",
+      "top_level_files": [
+        {"filename": "chembl_36_sqlite.tar.gz", "url": "https://ftp.ebi.ac.uk/pub/databases/chembl/ChEMBLdb/latest/chembl_36_sqlite.tar.gz"},
+        {"filename": "chembl_36_postgresql.tar.gz", "url": "https://ftp.ebi.ac.uk/pub/databases/chembl/ChEMBLdb/latest/chembl_36_postgresql.tar.gz"},
+        {"filename": "chembl_36_mysql.tar.gz", "url": "https://ftp.ebi.ac.uk/pub/databases/chembl/ChEMBLdb/latest/chembl_36_mysql.tar.gz"},
+        {"filename": "chembl_36.sdf.gz", "url": "https://ftp.ebi.ac.uk/pub/databases/chembl/ChEMBLdb/latest/chembl_36.sdf.gz"},
+        {"filename": "chembl_36.fa.gz", "url": "https://ftp.ebi.ac.uk/pub/databases/chembl/ChEMBLdb/latest/chembl_36.fa.gz"},
+        {"filename": "chembl_36_release_notes.txt", "url": "https://ftp.ebi.ac.uk/pub/databases/chembl/ChEMBLdb/latest/chembl_36_release_notes.txt"},
+        {"filename": "checksums.txt", "url": "https://ftp.ebi.ac.uk/pub/databases/chembl/ChEMBLdb/latest/checksums.txt"}
+      ]
+    },
+    {
+      "id": "chebi",
+      "name": "ChEBI",
+      "category": "chemical_ontology",
+      "manual_review_required": false,
+      "top_level_files": [
+        {"filename": "chebi.owl", "url": "https://ftp.ebi.ac.uk/pub/databases/chebi/ontology/chebi.owl"},
+        {"filename": "chebi_core.owl", "url": "https://ftp.ebi.ac.uk/pub/databases/chebi/ontology/chebi_core.owl"},
+        {"filename": "chebi_lite.owl", "url": "https://ftp.ebi.ac.uk/pub/databases/chebi/ontology/chebi_lite.owl"},
+        {"filename": "chebi.obo", "url": "https://ftp.ebi.ac.uk/pub/databases/chebi/ontology/chebi.obo"},
+        {"filename": "chebi_core.obo", "url": "https://ftp.ebi.ac.uk/pub/databases/chebi/ontology/chebi_core.obo"},
+        {"filename": "chebi_lite.obo", "url": "https://ftp.ebi.ac.uk/pub/databases/chebi/ontology/chebi_lite.obo"},
+        {"filename": "chebi.json", "url": "https://ftp.ebi.ac.uk/pub/databases/chebi/ontology/chebi.json"},
+        {"filename": "chebi_core.json", "url": "https://ftp.ebi.ac.uk/pub/databases/chebi/ontology/chebi_core.json"},
+        {"filename": "chebi_lite.json", "url": "https://ftp.ebi.ac.uk/pub/databases/chebi/ontology/chebi_lite.json"}
+      ]
+    },
+    {
+      "id": "rnacentral",
+      "name": "RNAcentral",
+      "category": "nucleic_acid_reference",
+      "manual_review_required": true,
+      "notes": "Pinned to stable current_release bulk files. SQL access now goes through the public Postgres database at https://rnacentral.org/help/public-database. Genome-coordinate BED fan-out and per-database mapping families still require directory enumeration before full manifest coverage.",
+      "top_level_files": [
+        {"filename": "rnacentral_rfam_annotations.tsv.gz", "url": "https://ftp.ebi.ac.uk/pub/databases/RNAcentral/current_release/go_annotations/rnacentral_rfam_annotations.tsv.gz"},
+        {"filename": "rnacentral.gpi.gz", "url": "https://ftp.ebi.ac.uk/pub/databases/RNAcentral/current_release/gpi/rnacentral.gpi.gz"},
+        {"filename": "id_mapping.tsv.gz", "url": "https://ftp.ebi.ac.uk/pub/databases/RNAcentral/current_release/id_mapping/id_mapping.tsv.gz"},
+        {"filename": "md5.tsv.gz", "url": "https://ftp.ebi.ac.uk/pub/databases/RNAcentral/current_release/md5/md5.tsv.gz"},
+        {"filename": "rfam_annotations.tsv.gz", "url": "https://ftp.ebi.ac.uk/pub/databases/RNAcentral/current_release/rfam/rfam_annotations.tsv.gz"},
+        {"filename": "rnacentral_active.fasta.gz", "url": "https://ftp.ebi.ac.uk/pub/databases/RNAcentral/current_release/sequences/rnacentral_active.fasta.gz"},
+        {"filename": "rnacentral_inactive.fasta.gz", "url": "https://ftp.ebi.ac.uk/pub/databases/RNAcentral/current_release/sequences/rnacentral_inactive.fasta.gz"},
+        {"filename": "rnacentral_species_specific_ids.fasta.gz", "url": "https://ftp.ebi.ac.uk/pub/databases/RNAcentral/current_release/sequences/rnacentral_species_specific_ids.fasta.gz"}
+      ],
+      "residual_gap_queue": [
+        {"filename": "id_mapping/database_mappings/ensembl.tsv", "url": "https://ftp.ebi.ac.uk/pub/databases/RNAcentral/current_release/id_mapping/database_mappings/ensembl.tsv"},
+        {"filename": "id_mapping/database_mappings/hgnc.tsv", "url": "https://ftp.ebi.ac.uk/pub/databases/RNAcentral/current_release/id_mapping/database_mappings/hgnc.tsv"},
+        {"filename": "id_mapping/database_mappings/intact.tsv", "url": "https://ftp.ebi.ac.uk/pub/databases/RNAcentral/current_release/id_mapping/database_mappings/intact.tsv"},
+        {"filename": "genome_coordinates/bed/homo_sapiens.GRCh38.bed.gz", "url": "https://ftp.ebi.ac.uk/pub/databases/RNAcentral/current_release/genome_coordinates/bed/homo_sapiens.GRCh38.bed.gz"}
+      ]
+    },
+    {
+      "id": "interpro",
+      "name": "InterPro",
+      "category": "domains_families_sites",
+      "manual_review_required": true,
+      "notes": "InterPro 108.0 now has a verified root-file queue. The large XML and tarball payloads remain deferred by size, but the small truth-bearing release files are pinned.",
+      "top_level_files": [
+        {"filename": "ParentChildTreeFile.txt", "url": "https://ftp.ebi.ac.uk/pub/databases/interpro/current_release/ParentChildTreeFile.txt"},
+        {"filename": "entry.list", "url": "https://ftp.ebi.ac.uk/pub/databases/interpro/current_release/entry.list"},
+        {"filename": "interpro.dtd", "url": "https://ftp.ebi.ac.uk/pub/databases/interpro/current_release/interpro.dtd"},
+        {"filename": "interpro.xml.gz", "url": "https://ftp.ebi.ac.uk/pub/databases/interpro/current_release/interpro.xml.gz"},
+        {"filename": "interpro2go", "url": "https://ftp.ebi.ac.uk/pub/databases/interpro/current_release/interpro2go"},
+        {"filename": "match_complete.dtd", "url": "https://ftp.ebi.ac.uk/pub/databases/interpro/current_release/match_complete.dtd"},
+        {"filename": "names.dat", "url": "https://ftp.ebi.ac.uk/pub/databases/interpro/current_release/names.dat"},
+        {"filename": "release_notes.txt", "url": "https://ftp.ebi.ac.uk/pub/databases/interpro/current_release/release_notes.txt"},
+        {"filename": "short_names.dat", "url": "https://ftp.ebi.ac.uk/pub/databases/interpro/current_release/short_names.dat"}
+      ]
+    },
+    {
+      "id": "elm",
+      "name": "ELM",
+      "category": "motifs_profiles",
+      "manual_review_required": true,
+      "notes": "ELM exposes stable TSV exports for motif-class regex definitions and motif-domain interaction tables. The class export and interaction-domain TSV are both live; broad instance harvesting and license-sensitive redistribution still need manual review.",
+      "top_level_files": [
+        {"filename": "elm_classes.tsv", "url": "http://elm.eu.org/elms/elms_index.tsv"},
+        {"filename": "elm_interaction_domains.tsv", "url": "http://elm.eu.org/interactions/as_tsv"}
+      ]
+    },
+      {
+        "id": "sabio_rk",
+        "name": "SABIO-RK",
+        "category": "enzyme_kinetics",
+        "manual_review_required": true,
+        "notes": "SABIO-RK is best handled as a query-scoped kinetics lane instead of a fake bulk dump. The broad procurement mirror keeps exactly the stable REST vocabulary and UniProt accession suggestion list; accession-scoped P31749 probe outputs 404 in the current logs and are documented in docs/reports/p36_sabio_rk_blocker_note.md instead of being counted as broad expected files.",
+        "top_level_files": [
+          {"filename": "sabio_search_fields.xml", "url": "https://sabiork.h-its.org/sabioRestWebServices/searchKineticLaws"},
+          {"filename": "sabio_uniprotkb_acs.txt", "url": "https://sabiork.h-its.org/sabioRestWebServices/suggestions/uniProtKB_ACs?format=txt"}
+        ]
+      },
+    {
+      "id": "prosite",
+      "name": "PROSITE",
+      "category": "motifs_profiles",
+      "manual_review_required": false,
+      "top_level_files": [
+        {"filename": "prosite.dat", "url": "https://ftp.expasy.org/databases/prosite/prosite.dat"},
+        {"filename": "prosite.doc", "url": "https://ftp.expasy.org/databases/prosite/prosite.doc"},
+        {"filename": "prosite.aux", "url": "https://ftp.expasy.org/databases/prosite/prosite.aux"}
+      ]
+    },
+    {
+      "id": "pdb_chemical_component_dictionary",
+      "name": "wwPDB Chemical Component Dictionary",
+      "category": "ligands_modified_residues",
+      "manual_review_required": false,
+      "top_level_files": [
+        {"filename": "components.cif.gz", "url": "https://files.wwpdb.org/pub/pdb/data/monomers/components.cif.gz"},
+        {"filename": "aa-variants-v1.cif.gz", "url": "https://files.wwpdb.org/pub/pdb/data/monomers/aa-variants-v1.cif.gz"},
+        {"filename": "chem_comp_model.cif.gz", "url": "https://files.wwpdb.org/pub/pdb/data/component-models/complete/chem_comp_model.cif.gz"}
+      ]
+    }
+  ]
+}

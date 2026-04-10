@@ -1,0 +1,14 @@
+{
+  "manifest_id": "off-target-structure-dataset",
+  "fixture_type": "off_target_structure",
+  "rows": [
+    {
+      "accession": "P04637",
+      "split": "train",
+      "pdb_id": "4HG7",
+      "mapped_accession": "O15151",
+      "structure_claim": "direct_grounding",
+      "notes": "Fixture should trip off-target adjacent-context handling."
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "entities": {
+    "Protein": [
+      "uniprot_id",
+      "sequence",
+      "organism"
+    ],
+    "Chain": [
+      "pdb_id",
+      "chain_id",
+      "protein_ref"
+    ],
+    "Complex": [
+      "complex_id",
+      "chains",
+      "ligands",
+      "nucleic_acids"
+    ],
+    "Ligand": [
+      "ligand_id",
+      "smiles",
+      "properties"
+    ],
+    "NucleicAcid": [
+      "na_id",
+      "type",
+      "sequence"
+    ],
+    "AssayMeasurement": [
+      "target",
+      "ligand",
+      "value",
+      "type",
+      "confidence"
+    ],
+    "Annotation": [
+      "type",
+      "region",
+      "source",
+      "confidence"
+    ],
+    "Interaction": [
+      "entity_a",
+      "entity_b",
+      "evidence",
+      "source"
+    ]
+  },
+  "rules": [
+    "Protein is canonical identity anchor",
+    "Chain maps to Protein via sequence alignment",
+    "Complex contains multiple Chains",
+    "All records must include provenance"
+  ]
+}

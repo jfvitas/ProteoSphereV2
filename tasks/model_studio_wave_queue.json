@@ -1,0 +1,140 @@
+[
+  {
+    "id": "MSW-001",
+    "title": "Finalize Studio run service and persisted artifact contracts",
+    "type": "integration",
+    "phase": 30,
+    "files": [
+      "api/model_studio/runtime.py",
+      "api/model_studio/service.py",
+      "api/model_studio/server.py",
+      "tests/unit/api/test_model_studio_runtime.py",
+      "tests/unit/api/test_model_studio_service.py"
+    ],
+    "dependencies": [],
+    "status": "done",
+    "success_criteria": [
+      "Studio can launch a real run and persist manifests, stage status, metrics, outliers, and artifacts",
+      "Run APIs support launch, list, load, artifact inspection, log inspection, and compare",
+      "Backend exposes honest runnable vs blocked adapter status"
+    ],
+    "priority": "high",
+    "branch": "codex/task/MSW-001-studio-run-service",
+    "notes": "Vertical-slice backend/API lane."
+  },
+  {
+    "id": "MSW-002",
+    "title": "Complete six-workspace web shell for live runs and dataset controls",
+    "type": "coding",
+    "phase": 30,
+    "files": [
+      "gui/model_studio_web/index.html",
+      "gui/model_studio_web/app.js",
+      "gui/model_studio_web/styles.css"
+    ],
+    "dependencies": [
+      "MSW-001"
+    ],
+    "status": "done",
+    "success_criteria": [
+      "User can edit, validate, compile, launch, and inspect runs from the UI",
+      "Execution Console surfaces stage status, artifacts, logs, and adapter truth",
+      "Analysis workspace shows metrics, outliers, and run comparison"
+    ],
+    "priority": "high",
+    "branch": "codex/task/MSW-002-studio-web-shell",
+    "notes": "Frontend workstream."
+  },
+  {
+    "id": "MSW-003",
+    "title": "Replace synthetic Studio backlog with curated next-wave queue",
+    "type": "integration",
+    "phase": 30,
+    "files": [
+      "scripts/model_studio_orchestrator.py",
+      "tasks/model_studio_wave_queue.json",
+      "artifacts/status/model_studio_orchestrator_state.json"
+    ],
+    "dependencies": [],
+    "status": "done",
+    "success_criteria": [
+      "Orchestrator points at curated real-file queue",
+      "Program status reports curated queue size",
+      "No synthetic file targets remain in the active execution lane"
+    ],
+    "priority": "high",
+    "branch": "codex/task/MSW-003-curated-queue",
+    "notes": "Governance and truthfulness lane."
+  },
+  {
+    "id": "MSW-004",
+    "title": "Add Studio execution guide and runnable-vs-adapter module matrix",
+    "type": "docs_reporting",
+    "phase": 31,
+    "files": [
+      "docs/reports/model_studio_v1_execution_guide.md",
+      "docs/reports/model_studio_v1_module_matrix.md",
+      "docs/reports/model_studio_v1_architecture_review.md"
+    ],
+    "dependencies": [
+      "MSW-001",
+      "MSW-002"
+    ],
+    "status": "done",
+    "success_criteria": [
+      "Guide documents the executable PPI vertical slice",
+      "Module matrix clearly marks runnable, adapter-backed, and blocked capabilities",
+      "Architecture review calls out follow-on refactor targets"
+    ],
+    "priority": "medium",
+    "branch": "codex/task/MSW-004-studio-docs",
+    "notes": "Docs and architecture lane."
+  },
+  {
+    "id": "MSW-005",
+    "title": "Add Studio smoke tests, user-sim review, and visual QA notes",
+    "type": "test_hardening",
+    "phase": 31,
+    "files": [
+      "tests/unit/api/test_model_studio_runtime.py",
+      "tests/unit/api/test_model_studio_service.py",
+      "docs/reports/model_studio_v1_user_sim_review.md",
+      "docs/reports/model_studio_v1_visual_review.md"
+    ],
+    "dependencies": [
+      "MSW-001",
+      "MSW-002"
+    ],
+    "status": "done",
+    "success_criteria": [
+      "Runtime launch path is covered by tests",
+      "User-sim review documents the leakage-resistant PPI flow and resulting friction",
+      "Visual review covers the six workspace shell"
+    ],
+    "priority": "medium",
+    "branch": "codex/task/MSW-005-studio-qa",
+    "notes": "QA and review lane."
+  },
+  {
+    "id": "MSW-006",
+    "title": "Start follow-on adapter wave for PyRosetta and AlphaFold truthful blocking",
+    "type": "data_analysis",
+    "phase": 32,
+    "files": [
+      "artifacts/status/model_studio_program_preview.json",
+      "docs/reports/model_studio_v1_follow_on_backlog.md"
+    ],
+    "dependencies": [
+      "MSW-004",
+      "MSW-005"
+    ],
+    "status": "done",
+    "success_criteria": [
+      "Follow-on backlog identifies real adapter and environment blockers",
+      "Program preview stays aligned with the executable v1 truth model"
+    ],
+    "priority": "medium",
+    "branch": "codex/task/MSW-006-follow-on-adapters",
+    "notes": "Keeps the next wave honest."
+  }
+]

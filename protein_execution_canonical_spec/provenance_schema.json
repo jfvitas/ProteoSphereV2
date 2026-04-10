@@ -1,0 +1,14 @@
+{
+  "fields": [
+    "source",
+    "timestamp",
+    "version",
+    "transformation",
+    "confidence"
+  ],
+  "rules": [
+    "Every data object must include provenance",
+    "All transformations logged",
+    "Hashes stored for reproducibility"
+  ]
+}

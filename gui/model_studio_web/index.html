@@ -1,0 +1,735 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ProteoSphere Model Studio</title>
+    <link rel="stylesheet" href="/styles.css" />
+    <link rel="stylesheet" href="/beta_overrides.css" />
+  </head>
+  <body data-studio-variant="beta">
+    <div class="shell">
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="brand-mark">PS</div>
+          <div>
+            <h1>Model Studio</h1>
+            <p>Leakage-aware biomolecular ML design control plane</p>
+          </div>
+        </div>
+
+        <section class="sidebar-panel">
+          <p class="label">Navigation</p>
+          <div class="mode-toggle">
+            <button id="guided-view-button" class="secondary mode-active">Guided flow</button>
+            <button id="advanced-view-button" class="secondary">Advanced view</button>
+          </div>
+        </section>
+
+        <nav id="workspace-nav" class="workspace-nav"></nav>
+
+        <section class="sidebar-panel">
+          <p class="label">Program</p>
+          <div id="program-mini-status" class="mini-status"></div>
+        </section>
+
+        <section class="sidebar-panel">
+          <p class="label">Draft Library</p>
+          <div id="pipeline-library" class="library-list"></div>
+        </section>
+
+        <section class="sidebar-panel">
+          <p class="label">Feature and capability status</p>
+          <div id="inactive-explanation" class="stack">
+            <div class="muted">
+              Choose any option or unavailable action to see whether it is launchable now, review pending, or inactive.
+            </div>
+          </div>
+          <div class="sidebar-actions">
+            <button id="need-help-button" class="secondary">Need help / report issue</button>
+          </div>
+        </section>
+      </aside>
+
+      <main class="main">
+        <header class="hero">
+          <div class="hero-copy">
+            <p class="eyebrow">Testing-ready guided study builder</p>
+            <h2 id="study-title">Loading...</h2>
+            <p id="study-summary" class="summary"></p>
+            <div id="hero-badges" class="badges"></div>
+          </div>
+
+          <div class="hero-actions">
+            <button id="save-draft-button">Save draft</button>
+            <button id="validate-draft-button" class="secondary">Validate</button>
+            <button id="preview-dataset-button" class="secondary">Preview dataset</button>
+            <button id="build-dataset-button" class="secondary">Build dataset</button>
+            <button id="launch-run-button">Launch run</button>
+            <button id="refresh-runs-button" class="secondary">Refresh</button>
+          </div>
+        </header>
+
+        <section class="workspace-strip">
+          <div class="workspace-card">
+            <p class="label">Quality Gate</p>
+            <strong id="quality-gate-status">Loading...</strong>
+          </div>
+          <div class="workspace-card">
+            <p class="label">Warnings</p>
+            <strong id="warning-count">0</strong>
+          </div>
+          <div class="workspace-card">
+            <p class="label">Compiled stages</p>
+            <strong id="stage-count">0</strong>
+          </div>
+          <div class="workspace-card">
+            <p class="label">Queued Studio tasks</p>
+            <strong id="queued-task-count">0</strong>
+          </div>
+        </section>
+
+        <section id="action-status-rail" class="status-rail"></section>
+
+        <section id="onboarding-panel" class="panel onboarding-panel">
+          <div class="panel-head">
+            <div>
+              <p class="eyebrow small">Getting Started</p>
+              <h3>How this guided study works</h3>
+            </div>
+            <span class="pill neutral">Self-serve beta</span>
+          </div>
+          <div class="grid two tight">
+            <div>
+              <div id="onboarding-summary" class="stack"></div>
+            </div>
+            <div>
+              <div id="onboarding-steps" class="stack"></div>
+            </div>
+          </div>
+          <div class="grid two tight">
+            <div>
+              <div id="beta-safe-now" class="stack compact"></div>
+              <div id="beta-known-limitations" class="stack compact"></div>
+            </div>
+            <div>
+              <div id="beta-review-pending" class="stack compact"></div>
+              <div id="beta-reporting-help" class="stack compact"></div>
+              <div id="beta-support-expectation" class="stack compact"></div>
+            </div>
+          </div>
+          <div class="grid two tight">
+            <div>
+              <h4>Escalation Path</h4>
+              <div id="beta-escalation-path" class="stack compact"></div>
+            </div>
+            <div>
+              <h4>Beta Docs and Runbooks</h4>
+              <div id="beta-doc-pack" class="stack compact"></div>
+            </div>
+          </div>
+        </section>
+
+        <section id="stepper" class="stepper-grid"></section>
+
+        <section id="workspace-grid" class="workspace-grid">
+          <article class="panel section-anchor" id="workspace-project-home">
+            <div class="panel-head">
+              <div>
+                <p class="eyebrow small">Workspace 1</p>
+                <h3>Project Home</h3>
+              </div>
+              <span class="pill neutral">Operator view</span>
+            </div>
+            <div class="grid two tight">
+              <div>
+                <h4>Program Status</h4>
+                <div id="program-status-detail" class="stack"></div>
+              </div>
+              <div>
+                <h4>Quality Gates</h4>
+                <div id="quality-gates"></div>
+              </div>
+            </div>
+            <div class="grid two tight">
+              <div>
+                <h4>Recent Runs</h4>
+                <div id="recent-runs" class="stack"></div>
+              </div>
+              <div>
+                <h4>Dataset Catalog</h4>
+                <div id="known-datasets" class="stack"></div>
+              </div>
+            </div>
+            <div class="grid two tight">
+              <div>
+                <h4>Completed and Next</h4>
+                <div id="completion-summary" class="stack"></div>
+              </div>
+              <div>
+                <h4>Recommended Next Action</h4>
+                <div id="recommended-next-action" class="stack"></div>
+              </div>
+            </div>
+            <div class="grid two tight">
+              <div>
+                <h4>Capability Activation</h4>
+                <div id="capability-matrix-summary" class="stack"></div>
+              </div>
+              <div>
+                <h4>Pool Promotion</h4>
+                <div id="pool-promotion-summary" class="stack"></div>
+              </div>
+            </div>
+            <div class="grid two tight">
+              <div>
+                <h4>Candidate Database</h4>
+                <div id="candidate-database-summary" class="stack"></div>
+              </div>
+              <div>
+                <h4>Governed Bridge Readiness</h4>
+                <div id="governed-bridge-summary" class="stack"></div>
+              </div>
+            </div>
+            <div class="grid two tight">
+              <div>
+                <h4>Governed Subset Promotion</h4>
+                <div id="governed-subset-summary" class="stack"></div>
+              </div>
+              <div>
+                <h4>Promotion Queue</h4>
+                <div id="promotion-queue-summary" class="stack"></div>
+              </div>
+            </div>
+            <div class="grid two tight">
+              <div>
+                <h4>Beta Launch Readiness</h4>
+                <div id="beta-launch-readiness-summary" class="stack"></div>
+              </div>
+              <div>
+                <h4>Beta Ops and Docs</h4>
+                <div id="beta-doc-ops-summary" class="stack"></div>
+              </div>
+            </div>
+            <div class="grid two tight">
+              <div>
+                <h4>Program Lanes</h4>
+                <div id="beta-program-lanes-summary" class="stack"></div>
+              </div>
+              <div>
+                <h4>Evidence Checklist</h4>
+                <div id="beta-evidence-summary" class="stack"></div>
+              </div>
+            </div>
+            <div class="grid two tight">
+              <div>
+                <h4>720p Beta-Agent Status</h4>
+                <div id="beta-agent-status-summary" class="stack"></div>
+              </div>
+              <div>
+                <h4>Beta Agents</h4>
+                <div id="beta-agent-definitions" class="stack"></div>
+              </div>
+            </div>
+            <div class="grid two tight">
+              <div>
+                <h4>Beta-Agent Coverage Matrix</h4>
+                <div id="beta-agent-matrix-summary" class="stack"></div>
+              </div>
+              <div>
+                <h4>Beta-Agent Findings</h4>
+                <div id="beta-agent-findings-summary" class="stack"></div>
+              </div>
+            </div>
+            <div class="grid two tight">
+              <div>
+                <h4>Reference Library Status</h4>
+                <div id="reference-library-status" class="stack"></div>
+              </div>
+              <div>
+                <h4>Reference Library Install</h4>
+                <div id="reference-library-install-status" class="stack"></div>
+              </div>
+            </div>
+            <div class="grid two tight">
+              <div>
+                <h4>Reference Library Chunks</h4>
+                <div id="reference-library-chunks" class="stack"></div>
+              </div>
+              <div>
+                <h4>Reference Library Gaps</h4>
+                <div id="reference-library-gaps" class="stack"></div>
+              </div>
+            </div>
+            <div>
+              <h4>Activation Matrix Detail</h4>
+              <div id="activation-matrix-detail" class="stack"></div>
+            </div>
+          </article>
+
+          <article class="panel section-anchor" id="workspace-data-strategy">
+            <div class="panel-head">
+              <div>
+                <p class="eyebrow small">Workspace 2</p>
+                <h3>Data Strategy Designer</h3>
+              </div>
+              <span class="pill neutral">Training-set request, preview, build, and split</span>
+            </div>
+
+            <div class="subpanel">
+              <h4>Step 1: Training Set Request</h4>
+              <div class="form-grid">
+                <label data-help-key="task_type">
+                  <span>Task type</span>
+                  <select id="task-type-select"></select>
+                </label>
+                <label>
+                  <span data-help-key="study_title">Study title</span>
+                  <input id="study-title-input" type="text" />
+                </label>
+                <label data-help-key="label_type">
+                  <span>Label type</span>
+                  <select id="label-type-select"></select>
+                </label>
+                <label data-help-key="structure_source_policy">
+                  <span>Structure source policy</span>
+                  <select id="structure-policy-select"></select>
+                </label>
+                <label data-help-key="split_strategy">
+                  <span>Split strategy</span>
+                  <select id="split-strategy-select"></select>
+                </label>
+                <label data-help-key="dataset_primary">
+                  <span>Primary runnable dataset</span>
+                  <select id="dataset-primary-select"></select>
+                </label>
+                <label data-help-key="source_families">
+                  <span>Source families</span>
+                  <select id="source-families-select" multiple size="4"></select>
+                </label>
+                <label data-help-key="dataset_refs">
+                  <span>Additional known dataset refs</span>
+                  <select id="dataset-refs-select" multiple size="5"></select>
+                </label>
+                <label>
+                  <span>Target size</span>
+                  <input id="target-size-input" type="number" min="0" />
+                  <div id="target-size-guidance" class="field-feedback inline-guidance persistent-field-feedback neutral"></div>
+                </label>
+                <label data-help-key="acceptable_fidelity">
+                  <span>Acceptable fidelity</span>
+                  <select id="acceptable-fidelity-select"></select>
+                </label>
+                <label data-help-key="max_resolution">
+                  <span>Max resolution (A)</span>
+                  <input id="max-resolution-input" type="number" step="0.1" min="0" />
+                </label>
+                <label data-help-key="min_release_year">
+                  <span>Min release year</span>
+                  <input id="min-release-year-input" type="number" min="0" />
+                </label>
+                <label data-help-key="exclude_pdb_ids" class="span-2">
+                  <span>Exclude PDB ids</span>
+                  <input id="exclude-pdb-ids-input" type="text" />
+                </label>
+              </div>
+              <div data-help-key="audit_requirements">
+                <h4>Audit requirements</h4>
+                <div id="audit-requirements" class="chip-grid"></div>
+              </div>
+              <div>
+                <h4>Selected Pool Diagnostics</h4>
+                <div id="selected-pool-diagnostics" class="stack"></div>
+              </div>
+            </div>
+
+            <div class="subpanel">
+              <div class="subpanel-head">
+                <h4>Step 2: Dataset Preview</h4>
+                <button id="preview-step-button" class="secondary">Preview candidate dataset</button>
+              </div>
+              <div class="grid two tight">
+                <div>
+                  <h5>Candidate dataset diagnostics</h5>
+                  <div id="training-set-preview" class="stack"></div>
+                </div>
+                <div>
+                  <h5>Candidate rows</h5>
+                  <div id="training-set-table-summary" class="stack compact"></div>
+                  <div id="training-set-table" class="table-wrap"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="subpanel">
+              <div class="subpanel-head">
+                <h4>Step 3: Build & Split</h4>
+                <button id="build-step-button" class="secondary">Build study dataset</button>
+              </div>
+              <div class="grid two tight">
+                <div>
+                  <h5>Latest built dataset</h5>
+                  <div id="training-set-build-summary" class="stack"></div>
+                </div>
+                <div>
+                  <h5>Split and dataset diagnostics</h5>
+                  <div id="data-diagnostics" class="stack"></div>
+                </div>
+              </div>
+              <div>
+                <h5>Selected and excluded rows</h5>
+                <div id="build-split-table-summary" class="stack compact"></div>
+                <div id="build-split-table" class="table-wrap"></div>
+              </div>
+            </div>
+          </article>
+
+          <article class="panel section-anchor" id="workspace-representation">
+            <div class="panel-head">
+              <div>
+                <p class="eyebrow small">Workspace 3</p>
+                <h3>Representation Designer</h3>
+              </div>
+              <span class="pill neutral">Graphs, features, and preprocessing semantics</span>
+            </div>
+            <div class="form-grid">
+              <label data-help-key="graph_kind">
+                <span>Graph kind</span>
+                <select id="graph-kind-select"></select>
+              </label>
+              <label data-help-key="region_policy">
+                <span>Region policy</span>
+                <select id="region-policy-select"></select>
+              </label>
+              <label data-help-key="node_granularity">
+                <span>Node granularity</span>
+                <select id="node-granularity-select"></select>
+              </label>
+              <label data-help-key="partner_awareness">
+                <span>Partner awareness</span>
+                <select id="partner-awareness-select"></select>
+              </label>
+              <label data-help-key="encoding_policy">
+                <span>Encoding policy</span>
+                <select id="encoding-policy-select"></select>
+              </label>
+              <label data-help-key="node_feature_policy">
+                <span>Node feature policy</span>
+                <select id="node-feature-policy-select"></select>
+              </label>
+              <label data-help-key="edge_feature_policy">
+                <span>Edge feature policy</span>
+                <select id="edge-feature-policy-select"></select>
+              </label>
+            </div>
+            <div class="toggle-row">
+              <label data-help-key="include_waters"><input id="include-waters-toggle" type="checkbox" /> Include waters</label>
+              <label data-help-key="include_salt_bridges"><input id="include-salt-bridges-toggle" type="checkbox" /> Include salt bridges</label>
+              <label data-help-key="include_contact_shell"><input id="include-contact-shell-toggle" type="checkbox" /> Include contact shell</label>
+            </div>
+            <div class="form-grid">
+              <label data-help-key="global_feature_sets" class="span-2">
+                <span>Global feature bundles</span>
+                <div id="global-features-control" class="chip-grid"></div>
+              </label>
+              <label data-help-key="distributed_feature_sets" class="span-2">
+                <span>Distributed feature bundles</span>
+                <div id="distributed-features-control" class="chip-grid"></div>
+              </label>
+            </div>
+            <div class="grid two tight">
+              <div>
+                <h4>Compatibility</h4>
+                <div id="representation-compatibility" class="stack"></div>
+              </div>
+              <div>
+                <h4>Expected Example Bundle</h4>
+                <div id="example-bundle-summary" class="stack"></div>
+              </div>
+            </div>
+            <div class="grid two tight">
+              <div>
+                <h4>Pipeline Diagram</h4>
+                <div id="pipeline-diagram" class="diagram-panel"></div>
+              </div>
+              <div>
+                <h4>Model Structure Diagram</h4>
+                <div id="model-structure-diagram" class="diagram-panel"></div>
+              </div>
+            </div>
+          </article>
+
+          <article class="panel section-anchor" id="workspace-pipeline-composer">
+            <div class="panel-head">
+              <div>
+                <p class="eyebrow small">Workspace 4</p>
+                <h3>Pipeline Composer</h3>
+              </div>
+              <span class="pill neutral">Model, evaluation, and hardware runtime</span>
+            </div>
+            <div class="run-actions">
+              <button id="validate-step-button" class="secondary">Validate configuration</button>
+              <button id="compile-step-button" class="secondary">Compile graph</button>
+            </div>
+            <div class="form-grid">
+              <label data-help-key="model_family">
+                <span>Model family</span>
+                <select id="model-family-select"></select>
+              </label>
+              <label data-help-key="architecture">
+                <span>Architecture</span>
+                <select id="architecture-select"></select>
+              </label>
+              <label data-help-key="optimizer">
+                <span>Optimizer</span>
+                <select id="optimizer-select"></select>
+              </label>
+              <label data-help-key="scheduler">
+                <span>Scheduler</span>
+                <select id="scheduler-select"></select>
+              </label>
+              <label data-help-key="loss_function">
+                <span>Loss function</span>
+                <select id="loss-function-select"></select>
+              </label>
+              <label data-help-key="epoch_budget">
+                <span>Epoch budget</span>
+                <input id="epoch-budget-input" type="number" min="1" />
+              </label>
+              <label data-help-key="batch_policy">
+                <span>Batch policy</span>
+                <select id="batch-policy-select"></select>
+              </label>
+              <label data-help-key="mixed_precision">
+                <span>Mixed precision</span>
+                <select id="mixed-precision-select"></select>
+              </label>
+              <label data-help-key="uncertainty_head">
+                <span>Uncertainty head</span>
+                <select id="uncertainty-head-select"></select>
+              </label>
+              <label data-help-key="evaluation_preset">
+                <span>Evaluation preset</span>
+                <select id="evaluation-preset-select"></select>
+              </label>
+              <label data-help-key="ablation_options" class="span-2">
+                <span>Ablation options</span>
+                <div id="ablation-options-control" class="chip-grid"></div>
+              </label>
+            </div>
+            <div class="subpanel">
+              <div class="subpanel-head">
+                <h4>Hardware & Runtime</h4>
+                <button id="discover-hardware-button" class="secondary">Discover hardware</button>
+              </div>
+              <div class="form-grid">
+                <label data-help-key="hardware_runtime_preset">
+                  <span>Hardware strategy</span>
+                  <select id="hardware-runtime-select"></select>
+                </label>
+                <div class="summary-card">
+                  <span class="label inline">Detected hardware</span>
+                  <div id="hardware-runtime-summary" class="stack"></div>
+                </div>
+              </div>
+              <div>
+                <h5>Hardware diagnostics</h5>
+                <div id="hardware-runtime-diagnostics" class="stack"></div>
+              </div>
+            </div>
+            <div class="grid two tight">
+              <div>
+                <h4>Composer Recommendations</h4>
+                <div id="composer-recommendations"></div>
+              </div>
+              <div>
+                <h4>Training and Evaluation Plan</h4>
+                <div id="training-plan-summary" class="stack"></div>
+              </div>
+            </div>
+          </article>
+
+          <article class="panel section-anchor" id="workspace-execution-console">
+            <div class="panel-head">
+              <div>
+                <p class="eyebrow small">Workspace 5</p>
+                <h3>Execution Console</h3>
+              </div>
+              <span class="pill neutral">Run monitor, heartbeat, artifacts, and logs</span>
+            </div>
+            <div data-help-key="preprocess_modules">
+              <h4>Preprocess modules</h4>
+              <div id="preprocess-modules" class="chip-grid"></div>
+            </div>
+            <div class="run-actions">
+              <button id="launch-step-button" class="secondary">Launch run</button>
+              <button id="cancel-run-button" class="secondary">Cancel run</button>
+              <button id="resume-run-button" class="secondary">Resume run (Review pending)</button>
+            </div>
+            <div class="grid two tight">
+              <div>
+                <h4>Execution graph</h4>
+                <div id="execution-graph"></div>
+              </div>
+              <div>
+                <h4>Run preview</h4>
+                <div id="run-preview"></div>
+              </div>
+            </div>
+            <div>
+              <h4>Live stage monitor</h4>
+              <div id="run-stage-cards" class="stage-card-grid"></div>
+            </div>
+            <div class="grid two tight">
+              <div>
+                <h4>Current Run Artifacts</h4>
+                <div id="current-run-artifacts" class="stack"></div>
+              </div>
+              <div>
+                <h4>Current Run Logs</h4>
+                <div id="current-run-logs" class="stack"></div>
+              </div>
+            </div>
+            <div class="grid two tight">
+              <div>
+                <h4>Split Packaging</h4>
+                <div id="split-packaging-summary" class="stack"></div>
+              </div>
+              <div>
+                <h4>Built Dataset Diagnostics</h4>
+                <div id="execution-dataset-diagnostics" class="stack"></div>
+              </div>
+            </div>
+          </article>
+
+          <article class="panel section-anchor" id="workspace-analysis-review">
+            <div class="panel-head">
+              <div>
+                <p class="eyebrow small">Workspace 6</p>
+                <h3>Analysis and Review</h3>
+              </div>
+              <span class="pill neutral">Metrics, charts, outliers, review, and export</span>
+            </div>
+            <div class="grid two tight">
+              <div>
+                <h4>Recommendations</h4>
+                <div id="recommendations"></div>
+              </div>
+              <div>
+                <h4>Reviewer lanes</h4>
+                <div id="review-lanes" class="stack"></div>
+              </div>
+            </div>
+            <div class="grid two tight">
+              <div>
+                <h4>Metrics</h4>
+                <div id="run-metrics" class="stack"></div>
+              </div>
+              <div>
+                <h4>Top Outliers</h4>
+                <div id="run-outliers" class="stack"></div>
+              </div>
+            </div>
+            <div class="grid two tight">
+              <div>
+                <h4>Prediction vs actual</h4>
+                <div id="prediction-chart" class="diagram-panel"></div>
+              </div>
+              <div>
+                <h4>Residuals</h4>
+                <div id="residual-chart" class="diagram-panel"></div>
+              </div>
+            </div>
+            <div class="grid two tight">
+              <div>
+                <h4>Dataset label distribution</h4>
+                <div id="label-distribution-chart" class="diagram-panel"></div>
+              </div>
+              <div>
+                <h4>Split distribution</h4>
+                <div id="split-chart" class="diagram-panel"></div>
+              </div>
+            </div>
+            <div class="grid two tight">
+              <div>
+                <h4>Learning curve</h4>
+                <div id="learning-curve-chart" class="diagram-panel"></div>
+              </div>
+              <div>
+                <h4>ROC / PR</h4>
+                <div id="classification-chart" class="diagram-panel"></div>
+              </div>
+            </div>
+            <div class="grid two tight">
+              <div>
+                <h4>Split Diagnostics</h4>
+                <div id="split-diagnostics" class="stack"></div>
+              </div>
+              <div>
+                <h4>Study Summary</h4>
+                <div id="study-summary-card" class="stack"></div>
+              </div>
+            </div>
+            <div>
+              <div class="subpanel-head">
+                <h4>Run Comparison</h4>
+                <button id="compare-step-button" class="secondary">Refresh comparison</button>
+              </div>
+              <div class="grid two tight">
+                <div>
+                  <label class="field-label" for="compare-run-a-select">Compare run A</label>
+                  <select id="compare-run-a-select"></select>
+                </div>
+                <div>
+                  <label class="field-label" for="compare-run-b-select">Compare run B</label>
+                  <select id="compare-run-b-select"></select>
+                </div>
+              </div>
+              <div id="run-comparison" class="stack"></div>
+            </div>
+            <div class="run-actions">
+              <button id="export-summary-button" class="secondary">Export summary</button>
+              <button id="open-report-button" class="secondary">Show report path</button>
+            </div>
+            <div id="study-export" class="stack"></div>
+            <div class="subpanel">
+              <div class="subpanel-head">
+                <h4>Need Help / Report Issue</h4>
+                <button id="submit-feedback-button" class="secondary">Send feedback</button>
+              </div>
+              <div class="form-grid">
+                <label>
+                  <span>Category</span>
+                  <select id="feedback-category-select">
+                    <option value="general">General</option>
+                    <option value="confusion">Confusion</option>
+                    <option value="bug">Bug</option>
+                    <option value="scientific-clarity">Scientific clarity</option>
+                    <option value="performance">Performance</option>
+                  </select>
+                </label>
+                <label>
+                  <span>Severity</span>
+                  <select id="feedback-severity-select">
+                    <option value="normal">Normal</option>
+                    <option value="high">High</option>
+                    <option value="critical">Critical</option>
+                  </select>
+                </label>
+                <label class="span-2">
+                  <span>What felt confusing, broken, or missing?</span>
+                  <textarea id="feedback-message-input" rows="4" placeholder="Describe the issue, what step you were on, and what you expected to happen."></textarea>
+                </label>
+              </div>
+              <div id="feedback-status" class="stack"></div>
+            </div>
+          </article>
+        </section>
+      </main>
+    </div>
+
+    <div id="help-popover" class="help-popover hidden" aria-live="polite"></div>
+    <script src="/app.js"></script>
+    <script src="/app_beta.js"></script>
+  </body>
+</html>

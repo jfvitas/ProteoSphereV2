@@ -1,0 +1,114 @@
+{
+  "policy_version": "2026-03-23",
+  "sources": {
+    "reactome": {
+      "required_core_files": [
+        "UniProt2Reactome.txt",
+        "ReactomePathways.txt",
+        "ReactomePathwaysRelation.txt"
+      ],
+      "minimum_validation_checks": [
+        "file_exists_non_empty",
+        "core_file_count_complete",
+        "tabular_header_or_first_row_readable",
+        "release_manifest_written"
+      ],
+      "fail_closed_conditions": [
+        "missing_required_core_file",
+        "zero_byte_core_file",
+        "unreadable_tabular_sample"
+      ]
+    },
+    "sifts": {
+      "required_core_files": [
+        "pdb_chain_uniprot.tsv.gz",
+        "pdb_chain_go.tsv.gz",
+        "pdb_chain_pfam.tsv.gz",
+        "uniprot_pdb.tsv.gz"
+      ],
+      "minimum_validation_checks": [
+        "file_exists_non_empty",
+        "gzip_integrity",
+        "tabular_header_or_first_row_readable",
+        "release_manifest_written"
+      ],
+      "fail_closed_conditions": [
+        "missing_required_core_file",
+        "gzip_validation_failed",
+        "unreadable_tabular_sample"
+      ]
+    },
+    "uniprot": {
+      "required_core_files": [
+        "uniprot_sprot.dat.gz",
+        "uniprot_sprot.fasta.gz",
+        "idmapping.dat.gz"
+      ],
+      "minimum_validation_checks": [
+        "file_exists_non_empty",
+        "gzip_integrity",
+        "fasta_or_dat_sample_readable",
+        "release_manifest_written"
+      ],
+      "fail_closed_conditions": [
+        "missing_required_core_file",
+        "gzip_validation_failed",
+        "unreadable_primary_sequence_sample"
+      ]
+    },
+    "chebi": {
+      "required_core_files": [
+        "chebi.owl",
+        "chebi.obo",
+        "chebi.json"
+      ],
+      "minimum_validation_checks": [
+        "file_exists_non_empty",
+        "json_parse_for_json_variant",
+        "ontology_text_sample_readable",
+        "release_manifest_written"
+      ],
+      "fail_closed_conditions": [
+        "missing_required_core_file",
+        "json_parse_failed",
+        "unreadable_ontology_sample"
+      ]
+    },
+    "prosite": {
+      "required_core_files": [
+        "prosite.dat",
+        "prosite.doc",
+        "prosite.aux"
+      ],
+      "minimum_validation_checks": [
+        "file_exists_non_empty",
+        "core_file_count_complete",
+        "text_sample_readable",
+        "release_manifest_written"
+      ],
+      "fail_closed_conditions": [
+        "missing_required_core_file",
+        "zero_byte_core_file",
+        "unreadable_text_sample"
+      ]
+    },
+    "pdb_chemical_component_dictionary": {
+      "required_core_files": [
+        "components.cif.gz",
+        "aa-variants-v1.cif.gz",
+        "chem_comp_model.cif.gz"
+      ],
+      "minimum_validation_checks": [
+        "file_exists_non_empty",
+        "gzip_integrity",
+        "mmcif_sample_readable",
+        "release_manifest_written"
+      ],
+      "fail_closed_conditions": [
+        "missing_required_core_file",
+        "gzip_validation_failed",
+        "unreadable_mmcif_sample"
+      ]
+    }
+  }
+}

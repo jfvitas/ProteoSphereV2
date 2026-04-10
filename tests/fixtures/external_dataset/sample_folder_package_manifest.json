@@ -1,0 +1,25 @@
+{
+  "manifest_path": "external/sample-package/LATEST.json",
+  "dataset_name": "Sample Folder Package Dataset",
+  "rows": [
+    {
+      "accession": "P31749",
+      "package_ref": "packet://sample-package/P31749",
+      "split": "train",
+      "modalities": [
+        "sequence",
+        "ligand",
+        "ppi"
+      ]
+    },
+    {
+      "accession": "P04637",
+      "package_ref": "packet://sample-package/P04637",
+      "split": "val",
+      "modalities": [
+        "sequence",
+        "structure"
+      ]
+    }
+  ]
+}

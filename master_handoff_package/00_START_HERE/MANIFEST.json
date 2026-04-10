@@ -1,0 +1,13 @@
+{
+  "package_name": "master_handoff_package",
+  "included_specs": [
+    "01_LOCKDOWN_SPEC",
+    "02_EXECUTION_AND_CANONICAL_SPEC",
+    "03_MAX_COMPLETE_SPEC"
+  ],
+  "source_priority": [
+    "01_LOCKDOWN_SPEC",
+    "02_EXECUTION_AND_CANONICAL_SPEC",
+    "03_MAX_COMPLETE_SPEC"
+  ]
+}

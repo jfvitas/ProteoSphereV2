@@ -1,0 +1,9 @@
+pytorch:
+  dense: torch.nn.Linear
+  conv: torch.nn.ConvNd
+  batchnorm: torch.nn.BatchNormNd
+  attention: torch.nn.MultiheadAttention
+tensorflow:
+  dense: tf.keras.layers.Dense
+  conv: tf.keras.layers.ConvNd
+  batchnorm: tf.keras.layers.BatchNormalization

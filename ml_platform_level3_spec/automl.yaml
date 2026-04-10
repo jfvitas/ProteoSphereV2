@@ -1,0 +1,15 @@
+search_strategies:
+- grid
+- random
+- bayesian
+- evolutionary
+budget:
+  max_trials:
+    type: int
+    default: 100
+  timeout_minutes:
+    type: int
+    default: 60
+objective:
+- minimize
+- maximize

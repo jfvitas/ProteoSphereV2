@@ -1,0 +1,35 @@
+{
+  "policy_version": "2026-03-23",
+  "tiers": {
+    "direct": {
+      "description": "Safe to automate immediately with direct file URLs and fail-closed download checks.",
+      "source_ids": [
+        "reactome",
+        "sifts",
+        "uniprot",
+        "chebi",
+        "prosite",
+        "pdb_chemical_component_dictionary"
+      ]
+    },
+    "guarded": {
+      "description": "Automatable, but only with release pinning and snapshot metadata capture.",
+      "source_ids": [
+        "string",
+        "biogrid"
+      ]
+    },
+    "resolver": {
+      "description": "Requires release discovery, URL resolution, or source-specific validation before download.",
+      "source_ids": [
+        "alphafold_db",
+        "intact",
+        "bindingdb",
+        "chembl",
+        "complex_portal",
+        "rnacentral",
+        "interpro"
+      ]
+    }
+  }
+}

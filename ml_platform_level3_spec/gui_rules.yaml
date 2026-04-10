@@ -1,0 +1,18 @@
+sections:
+- data
+- features
+- model
+- architecture
+- training
+- pipeline
+- results
+dynamic_rules:
+- if: optimizer=adam
+  show:
+  - betas
+  - eps
+- if: model=gnn
+  show:
+  - message_passing
+  - geometry
+  - edges

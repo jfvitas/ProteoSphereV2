@@ -1,0 +1,45 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "proteosphere-v2"
+version = "0.1.0"
+description = "Autonomous multi-agent build system for a biomolecular ML platform"
+requires-python = ">=3.12"
+dependencies = []
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.3",
+  "ruff>=0.13",
+]
+
+[tool.setuptools.packages.find]
+include = ["scripts*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py314"
+exclude = [
+  "codex_autotask_package",
+  "codex_parallel_build_package",
+  "specs",
+]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+
+[tool.ruff.lint.per-file-ignores]
+"scripts/bootstrap_repo.py" = ["I001"]
+"scripts/seed_queue.py" = ["I001"]
+"scripts/auto_task_generator.py" = ["I001"]
+"scripts/orchestrator.py" = ["I001"]
+"scripts/reviewer_loop.py" = ["I001"]
+"scripts/monitor.py" = ["I001"]
+"scripts/run_full_benchmark.py" = ["E402", "E501", "I001"]
+"scripts/task_catalog.py" = ["E501"]
+"tests/unit/test_orchestrator.py" = ["E501"]

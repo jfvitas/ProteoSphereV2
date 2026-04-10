@@ -1,0 +1,57 @@
+models:
+- GCN
+- GraphSAGE
+- GAT
+- MPNN
+- SchNet
+- DimeNet++
+- EGNN
+- SE3Transformer
+- PaiNN
+message_passing:
+  num_layers:
+    type: int
+    default: 3
+  message_fn:
+    type: enum
+    options:
+    - mlp
+    - attention
+    - edge_conditioned
+  aggregation:
+    type: enum
+    options:
+    - sum
+    - mean
+    - max
+  update_fn:
+    type: enum
+    options:
+    - mlp
+    - gru
+    - residual
+geometry:
+  equivariance:
+    type: enum
+    options:
+    - none
+    - rotation_invariant
+    - se3
+  positional_encoding:
+    type: enum
+    options:
+    - laplacian
+    - rwse
+    - none
+edges:
+  features:
+  - distance
+  - bond_type
+  - angle
+  - dihedral
+  cutoff_radius:
+    type: float
+    default: 5.0
+  knn:
+    type: int
+    default: 16

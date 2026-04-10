@@ -1,0 +1,16 @@
+{
+  "manifest_id": "impossible-binding-normalization-dataset",
+  "fixture_type": "impossible_binding_normalization",
+  "rows": [
+    {
+      "accession": "P31749",
+      "split": "train",
+      "measurement_type": "IC50",
+      "measurement_relation": "<",
+      "measurement_value": "5",
+      "measurement_units": "uM",
+      "requested_normalization": "delta_g",
+      "notes": "Fixture should fail because delta G cannot be derived from IC50."
+    }
+  ]
+}

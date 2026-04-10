@@ -1,0 +1,29 @@
+types:
+  int:
+    min: null
+    max: null
+    step: 1
+  float:
+    min: null
+    max: null
+    step: null
+  bool:
+    values:
+    - true
+    - false
+  enum:
+    options: []
+  list[int]: {}
+  list[float]: {}
+  tuple[int]: {}
+  tuple[float]: {}
+  string: {}
+conventions:
+  required_fields:
+  - type
+  optional_fields:
+  - default
+  - range
+  - options
+  - description
+  - depends_on

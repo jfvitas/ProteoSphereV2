@@ -1,0 +1,16 @@
+
+id_priority:
+  - uniprot_id
+  - pdb_chain
+  - ligand_id
+
+conflict_resolution:
+  sequence:
+    rule: "prefer_uniprot"
+  structure:
+    rule: "prefer_high_resolution"
+  binding:
+    rule: "average_or_weighted_by_confidence"
+
+missing_data:
+  strategy: ["mask","flag","impute_optional"]

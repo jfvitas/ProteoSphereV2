@@ -1,0 +1,20 @@
+# Summary Library Inventory
+
+- Library id: `summary-library:protein-materialized:v1`
+- Schema version: `1`
+- Source manifest id: `UniProt:2026-03-23:api:2a2e3af898cc6772|bio-agent-lab/reactome:2026-03-16|IntAct:20260323T002625Z:download:6a49b82dc9ec053d|bio-agent-lab-import-manifest:v1`
+- Source path: `artifacts\status\protein_summary_library.json`
+- Record count: `11`
+
+## Record Types
+- `protein`: `11`
+- `protein_variant`: `0`
+- `structure_unit`: `0`
+- `protein_protein`: `0`
+- `protein_ligand`: `0`
+
+## Join Status Counts
+- `joined`: `11`
+
+## Storage Tier Counts
+- `feature_cache`: `11`

@@ -1,0 +1,14 @@
+{
+  "manifest_id": "mapping-conflict-dataset",
+  "fixture_type": "mapping_conflict",
+  "rows": [
+    {
+      "accession": "P04637",
+      "split": "train",
+      "claimed_target_accession": "Q00987",
+      "pdb_id": "4HG7",
+      "conflict_category": "mapping",
+      "notes": "Fixture should trigger mapping conflict handling."
+    }
+  ]
+}

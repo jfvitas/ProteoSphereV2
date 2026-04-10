@@ -1,0 +1,54 @@
+{
+  "nodes": [
+    {
+      "id": "ingest",
+      "type": "data"
+    },
+    {
+      "id": "normalize",
+      "type": "transform"
+    },
+    {
+      "id": "features",
+      "type": "transform"
+    },
+    {
+      "id": "model",
+      "type": "compute"
+    },
+    {
+      "id": "train",
+      "type": "compute"
+    },
+    {
+      "id": "evaluate",
+      "type": "compute"
+    }
+  ],
+  "edges": [
+    [
+      "ingest",
+      "normalize"
+    ],
+    [
+      "normalize",
+      "features"
+    ],
+    [
+      "features",
+      "model"
+    ],
+    [
+      "model",
+      "train"
+    ],
+    [
+      "train",
+      "evaluate"
+    ]
+  ],
+  "constraints": [
+    "acyclic",
+    "all_inputs_validated"
+  ]
+}

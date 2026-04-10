@@ -1,0 +1,84 @@
+dense:
+  units:
+    type: int
+  bias:
+    type: bool
+    default: true
+  activation:
+    type: enum
+    options:
+    - relu
+    - gelu
+    - swish
+    - tanh
+    - sigmoid
+    - softmax
+  kernel_initializer:
+    type: enum
+    options:
+    - xavier
+    - he
+    - normal
+    - uniform
+conv:
+  dimensions:
+    type: enum
+    options:
+    - 1d
+    - 2d
+    - 3d
+  filters:
+    type: int
+  kernel_size:
+    type: tuple[int]
+  stride:
+    type: tuple[int]
+    default:
+    - 1
+    - 1
+  padding:
+    type: enum
+    options:
+    - valid
+    - same
+    - reflect
+    - replicate
+  dilation:
+    type: tuple[int]
+    default:
+    - 1
+    - 1
+  groups:
+    type: int
+    default: 1
+  bias:
+    type: bool
+    default: true
+dropout:
+  rate:
+    type: float
+    range:
+    - 0
+    - 1
+batchnorm:
+  momentum:
+    type: float
+    default: 0.1
+  eps:
+    type: float
+    default: 1.0e-05
+  affine:
+    type: bool
+    default: true
+layernorm:
+  eps:
+    type: float
+    default: 1.0e-05
+attention:
+  num_heads:
+    type: int
+  embed_dim:
+    type: int
+  dropout:
+    type: float
+    default: 0.0

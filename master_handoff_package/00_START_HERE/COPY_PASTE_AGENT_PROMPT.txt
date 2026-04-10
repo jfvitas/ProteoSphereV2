@@ -1,0 +1,33 @@
+You are building a production-grade biomolecular ML platform.
+
+Use the files in this handoff package and follow this order strictly:
+
+1. Read `00_START_HERE/MASTER_HANDOFF_README.md`
+2. Read `00_START_HERE/AGENT_EXECUTION_ORDER.md`
+3. Implement `01_LOCKDOWN_SPEC/` exactly, with no substitutions or redesign
+4. Validate the reference pipeline end-to-end before expanding anything
+5. Implement and integrate `02_EXECUTION_AND_CANONICAL_SPEC/`
+6. Only after the baseline and core system are stable, expand using `03_MAX_COMPLETE_SPEC/`
+
+Hard rules:
+- Do not skip steps
+- Do not swap libraries in the first build
+- Do not silently discard unresolved mappings, conflicts, or missingness
+- Do not bypass provenance, checkpointing, or leakage-safe evaluation
+- Do not optimize early
+- Do not introduce undocumented architecture changes
+
+Primary goal:
+Produce a working, validated baseline first.
+Secondary goal:
+Refactor it into the full canonical, resumable execution system.
+Tertiary goal:
+Expand into the full multimodal, noise-robust platform.
+
+Expected outputs:
+- repository structure matching the specs
+- implemented reference pipeline
+- passing tests
+- canonical data objects and provenance
+- DAG execution/checkpointing
+- documented expansion plan for remaining advanced modules

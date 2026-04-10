@@ -1,0 +1,23 @@
+node:
+  id: string
+  type:
+  - data
+  - transform
+  - model
+  - train
+  - evaluate
+  inputs:
+  - list[string]
+  outputs:
+  - list[string]
+graph_rules:
+  acyclic: true
+  valid_connections:
+  - - data
+    - transform
+  - - transform
+    - model
+  - - model
+    - train
+  - - train
+    - evaluate
