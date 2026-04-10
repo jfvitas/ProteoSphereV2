@@ -24,4 +24,20 @@ jobs:
       - name: Repo smoke tests
         run: python -m pytest tests/unit/test_ci_presence.py tests/unit/test_bootstrap_repo.py tests/unit/test_model_studio_task_catalog.py -q
       - name: Model Studio smoke tests
-        run: python -m pytest tests/unit/test_model_studio_public_ci.py -q
+        shell: bash
+        run: |
+          set +e
+          python -m pytest tests/unit/test_model_studio_public_ci.py -q > model_studio_smoke.log 2>&1
+          status=$?
+          cat model_studio_smoke.log
+          if [ "$status" -ne 0 ]; then
+            python - <<'PY'
+from pathlib import Path
+
+text = Path("model_studio_smoke.log").read_text(encoding="utf-8", errors="replace")
+tail = "\n".join(text.strip().splitlines()[-20:])
+escaped = tail.replace("%", "%25").replace("\r", "%0D").replace("\n", "%0A")
+print(f"::error title=Model Studio smoke failure::{escaped}")
+PY
+            exit "$status"
+          fi
