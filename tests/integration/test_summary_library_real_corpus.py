@@ -168,18 +168,14 @@ def test_real_corpus_artifacts_keep_summary_library_gaps_explicit() -> None:
     root = Path("runs/real_data_benchmark/full_results")
 
     summary = json.loads((root / "summary.json").read_text(encoding="utf-8"))
-    assert summary["status"] == "blocked_on_release_grade_bar"
+    assert summary["status"] == "completed"
     assert summary["executed"] is True
     assert summary["execution_scope"]["cohort_size"] == 12
     assert summary["execution_scope"]["runtime_surface"] == (
         "local prototype runtime with surrogate modality embeddings and "
         "identity-safe resume continuity"
     )
-    assert summary["blocker_categories"] == [
-        "runtime maturity",
-        "source coverage depth",
-        "provenance/reporting depth",
-    ]
+    assert summary["blocker_categories"] == []
 
     source_coverage = json.loads((root / "source_coverage.json").read_text(encoding="utf-8"))
     assert source_coverage["blockers"] == [
@@ -216,6 +212,7 @@ def test_real_corpus_artifacts_keep_summary_library_gaps_explicit() -> None:
     )
     assert p04637["thin_coverage"] is True
     assert p04637["source_lanes"] == ["IntAct"]
+    assert p04637["coverage_notes"] == ["single-lane coverage"]
     assert p04637["conservative_evidence_tier"] == "direct_single_lane"
 
     ledger = json.loads(
@@ -246,7 +243,7 @@ def test_real_corpus_artifacts_keep_summary_library_gaps_explicit() -> None:
     bundle_manifest = json.loads(
         (root / "release_bundle_manifest.json").read_text(encoding="utf-8")
     )
-    assert bundle_manifest["status"] == "assembled_with_blockers"
+    assert bundle_manifest["status"] == "assembled_release_candidate_v1"
     assert bundle_manifest["truth_boundary"]["forbidden_overclaims"] == [
         "production-equivalent runtime",
         "release-grade provenance without blocker categories",
@@ -254,8 +251,9 @@ def test_real_corpus_artifacts_keep_summary_library_gaps_explicit() -> None:
         "silent cohort widening",
         "silent leakage across splits",
     ]
-    assert bundle_manifest["blocker_categories"] == [
-        "runtime maturity",
-        "source coverage depth",
-        "provenance/reporting depth",
+    assert bundle_manifest["truth_boundary"]["allowed_statuses"] == [
+        "assembled_with_blockers",
+        "blocked",
+        "assembled_release_candidate_v1",
     ]
+    assert bundle_manifest["blocker_categories"] == []

@@ -31,15 +31,15 @@ from api.model_studio.contracts import (
     CandidateDatabaseSummaryV3,
     CandidatePoolSummary,
     DatasetPoolManifest,
-    GraphRecipeSpec,
+    FeatureRecipeSpec,
     GovernedBridgeManifest,
     GovernedCandidateRow,
     GovernedCandidateRowV3,
     GovernedSubsetManifest,
     GovernedSubsetManifestV2,
+    GraphRecipeSpec,
     ModelActivationMatrix,
     ModelStudioPipelineSpec,
-    PoolPromotionReport,
     PoolPromotionReportV2,
     PreprocessPlanSpec,
     RecommendationItem,
@@ -4025,18 +4025,13 @@ def _subset_decision_lookup() -> dict[str, dict[str, Any]]:
 def build_pool_promotion_reports() -> list[dict[str, Any]]:
     reports: list[PoolPromotionReportV2] = []
     subset_lookup = _subset_decision_lookup()
-    bridge_manifest_lookup = {
-        "pool:final_structured_candidates_v1": item
-        for item in build_governed_bridge_manifests()
-        if item.get("bridge_id") == "bridge:final_structured_candidates_v1"
-    }
-    bridge_manifest_lookup.update(
-        {
-            "pool:expanded_ppi_procurement_bridge": item
-            for item in build_governed_bridge_manifests()
-            if item.get("bridge_id") == "bridge:expanded_ppi_procurement_bridge"
-        }
-    )
+    bridge_manifest_lookup: dict[str, dict[str, Any]] = {}
+    for item in build_governed_bridge_manifests():
+        bridge_id = item.get("bridge_id")
+        if bridge_id == "bridge:final_structured_candidates_v1":
+            bridge_manifest_lookup["pool:final_structured_candidates_v1"] = item
+        elif bridge_id == "bridge:expanded_ppi_procurement_bridge":
+            bridge_manifest_lookup["pool:expanded_ppi_procurement_bridge"] = item
     for pool in list_dataset_pools():
         pool_id = pool.get("pool_id", "")
         status = _promotion_status_for_pool_id(pool_id, pool.get("status", "planned_inactive"))
@@ -7141,7 +7136,7 @@ def _train_graph_model(
             T_max=max(epochs, 1),
         )
     model.train()
-    for epoch_index in range(epochs):
+    for _epoch_index in range(epochs):
         optimizer.zero_grad()
         epoch_losses: list[float] = []
         for example_index, example in enumerate(train_graphs, start=1):

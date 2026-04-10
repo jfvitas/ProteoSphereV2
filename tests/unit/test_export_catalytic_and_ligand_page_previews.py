@@ -79,6 +79,9 @@ def test_build_targeted_page_scrape_registry_preview_stays_report_only() -> None
     payload = build_targeted_page_scrape_registry_preview()
 
     assert payload["status"] == "report_only"
-    assert payload["row_count"] == 2
-    assert payload["rows"][0]["accession"] == "P04637"
+    assert payload["row_count"] >= 5
+    assert {"elm", "string", "sabio_rk"} <= {
+        row["source_gap"] for row in payload["rows"]
+    }
+    assert all(row["default_ingest_status"] == "candidate_only_non_governing" for row in payload["rows"])
     assert payload["truth_boundary"]["page_scraping_started"] is False

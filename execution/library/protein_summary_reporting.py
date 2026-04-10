@@ -1280,7 +1280,7 @@ def build_protein_summary_packet_gap_operator_action_note_report(
                 ),
             }
         )
-    actionable_source_refs = list((dashboard.get("source_fix_candidates") or []))
+    actionable_source_refs = list(dashboard.get("source_fix_candidates") or [])
     actionable_source_refs.extend(dashboard.get("top_leverage_source_fixes") or [])
     deduped_refs: list[dict[str, Any]] = []
     seen_refs: set[str] = set()

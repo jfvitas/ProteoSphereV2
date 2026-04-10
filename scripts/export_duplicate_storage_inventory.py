@@ -306,7 +306,7 @@ def render_duplicate_storage_inventory_markdown(payload: dict[str, Any]) -> str:
         "# Duplicate Storage Inventory",
         "",
         f"- Generated at: `{_normalize_text(payload.get('generated_at'))}`",
-        f"- Machine note: [`artifacts/status/duplicate_storage_inventory.json`](/D:/documents/ProteoSphereV2/artifacts/status/duplicate_storage_inventory.json)",
+        "- Machine note: [`artifacts/status/duplicate_storage_inventory.json`](/D:/documents/ProteoSphereV2/artifacts/status/duplicate_storage_inventory.json)",
         "",
         "## Summary",
         "",

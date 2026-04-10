@@ -1,8 +1,8 @@
 from __future__ import annotations
 
+import shutil
 from datetime import UTC, datetime
 from pathlib import Path
-import shutil
 from typing import Any
 
 from api.model_studio.capabilities import filter_known_datasets, is_active_option
@@ -19,6 +19,7 @@ from api.model_studio.contracts import (
     validate_pipeline_spec,
 )
 from api.model_studio.runtime import (
+    _launchable_dataset_pools,
     build_activation_ledger,
     build_activation_readiness_reports,
     build_candidate_database_summary,
@@ -34,7 +35,6 @@ from api.model_studio.runtime import (
     build_promotion_queue,
     build_promotion_queue_v2,
     build_stage2_scientific_tracks,
-    _launchable_dataset_pools,
     build_training_set,
     cancel_run,
     compare_runs,
@@ -1138,8 +1138,6 @@ def _beta_test_agent_runs() -> list[dict[str, Any]]:
     ligand_trace = _load_json_path(
         final_lookup.get("ligand_flow/user_sim_trace.json", Path("__missing__"))
     )
-    ppi_metrics = _parse_json_like(ppi_trace.get("metrics"), {})
-    ligand_metrics = _parse_json_like(ligand_trace.get("metrics"), {})
     blocked_features = {
         str(item.get("label", "")).casefold(): item
         for item in blocked_trace.get("blocked_features", [])

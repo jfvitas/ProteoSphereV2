@@ -218,7 +218,7 @@ def build_ligand_support_readiness_preview(
     ]
     for row in rows:
         row["ligand_readiness_reason"] = (
-            (
+            
                 "grounded lightweight ligand rows are materialized, but bundle inclusion is still false."
                 if row["ligand_readiness_ladder"] == LADDER_GROUNDED_PREVIEW_SAFE
                 else "only candidate-only ligand evidence exists, so this row must remain non-governing."
@@ -228,7 +228,7 @@ def build_ligand_support_readiness_preview(
                 else "grounded ligand rows are materialized and bundle inclusion is governing."
                 if row["ligand_readiness_ladder"] == LADDER_GROUNDED_GOVERNING
                 else "no local ligand evidence is available yet, so the row remains absent."
-            )
+            
         )
 
     ladder_accessions = ladder_accession_buckets(rows)

@@ -69,7 +69,7 @@ def test_publish_open_source_bundle_stages_public_artifacts_and_writes_manifest(
         "open-source-distribution:release-benchmark-bundle-2026-03-22@2026.04.03"
     )
     assert payload["bundle_status"] == "staged_with_checksums"
-    assert payload["publication_posture"] == "staged_with_blockers"
+    assert payload["publication_posture"] == "staged"
     assert payload["release_ready"] is False
     assert payload["missing_required_artifacts"] == []
     assert payload["selected_artifact_count"] == payload["staged_artifact_count"]
@@ -92,6 +92,8 @@ def test_publish_open_source_bundle_stages_public_artifacts_and_writes_manifest(
     assert schema_item["required"] is True
     assert schema_item["visibility"] == "release"
     assert schema_item["path"] == "runs/real_data_benchmark/full_results/schema.json"
+    assert payload["carry_through"]["blocker_categories"] == []
+    assert payload["validation_warnings"] == []
 
 
 def test_publish_open_source_bundle_blocks_on_missing_required_release_artifact(

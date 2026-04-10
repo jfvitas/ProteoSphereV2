@@ -17,7 +17,6 @@ from scripts.model_studio_browser_helpers import (
     wait_for_workspace,
 )
 
-
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
 

@@ -4,12 +4,11 @@ import argparse
 import csv
 import json
 import statistics
+import sys
 from collections import Counter, defaultdict
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
-
-import sys
 
 if __package__ in {None, ""}:
     sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
@@ -23,7 +22,6 @@ from scripts.pdbbind_expansion_support import (
     build_pdb_paper_split_sequence_signature_audit,
     build_pdb_paper_split_structure_state_audit,
 )
-
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_STAGING_POINTER = (
@@ -454,8 +452,6 @@ def write_outputs(
         if pdb_id:
             union_rows[pdb_id] = row
 
-    train_ids = set(artifact["robust_split"]["train_ids"])
-    test_ids = set(artifact["robust_split"]["test_ids"])
     robust_train_rows = [union_rows[pdb_id] for pdb_id in artifact["robust_split"]["train_ids"]]
     robust_test_rows = [union_rows[pdb_id] for pdb_id in artifact["robust_split"]["test_ids"]]
 

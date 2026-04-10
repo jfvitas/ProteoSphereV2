@@ -7,9 +7,21 @@ from typing import Any
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 try:
-    from scripts.web_enrichment_preview_support import accession_rows, fetch_json, read_json, write_json, write_text
+    from scripts.web_enrichment_preview_support import (
+        accession_rows,
+        fetch_json,
+        read_json,
+        write_json,
+        write_text,
+    )
 except ModuleNotFoundError:  # pragma: no cover
-    from web_enrichment_preview_support import accession_rows, fetch_json, read_json, write_json, write_text
+    from web_enrichment_preview_support import (
+        accession_rows,
+        fetch_json,
+        read_json,
+        write_json,
+        write_text,
+    )
 
 DEFAULT_TRAINING_SET = (
     REPO_ROOT / "artifacts" / "status" / "training_set_eligibility_matrix_preview.json"

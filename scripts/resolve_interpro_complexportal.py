@@ -13,9 +13,9 @@ import datetime as dt
 import html
 import json
 import re
+from collections.abc import Iterable
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Iterable
 from urllib.parse import urljoin
 from urllib.request import Request, urlopen
 
@@ -188,7 +188,7 @@ def build_payload(max_safe_bytes: int) -> dict:
     interpro = resolve_interpro(max_safe_bytes=max_safe_bytes)
     complex_portal = resolve_complex_portal(max_safe_bytes=max_safe_bytes)
     return {
-        "generated_at": dt.datetime.now(dt.timezone.utc).isoformat(),
+        "generated_at": dt.datetime.now(dt.UTC).isoformat(),
         "max_safe_bytes": max_safe_bytes,
         "sources": [interpro, complex_portal],
     }

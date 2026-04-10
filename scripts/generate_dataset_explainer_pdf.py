@@ -20,7 +20,6 @@ from reportlab.platypus import (
     TableStyle,
 )
 
-
 REPO_ROOT = Path(__file__).resolve().parents[1]
 STATUS_DIR = REPO_ROOT / "artifacts" / "status"
 FINAL_BUNDLE_DIR = (

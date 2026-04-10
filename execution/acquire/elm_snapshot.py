@@ -69,7 +69,7 @@ def _coerce_manifest(
 
 
 def _load_payload(
-    contract: "ElmSnapshotContract",
+    contract: ElmSnapshotContract,
     *,
     opener: Callable[..., Any] | None,
 ) -> tuple[dict[str, bytes], str]:

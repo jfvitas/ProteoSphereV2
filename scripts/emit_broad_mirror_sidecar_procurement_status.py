@@ -155,7 +155,6 @@ def build_sidecar_procurement_status(
         raise ValueError("remaining transfer status must include uniprot and string")
 
     active_rows = _rows(remaining, "actively_transferring_now")
-    active_files = _files(active_rows)
     sidecar_batches = [
         _batch(
             rank=1,

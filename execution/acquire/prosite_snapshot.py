@@ -77,7 +77,7 @@ def _coerce_manifest(
 
 
 def _load_payload(
-    contract: "PrositeSnapshotContract",
+    contract: PrositeSnapshotContract,
     *,
     opener: Callable[..., Any] | None,
 ) -> tuple[bytes, str]:

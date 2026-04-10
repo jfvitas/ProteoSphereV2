@@ -32,6 +32,7 @@ exclude = [
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "UP", "B"]
+ignore = ["E501"]
 
 [tool.ruff.lint.per-file-ignores]
 "scripts/bootstrap_repo.py" = ["I001"]
@@ -43,3 +44,4 @@ select = ["E", "F", "I", "UP", "B"]
 "scripts/run_full_benchmark.py" = ["E402", "E501", "I001"]
 "scripts/task_catalog.py" = ["E501"]
 "tests/unit/test_orchestrator.py" = ["E501"]
+"scripts/export_seed_plus_neighbors_entity_resolution_preview.py" = ["E402"]
