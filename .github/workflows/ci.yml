@@ -24,9 +24,4 @@ jobs:
       - name: Repo smoke tests
         run: python -m pytest tests/unit/test_ci_presence.py tests/unit/test_bootstrap_repo.py tests/unit/test_model_studio_task_catalog.py -q
       - name: Model Studio smoke tests
-        run: >
-          python -m pytest
-          tests/unit/test_model_studio_beta_readiness.py::test_preview_payload_returns_full_rows_and_chart_payloads
-          tests/unit/test_model_studio_beta_readiness.py::test_build_payload_keeps_selected_rows_and_chart_payloads
-          tests/unit/test_model_studio_beta_readiness.py::test_preview_and_build_expose_target_cap_when_request_exceeds_ceiling
-          -q
+        run: python -m pytest tests/unit/test_model_studio_public_ci.py -q
