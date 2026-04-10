@@ -24,11 +24,4 @@ jobs:
       - name: Repo smoke tests
         run: python -m pytest tests/unit/test_ci_presence.py tests/unit/test_bootstrap_repo.py tests/unit/test_model_studio_task_catalog.py -q
       - name: Model Studio smoke tests
-        run: >
-          python -m pytest tests/unit/test_model_studio_beta_readiness.py -q -k
-          "preview_payload_returns_full_rows_and_chart_payloads or
-          build_payload_keeps_selected_rows_and_chart_payloads or
-          target_cap_when_request_exceeds_ceiling or
-          beta_test_agent_runs_expose_interaction_verification_fields or
-          beta_test_agent_matrix_and_reference_library_surfaces_are_exposed or
-          workspace_preview_beta_readiness_dashboard_reports_final_beta_ready_status"
+        run: python -m pytest tests/unit/test_model_studio_beta_readiness.py -q -k "preview_payload_returns_full_rows_and_chart_payloads or build_payload_keeps_selected_rows_and_chart_payloads or target_cap_when_request_exceeds_ceiling or beta_test_agent_runs_expose_interaction_verification_fields or beta_test_agent_matrix_and_reference_library_surfaces_are_exposed or workspace_preview_beta_readiness_dashboard_reports_final_beta_ready_status"
