@@ -1,0 +1,54 @@
+{
+  "paper_id": "attentiondta_tcbb2023",
+  "doi": "https://doi.org/10.1109/TCBB.2022.3170365",
+  "domain": "protein_ligand",
+  "task_family": "drug_target_affinity_prediction",
+  "benchmark_family": "attentiondta_random_row_cv",
+  "tier_target": "tier1_hard_failure",
+  "official_evidence_links": [
+    "https://doi.org/10.1109/TCBB.2022.3170365",
+    "https://github.com/zhaoqichang/AttentionDTA_TCBB",
+    "https://raw.githubusercontent.com/zhaoqichang/AttentionDTA_TCBB/master/AttentionDTA_main.py",
+    "https://raw.githubusercontent.com/zhaoqichang/AttentionDTA_TCBB/master/datasets/Davis.txt",
+    "https://raw.githubusercontent.com/zhaoqichang/AttentionDTA_TCBB/master/datasets/KIBA.txt",
+    "https://raw.githubusercontent.com/zhaoqichang/AttentionDTA_TCBB/master/datasets/Metz.txt"
+  ],
+  "claimed_split_description": "Five-fold cross-validation on released Davis, KIBA, and Metz pair tables.",
+  "recovered_split_evidence": [
+    "The official code shuffles the full pair table and slices folds by row index with get_kfold_data().",
+    "Recovered first-fold overlap counts: Davis shares 68/68 test drugs and 367/367 test targets with training.",
+    "KIBA shares 2054/2054 test drugs and 229/229 test targets with training."
+  ],
+  "mitigation_claims": [
+    "No cold-drug, cold-target, or cold-pair mitigation is released."
+  ],
+  "mitigation_audit_result": "No mitigation surfaced; the released evaluation remains a hard warm-start split.",
+  "exact_failure_class": "code_proven_random_row_cv_leakage",
+  "overlap_findings": {
+    "direct_entity_overlap": true,
+    "notes": [
+      "The released train/test logic guarantees shared drugs and shared targets across folds.",
+      "This invalidates unseen-entity generalization claims."
+    ]
+  },
+  "contamination_findings": {
+    "notes": [
+      "Direct train/test reuse occurs at both the compound and target level because folds are built over interaction rows."
+    ]
+  },
+  "blockers": [],
+  "recommended_proteosphere_treatment": "Audit-only Tier 1 failure; treat as paper-specific evidence that row-level CV can collapse entity independence.",
+  "provenance_notes": [
+    "Proof computed from the released repository datasets and main training script."
+  ],
+  "raw_archive_fallback_required": false,
+  "final_status": "tier1_hard_failure",
+  "scores": {
+    "publication_utility": 4.8,
+    "failure_strength": 5.0,
+    "proof_strength": 5.0
+  },
+  "title": "AttentionDTA: Drug\u2013Target Binding Affinity Prediction by Sequence-Based Deep Learning With Attention Mechanism",
+  "journal": "IEEE/ACM Transactions on Computational Biology and Bioinformatics",
+  "year": 2023
+}

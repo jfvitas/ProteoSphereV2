@@ -1,0 +1,48 @@
+{
+  "paper_id": "hacnet2023",
+  "doi": "https://doi.org/10.1021/acs.jcim.3c00251",
+  "domain": "protein_ligand",
+  "task_family": "binding_affinity_prediction",
+  "benchmark_family": "mitigation_aware_control",
+  "tier_target": "control_nonfailure",
+  "official_evidence_links": [
+    "https://doi.org/10.1021/acs.jcim.3c00251",
+    "https://github.com/gregory-kyro/HAC-Net",
+    "https://raw.githubusercontent.com/gregory-kyro/HAC-Net/main/README.md"
+  ],
+  "claimed_split_description": "The paper reports multiple train/test splits maximizing differences in proteins or ligands.",
+  "recovered_split_evidence": [
+    "The official README says the paper evaluates under splits maximizing differences in protein structure, sequence, or ligand fingerprint."
+  ],
+  "mitigation_claims": [
+    "The evaluation is explicitly designed to counter common protein/ligand leakage channels."
+  ],
+  "mitigation_audit_result": "Control_nonfailure.",
+  "exact_failure_class": "none_control",
+  "overlap_findings": {
+    "direct_entity_overlap": false,
+    "notes": [
+      "This is the kind of mitigation-aware design ProteoSphere wants to encourage."
+    ]
+  },
+  "contamination_findings": {
+    "notes": [
+      "Useful control for fairness."
+    ]
+  },
+  "blockers": [],
+  "recommended_proteosphere_treatment": "Control_nonfailure.",
+  "provenance_notes": [
+    "Recent 2023 control paper that strengthens the adoption narrative by contrast."
+  ],
+  "raw_archive_fallback_required": false,
+  "final_status": "control_nonfailure",
+  "scores": {
+    "publication_utility": 4.0,
+    "failure_strength": 1.0,
+    "proof_strength": 4.0
+  },
+  "title": "HAC-Net: A Hybrid Attention-Based Convolutional Neural Network for Highly Accurate Protein\u2013Ligand Binding Affinity Prediction",
+  "journal": "Journal of Chemical Information and Modeling",
+  "year": 2023
+}

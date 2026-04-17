@@ -1,0 +1,48 @@
+{
+  "paper_id": "dta_om2026",
+  "doi": "https://doi.org/10.1016/j.ejmech.2026.118840",
+  "domain": "protein_ligand",
+  "task_family": "drug_target_affinity_prediction",
+  "benchmark_family": "mitigation_aware_control",
+  "tier_target": "control_nonfailure",
+  "official_evidence_links": [
+    "https://doi.org/10.1016/j.ejmech.2026.118840",
+    "https://github.com/MiJia-ID/DTA-OM",
+    "https://raw.githubusercontent.com/MiJia-ID/DTA-OM/main/README.md"
+  ],
+  "claimed_split_description": "The paper reports novel-pair and novel-drug evaluations.",
+  "recovered_split_evidence": [
+    "The official README explicitly advertises novel-pair and novel-drug settings."
+  ],
+  "mitigation_claims": [
+    "Novel-pair and novel-drug holdouts are central to the released evaluation story."
+  ],
+  "mitigation_audit_result": "Control_nonfailure unless a later audit shows the mitigation failed in practice.",
+  "exact_failure_class": "none_control",
+  "overlap_findings": {
+    "direct_entity_overlap": false,
+    "notes": [
+      "The claimed mitigation directly targets warm-start bias."
+    ]
+  },
+  "contamination_findings": {
+    "notes": [
+      "Strong recent control demonstrating the field can ship colder evaluation surfaces."
+    ]
+  },
+  "blockers": [],
+  "recommended_proteosphere_treatment": "Control_nonfailure.",
+  "provenance_notes": [
+    "Very recent 2026 control, useful for the 'still relevant' narrative because it shows better practice exists now."
+  ],
+  "raw_archive_fallback_required": false,
+  "final_status": "control_nonfailure",
+  "scores": {
+    "publication_utility": 4.2,
+    "failure_strength": 1.0,
+    "proof_strength": 4.1
+  },
+  "title": "An artificial intelligence model for accurate drug-target affinity prediction in medicinal chemistry",
+  "journal": "European Journal of Medicinal Chemistry",
+  "year": 2026
+}

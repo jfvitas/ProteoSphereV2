@@ -1,0 +1,48 @@
+{
+  "paper_id": "dcgan_dta2024",
+  "doi": "https://doi.org/10.1186/s12864-024-10326-x",
+  "domain": "protein_ligand",
+  "task_family": "drug_target_affinity_prediction",
+  "benchmark_family": "mitigation_aware_control",
+  "tier_target": "control_nonfailure",
+  "official_evidence_links": [
+    "https://doi.org/10.1186/s12864-024-10326-x",
+    "https://github.com/mojtabaze7/DCGAN-DTA",
+    "https://raw.githubusercontent.com/mojtabaze7/DCGAN-DTA/main/README.md"
+  ],
+  "claimed_split_description": "The repo exposes multiple fold settings, including colder settings for some datasets.",
+  "recovered_split_evidence": [
+    "The official repo includes setting1, setting2, and setting3 split files for some benchmarks."
+  ],
+  "mitigation_claims": [
+    "Multiple settings imply the paper is not restricted to the warm-start setting only."
+  ],
+  "mitigation_audit_result": "Control_nonfailure for this expansion because the paper releases colder options instead of only the leaky family.",
+  "exact_failure_class": "none_control",
+  "overlap_findings": {
+    "direct_entity_overlap": false,
+    "notes": [
+      "Released colder settings keep this paper out of the Tier 1 bucket."
+    ]
+  },
+  "contamination_findings": {
+    "notes": [
+      "Useful mitigation-aware control."
+    ]
+  },
+  "blockers": [],
+  "recommended_proteosphere_treatment": "Control_nonfailure.",
+  "provenance_notes": [
+    "Recent 2024 control retained to show the analyzer is fair."
+  ],
+  "raw_archive_fallback_required": false,
+  "final_status": "control_nonfailure",
+  "scores": {
+    "publication_utility": 3.6,
+    "failure_strength": 1.0,
+    "proof_strength": 3.7
+  },
+  "title": "DCGAN-DTA: Predicting drug-target binding affinity with deep convolutional generative adversarial networks",
+  "journal": "BMC Genomics",
+  "year": 2024
+}

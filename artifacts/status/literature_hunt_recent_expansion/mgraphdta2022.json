@@ -1,0 +1,49 @@
+{
+  "paper_id": "mgraphdta2022",
+  "doi": "https://doi.org/10.1039/D1SC05180F",
+  "domain": "protein_ligand",
+  "task_family": "drug_target_affinity_prediction",
+  "benchmark_family": "deepdta_setting1_family",
+  "tier_target": "tier1_hard_failure",
+  "official_evidence_links": [
+    "https://doi.org/10.1039/D1SC05180F",
+    "https://github.com/guaguabujianle/MGraphDTA",
+    "https://raw.githubusercontent.com/guaguabujianle/MGraphDTA/master/README.md"
+  ],
+  "claimed_split_description": "Performance is reported on Davis and KIBA benchmark splits inherited from earlier DTA work.",
+  "recovered_split_evidence": [
+    "The official README states that Davis and KIBA data come from the DeepDTA benchmark family.",
+    "The inherited DeepDTA setting1 family is already proven to share 68/68 Davis test drugs and 2027/2027 KIBA test drugs with training in ProteoSphere's benchmark proof."
+  ],
+  "mitigation_claims": [
+    "No cold-drug or cold-target split is released in the official repo."
+  ],
+  "mitigation_audit_result": "No paper-specific mitigation neutralizes the inherited DeepDTA warm-start leakage.",
+  "exact_failure_class": "inherited_warm_start_benchmark_failure",
+  "overlap_findings": {
+    "direct_entity_overlap": true,
+    "notes": [
+      "Inherited DeepDTA setting1 retains complete test-drug reuse and complete/near-complete target reuse."
+    ]
+  },
+  "contamination_findings": {
+    "notes": [
+      "This is a benchmark-family failure rather than a bespoke split bug."
+    ]
+  },
+  "blockers": [],
+  "recommended_proteosphere_treatment": "Tier 1 hard failure for generalization claims built on DeepDTA setting1 only.",
+  "provenance_notes": [
+    "Recent peer-reviewed DTA paper that still inherits the warm-start family."
+  ],
+  "raw_archive_fallback_required": false,
+  "final_status": "tier1_hard_failure",
+  "scores": {
+    "publication_utility": 4.5,
+    "failure_strength": 4.6,
+    "proof_strength": 4.5
+  },
+  "title": "MGraphDTA: deep multiscale graph neural network for explainable drug\u2013target binding affinity prediction",
+  "journal": "Chemical Science",
+  "year": 2022
+}

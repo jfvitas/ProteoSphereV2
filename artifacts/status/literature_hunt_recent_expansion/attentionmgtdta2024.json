@@ -1,0 +1,52 @@
+{
+  "paper_id": "attentionmgtdta2024",
+  "doi": "https://doi.org/10.1016/j.neunet.2023.11.018",
+  "domain": "protein_ligand",
+  "task_family": "drug_target_affinity_prediction",
+  "benchmark_family": "deepdta_setting1_family",
+  "tier_target": "tier2_strong_supporting_case",
+  "official_evidence_links": [
+    "https://doi.org/10.1016/j.neunet.2023.11.018",
+    "https://github.com/JK-Liu7/AttentionMGT-DTA",
+    "https://raw.githubusercontent.com/JK-Liu7/AttentionMGT-DTA/main/README.md",
+    "https://raw.githubusercontent.com/JK-Liu7/AttentionMGT-DTA/main/train_DTA.py"
+  ],
+  "claimed_split_description": "The model trains and tests on Davis/KIBA processed folds in the public repo.",
+  "recovered_split_evidence": [
+    "The training script points to data/Davis/processed/train/fold/* and matching test fold paths.",
+    "The repo context strongly suggests inherited Davis/KIBA fold evaluation, but the exact raw fold membership was not re-materialized in this pass."
+  ],
+  "mitigation_claims": [
+    "No explicit cold split was surfaced in the official training script."
+  ],
+  "mitigation_audit_result": "Likely inherited DeepDTA-family evaluation, but not elevated to Tier 1 because the exact released fold lineage was not fully reconstructed here.",
+  "exact_failure_class": "likely_inherited_warm_start_family",
+  "overlap_findings": {
+    "direct_entity_overlap": true,
+    "notes": [
+      "The repo structure is consistent with a warm-start Davis/KIBA fold family."
+    ]
+  },
+  "contamination_findings": {
+    "notes": [
+      "Strong supporting case, but held below Tier 1 pending one more recovery pass."
+    ]
+  },
+  "blockers": [
+    "Exact fold roster recovery was incomplete in this pass."
+  ],
+  "recommended_proteosphere_treatment": "Tier 2 supporting case pending explicit fold lineage confirmation.",
+  "provenance_notes": [
+    "Recent 2024 paper retained to broaden the evidence surface without overstating proof."
+  ],
+  "raw_archive_fallback_required": false,
+  "final_status": "tier2_strong_supporting_case",
+  "scores": {
+    "publication_utility": 3.9,
+    "failure_strength": 3.8,
+    "proof_strength": 3.4
+  },
+  "title": "AttentionMGT-DTA: A multi-modal drug-target affinity prediction using graph transformer and attention mechanism",
+  "journal": "Neural Networks",
+  "year": 2024
+}

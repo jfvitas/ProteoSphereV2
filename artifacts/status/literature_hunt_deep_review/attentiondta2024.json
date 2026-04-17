@@ -1,0 +1,41 @@
+{
+  "paper_id": "attentiondta2024",
+  "title": "AttentionDTA: drug-target binding affinity prediction by sequence-based deep learning with attention mechanism",
+  "doi": "https://doi.org/10.1109/TCBB.2022.3170365",
+  "journal": "IEEE/ACM Transactions on Computational Biology and Bioinformatics",
+  "year": 2024,
+  "domain": "protein_ligand",
+  "task_family": "drug_target_affinity_prediction",
+  "benchmark_family": "needs_more_recovery",
+  "tier_target": "candidate_needs_more_recovery",
+  "official_evidence_links": [
+    "https://doi.org/10.1109/TCBB.2022.3170365",
+    "https://github.com/zhaoqichang/AttentionDTA_TCBB"
+  ],
+  "final_status": "candidate_needs_more_recovery",
+  "claimed_split_description": "The paper is relevant, but the current run did not recover enough split evidence to classify it fairly.",
+  "recovered_split_evidence": [],
+  "mitigation_claims": [],
+  "mitigation_audit_result": {
+    "status": "unknown",
+    "notes": [
+      "This candidate stays out of the flagship argument until the split lineage or mitigation story is clearer."
+    ]
+  },
+  "exact_failure_class": [],
+  "overlap_findings": {},
+  "contamination_findings": {},
+  "blockers": [
+    "The repository exposes the datasets but not enough split provenance to prove whether the paper inherits a warm-start split or uses something colder."
+  ],
+  "recommended_proteosphere_treatment": "Do not use in the main review narrative until the split is reconstructed or the mitigation story is verified.",
+  "provenance_notes": [
+    "Kept as backlog to remain truthful rather than guessing from an incomplete public trail."
+  ],
+  "raw_archive_fallback_required": false,
+  "scores": {
+    "failure_strength": 0.0,
+    "proof_strength": 1.5,
+    "publication_utility": 3.4
+  }
+}

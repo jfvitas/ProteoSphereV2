@@ -1,0 +1,50 @@
+{
+  "paper_id": "deattentiondta2024",
+  "doi": "https://doi.org/10.1093/bioinformatics/btae319",
+  "domain": "protein_ligand",
+  "task_family": "binding_affinity_prediction",
+  "benchmark_family": "pdbbind_core_family",
+  "tier_target": "tier1_hard_failure",
+  "official_evidence_links": [
+    "https://doi.org/10.1093/bioinformatics/btae319",
+    "https://github.com/whatamazing1/DEAttentionDTA",
+    "https://raw.githubusercontent.com/whatamazing1/DEAttentionDTA/main/README.md",
+    "https://raw.githubusercontent.com/whatamazing1/DEAttentionDTA/main/src/test.py"
+  ],
+  "claimed_split_description": "The model evaluates on PDBbind general/refined training sets with core2016 and core2014 test sets.",
+  "recovered_split_evidence": [
+    "The official README names PDBbind 2020, core2016, and core2014.",
+    "The released test script explicitly instantiates MyDataset('core2016', ...)."
+  ],
+  "mitigation_claims": [
+    "No unseen-protein or source-family mitigation beyond the standard core-set evaluation is released."
+  ],
+  "mitigation_audit_result": "The paper inherits the already-proven PDBbind core-family protein overlap without an effective mitigation layer.",
+  "exact_failure_class": "inherited_core_set_external_failure",
+  "overlap_findings": {
+    "direct_entity_overlap": true,
+    "notes": [
+      "PDBbind core-family proof shows 288/290 v2016 core complexes retain direct protein overlap with training-side complexes."
+    ]
+  },
+  "contamination_findings": {
+    "notes": [
+      "Nominal external evaluation is still protein-overlapped."
+    ]
+  },
+  "blockers": [],
+  "recommended_proteosphere_treatment": "Tier 1 hard failure for unseen-protein claims; keep only as a paper-faithful PDBbind-core audit lane.",
+  "provenance_notes": [
+    "Recent 2024 Bioinformatics paper with explicit core-set references in the released repo."
+  ],
+  "raw_archive_fallback_required": false,
+  "final_status": "tier1_hard_failure",
+  "scores": {
+    "publication_utility": 4.7,
+    "failure_strength": 4.7,
+    "proof_strength": 4.8
+  },
+  "title": "DEAttentionDTA: protein\u2013ligand binding affinity prediction based on dynamic embedding and self-attention",
+  "journal": "Bioinformatics",
+  "year": 2024
+}

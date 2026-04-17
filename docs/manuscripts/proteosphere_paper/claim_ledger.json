@@ -1,0 +1,227 @@
+[
+  {
+    "claim_text": "ProteoSphere uses a warehouse-first architecture with pinned source mirrors, a compact reference library, and on-demand materialization of heavy payloads.",
+    "source_path": "D:\\documents\\ProteoSphereV2\\docs\\reports\\source_storage_strategy.md",
+    "status": "supported"
+  },
+  {
+    "claim_text": "The release matrix defines UniProt, RCSB/PDBe, AlphaFold DB, BindingDB, BioGRID, IntAct, InterPro/motif systems, DisProt, Reactome, EMDB, and a pending evolutionary corpus as the current source contract.",
+    "source_path": "D:\\documents\\ProteoSphereV2\\docs\\reports\\source_release_matrix.md",
+    "status": "supported"
+  },
+  {
+    "claim_text": "The warehouse summary reports best_evidence as the default view and metadata sync status as ready.",
+    "source_path": "D:\\ProteoSphere\\reference_library\\warehouse_summary.json",
+    "status": "supported"
+  },
+  {
+    "claim_text": "The manifest currently materializes 13 family tables, including proteins, protein_variants, pdb_entries, structure_units, ligands, protein_ligand_edges, protein_protein_edges, motif_domain_site_annotations, pathway_roles, provenance_claims, materialization_routes, leakage_groups, and similarity_signatures.",
+    "source_path": "D:\\ProteoSphere\\reference_library\\warehouse_manifest.json",
+    "status": "supported"
+  },
+  {
+    "claim_text": "The manifest records 968,580 structure_units.",
+    "source_path": "D:\\ProteoSphere\\reference_library\\warehouse_manifest.json",
+    "status": "supported"
+  },
+  {
+    "claim_text": "The manifest records 24,804 protein_ligand_edges and 5,595 protein_protein_edges.",
+    "source_path": "D:\\ProteoSphere\\reference_library\\warehouse_manifest.json",
+    "status": "supported"
+  },
+  {
+    "claim_text": "The manifest records 5,687,488 motif_domain_site_annotations and 16,047,392 pathway_roles.",
+    "source_path": "D:\\ProteoSphere\\reference_library\\warehouse_manifest.json",
+    "status": "supported"
+  },
+  {
+    "claim_text": "Supplemental scraping is limited to accession-scoped InterPro, PROSITE, ELM, DisProt, Reactome, and RCSB motif-search payloads.",
+    "source_path": "D:\\documents\\ProteoSphereV2\\docs\\reports\\source_storage_strategy.md",
+    "status": "supported"
+  },
+  {
+    "claim_text": "reference_library.py defaults to the best_evidence claim view and can also expose raw and derived_or_scraped views on request.",
+    "source_path": "D:\\documents\\ProteoSphereV2\\api\\model_studio\\reference_library.py",
+    "status": "supported"
+  },
+  {
+    "claim_text": "reference_library.py exposes a conflict summary that flags whether claim surfaces disagree and falls back to a summary-contract interpretation for compact warehouse rows.",
+    "source_path": "D:\\documents\\ProteoSphereV2\\api\\model_studio\\reference_library.py",
+    "status": "supported"
+  },
+  {
+    "claim_text": "resolve_materialization_route() normalizes source-family names and anchors materialization routes against the source registry instead of guessing from local paths.",
+    "source_path": "D:\\documents\\ProteoSphereV2\\api\\model_studio\\reference_library.py",
+    "status": "supported"
+  },
+  {
+    "claim_text": "_custom_dataset_warehouse_catalog_path() checks PROTEOSPHERE_WAREHOUSE_ROOT first and then local default warehouse roots.",
+    "source_path": "D:\\documents\\ProteoSphereV2\\api\\model_studio\\runtime.py",
+    "status": "supported"
+  },
+  {
+    "claim_text": "_custom_manifest_record_to_row() carries accession grounding and UniRef cluster hints into benchmark-row metadata.",
+    "source_path": "D:\\documents\\ProteoSphereV2\\api\\model_studio\\runtime.py",
+    "status": "supported"
+  },
+  {
+    "claim_text": "_build_leakage_summary() blocks splits when direct protein overlap is found between train-plus-validation and test rows.",
+    "source_path": "D:\\documents\\ProteoSphereV2\\api\\model_studio\\runtime.py",
+    "status": "supported"
+  },
+  {
+    "claim_text": "The literature audit corpus contains 29 confirmed Tier 1 hard-failure papers, 18 of which are from 2023 or later.",
+    "source_path": "D:\\documents\\ProteoSphereV2\\docs\\reports\\literature_hunt_tier1_master_summary.md",
+    "status": "supported"
+  },
+  {
+    "claim_text": "The local Tier 1 source bundle contains 29/29 article PDFs and 119 supplemental or evidence items.",
+    "source_path": "D:\\documents\\ProteoSphereV2\\docs\\reports\\literature_hunt_tier1_source_bundle.md",
+    "status": "supported"
+  },
+  {
+    "claim_text": "The condensed warehouse is operationally effective but not yet a full evidence-equivalent replacement for the broader downloaded collection.",
+    "source_path": "D:\\documents\\ProteoSphereV2\\docs\\reports\\library_vs_broad_collection_equivalence.md",
+    "status": "softened"
+  },
+  {
+    "claim_text": "The validation report matches 20 of 20 top-level paper statuses between the condensed library and the broader audit path.",
+    "source_path": "D:\\documents\\ProteoSphereV2\\docs\\reports\\library_vs_broad_collection_equivalence.md",
+    "status": "supported"
+  },
+  {
+    "claim_text": "The current review package confirms 29 Tier 1 hard-failure papers.",
+    "source_path": "D:\\documents\\ProteoSphereV2\\artifacts\\status\\literature_hunt_tier1_master_summary.json",
+    "status": "supported"
+  },
+  {
+    "claim_text": "Eighteen of the Tier 1 papers were published in 2023 or later.",
+    "source_path": "D:\\documents\\ProteoSphereV2\\artifacts\\status\\literature_hunt_tier1_master_summary.json",
+    "status": "supported"
+  },
+  {
+    "claim_text": "The Tier 1 corpus is concentrated in protein-ligand / DTA papers with a smaller protein-protein subset.",
+    "source_path": "D:\\documents\\ProteoSphereV2\\artifacts\\status\\literature_hunt_tier1_master_summary.json",
+    "status": "supported"
+  },
+  {
+    "claim_text": "The Tier 1 issue-family distribution is dominated by warm-start benchmark-family failures and protein-overlapped external-family failures.",
+    "source_path": "D:\\documents\\ProteoSphereV2\\artifacts\\status\\literature_hunt_tier1_master_summary.json",
+    "status": "supported"
+  },
+  {
+    "claim_text": "The current Tier 1 set contains 14 warm-start benchmark-family failures, 12 protein-overlapped external-family failures, 1 direct reuse case, 1 invalid external-validation case, and 1 random-CV leakage case.",
+    "source_path": "D:\\documents\\ProteoSphereV2\\artifacts\\status\\literature_hunt_tier1_master_summary.json",
+    "status": "supported"
+  },
+  {
+    "claim_text": "The Tier 1 source bundle contains all 29 requested article PDFs and 119 supplemental or supporting evidence items.",
+    "source_path": "D:\\documents\\ProteoSphereV2\\docs\\reports\\literature_hunt_tier1_source_bundle.md",
+    "status": "supported"
+  },
+  {
+    "claim_text": "The review package is strongest when framed as a rigorous dataset-audit and benchmark-governance paper rather than a blanket criticism of a field.",
+    "source_path": "D:\\documents\\ProteoSphereV2\\artifacts\\status\\literature_hunt_tier1_master_summary.json",
+    "status": "supported"
+  },
+  {
+    "claim_text": "Struct2Graph reproduced 10,004 interaction rows into 8,003 train rows and 1,000 test rows with 643 shared PDB IDs across the reproduced split.",
+    "source_path": "D:\\documents\\ProteoSphereV2\\docs\\reports\\struct2graph_reproduced_overlap.md",
+    "status": "supported"
+  },
+  {
+    "claim_text": "Struct2Graph's highlight structure 4EQ6 appears 78 times in the reproduced train split and 9 times in the reproduced test split.",
+    "source_path": "D:\\documents\\ProteoSphereV2\\docs\\reports\\struct2graph_reproduced_overlap.md",
+    "status": "supported"
+  },
+  {
+    "claim_text": "The D2CP05644E benchmark training pool was reconstructed as 78 structures, with external panels of 50 PDBbind complexes, 47 nanobody complexes, and 19 metadynamics complexes.",
+    "source_path": "D:\\documents\\ProteoSphereV2\\docs\\reports\\paper_d2cp05644e_quality_assessment.md",
+    "status": "supported"
+  },
+  {
+    "claim_text": "The D2CP05644E PDBbind panel shows 4 direct protein overlaps, 4 exact-sequence overlaps, and 110 shared-partner overlaps against the recovered benchmark pool.",
+    "source_path": "D:\\documents\\ProteoSphereV2\\docs\\reports\\paper_d2cp05644e_quality_assessment.md",
+    "status": "supported"
+  },
+  {
+    "claim_text": "The D2CP05644E nanobody panel is centered on recurring lysozyme C target reuse and is blocked as a clean external benchmark.",
+    "source_path": "D:\\documents\\ProteoSphereV2\\docs\\reports\\paper_d2cp05644e_quality_assessment.md",
+    "status": "supported"
+  },
+  {
+    "claim_text": "The D2CP05644E nanobody panel shows 1 direct protein overlap, 1 exact-sequence overlap, and 16 shared-partner overlaps.",
+    "source_path": "D:\\documents\\ProteoSphereV2\\docs\\reports\\paper_d2cp05644e_quality_assessment.md",
+    "status": "supported"
+  },
+  {
+    "claim_text": "The D2CP05644E metadynamics panel shows 26 direct protein overlaps, 26 exact-sequence overlaps, and 75 shared-partner overlaps.",
+    "source_path": "D:\\documents\\ProteoSphereV2\\docs\\reports\\paper_d2cp05644e_quality_assessment.md",
+    "status": "supported"
+  },
+  {
+    "claim_text": "The DeepDTA setting1 family is a warm-start split on Davis with 68/68 test drugs and 442/442 test targets shared with training.",
+    "source_path": "D:\\documents\\ProteoSphereV2\\artifacts\\status\\literature_hunt_deep_proofs\\dta_setting1_family_audit.json",
+    "status": "supported"
+  },
+  {
+    "claim_text": "The DeepDTA setting1 family is a warm-start split on KIBA with 2027/2027 test drugs and 229/229 test targets shared with training.",
+    "source_path": "D:\\documents\\ProteoSphereV2\\artifacts\\status\\literature_hunt_deep_proofs\\dta_setting1_family_audit.json",
+    "status": "supported"
+  },
+  {
+    "claim_text": "The PDBbind core-family audit found 288 of 290 v2016 core complexes and all 108 of 108 v2013 core complexes retain direct protein overlap against the remaining general pool.",
+    "source_path": "D:\\documents\\ProteoSphereV2\\artifacts\\status\\literature_hunt_deep_proofs\\pdbbind_core_family_audit.json",
+    "status": "supported"
+  },
+  {
+    "claim_text": "The PDBbind core-family audit recorded 77 shared accessions in the v2016 comparison and 50 shared accessions in the v2013 comparison.",
+    "source_path": "D:\\documents\\ProteoSphereV2\\artifacts\\status\\literature_hunt_deep_proofs\\pdbbind_core_family_audit.json",
+    "status": "supported"
+  },
+  {
+    "claim_text": "AttentionDTA's released row-level random CV preserves entity reuse, including 68 shared drugs and 367 shared targets for Davis, 2,054 shared drugs and 229 shared targets for KIBA, and 1,206 shared drugs and 169 shared targets for Metz.",
+    "source_path": "D:\\documents\\ProteoSphereV2\\artifacts\\status\\literature_hunt_recent_expansion_proofs\\attentiondta_random_cv_family_audit.json",
+    "status": "supported"
+  },
+  {
+    "claim_text": "The current review package remains honest about scope because the strongest Tier 1 evidence is concentrated in DTA and PDBbind-style families.",
+    "source_path": "D:\\documents\\ProteoSphereV2\\artifacts\\status\\literature_hunt_tier1_master_summary.json",
+    "status": "supported"
+  },
+  {
+    "claim_text": "The manuscript should present the analyzer as a dataset reviewer that separates direct split bugs, benchmark-family contamination, invalid external validation, and stronger or mitigation-aware evaluation designs.",
+    "source_path": "D:\\documents\\ProteoSphereV2\\artifacts\\status\\literature_hunt_tier1_master_summary.json",
+    "status": "supported"
+  },
+  {
+    "claim_text": "The compact warehouse is operationally effective but not yet a full evidence-equivalent replacement for every raw artifact surface.",
+    "source_path": "D:\\documents\\ProteoSphereV2\\docs\\reports\\library_vs_broad_collection_equivalence.md",
+    "status": "supported"
+  },
+  {
+    "claim_text": "The tracked source estate currently spans 53 tracked sources with 324,755,949,775 present bytes.",
+    "source_path": "D:\\documents\\ProteoSphereV2\\docs\\reports\\source_coverage_matrix.md",
+    "status": "supported"
+  },
+  {
+    "claim_text": "The current live warehouse root measures 74.2 GB.",
+    "source_path": "D:\\documents\\ProteoSphereV2\\artifacts\\status\\proteosphere_paper_storage_ledger.json",
+    "status": "supported"
+  },
+  {
+    "claim_text": "The current repo data/raw path measures 1.6 TB.",
+    "source_path": "D:\\documents\\ProteoSphereV2\\artifacts\\status\\proteosphere_paper_storage_ledger.json",
+    "status": "supported"
+  },
+  {
+    "claim_text": "The current incoming mirror path measures 1.5 TB.",
+    "source_path": "D:\\documents\\ProteoSphereV2\\artifacts\\status\\proteosphere_paper_storage_ledger.json",
+    "status": "supported"
+  },
+  {
+    "claim_text": "The current manuscript intentionally avoids the unsupported exact phrase '>2 TB to ~25 GB'.",
+    "source_path": "D:\\documents\\ProteoSphereV2\\docs\\reports\\proteosphere_paper_storage_ledger.md",
+    "status": "supported"
+  }
+]

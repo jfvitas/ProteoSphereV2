@@ -1,0 +1,60 @@
+{
+  "paper_id": "baranwal2022struct2graph",
+  "title": "Struct2Graph: a graph attention network for structure based predictions of protein-protein interactions",
+  "doi": "https://doi.org/10.1186/s12859-022-04910-9",
+  "journal": "BMC Bioinformatics",
+  "year": 2022,
+  "domain": "protein_protein",
+  "task_family": "pair_level_ppi_prediction",
+  "benchmark_family": "struct2graph_public_pairs",
+  "tier_target": "tier1_hard_failure",
+  "official_evidence_links": [
+    "https://doi.org/10.1186/s12859-022-04910-9",
+    "https://github.com/baranwa2/Struct2Graph",
+    "https://raw.githubusercontent.com/baranwa2/Struct2Graph/master/create_examples.py"
+  ],
+  "final_status": "tier1_hard_failure",
+  "claimed_split_description": "Balanced-set evaluation and fivefold cross-validation on an unbalanced set are claimed.",
+  "recovered_split_evidence": [
+    "ProteoSphere already reproduced the released split logic and found 643 shared PDB IDs between train and test.",
+    "The released `create_examples.py` logic uses example-level random shuffling and fixed slicing rather than a group-aware split."
+  ],
+  "mitigation_claims": [
+    "No cold-family or accession-group mitigation surfaced in the released split-generation logic."
+  ],
+  "mitigation_audit_result": {
+    "status": "failed",
+    "notes": [
+      "The released split mechanism itself is the source of the leakage.",
+      "No published mitigation neutralizes the direct train/test structure reuse."
+    ]
+  },
+  "exact_failure_class": [
+    "direct_structure_overlap",
+    "pair_level_random_split",
+    "shared_component_leakage"
+  ],
+  "overlap_findings": {
+    "shared_pdb_count": 643,
+    "sample_details": {}
+  },
+  "contamination_findings": {
+    "status": "confirmed_direct_reuse",
+    "notes": [
+      "ProteoSphere reproduced the released split logic and found 643 shared PDB IDs between train and test.",
+      "This is a direct split failure, not a subtle family-similarity issue."
+    ]
+  },
+  "blockers": [],
+  "recommended_proteosphere_treatment": "Keep the original split only as a forensic audit example and rebuild any canonical version with accession- or structure-group-aware partitioning.",
+  "provenance_notes": [
+    "Primary proof came from the local Struct2Graph forensic artifact and reproduced overlap analysis.",
+    "No raw/archive fallback was required for this paper in the current run."
+  ],
+  "raw_archive_fallback_required": false,
+  "scores": {
+    "failure_strength": 5.0,
+    "proof_strength": 5.0,
+    "publication_utility": 7.95
+  }
+}

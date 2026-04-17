@@ -1,0 +1,73 @@
+{
+  "paper_id": "graphppis2021",
+  "title": "GraphPPIS",
+  "doi": "https://doi.org/10.1093/bioinformatics/btab643",
+  "journal": "Bioinformatics",
+  "year": 2021,
+  "domain": "protein_protein",
+  "task_family": "binding_site_prediction",
+  "benchmark_family": "ppis_train335_family",
+  "tier_target": "control_nonfailure",
+  "official_evidence_links": [
+    "https://doi.org/10.1093/bioinformatics/btab643"
+  ],
+  "final_status": "control_nonfailure",
+  "claimed_split_description": "GraphPPIS is the anchor PPIS benchmark paper for the Train_335/Test_60/Test_315/UBtest_31 family and the official release ships the exact datasets.",
+  "recovered_split_evidence": [
+    "Benchmark anchor for the PPIS family; useful as a control because it is paper-faithful and the main concern is later family saturation, not a proven split failure here."
+  ],
+  "mitigation_claims": [
+    "paper_faithful_external"
+  ],
+  "mitigation_audit_result": {
+    "status": "passes_control_check",
+    "notes": [
+      "This paper is useful because the analyzer can validate it as comparatively well-designed instead of flagging everything."
+    ]
+  },
+  "exact_failure_class": [],
+  "overlap_findings": {
+    "direct_overlap": {
+      "status": "published_not_mirrored",
+      "notes": [
+        "The shared PPIS benchmark family is explicit enough for audit planning, but exact chain/residue overlap could not be enumerated without mirroring the pkl/fa files."
+      ]
+    },
+    "accession_root_overlap": {
+      "status": "published_not_mirrored",
+      "notes": [
+        "The shared PPIS benchmark family is explicit enough for audit planning, but exact chain/residue overlap could not be enumerated without mirroring the pkl/fa files."
+      ]
+    },
+    "uniref_overlap": {
+      "status": "theoretically_supported",
+      "notes": [
+        "The shared PPIS benchmark family is explicit enough for audit planning, but exact chain/residue overlap could not be enumerated without mirroring the pkl/fa files.",
+        "Warehouse proteins already cover 203,085,208 UniRef90-assigned rows."
+      ]
+    }
+  },
+  "contamination_findings": {
+    "status": "reviewed",
+    "notes": [
+      "This paper set was pre-filtered to avoid pure cross-validation studies and to prefer explicit held-out or external test splits.",
+      "The main residual risks are identifier-bridge gaps, benchmark-family saturation, and derivative reuse of the same public split family across many later papers.",
+      "Because many later PPIS papers reuse the Train_335/Test_60 lineage, a reviewer should distinguish fair within-family comparison from genuine out-of-family generalization."
+    ]
+  },
+  "blockers": [
+    "benchmark filenames are known, but the exact PPIS roster files were not mirrored into the local audit workspace in this run"
+  ],
+  "recommended_proteosphere_treatment": "Keep this as a `paper_faithful_external` audit lane and mirror the exact released roster into the warehouse so direct leakage diagnostics become first-class rather than inferred.",
+  "provenance_notes": [
+    "Primary evidence came from the condensed warehouse catalog, manifest, source registry, and Model Studio split-policy code.",
+    "Supplemental paper/repo evidence came from official links provided in the curated audit-friendly list and from directly inspected release artifacts where available.",
+    "No raw/archive fallback was used."
+  ],
+  "raw_archive_fallback_required": false,
+  "scores": {
+    "failure_strength": 0.0,
+    "proof_strength": 3.6,
+    "publication_utility": 6.02
+  }
+}

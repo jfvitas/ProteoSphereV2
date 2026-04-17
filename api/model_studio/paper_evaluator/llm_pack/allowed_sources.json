@@ -1,0 +1,13 @@
+{
+  "default_view": "best_evidence",
+  "primary_library_root": "D:/ProteoSphere/reference_library",
+  "allowed_sources": [
+    "D:/ProteoSphere/reference_library/catalog/reference_library.duckdb",
+    "D:/ProteoSphere/reference_library/warehouse_manifest.json",
+    "D:/ProteoSphere/reference_library/control/runtime_validation.latest.json",
+    "D:/ProteoSphere/reference_library/control/source_registry.json",
+    "D:/documents/ProteoSphereV2/api/model_studio/runtime.py",
+    "D:/documents/ProteoSphereV2/api/model_studio/reference_library.py"
+  ],
+  "fallback_rule": "Use raw/archive inputs only for provenance or audit fallback, and only through source_registry.json."
+}

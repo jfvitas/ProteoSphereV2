@@ -1,0 +1,8 @@
+{
+  "proof_id": "struct2graph_local_forensic_audit",
+  "benchmark_family": "struct2graph_public_pairs",
+  "local_artifact_path": "D:\\documents\\ProteoSphereV2\\artifacts\\status\\paper_split_list\\baranwal2022struct2graph.json",
+  "overlay_image_path": "D:\\documents\\ProteoSphereV2\\artifacts\\status\\struct2graph_overlap\\4EQ6_train_test_overlay.png",
+  "shared_pdb_count": 643,
+  "verdict": "Released split-generation logic uses pair-level randomization and reproduces large train/test structure reuse."
+}

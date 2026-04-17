@@ -1,0 +1,296 @@
+{
+  "artifact_id": "literature_hunt_recent_expansion_manifest",
+  "generated_at": "2026-04-14T02:38:56.266325+00:00",
+  "candidate_count": 17,
+  "papers": [
+    {
+      "paper_id": "dta_om2026",
+      "doi": "https://doi.org/10.1016/j.ejmech.2026.118840",
+      "domain": "protein_ligand",
+      "task_family": "drug_target_affinity_prediction",
+      "benchmark_family": "mitigation_aware_control",
+      "suspected_failure_class": "none_control",
+      "suspected_mitigation_strategy": [
+        "Novel-pair and novel-drug holdouts are central to the released evaluation story."
+      ],
+      "evidence_surfaces_available": [
+        "https://doi.org/10.1016/j.ejmech.2026.118840",
+        "https://github.com/MiJia-ID/DTA-OM",
+        "https://raw.githubusercontent.com/MiJia-ID/DTA-OM/main/README.md"
+      ],
+      "tier_target": "control_nonfailure"
+    },
+    {
+      "paper_id": "btdhdta2025",
+      "doi": "https://doi.org/10.1021/acsomega.4c08048",
+      "domain": "protein_ligand",
+      "task_family": "drug_target_affinity_prediction",
+      "benchmark_family": "deepdta_setting1_family",
+      "suspected_failure_class": "likely_warm_start_family_but_under_recovered",
+      "suspected_mitigation_strategy": [
+        "No verifiable mitigation package recovered in this pass."
+      ],
+      "evidence_surfaces_available": [
+        "https://doi.org/10.1021/acsomega.4c08048"
+      ],
+      "tier_target": "tier2_strong_supporting_case"
+    },
+    {
+      "paper_id": "attentionmgtdta2024",
+      "doi": "https://doi.org/10.1016/j.neunet.2023.11.018",
+      "domain": "protein_ligand",
+      "task_family": "drug_target_affinity_prediction",
+      "benchmark_family": "deepdta_setting1_family",
+      "suspected_failure_class": "likely_inherited_warm_start_family",
+      "suspected_mitigation_strategy": [
+        "No explicit cold split was surfaced in the official training script."
+      ],
+      "evidence_surfaces_available": [
+        "https://doi.org/10.1016/j.neunet.2023.11.018",
+        "https://github.com/JK-Liu7/AttentionMGT-DTA",
+        "https://raw.githubusercontent.com/JK-Liu7/AttentionMGT-DTA/main/README.md",
+        "https://raw.githubusercontent.com/JK-Liu7/AttentionMGT-DTA/main/train_DTA.py"
+      ],
+      "tier_target": "tier2_strong_supporting_case"
+    },
+    {
+      "paper_id": "mmfadta2024",
+      "doi": "https://doi.org/10.1021/acs.jctc.4c00663",
+      "domain": "protein_ligand",
+      "task_family": "drug_target_affinity_prediction",
+      "benchmark_family": "deepdta_setting1_family",
+      "suspected_failure_class": "likely_benchmark_family_dependence",
+      "suspected_mitigation_strategy": [
+        "No verified mitigation package recovered in this pass."
+      ],
+      "evidence_surfaces_available": [
+        "https://doi.org/10.1021/acs.jctc.4c00663"
+      ],
+      "tier_target": "tier2_strong_supporting_case"
+    },
+    {
+      "paper_id": "transvaedta2024",
+      "doi": "https://doi.org/10.1016/j.cmpb.2023.108003",
+      "domain": "protein_ligand",
+      "task_family": "drug_target_affinity_prediction",
+      "benchmark_family": "deepdta_setting1_family",
+      "suspected_failure_class": "released_inherited_fold_family_failure",
+      "suspected_mitigation_strategy": [
+        "No cold split or unseen-target split is surfaced in the released package."
+      ],
+      "evidence_surfaces_available": [
+        "https://doi.org/10.1016/j.cmpb.2023.108003",
+        "https://github.com/HPC-NEAU/TransVAE-DTA",
+        "https://raw.githubusercontent.com/HPC-NEAU/TransVAE-DTA/main/README.md"
+      ],
+      "tier_target": "tier1_hard_failure"
+    },
+    {
+      "paper_id": "tefdta2024",
+      "doi": "https://doi.org/10.1093/bioinformatics/btad778",
+      "domain": "protein_ligand",
+      "task_family": "drug_target_affinity_prediction",
+      "benchmark_family": "mitigation_aware_control",
+      "suspected_failure_class": "none_control",
+      "suspected_mitigation_strategy": [
+        "Cold evaluation surfaces are released for both Davis and KIBA."
+      ],
+      "evidence_surfaces_available": [
+        "https://doi.org/10.1093/bioinformatics/btad778",
+        "https://github.com/RefDawn-XD/TEFDTA",
+        "https://raw.githubusercontent.com/RefDawn-XD/TEFDTA/master/README.md"
+      ],
+      "tier_target": "control_nonfailure"
+    },
+    {
+      "paper_id": "deattentiondta2024",
+      "doi": "https://doi.org/10.1093/bioinformatics/btae319",
+      "domain": "protein_ligand",
+      "task_family": "binding_affinity_prediction",
+      "benchmark_family": "pdbbind_core_family",
+      "suspected_failure_class": "inherited_core_set_external_failure",
+      "suspected_mitigation_strategy": [
+        "No unseen-protein or source-family mitigation beyond the standard core-set evaluation is released."
+      ],
+      "evidence_surfaces_available": [
+        "https://doi.org/10.1093/bioinformatics/btae319",
+        "https://github.com/whatamazing1/DEAttentionDTA",
+        "https://raw.githubusercontent.com/whatamazing1/DEAttentionDTA/main/README.md",
+        "https://raw.githubusercontent.com/whatamazing1/DEAttentionDTA/main/src/test.py"
+      ],
+      "tier_target": "tier1_hard_failure"
+    },
+    {
+      "paper_id": "dcgan_dta2024",
+      "doi": "https://doi.org/10.1186/s12864-024-10326-x",
+      "domain": "protein_ligand",
+      "task_family": "drug_target_affinity_prediction",
+      "benchmark_family": "mitigation_aware_control",
+      "suspected_failure_class": "none_control",
+      "suspected_mitigation_strategy": [
+        "Multiple settings imply the paper is not restricted to the warm-start setting only."
+      ],
+      "evidence_surfaces_available": [
+        "https://doi.org/10.1186/s12864-024-10326-x",
+        "https://github.com/mojtabaze7/DCGAN-DTA",
+        "https://raw.githubusercontent.com/mojtabaze7/DCGAN-DTA/main/README.md"
+      ],
+      "tier_target": "control_nonfailure"
+    },
+    {
+      "paper_id": "imagedta2024",
+      "doi": "https://doi.org/10.1021/acsomega.4c02308",
+      "domain": "protein_ligand",
+      "task_family": "drug_target_affinity_prediction",
+      "benchmark_family": "deepdta_setting1_family",
+      "suspected_failure_class": "script_proven_inherited_fold_family_failure",
+      "suspected_mitigation_strategy": [
+        "No released cold-drug, cold-target, or novel-pair setting is used for the main results."
+      ],
+      "evidence_surfaces_available": [
+        "https://doi.org/10.1021/acsomega.4c02308",
+        "https://github.com/neuhanli/ImageDTA",
+        "https://raw.githubusercontent.com/neuhanli/ImageDTA/main/README.md",
+        "https://raw.githubusercontent.com/neuhanli/ImageDTA/main/create_csv.py"
+      ],
+      "tier_target": "tier1_hard_failure"
+    },
+    {
+      "paper_id": "three_d_prot_dta2023",
+      "doi": "https://doi.org/10.1039/D3RA00281K",
+      "domain": "protein_ligand",
+      "task_family": "drug_target_affinity_prediction",
+      "benchmark_family": "deepdta_setting1_family",
+      "suspected_failure_class": "inherited_warm_start_benchmark_failure",
+      "suspected_mitigation_strategy": [
+        "No stronger held-out entity split is released for the core paper benchmark."
+      ],
+      "evidence_surfaces_available": [
+        "https://doi.org/10.1039/D3RA00281K",
+        "https://github.com/HySonLab/Ligand_Generation",
+        "https://raw.githubusercontent.com/HySonLab/Ligand_Generation/main/README.md"
+      ],
+      "tier_target": "tier1_hard_failure"
+    },
+    {
+      "paper_id": "bicompdta2023",
+      "doi": "https://doi.org/10.1371/journal.pcbi.1011036",
+      "domain": "protein_ligand",
+      "task_family": "drug_target_affinity_prediction",
+      "benchmark_family": "deepdta_setting1_family",
+      "suspected_failure_class": "likely_benchmark_family_dependence",
+      "suspected_mitigation_strategy": [
+        "No released countervailing cold split was recovered."
+      ],
+      "evidence_surfaces_available": [
+        "https://doi.org/10.1371/journal.pcbi.1011036"
+      ],
+      "tier_target": "tier2_strong_supporting_case"
+    },
+    {
+      "paper_id": "hacnet2023",
+      "doi": "https://doi.org/10.1021/acs.jcim.3c00251",
+      "domain": "protein_ligand",
+      "task_family": "binding_affinity_prediction",
+      "benchmark_family": "mitigation_aware_control",
+      "suspected_failure_class": "none_control",
+      "suspected_mitigation_strategy": [
+        "The evaluation is explicitly designed to counter common protein/ligand leakage channels."
+      ],
+      "evidence_surfaces_available": [
+        "https://doi.org/10.1021/acs.jcim.3c00251",
+        "https://github.com/gregory-kyro/HAC-Net",
+        "https://raw.githubusercontent.com/gregory-kyro/HAC-Net/main/README.md"
+      ],
+      "tier_target": "control_nonfailure"
+    },
+    {
+      "paper_id": "attentiondta_tcbb2023",
+      "doi": "https://doi.org/10.1109/TCBB.2022.3170365",
+      "domain": "protein_ligand",
+      "task_family": "drug_target_affinity_prediction",
+      "benchmark_family": "attentiondta_random_row_cv",
+      "suspected_failure_class": "code_proven_random_row_cv_leakage",
+      "suspected_mitigation_strategy": [
+        "No cold-drug, cold-target, or cold-pair mitigation is released."
+      ],
+      "evidence_surfaces_available": [
+        "https://doi.org/10.1109/TCBB.2022.3170365",
+        "https://github.com/zhaoqichang/AttentionDTA_TCBB",
+        "https://raw.githubusercontent.com/zhaoqichang/AttentionDTA_TCBB/master/AttentionDTA_main.py",
+        "https://raw.githubusercontent.com/zhaoqichang/AttentionDTA_TCBB/master/datasets/Davis.txt",
+        "https://raw.githubusercontent.com/zhaoqichang/AttentionDTA_TCBB/master/datasets/KIBA.txt",
+        "https://raw.githubusercontent.com/zhaoqichang/AttentionDTA_TCBB/master/datasets/Metz.txt"
+      ],
+      "tier_target": "tier1_hard_failure"
+    },
+    {
+      "paper_id": "graphscoredta2023",
+      "doi": "https://doi.org/10.1093/bioinformatics/btad340",
+      "domain": "protein_ligand",
+      "task_family": "binding_affinity_prediction",
+      "benchmark_family": "pdbbind_core_family",
+      "suspected_failure_class": "released_core_set_family_failure",
+      "suspected_mitigation_strategy": [
+        "No released cold-protein or scaffold-split mitigation neutralizes the inherited core-set overlap."
+      ],
+      "evidence_surfaces_available": [
+        "https://doi.org/10.1093/bioinformatics/btad340",
+        "https://github.com/CSUBioGroup/GraphscoreDTA",
+        "https://raw.githubusercontent.com/CSUBioGroup/GraphscoreDTA/main/README.md"
+      ],
+      "tier_target": "tier1_hard_failure"
+    },
+    {
+      "paper_id": "datadta2023",
+      "doi": "https://doi.org/10.1093/bioinformatics/btad560",
+      "domain": "protein_ligand",
+      "task_family": "binding_affinity_prediction",
+      "benchmark_family": "pdbbind_core_family",
+      "suspected_failure_class": "released_pdbbind_family_without_effective_mitigation",
+      "suspected_mitigation_strategy": [
+        "No explicit cold-protein or source-family separation is released for the headline benchmark package."
+      ],
+      "evidence_surfaces_available": [
+        "https://doi.org/10.1093/bioinformatics/btad560",
+        "https://github.com/YanZhu06/DataDTA",
+        "https://raw.githubusercontent.com/YanZhu06/DataDTA/main/README.md"
+      ],
+      "tier_target": "tier1_hard_failure"
+    },
+    {
+      "paper_id": "capla2023",
+      "doi": "https://doi.org/10.1093/bioinformatics/btad049",
+      "domain": "protein_ligand",
+      "task_family": "binding_affinity_prediction",
+      "benchmark_family": "pdbbind_core_family",
+      "suspected_failure_class": "inherited_core_set_external_failure",
+      "suspected_mitigation_strategy": [
+        "No stronger unseen-protein mitigation is released for the headline benchmark."
+      ],
+      "evidence_surfaces_available": [
+        "https://doi.org/10.1093/bioinformatics/btad049",
+        "https://github.com/lennylv/CAPLA",
+        "https://raw.githubusercontent.com/lennylv/CAPLA/main/README.md"
+      ],
+      "tier_target": "tier1_hard_failure"
+    },
+    {
+      "paper_id": "mgraphdta2022",
+      "doi": "https://doi.org/10.1039/D1SC05180F",
+      "domain": "protein_ligand",
+      "task_family": "drug_target_affinity_prediction",
+      "benchmark_family": "deepdta_setting1_family",
+      "suspected_failure_class": "inherited_warm_start_benchmark_failure",
+      "suspected_mitigation_strategy": [
+        "No cold-drug or cold-target split is released in the official repo."
+      ],
+      "evidence_surfaces_available": [
+        "https://doi.org/10.1039/D1SC05180F",
+        "https://github.com/guaguabujianle/MGraphDTA",
+        "https://raw.githubusercontent.com/guaguabujianle/MGraphDTA/master/README.md"
+      ],
+      "tier_target": "tier1_hard_failure"
+    }
+  ]
+}

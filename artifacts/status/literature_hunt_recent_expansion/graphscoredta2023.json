@@ -1,0 +1,49 @@
+{
+  "paper_id": "graphscoredta2023",
+  "doi": "https://doi.org/10.1093/bioinformatics/btad340",
+  "domain": "protein_ligand",
+  "task_family": "binding_affinity_prediction",
+  "benchmark_family": "pdbbind_core_family",
+  "tier_target": "tier1_hard_failure",
+  "official_evidence_links": [
+    "https://doi.org/10.1093/bioinformatics/btad340",
+    "https://github.com/CSUBioGroup/GraphscoreDTA",
+    "https://raw.githubusercontent.com/CSUBioGroup/GraphscoreDTA/main/README.md"
+  ],
+  "claimed_split_description": "The model reports performance on training, test2016, and test2013 sets distributed with the official repo.",
+  "recovered_split_evidence": [
+    "The repo releases labels_train13851.csv, labels_test2016.csv, and labels_test2013.csv.",
+    "Those released files place the paper directly inside the proven PDBbind core-set family."
+  ],
+  "mitigation_claims": [
+    "No released cold-protein or scaffold-split mitigation neutralizes the inherited core-set overlap."
+  ],
+  "mitigation_audit_result": "The paper inherits the leaky PDBbind core evaluation family as its headline external lane.",
+  "exact_failure_class": "released_core_set_family_failure",
+  "overlap_findings": {
+    "direct_entity_overlap": true,
+    "notes": [
+      "Official test2016/test2013 labels align with the core-set family already proven protein-overlapped."
+    ]
+  },
+  "contamination_findings": {
+    "notes": [
+      "Claims of broad external generalization are too strong for a protein-overlapped core-set benchmark."
+    ]
+  },
+  "blockers": [],
+  "recommended_proteosphere_treatment": "Tier 1 hard failure for externality claims; acceptable only as a paper-faithful core-set benchmark lane.",
+  "provenance_notes": [
+    "Recent 2023 Bioinformatics paper with released core-family labels."
+  ],
+  "raw_archive_fallback_required": false,
+  "final_status": "tier1_hard_failure",
+  "scores": {
+    "publication_utility": 4.6,
+    "failure_strength": 4.6,
+    "proof_strength": 4.7
+  },
+  "title": "GraphscoreDTA: optimized graph neural network for protein\u2013ligand binding affinity prediction",
+  "journal": "Bioinformatics",
+  "year": 2023
+}

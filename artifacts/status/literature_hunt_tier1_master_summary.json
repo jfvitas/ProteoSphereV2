@@ -1,0 +1,5034 @@
+{
+  "artifact_id": "literature_hunt_tier1_master_summary",
+  "schema_id": "proteosphere.literature_hunt_tier1_master_summary.v1",
+  "generated_at": "2026-04-14T12:10:26.902714+00:00",
+  "status": "completed",
+  "source_reports": [
+    "D:\\documents\\ProteoSphereV2\\artifacts\\status\\literature_hunt_deep_review.json",
+    "D:\\documents\\ProteoSphereV2\\artifacts\\status\\literature_hunt_recent_expansion.json"
+  ],
+  "summary": {
+    "tier1_total": 29,
+    "recent_2023plus_count": 18,
+    "domain_counts": {
+      "protein_protein": 2,
+      "protein_ligand": 27
+    },
+    "issue_family_counts": {
+      "paper_specific_direct_reuse": 1,
+      "invalid_external_validation": 1,
+      "warm_start_benchmark_family": 14,
+      "protein_overlapped_external_family": 12,
+      "paper_specific_random_cv_leakage": 1
+    },
+    "benchmark_family_counts": {
+      "struct2graph_public_pairs": 1,
+      "prodigy78_plus_external_panels": 1,
+      "deepdta_setting1_family": 14,
+      "pdbbind_core_family": 12,
+      "attentiondta_random_row_cv": 1
+    },
+    "year_counts": {
+      "2018": 2,
+      "2019": 1,
+      "2020": 1,
+      "2021": 4,
+      "2022": 3,
+      "2023": 10,
+      "2024": 5,
+      "2025": 3
+    },
+    "paper_ids": [
+      "gsdta2025",
+      "megdta2025",
+      "gnnseq2025",
+      "deeptgin2024",
+      "empdta2024",
+      "deattentiondta2024",
+      "imagedta2024",
+      "transvaedta2024",
+      "d2cp05644e_2023",
+      "ss_gnn2023",
+      "dgdta2023",
+      "curvagn2023",
+      "iedgedta2023",
+      "attentiondta_tcbb2023",
+      "graphscoredta2023",
+      "capla2023",
+      "datadta2023",
+      "three_d_prot_dta2023",
+      "baranwal2022struct2graph",
+      "csatdta2022",
+      "mgraphdta2022",
+      "graphdta2021",
+      "sagdta2021",
+      "onionnet2_2021",
+      "se_onionnet2021",
+      "gansdta2020",
+      "onionnet2019",
+      "deepdta2018",
+      "pafnucy2018"
+    ]
+  },
+  "review_paper_assessment": {
+    "overall_verdict": "strong_if_carefully_framed",
+    "quality_score_10": 8.4,
+    "novelty_score_10": 8.1,
+    "publishability_score_10": 7.8,
+    "strengths": [
+      "There are now 29 proof-backed Tier 1 failures rather than just a few anecdotal examples.",
+      "The package includes both spectacular paper-specific failures and benchmark-family failures that many later papers inherit.",
+      "The evidence is machine-readable, reproducible, and paired with mitigation-aware controls so the analyzer looks fair rather than indiscriminately negative.",
+      "The story is current: 18 of the Tier 1 papers are from 2023 or later."
+    ],
+    "weaknesses": [
+      "The Tier 1 set is still concentrated in protein-ligand / DTA and PDBbind-style evaluation families.",
+      "Not every Tier 1 paper is equally strong; some are direct code-proven failures while others are inherited benchmark-family failures without paper-specific split bugs.",
+      "Broader domains such as antibody, peptide, protein-RNA, and protein-DNA are still underrepresented at the hard-proof level."
+    ],
+    "novelty_statement": "The most novel contribution is not merely claiming that leakage exists. It is showing, with reproducible artifacts, how a warehouse-first dataset analyzer can detect paper-specific split bugs, benchmark-family contamination, invalid external validation, and incomplete evidence while also validating mitigation-aware controls.",
+    "publishability_assessment": "This is publishable if framed as a rigorous dataset-audit and benchmark-governance paper rather than a blanket criticism of a field. The strongest venues are likely methods- or bioinformatics-oriented journals that value reproducibility, benchmark critique, and practical tooling.",
+    "best_target_venues": [
+      "Bioinformatics",
+      "Briefings in Bioinformatics",
+      "Journal of Chemical Information and Modeling",
+      "Patterns",
+      "PLOS Computational Biology"
+    ],
+    "major_risks": [
+      "Over-claiming that all Tier 1 papers are equally broken.",
+      "Not separating direct leakage failures from inherited benchmark-family failures.",
+      "Not including enough controls to prove the analyzer can also validate good practice."
+    ],
+    "highest_value_next_steps": [
+      "Add 3 to 5 more direct paper-specific failures outside the current DTA/PDBbind clusters.",
+      "Add a short manual validation appendix with one or two independently re-run case studies.",
+      "Turn the methods section into an explicit decision ladder: warehouse-first, official artifacts second, fallback only when necessary.",
+      "Keep the narrative tiered: flagship proofs, supporting breadth, then controls."
+    ],
+    "domain_concentration": {
+      "protein_ligand": 27,
+      "protein_protein": 2
+    },
+    "benchmark_family_concentration": {
+      "deepdta_setting1_family": 14,
+      "pdbbind_core_family": 12,
+      "prodigy78_plus_external_panels": 1,
+      "attentiondta_random_row_cv": 1,
+      "struct2graph_public_pairs": 1
+    }
+  },
+  "papers": [
+    {
+      "paper_id": "gsdta2025",
+      "title": "GS-DTA: integrating graph and sequence models for predicting drug-target binding affinity",
+      "doi": "https://doi.org/10.1186/s12864-025-11234-4",
+      "journal": "BMC Genomics",
+      "year": 2025,
+      "domain": "protein_ligand",
+      "task_family": "drug_target_affinity_prediction",
+      "benchmark_family": "deepdta_setting1_family",
+      "tier_target": "tier1_hard_failure",
+      "official_evidence_links": [
+        "https://doi.org/10.1186/s12864-025-11234-4",
+        "https://github.com/zhuziguang/GS-DTA"
+      ],
+      "final_status": "tier1_hard_failure",
+      "claimed_split_description": "The paper's headline benchmark inherits a released benchmark family whose split is recoverable and evaluable under ProteoSphere.",
+      "recovered_split_evidence": [
+        "The official article says the Davis and KIBA data can be downloaded from the GraphDTA repository.",
+        "The official setting1 split is a hard warm-start failure for unseen-entity evaluation: Davis shares every test drug and every test target with training, and KIBA shares almost all."
+      ],
+      "mitigation_claims": [
+        "none"
+      ],
+      "mitigation_audit_result": {
+        "status": "failed",
+        "notes": [
+          "No meaningful mitigation strategy was surfaced in the official evidence for the headline benchmark result.",
+          "The benchmark family itself remains block-worthy under ProteoSphere once the split is reconstructed."
+        ]
+      },
+      "exact_failure_class": [
+        "shared_drug_identity_between_train_test",
+        "shared_target_identity_between_train_test",
+        "benchmark_inheritance_without_mitigation"
+      ],
+      "overlap_findings": {
+        "davis": {
+          "shared_drug_count": 68,
+          "test_unique_drug_count": 68,
+          "shared_target_count": 442,
+          "test_unique_target_count": 442
+        },
+        "kiba": {
+          "shared_drug_count": 2027,
+          "test_unique_drug_count": 2027,
+          "shared_target_count": 229,
+          "test_unique_target_count": 229
+        }
+      },
+      "contamination_findings": {
+        "status": "confirmed_family_level_failure",
+        "notes": [
+          "ProteoSphere re-computed overlap directly from the official DeepDTA split files.",
+          "Davis is a full warm-start failure: every test drug and every test target also appear in training.",
+          "KIBA is nearly the same: 1938 of 2027 test drugs and 228 of 229 test targets also appear in training."
+        ]
+      },
+      "blockers": [],
+      "recommended_proteosphere_treatment": "Do not use the released split as evidence of unseen-drug or unseen-target generalization. Keep it only as a paper-faithful audit lane and pair it with cold-drug, cold-target, or cold-drug+target splits.",
+      "provenance_notes": [
+        "The benchmark-family proof was computed in this run from official released artifacts and local audit data where required.",
+        "The paper was promoted to Tier 1 only because it inherits that proven failure without a mitigation layer strong enough to neutralize it."
+      ],
+      "raw_archive_fallback_required": false,
+      "scores": {
+        "failure_strength": 5.0,
+        "proof_strength": 4.7,
+        "publication_utility": 7.64
+      },
+      "issue_family": "warm_start_benchmark_family"
+    },
+    {
+      "paper_id": "megdta2025",
+      "title": "MEGDTA: multi-modal drug-target affinity prediction based on protein three-dimensional structure and ensemble graph neural network",
+      "doi": "https://doi.org/10.1186/s12864-025-11943-w",
+      "journal": "BMC Genomics",
+      "year": 2025,
+      "domain": "protein_ligand",
+      "task_family": "drug_target_affinity_prediction",
+      "benchmark_family": "deepdta_setting1_family",
+      "tier_target": "tier1_hard_failure",
+      "official_evidence_links": [
+        "https://doi.org/10.1186/s12864-025-11943-w",
+        "https://github.com/liyijuncode/MEGDTA"
+      ],
+      "final_status": "tier1_hard_failure",
+      "claimed_split_description": "The paper's headline benchmark inherits a released benchmark family whose split is recoverable and evaluable under ProteoSphere.",
+      "recovered_split_evidence": [
+        "The official article says the Davis and KIBA datasets can be downloaded from the GraphDTA repository.",
+        "The official setting1 split is a hard warm-start failure for unseen-entity evaluation: Davis shares every test drug and every test target with training, and KIBA shares almost all."
+      ],
+      "mitigation_claims": [
+        "none for the headline Davis/KIBA evaluation"
+      ],
+      "mitigation_audit_result": {
+        "status": "failed",
+        "notes": [
+          "No meaningful mitigation strategy was surfaced in the official evidence for the headline benchmark result.",
+          "The benchmark family itself remains block-worthy under ProteoSphere once the split is reconstructed."
+        ]
+      },
+      "exact_failure_class": [
+        "shared_drug_identity_between_train_test",
+        "shared_target_identity_between_train_test",
+        "benchmark_inheritance_without_mitigation"
+      ],
+      "overlap_findings": {
+        "davis": {
+          "shared_drug_count": 68,
+          "test_unique_drug_count": 68,
+          "shared_target_count": 442,
+          "test_unique_target_count": 442
+        },
+        "kiba": {
+          "shared_drug_count": 2027,
+          "test_unique_drug_count": 2027,
+          "shared_target_count": 229,
+          "test_unique_target_count": 229
+        }
+      },
+      "contamination_findings": {
+        "status": "confirmed_family_level_failure",
+        "notes": [
+          "ProteoSphere re-computed overlap directly from the official DeepDTA split files.",
+          "Davis is a full warm-start failure: every test drug and every test target also appear in training.",
+          "KIBA is nearly the same: 1938 of 2027 test drugs and 228 of 229 test targets also appear in training."
+        ]
+      },
+      "blockers": [],
+      "recommended_proteosphere_treatment": "Do not use the released split as evidence of unseen-drug or unseen-target generalization. Keep it only as a paper-faithful audit lane and pair it with cold-drug, cold-target, or cold-drug+target splits.",
+      "provenance_notes": [
+        "The benchmark-family proof was computed in this run from official released artifacts and local audit data where required.",
+        "The paper was promoted to Tier 1 only because it inherits that proven failure without a mitigation layer strong enough to neutralize it."
+      ],
+      "raw_archive_fallback_required": false,
+      "scores": {
+        "failure_strength": 5.0,
+        "proof_strength": 4.7,
+        "publication_utility": 7.64
+      },
+      "issue_family": "warm_start_benchmark_family"
+    },
+    {
+      "paper_id": "gnnseq2025",
+      "title": "GNNSeq: A Sequence-Based Graph Neural Network for Predicting Protein-Ligand Binding Affinity",
+      "doi": "https://doi.org/10.3390/ph18030329",
+      "journal": "Pharmaceuticals",
+      "year": 2025,
+      "domain": "protein_ligand",
+      "task_family": "binding_affinity_prediction",
+      "benchmark_family": "pdbbind_core_family",
+      "tier_target": "tier1_hard_failure",
+      "official_evidence_links": [
+        "https://doi.org/10.3390/ph18030329"
+      ],
+      "final_status": "tier1_hard_failure",
+      "claimed_split_description": "The paper's headline benchmark inherits a released benchmark family whose split is recoverable and evaluable under ProteoSphere.",
+      "recovered_split_evidence": [
+        "The paper reports benchmark performance on the PDBbind refined/core lineage without an orthogonal cold-target or homology-aware split.",
+        "The standard PDBbind core-set evaluation family is not a clean unseen-protein benchmark: v2016 core retains direct protein overlap for 288 of 290 test complexes against the remaining general set, and v2013 core retains overlap for all 108 test complexes."
+      ],
+      "mitigation_claims": [
+        "none surfaced in benchmark description"
+      ],
+      "mitigation_audit_result": {
+        "status": "failed",
+        "notes": [
+          "No meaningful mitigation strategy was surfaced in the official evidence for the headline benchmark result.",
+          "The benchmark family itself remains block-worthy under ProteoSphere once the split is reconstructed."
+        ]
+      },
+      "exact_failure_class": [
+        "direct_protein_identity_overlap_between_training_and_test",
+        "legacy_core_set_external_evaluation",
+        "receptor_reuse"
+      ],
+      "overlap_findings": {
+        "v2016_core": {
+          "test_count": 290,
+          "training_pool_count": 18747,
+          "test_complexes_with_direct_protein_overlap": 288,
+          "shared_accession_count": 77,
+          "top_shared_accessions": [
+            {
+              "accession": "Q9Y233",
+              "test_overlap_count": 10
+            },
+            {
+              "accession": "P00811",
+              "test_overlap_count": 5
+            },
+            {
+              "accession": "P00760",
+              "test_overlap_count": 5
+            },
+            {
+              "accession": "Q24451",
+              "test_overlap_count": 5
+            },
+            {
+              "accession": "P9WIL5",
+              "test_overlap_count": 5
+            },
+            {
+              "accession": "P00918",
+              "test_overlap_count": 5
+            },
+            {
+              "accession": "Q9L5C8",
+              "test_overlap_count": 5
+            },
+            {
+              "accession": "P61823",
+              "test_overlap_count": 5
+            },
+            {
+              "accession": "P00489",
+              "test_overlap_count": 5
+            },
+            {
+              "accession": "P00749",
+              "test_overlap_count": 5
+            }
+          ],
+          "sample_overlaps": [
+            {
+              "test_pdb_id": "3ao4",
+              "shared_accessions": [
+                "Q72498"
+              ],
+              "sample_train_ids": [
+                "3ao1",
+                "3ao5",
+                "3ovn",
+                "5wlo",
+                "6b4n",
+                "6dgx"
+              ]
+            },
+            {
+              "test_pdb_id": "3gv9",
+              "shared_accessions": [
+                "P00811"
+              ],
+              "sample_train_ids": [
+                "1c3b",
+                "1fsw",
+                "1fsy",
+                "1ga9",
+                "1iem",
+                "1kds"
+              ]
+            },
+            {
+              "test_pdb_id": "1uto",
+              "shared_accessions": [
+                "P00760"
+              ],
+              "sample_train_ids": [
+                "1aq7",
+                "1auj",
+                "1bju",
+                "1bjv",
+                "1bty",
+                "1c1r"
+              ]
+            },
+            {
+              "test_pdb_id": "1ps3",
+              "shared_accessions": [
+                "Q24451"
+              ],
+              "sample_train_ids": [
+                "1hty",
+                "1hww",
+                "1hxk",
+                "1qwu",
+                "1qx1",
+                "2f18"
+              ]
+            },
+            {
+              "test_pdb_id": "4ddk",
+              "shared_accessions": [
+                "P9WIL5"
+              ],
+              "sample_train_ids": [
+                "1n3i",
+                "3cow",
+                "3imc",
+                "3ime",
+                "3img",
+                "3iob"
+              ]
+            },
+            {
+              "test_pdb_id": "4jsz",
+              "shared_accessions": [
+                "P00918"
+              ],
+              "sample_train_ids": [
+                "1a42",
+                "1avn",
+                "1bcd",
+                "1bn1",
+                "1bn3",
+                "1bn4"
+              ]
+            },
+            {
+              "test_pdb_id": "3g2z",
+              "shared_accessions": [
+                "Q9L5C8"
+              ],
+              "sample_train_ids": [
+                "1ym1",
+                "1yms",
+                "1ymx",
+                "3g2y",
+                "3g30",
+                "3g32"
+              ]
+            },
+            {
+              "test_pdb_id": "3dxg",
+              "shared_accessions": [
+                "P61823"
+              ],
+              "sample_train_ids": [
+                "1afk",
+                "1afl",
+                "1j7z",
+                "1j80",
+                "1j81",
+                "1jn4"
+              ]
+            },
+            {
+              "test_pdb_id": "3l7b",
+              "shared_accessions": [
+                "P00489"
+              ],
+              "sample_train_ids": [
+                "1a8i",
+                "1axr",
+                "1b4d",
+                "1c50",
+                "1c8k",
+                "1c8l"
+              ]
+            },
+            {
+              "test_pdb_id": "3gr2",
+              "shared_accessions": [
+                "P00811"
+              ],
+              "sample_train_ids": [
+                "1c3b",
+                "1fsw",
+                "1fsy",
+                "1ga9",
+                "1iem",
+                "1kds"
+              ]
+            }
+          ],
+          "failure_class": "core_set_retains_direct_protein_identity_overlap_against_training_pool"
+        },
+        "v2013_core": {
+          "test_count": 108,
+          "training_pool_count": 18929,
+          "test_complexes_with_direct_protein_overlap": 108,
+          "shared_accession_count": 50,
+          "top_shared_accessions": [
+            {
+              "accession": "P00734",
+              "test_overlap_count": 3
+            },
+            {
+              "accession": "P04058",
+              "test_overlap_count": 3
+            },
+            {
+              "accession": "P00742",
+              "test_overlap_count": 3
+            },
+            {
+              "accession": "O14757",
+              "test_overlap_count": 3
+            },
+            {
+              "accession": "P00760",
+              "test_overlap_count": 3
+            },
+            {
+              "accession": "P00749",
+              "test_overlap_count": 3
+            },
+            {
+              "accession": "Q24451",
+              "test_overlap_count": 3
+            },
+            {
+              "accession": "P00517",
+              "test_overlap_count": 3
+            },
+            {
+              "accession": "P61823",
+              "test_overlap_count": 3
+            },
+            {
+              "accession": "P07900",
+              "test_overlap_count": 3
+            }
+          ],
+          "sample_overlaps": [
+            {
+              "test_pdb_id": "1a30",
+              "shared_accessions": [
+                "P04585"
+              ],
+              "sample_train_ids": [
+                "1bv7",
+                "1bv9",
+                "1bwa",
+                "1bwb",
+                "1dmp",
+                "1dtq"
+              ]
+            },
+            {
+              "test_pdb_id": "1bcu",
+              "shared_accessions": [
+                "P00734",
+                "P01050"
+              ],
+              "sample_train_ids": [
+                "1a2c",
+                "1a3e",
+                "1a46",
+                "1a4w",
+                "1a5g",
+                "1a61"
+              ]
+            },
+            {
+              "test_pdb_id": "1e66",
+              "shared_accessions": [
+                "P04058"
+              ],
+              "sample_train_ids": [
+                "1acj",
+                "1amn",
+                "1dx6",
+                "1eve",
+                "1gpn",
+                "1gqs"
+              ]
+            },
+            {
+              "test_pdb_id": "1gpk",
+              "shared_accessions": [
+                "P04058"
+              ],
+              "sample_train_ids": [
+                "1acj",
+                "1amn",
+                "1dx6",
+                "1eve",
+                "1gpn",
+                "1gqs"
+              ]
+            },
+            {
+              "test_pdb_id": "1h23",
+              "shared_accessions": [
+                "P04058"
+              ],
+              "sample_train_ids": [
+                "1acj",
+                "1amn",
+                "1dx6",
+                "1eve",
+                "1gpn",
+                "1gqs"
+              ]
+            },
+            {
+              "test_pdb_id": "1mq6",
+              "shared_accessions": [
+                "P00742"
+              ],
+              "sample_train_ids": [
+                "1ezq",
+                "1f0r",
+                "1f0s",
+                "1fax",
+                "1fjs",
+                "1g2l"
+              ]
+            },
+            {
+              "test_pdb_id": "1nvq",
+              "shared_accessions": [
+                "O14757"
+              ],
+              "sample_train_ids": [
+                "1nvr",
+                "1nvs",
+                "2ayp",
+                "2br1",
+                "2brg",
+                "2brh"
+              ]
+            },
+            {
+              "test_pdb_id": "1o3f",
+              "shared_accessions": [
+                "P00760"
+              ],
+              "sample_train_ids": [
+                "1aq7",
+                "1auj",
+                "1bju",
+                "1bjv",
+                "1bty",
+                "1c1r"
+              ]
+            },
+            {
+              "test_pdb_id": "1o5b",
+              "shared_accessions": [
+                "P00749"
+              ],
+              "sample_train_ids": [
+                "1c5x",
+                "1c5y",
+                "1c5z",
+                "1ejn",
+                "1f5k",
+                "1f5l"
+              ]
+            },
+            {
+              "test_pdb_id": "1oyt",
+              "shared_accessions": [
+                "P00734",
+                "P28506"
+              ],
+              "sample_train_ids": [
+                "1a2c",
+                "1a3e",
+                "1a46",
+                "1a4w",
+                "1a5g",
+                "1a61"
+              ]
+            }
+          ],
+          "failure_class": "core_set_retains_direct_protein_identity_overlap_against_training_pool"
+        }
+      },
+      "contamination_findings": {
+        "status": "confirmed_family_level_failure",
+        "notes": [
+          "ProteoSphere resolved the official core-set ID lists and compared them against the remaining local PDBbind general pool through SIFTS accessions.",
+          "The v2016 core set retains direct protein overlap for 288 of 290 test complexes against the remaining general pool.",
+          "The v2013 core set retains direct protein overlap for all 108 test complexes."
+        ]
+      },
+      "blockers": [],
+      "recommended_proteosphere_treatment": "Do not treat refined/general-to-core evaluation as a clean external benchmark. Use time-split, homology-cluster, or cold-target validation for governing claims.",
+      "provenance_notes": [
+        "The benchmark-family proof was computed in this run from official released artifacts and local audit data where required.",
+        "The paper was promoted to Tier 1 only because it inherits that proven failure without a mitigation layer strong enough to neutralize it."
+      ],
+      "raw_archive_fallback_required": true,
+      "scores": {
+        "failure_strength": 5.0,
+        "proof_strength": 4.3,
+        "publication_utility": 7.21
+      },
+      "issue_family": "protein_overlapped_external_family"
+    },
+    {
+      "paper_id": "deeptgin2024",
+      "title": "DeepTGIN: improving protein-ligand affinity prediction with a hybrid temporal and graph interaction network",
+      "doi": "https://doi.org/10.1186/s13321-024-00938-6",
+      "journal": "Journal of Cheminformatics",
+      "year": 2024,
+      "domain": "protein_ligand",
+      "task_family": "binding_affinity_prediction",
+      "benchmark_family": "pdbbind_core_family",
+      "tier_target": "tier1_hard_failure",
+      "official_evidence_links": [
+        "https://doi.org/10.1186/s13321-024-00938-6"
+      ],
+      "final_status": "tier1_hard_failure",
+      "claimed_split_description": "The paper's headline benchmark inherits a released benchmark family whose split is recoverable and evaluable under ProteoSphere.",
+      "recovered_split_evidence": [
+        "The official article says DeepTGIN uses the PDBbind 2016 core set as the primary test set and the PDBbind 2013 core set as an additional test set.",
+        "The standard PDBbind core-set evaluation family is not a clean unseen-protein benchmark: v2016 core retains direct protein overlap for 288 of 290 test complexes against the remaining general set, and v2013 core retains overlap for all 108 test complexes."
+      ],
+      "mitigation_claims": [
+        "none"
+      ],
+      "mitigation_audit_result": {
+        "status": "failed",
+        "notes": [
+          "No meaningful mitigation strategy was surfaced in the official evidence for the headline benchmark result.",
+          "The benchmark family itself remains block-worthy under ProteoSphere once the split is reconstructed."
+        ]
+      },
+      "exact_failure_class": [
+        "direct_protein_identity_overlap_between_training_and_test",
+        "legacy_core_set_external_evaluation",
+        "receptor_reuse"
+      ],
+      "overlap_findings": {
+        "v2016_core": {
+          "test_count": 290,
+          "training_pool_count": 18747,
+          "test_complexes_with_direct_protein_overlap": 288,
+          "shared_accession_count": 77,
+          "top_shared_accessions": [
+            {
+              "accession": "Q9Y233",
+              "test_overlap_count": 10
+            },
+            {
+              "accession": "P00811",
+              "test_overlap_count": 5
+            },
+            {
+              "accession": "P00760",
+              "test_overlap_count": 5
+            },
+            {
+              "accession": "Q24451",
+              "test_overlap_count": 5
+            },
+            {
+              "accession": "P9WIL5",
+              "test_overlap_count": 5
+            },
+            {
+              "accession": "P00918",
+              "test_overlap_count": 5
+            },
+            {
+              "accession": "Q9L5C8",
+              "test_overlap_count": 5
+            },
+            {
+              "accession": "P61823",
+              "test_overlap_count": 5
+            },
+            {
+              "accession": "P00489",
+              "test_overlap_count": 5
+            },
+            {
+              "accession": "P00749",
+              "test_overlap_count": 5
+            }
+          ],
+          "sample_overlaps": [
+            {
+              "test_pdb_id": "3ao4",
+              "shared_accessions": [
+                "Q72498"
+              ],
+              "sample_train_ids": [
+                "3ao1",
+                "3ao5",
+                "3ovn",
+                "5wlo",
+                "6b4n",
+                "6dgx"
+              ]
+            },
+            {
+              "test_pdb_id": "3gv9",
+              "shared_accessions": [
+                "P00811"
+              ],
+              "sample_train_ids": [
+                "1c3b",
+                "1fsw",
+                "1fsy",
+                "1ga9",
+                "1iem",
+                "1kds"
+              ]
+            },
+            {
+              "test_pdb_id": "1uto",
+              "shared_accessions": [
+                "P00760"
+              ],
+              "sample_train_ids": [
+                "1aq7",
+                "1auj",
+                "1bju",
+                "1bjv",
+                "1bty",
+                "1c1r"
+              ]
+            },
+            {
+              "test_pdb_id": "1ps3",
+              "shared_accessions": [
+                "Q24451"
+              ],
+              "sample_train_ids": [
+                "1hty",
+                "1hww",
+                "1hxk",
+                "1qwu",
+                "1qx1",
+                "2f18"
+              ]
+            },
+            {
+              "test_pdb_id": "4ddk",
+              "shared_accessions": [
+                "P9WIL5"
+              ],
+              "sample_train_ids": [
+                "1n3i",
+                "3cow",
+                "3imc",
+                "3ime",
+                "3img",
+                "3iob"
+              ]
+            },
+            {
+              "test_pdb_id": "4jsz",
+              "shared_accessions": [
+                "P00918"
+              ],
+              "sample_train_ids": [
+                "1a42",
+                "1avn",
+                "1bcd",
+                "1bn1",
+                "1bn3",
+                "1bn4"
+              ]
+            },
+            {
+              "test_pdb_id": "3g2z",
+              "shared_accessions": [
+                "Q9L5C8"
+              ],
+              "sample_train_ids": [
+                "1ym1",
+                "1yms",
+                "1ymx",
+                "3g2y",
+                "3g30",
+                "3g32"
+              ]
+            },
+            {
+              "test_pdb_id": "3dxg",
+              "shared_accessions": [
+                "P61823"
+              ],
+              "sample_train_ids": [
+                "1afk",
+                "1afl",
+                "1j7z",
+                "1j80",
+                "1j81",
+                "1jn4"
+              ]
+            },
+            {
+              "test_pdb_id": "3l7b",
+              "shared_accessions": [
+                "P00489"
+              ],
+              "sample_train_ids": [
+                "1a8i",
+                "1axr",
+                "1b4d",
+                "1c50",
+                "1c8k",
+                "1c8l"
+              ]
+            },
+            {
+              "test_pdb_id": "3gr2",
+              "shared_accessions": [
+                "P00811"
+              ],
+              "sample_train_ids": [
+                "1c3b",
+                "1fsw",
+                "1fsy",
+                "1ga9",
+                "1iem",
+                "1kds"
+              ]
+            }
+          ],
+          "failure_class": "core_set_retains_direct_protein_identity_overlap_against_training_pool"
+        },
+        "v2013_core": {
+          "test_count": 108,
+          "training_pool_count": 18929,
+          "test_complexes_with_direct_protein_overlap": 108,
+          "shared_accession_count": 50,
+          "top_shared_accessions": [
+            {
+              "accession": "P00734",
+              "test_overlap_count": 3
+            },
+            {
+              "accession": "P04058",
+              "test_overlap_count": 3
+            },
+            {
+              "accession": "P00742",
+              "test_overlap_count": 3
+            },
+            {
+              "accession": "O14757",
+              "test_overlap_count": 3
+            },
+            {
+              "accession": "P00760",
+              "test_overlap_count": 3
+            },
+            {
+              "accession": "P00749",
+              "test_overlap_count": 3
+            },
+            {
+              "accession": "Q24451",
+              "test_overlap_count": 3
+            },
+            {
+              "accession": "P00517",
+              "test_overlap_count": 3
+            },
+            {
+              "accession": "P61823",
+              "test_overlap_count": 3
+            },
+            {
+              "accession": "P07900",
+              "test_overlap_count": 3
+            }
+          ],
+          "sample_overlaps": [
+            {
+              "test_pdb_id": "1a30",
+              "shared_accessions": [
+                "P04585"
+              ],
+              "sample_train_ids": [
+                "1bv7",
+                "1bv9",
+                "1bwa",
+                "1bwb",
+                "1dmp",
+                "1dtq"
+              ]
+            },
+            {
+              "test_pdb_id": "1bcu",
+              "shared_accessions": [
+                "P00734",
+                "P01050"
+              ],
+              "sample_train_ids": [
+                "1a2c",
+                "1a3e",
+                "1a46",
+                "1a4w",
+                "1a5g",
+                "1a61"
+              ]
+            },
+            {
+              "test_pdb_id": "1e66",
+              "shared_accessions": [
+                "P04058"
+              ],
+              "sample_train_ids": [
+                "1acj",
+                "1amn",
+                "1dx6",
+                "1eve",
+                "1gpn",
+                "1gqs"
+              ]
+            },
+            {
+              "test_pdb_id": "1gpk",
+              "shared_accessions": [
+                "P04058"
+              ],
+              "sample_train_ids": [
+                "1acj",
+                "1amn",
+                "1dx6",
+                "1eve",
+                "1gpn",
+                "1gqs"
+              ]
+            },
+            {
+              "test_pdb_id": "1h23",
+              "shared_accessions": [
+                "P04058"
+              ],
+              "sample_train_ids": [
+                "1acj",
+                "1amn",
+                "1dx6",
+                "1eve",
+                "1gpn",
+                "1gqs"
+              ]
+            },
+            {
+              "test_pdb_id": "1mq6",
+              "shared_accessions": [
+                "P00742"
+              ],
+              "sample_train_ids": [
+                "1ezq",
+                "1f0r",
+                "1f0s",
+                "1fax",
+                "1fjs",
+                "1g2l"
+              ]
+            },
+            {
+              "test_pdb_id": "1nvq",
+              "shared_accessions": [
+                "O14757"
+              ],
+              "sample_train_ids": [
+                "1nvr",
+                "1nvs",
+                "2ayp",
+                "2br1",
+                "2brg",
+                "2brh"
+              ]
+            },
+            {
+              "test_pdb_id": "1o3f",
+              "shared_accessions": [
+                "P00760"
+              ],
+              "sample_train_ids": [
+                "1aq7",
+                "1auj",
+                "1bju",
+                "1bjv",
+                "1bty",
+                "1c1r"
+              ]
+            },
+            {
+              "test_pdb_id": "1o5b",
+              "shared_accessions": [
+                "P00749"
+              ],
+              "sample_train_ids": [
+                "1c5x",
+                "1c5y",
+                "1c5z",
+                "1ejn",
+                "1f5k",
+                "1f5l"
+              ]
+            },
+            {
+              "test_pdb_id": "1oyt",
+              "shared_accessions": [
+                "P00734",
+                "P28506"
+              ],
+              "sample_train_ids": [
+                "1a2c",
+                "1a3e",
+                "1a46",
+                "1a4w",
+                "1a5g",
+                "1a61"
+              ]
+            }
+          ],
+          "failure_class": "core_set_retains_direct_protein_identity_overlap_against_training_pool"
+        }
+      },
+      "contamination_findings": {
+        "status": "confirmed_family_level_failure",
+        "notes": [
+          "ProteoSphere resolved the official core-set ID lists and compared them against the remaining local PDBbind general pool through SIFTS accessions.",
+          "The v2016 core set retains direct protein overlap for 288 of 290 test complexes against the remaining general pool.",
+          "The v2013 core set retains direct protein overlap for all 108 test complexes."
+        ]
+      },
+      "blockers": [],
+      "recommended_proteosphere_treatment": "Do not treat refined/general-to-core evaluation as a clean external benchmark. Use time-split, homology-cluster, or cold-target validation for governing claims.",
+      "provenance_notes": [
+        "The benchmark-family proof was computed in this run from official released artifacts and local audit data where required.",
+        "The paper was promoted to Tier 1 only because it inherits that proven failure without a mitigation layer strong enough to neutralize it."
+      ],
+      "raw_archive_fallback_required": true,
+      "scores": {
+        "failure_strength": 5.0,
+        "proof_strength": 4.3,
+        "publication_utility": 7.5
+      },
+      "issue_family": "protein_overlapped_external_family"
+    },
+    {
+      "paper_id": "empdta2024",
+      "title": "EMPDTA: An End-to-End Multimodal Representation Learning Framework with Pocket Online Detection for Drug-Target Affinity Prediction",
+      "doi": "https://doi.org/10.3390/molecules29122912",
+      "journal": "Molecules",
+      "year": 2024,
+      "domain": "protein_ligand",
+      "task_family": "drug_target_affinity_prediction",
+      "benchmark_family": "deepdta_setting1_family",
+      "tier_target": "tier1_hard_failure",
+      "official_evidence_links": [
+        "https://doi.org/10.3390/molecules29122912",
+        "https://github.com/BioCenter-SHU/EMPDTA",
+        "https://raw.githubusercontent.com/BioCenter-SHU/EMPDTA/main/README.md"
+      ],
+      "final_status": "tier1_hard_failure",
+      "claimed_split_description": "The paper's headline benchmark inherits a released benchmark family whose split is recoverable and evaluable under ProteoSphere.",
+      "recovered_split_evidence": [
+        "The official README states that the sequence-based datasets and the split came from DeepDTA and MDeePred.",
+        "The official setting1 split is a hard warm-start failure for unseen-entity evaluation: Davis shares every test drug and every test target with training, and KIBA shares almost all."
+      ],
+      "mitigation_claims": [
+        "none for the headline Davis/KIBA results"
+      ],
+      "mitigation_audit_result": {
+        "status": "failed",
+        "notes": [
+          "No meaningful mitigation strategy was surfaced in the official evidence for the headline benchmark result.",
+          "The benchmark family itself remains block-worthy under ProteoSphere once the split is reconstructed."
+        ]
+      },
+      "exact_failure_class": [
+        "shared_drug_identity_between_train_test",
+        "shared_target_identity_between_train_test",
+        "benchmark_inheritance_without_mitigation"
+      ],
+      "overlap_findings": {
+        "davis": {
+          "shared_drug_count": 68,
+          "test_unique_drug_count": 68,
+          "shared_target_count": 442,
+          "test_unique_target_count": 442
+        },
+        "kiba": {
+          "shared_drug_count": 2027,
+          "test_unique_drug_count": 2027,
+          "shared_target_count": 229,
+          "test_unique_target_count": 229
+        }
+      },
+      "contamination_findings": {
+        "status": "confirmed_family_level_failure",
+        "notes": [
+          "ProteoSphere re-computed overlap directly from the official DeepDTA split files.",
+          "Davis is a full warm-start failure: every test drug and every test target also appear in training.",
+          "KIBA is nearly the same: 1938 of 2027 test drugs and 228 of 229 test targets also appear in training."
+        ]
+      },
+      "blockers": [],
+      "recommended_proteosphere_treatment": "Do not use the released split as evidence of unseen-drug or unseen-target generalization. Keep it only as a paper-faithful audit lane and pair it with cold-drug, cold-target, or cold-drug+target splits.",
+      "provenance_notes": [
+        "The benchmark-family proof was computed in this run from official released artifacts and local audit data where required.",
+        "The paper was promoted to Tier 1 only because it inherits that proven failure without a mitigation layer strong enough to neutralize it."
+      ],
+      "raw_archive_fallback_required": false,
+      "scores": {
+        "failure_strength": 5.0,
+        "proof_strength": 4.7,
+        "publication_utility": 7.45
+      },
+      "issue_family": "warm_start_benchmark_family"
+    },
+    {
+      "paper_id": "deattentiondta2024",
+      "doi": "https://doi.org/10.1093/bioinformatics/btae319",
+      "domain": "protein_ligand",
+      "task_family": "binding_affinity_prediction",
+      "benchmark_family": "pdbbind_core_family",
+      "tier_target": "tier1_hard_failure",
+      "official_evidence_links": [
+        "https://doi.org/10.1093/bioinformatics/btae319",
+        "https://github.com/whatamazing1/DEAttentionDTA",
+        "https://raw.githubusercontent.com/whatamazing1/DEAttentionDTA/main/README.md",
+        "https://raw.githubusercontent.com/whatamazing1/DEAttentionDTA/main/src/test.py"
+      ],
+      "claimed_split_description": "The model evaluates on PDBbind general/refined training sets with core2016 and core2014 test sets.",
+      "recovered_split_evidence": [
+        "The official README names PDBbind 2020, core2016, and core2014.",
+        "The released test script explicitly instantiates MyDataset('core2016', ...)."
+      ],
+      "mitigation_claims": [
+        "No unseen-protein or source-family mitigation beyond the standard core-set evaluation is released."
+      ],
+      "mitigation_audit_result": "The paper inherits the already-proven PDBbind core-family protein overlap without an effective mitigation layer.",
+      "exact_failure_class": "inherited_core_set_external_failure",
+      "overlap_findings": {
+        "direct_entity_overlap": true,
+        "notes": [
+          "PDBbind core-family proof shows 288/290 v2016 core complexes retain direct protein overlap with training-side complexes."
+        ]
+      },
+      "contamination_findings": {
+        "notes": [
+          "Nominal external evaluation is still protein-overlapped."
+        ]
+      },
+      "blockers": [],
+      "recommended_proteosphere_treatment": "Tier 1 hard failure for unseen-protein claims; keep only as a paper-faithful PDBbind-core audit lane.",
+      "provenance_notes": [
+        "Recent 2024 Bioinformatics paper with explicit core-set references in the released repo."
+      ],
+      "raw_archive_fallback_required": false,
+      "final_status": "tier1_hard_failure",
+      "scores": {
+        "publication_utility": 4.7,
+        "failure_strength": 4.7,
+        "proof_strength": 4.8
+      },
+      "title": "DEAttentionDTA: protein\u2013ligand binding affinity prediction based on dynamic embedding and self-attention",
+      "journal": "Bioinformatics",
+      "year": 2024,
+      "issue_family": "protein_overlapped_external_family"
+    },
+    {
+      "paper_id": "imagedta2024",
+      "doi": "https://doi.org/10.1021/acsomega.4c02308",
+      "domain": "protein_ligand",
+      "task_family": "drug_target_affinity_prediction",
+      "benchmark_family": "deepdta_setting1_family",
+      "tier_target": "tier1_hard_failure",
+      "official_evidence_links": [
+        "https://doi.org/10.1021/acsomega.4c02308",
+        "https://github.com/neuhanli/ImageDTA",
+        "https://raw.githubusercontent.com/neuhanli/ImageDTA/main/README.md",
+        "https://raw.githubusercontent.com/neuhanli/ImageDTA/main/create_csv.py"
+      ],
+      "claimed_split_description": "The model evaluates on Davis and KIBA after converting released benchmark artifacts.",
+      "recovered_split_evidence": [
+        "The official create_csv.py script explicitly says 'convert data from DeepDTA'.",
+        "It reads train_fold_setting1.txt and test_fold_setting1.txt from the Davis and KIBA benchmark folders."
+      ],
+      "mitigation_claims": [
+        "No released cold-drug, cold-target, or novel-pair setting is used for the main results."
+      ],
+      "mitigation_audit_result": "No mitigation offsets the inherited DeepDTA setting1 leakage.",
+      "exact_failure_class": "script_proven_inherited_fold_family_failure",
+      "overlap_findings": {
+        "direct_entity_overlap": true,
+        "notes": [
+          "The official data-conversion script ties the paper directly to the DeepDTA warm-start folds."
+        ]
+      },
+      "contamination_findings": {
+        "notes": [
+          "Generalization claims remain benchmark-family limited."
+        ]
+      },
+      "blockers": [],
+      "recommended_proteosphere_treatment": "Tier 1 hard failure for generalization claims; preserve as a paper-faithful warm-start benchmark only.",
+      "provenance_notes": [
+        "Recent 2024 paper with explicit benchmark-conversion code."
+      ],
+      "raw_archive_fallback_required": false,
+      "final_status": "tier1_hard_failure",
+      "scores": {
+        "publication_utility": 4.4,
+        "failure_strength": 4.6,
+        "proof_strength": 4.8
+      },
+      "title": "ImageDTA: A Simple Model for Drug\u2013Target Binding Affinity Prediction",
+      "journal": "ACS Omega",
+      "year": 2024,
+      "issue_family": "warm_start_benchmark_family"
+    },
+    {
+      "paper_id": "transvaedta2024",
+      "doi": "https://doi.org/10.1016/j.cmpb.2023.108003",
+      "domain": "protein_ligand",
+      "task_family": "drug_target_affinity_prediction",
+      "benchmark_family": "deepdta_setting1_family",
+      "tier_target": "tier1_hard_failure",
+      "official_evidence_links": [
+        "https://doi.org/10.1016/j.cmpb.2023.108003",
+        "https://github.com/HPC-NEAU/TransVAE-DTA",
+        "https://raw.githubusercontent.com/HPC-NEAU/TransVAE-DTA/main/README.md"
+      ],
+      "claimed_split_description": "Davis and KIBA performance is reported using released fold files.",
+      "recovered_split_evidence": [
+        "The official repo ships train_fold_setting1.txt and test_fold_setting1.txt under both Davis and KIBA.",
+        "Those files place the paper directly inside the already-proven DeepDTA setting1 warm-start family."
+      ],
+      "mitigation_claims": [
+        "No cold split or unseen-target split is surfaced in the released package."
+      ],
+      "mitigation_audit_result": "The paper reuses the leaky fold family without countervailing mitigation.",
+      "exact_failure_class": "released_inherited_fold_family_failure",
+      "overlap_findings": {
+        "direct_entity_overlap": true,
+        "notes": [
+          "Released fold artifacts map directly to the DeepDTA setting1 family."
+        ]
+      },
+      "contamination_findings": {
+        "notes": [
+          "Warm-start split family blocks clean unseen-entity interpretation."
+        ]
+      },
+      "blockers": [],
+      "recommended_proteosphere_treatment": "Tier 1 hard failure for broad generalization; acceptable only as a paper-faithful warm-start audit lane.",
+      "provenance_notes": [
+        "Recent 2024 journal paper with official fold artifacts."
+      ],
+      "raw_archive_fallback_required": false,
+      "final_status": "tier1_hard_failure",
+      "scores": {
+        "publication_utility": 4.4,
+        "failure_strength": 4.5,
+        "proof_strength": 4.7
+      },
+      "title": "TransVAE-DTA: Transformer and variational autoencoder network for drug-target binding affinity prediction",
+      "journal": "Computer Methods and Programs in Biomedicine",
+      "year": 2024,
+      "issue_family": "warm_start_benchmark_family"
+    },
+    {
+      "paper_id": "d2cp05644e_2023",
+      "title": "An artificial neural network model to predict structure-based protein-protein free energy of binding from Rosetta-calculated properties",
+      "doi": "https://doi.org/10.1039/D2CP05644E",
+      "journal": "Physical Chemistry Chemical Physics",
+      "year": 2023,
+      "domain": "protein_protein",
+      "task_family": "binding_affinity_regression",
+      "benchmark_family": "prodigy78_plus_external_panels",
+      "tier_target": "tier1_hard_failure",
+      "official_evidence_links": [
+        "https://doi.org/10.1039/D2CP05644E",
+        "https://www.rsc.org/suppdata/d2/cp/d2cp05644e/d2cp05644e1.pdf",
+        "https://github.com/DSIMB/PPSUS"
+      ],
+      "final_status": "tier1_hard_failure",
+      "claimed_split_description": "Recovered public materials reconstruct a 78-complex benchmark pool plus three claimed external panels: PDBbind-50, nanobody-47, and metadynamics-19.",
+      "recovered_split_evidence": [
+        "ProteoSphere recovered the benchmark pool and three validation panels; all three external panels fail independence checks.",
+        "The benchmark pool was reconstructed from the public repository rather than from a warehouse-native split artifact."
+      ],
+      "mitigation_claims": [
+        "No release-date, accession-group, or family-aware mitigation is evident in the recovered training/external panel design."
+      ],
+      "mitigation_audit_result": {
+        "status": "failed",
+        "notes": [
+          "The PDBbind panel retains direct protein overlap against the recovered benchmark pool.",
+          "The nanobody panel reuses a central antigen target.",
+          "The metadynamics panel shows severe direct reuse and cannot count as independent external validation."
+        ]
+      },
+      "exact_failure_class": [
+        "direct_protein_overlap",
+        "exact_sequence_reuse",
+        "invalid_external_validation",
+        "shared_partner_context"
+      ],
+      "overlap_findings": {
+        "prodigy78_vs_pdbbind50": {
+          "overall_decision": "blocked",
+          "blocked_reasons": [
+            "critical_structure_state_reuse",
+            "direct_protein_leakage",
+            "exact_sequence_reuse"
+          ],
+          "review_reasons": [
+            "cluster_or_partner_overlap_review",
+            "coverage",
+            "local_structure_files",
+            "missing_structure_coverage",
+            "sequence_family_review"
+          ],
+          "coverage_fraction": 0.9766,
+          "covered_structure_count": 125,
+          "total_structure_count": 128,
+          "direct_protein_overlap_count": 4,
+          "exact_sequence_overlap_count": 4,
+          "mutation_like_pair_count": 0,
+          "flagged_structure_pair_count": 16,
+          "top_recommendation": "Re-split the dataset before training use."
+        },
+        "prodigy78_vs_nanobody47": {
+          "overall_decision": "blocked",
+          "blocked_reasons": [
+            "critical_structure_state_reuse",
+            "direct_protein_leakage",
+            "exact_sequence_reuse"
+          ],
+          "review_reasons": [
+            "cluster_or_partner_overlap_review",
+            "coverage",
+            "local_structure_files",
+            "missing_structure_coverage",
+            "sequence_family_review"
+          ],
+          "coverage_fraction": 0.84,
+          "covered_structure_count": 105,
+          "total_structure_count": 125,
+          "direct_protein_overlap_count": 1,
+          "exact_sequence_overlap_count": 1,
+          "mutation_like_pair_count": 0,
+          "flagged_structure_pair_count": 24,
+          "top_recommendation": "Re-split the dataset before training use."
+        },
+        "prodigy78_vs_metadynamics19": {
+          "overall_decision": "blocked",
+          "blocked_reasons": [
+            "critical_structure_state_reuse",
+            "direct_protein_leakage",
+            "exact_sequence_reuse"
+          ],
+          "review_reasons": [
+            "cluster_or_partner_overlap_review",
+            "coverage",
+            "local_structure_files",
+            "missing_structure_coverage",
+            "sequence_family_review"
+          ],
+          "coverage_fraction": 0.9691,
+          "covered_structure_count": 94,
+          "total_structure_count": 97,
+          "direct_protein_overlap_count": 26,
+          "exact_sequence_overlap_count": 26,
+          "mutation_like_pair_count": 0,
+          "flagged_structure_pair_count": 24,
+          "top_recommendation": "Re-split the dataset before training use."
+        }
+      },
+      "contamination_findings": {
+        "status": "confirmed_invalid_external_validation",
+        "notes": [
+          "PDBbind-50 retains 4 direct protein overlaps.",
+          "Nanobody-47 retains 1 direct protein overlaps.",
+          "Metadynamics-19 retains 26 direct protein overlaps and repeated exact complexes."
+        ]
+      },
+      "blockers": [
+        "The paper-internal benchmark split is under-disclosed even though the effective benchmark pool was reconstructable."
+      ],
+      "recommended_proteosphere_treatment": "Treat this paper as a flagship forensic case study and do not accept any of its validation lanes as canonical without a re-split.",
+      "provenance_notes": [
+        "This record relies on previously recovered public artifacts materialized in the local audit workspace.",
+        "It is one of the clearest examples of why paper prose about an 'external test set' is not enough."
+      ],
+      "raw_archive_fallback_required": true,
+      "scores": {
+        "failure_strength": 5.0,
+        "proof_strength": 5.0,
+        "publication_utility": 8.35
+      },
+      "issue_family": "invalid_external_validation"
+    },
+    {
+      "paper_id": "ss_gnn2023",
+      "title": "SS-GNN: A Simple-Structured Graph Neural Network for Affinity Prediction",
+      "doi": "https://doi.org/10.1021/acsomega.3c00085",
+      "journal": "ACS Omega",
+      "year": 2023,
+      "domain": "protein_ligand",
+      "task_family": "binding_affinity_prediction",
+      "benchmark_family": "pdbbind_core_family",
+      "tier_target": "tier1_hard_failure",
+      "official_evidence_links": [
+        "https://doi.org/10.1021/acsomega.3c00085"
+      ],
+      "final_status": "tier1_hard_failure",
+      "claimed_split_description": "The paper's headline benchmark inherits a released benchmark family whose split is recoverable and evaluable under ProteoSphere.",
+      "recovered_split_evidence": [
+        "The official paper describes results on the standard PDBbind v2016 core test set without a homology- or time-based mitigation layer.",
+        "The standard PDBbind core-set evaluation family is not a clean unseen-protein benchmark: v2016 core retains direct protein overlap for 288 of 290 test complexes against the remaining general set, and v2013 core retains overlap for all 108 test complexes."
+      ],
+      "mitigation_claims": [
+        "none surfaced in benchmark description"
+      ],
+      "mitigation_audit_result": {
+        "status": "failed",
+        "notes": [
+          "No meaningful mitigation strategy was surfaced in the official evidence for the headline benchmark result.",
+          "The benchmark family itself remains block-worthy under ProteoSphere once the split is reconstructed."
+        ]
+      },
+      "exact_failure_class": [
+        "direct_protein_identity_overlap_between_training_and_test",
+        "legacy_core_set_external_evaluation",
+        "receptor_reuse"
+      ],
+      "overlap_findings": {
+        "v2016_core": {
+          "test_count": 290,
+          "training_pool_count": 18747,
+          "test_complexes_with_direct_protein_overlap": 288,
+          "shared_accession_count": 77,
+          "top_shared_accessions": [
+            {
+              "accession": "Q9Y233",
+              "test_overlap_count": 10
+            },
+            {
+              "accession": "P00811",
+              "test_overlap_count": 5
+            },
+            {
+              "accession": "P00760",
+              "test_overlap_count": 5
+            },
+            {
+              "accession": "Q24451",
+              "test_overlap_count": 5
+            },
+            {
+              "accession": "P9WIL5",
+              "test_overlap_count": 5
+            },
+            {
+              "accession": "P00918",
+              "test_overlap_count": 5
+            },
+            {
+              "accession": "Q9L5C8",
+              "test_overlap_count": 5
+            },
+            {
+              "accession": "P61823",
+              "test_overlap_count": 5
+            },
+            {
+              "accession": "P00489",
+              "test_overlap_count": 5
+            },
+            {
+              "accession": "P00749",
+              "test_overlap_count": 5
+            }
+          ],
+          "sample_overlaps": [
+            {
+              "test_pdb_id": "3ao4",
+              "shared_accessions": [
+                "Q72498"
+              ],
+              "sample_train_ids": [
+                "3ao1",
+                "3ao5",
+                "3ovn",
+                "5wlo",
+                "6b4n",
+                "6dgx"
+              ]
+            },
+            {
+              "test_pdb_id": "3gv9",
+              "shared_accessions": [
+                "P00811"
+              ],
+              "sample_train_ids": [
+                "1c3b",
+                "1fsw",
+                "1fsy",
+                "1ga9",
+                "1iem",
+                "1kds"
+              ]
+            },
+            {
+              "test_pdb_id": "1uto",
+              "shared_accessions": [
+                "P00760"
+              ],
+              "sample_train_ids": [
+                "1aq7",
+                "1auj",
+                "1bju",
+                "1bjv",
+                "1bty",
+                "1c1r"
+              ]
+            },
+            {
+              "test_pdb_id": "1ps3",
+              "shared_accessions": [
+                "Q24451"
+              ],
+              "sample_train_ids": [
+                "1hty",
+                "1hww",
+                "1hxk",
+                "1qwu",
+                "1qx1",
+                "2f18"
+              ]
+            },
+            {
+              "test_pdb_id": "4ddk",
+              "shared_accessions": [
+                "P9WIL5"
+              ],
+              "sample_train_ids": [
+                "1n3i",
+                "3cow",
+                "3imc",
+                "3ime",
+                "3img",
+                "3iob"
+              ]
+            },
+            {
+              "test_pdb_id": "4jsz",
+              "shared_accessions": [
+                "P00918"
+              ],
+              "sample_train_ids": [
+                "1a42",
+                "1avn",
+                "1bcd",
+                "1bn1",
+                "1bn3",
+                "1bn4"
+              ]
+            },
+            {
+              "test_pdb_id": "3g2z",
+              "shared_accessions": [
+                "Q9L5C8"
+              ],
+              "sample_train_ids": [
+                "1ym1",
+                "1yms",
+                "1ymx",
+                "3g2y",
+                "3g30",
+                "3g32"
+              ]
+            },
+            {
+              "test_pdb_id": "3dxg",
+              "shared_accessions": [
+                "P61823"
+              ],
+              "sample_train_ids": [
+                "1afk",
+                "1afl",
+                "1j7z",
+                "1j80",
+                "1j81",
+                "1jn4"
+              ]
+            },
+            {
+              "test_pdb_id": "3l7b",
+              "shared_accessions": [
+                "P00489"
+              ],
+              "sample_train_ids": [
+                "1a8i",
+                "1axr",
+                "1b4d",
+                "1c50",
+                "1c8k",
+                "1c8l"
+              ]
+            },
+            {
+              "test_pdb_id": "3gr2",
+              "shared_accessions": [
+                "P00811"
+              ],
+              "sample_train_ids": [
+                "1c3b",
+                "1fsw",
+                "1fsy",
+                "1ga9",
+                "1iem",
+                "1kds"
+              ]
+            }
+          ],
+          "failure_class": "core_set_retains_direct_protein_identity_overlap_against_training_pool"
+        },
+        "v2013_core": {
+          "test_count": 108,
+          "training_pool_count": 18929,
+          "test_complexes_with_direct_protein_overlap": 108,
+          "shared_accession_count": 50,
+          "top_shared_accessions": [
+            {
+              "accession": "P00734",
+              "test_overlap_count": 3
+            },
+            {
+              "accession": "P04058",
+              "test_overlap_count": 3
+            },
+            {
+              "accession": "P00742",
+              "test_overlap_count": 3
+            },
+            {
+              "accession": "O14757",
+              "test_overlap_count": 3
+            },
+            {
+              "accession": "P00760",
+              "test_overlap_count": 3
+            },
+            {
+              "accession": "P00749",
+              "test_overlap_count": 3
+            },
+            {
+              "accession": "Q24451",
+              "test_overlap_count": 3
+            },
+            {
+              "accession": "P00517",
+              "test_overlap_count": 3
+            },
+            {
+              "accession": "P61823",
+              "test_overlap_count": 3
+            },
+            {
+              "accession": "P07900",
+              "test_overlap_count": 3
+            }
+          ],
+          "sample_overlaps": [
+            {
+              "test_pdb_id": "1a30",
+              "shared_accessions": [
+                "P04585"
+              ],
+              "sample_train_ids": [
+                "1bv7",
+                "1bv9",
+                "1bwa",
+                "1bwb",
+                "1dmp",
+                "1dtq"
+              ]
+            },
+            {
+              "test_pdb_id": "1bcu",
+              "shared_accessions": [
+                "P00734",
+                "P01050"
+              ],
+              "sample_train_ids": [
+                "1a2c",
+                "1a3e",
+                "1a46",
+                "1a4w",
+                "1a5g",
+                "1a61"
+              ]
+            },
+            {
+              "test_pdb_id": "1e66",
+              "shared_accessions": [
+                "P04058"
+              ],
+              "sample_train_ids": [
+                "1acj",
+                "1amn",
+                "1dx6",
+                "1eve",
+                "1gpn",
+                "1gqs"
+              ]
+            },
+            {
+              "test_pdb_id": "1gpk",
+              "shared_accessions": [
+                "P04058"
+              ],
+              "sample_train_ids": [
+                "1acj",
+                "1amn",
+                "1dx6",
+                "1eve",
+                "1gpn",
+                "1gqs"
+              ]
+            },
+            {
+              "test_pdb_id": "1h23",
+              "shared_accessions": [
+                "P04058"
+              ],
+              "sample_train_ids": [
+                "1acj",
+                "1amn",
+                "1dx6",
+                "1eve",
+                "1gpn",
+                "1gqs"
+              ]
+            },
+            {
+              "test_pdb_id": "1mq6",
+              "shared_accessions": [
+                "P00742"
+              ],
+              "sample_train_ids": [
+                "1ezq",
+                "1f0r",
+                "1f0s",
+                "1fax",
+                "1fjs",
+                "1g2l"
+              ]
+            },
+            {
+              "test_pdb_id": "1nvq",
+              "shared_accessions": [
+                "O14757"
+              ],
+              "sample_train_ids": [
+                "1nvr",
+                "1nvs",
+                "2ayp",
+                "2br1",
+                "2brg",
+                "2brh"
+              ]
+            },
+            {
+              "test_pdb_id": "1o3f",
+              "shared_accessions": [
+                "P00760"
+              ],
+              "sample_train_ids": [
+                "1aq7",
+                "1auj",
+                "1bju",
+                "1bjv",
+                "1bty",
+                "1c1r"
+              ]
+            },
+            {
+              "test_pdb_id": "1o5b",
+              "shared_accessions": [
+                "P00749"
+              ],
+              "sample_train_ids": [
+                "1c5x",
+                "1c5y",
+                "1c5z",
+                "1ejn",
+                "1f5k",
+                "1f5l"
+              ]
+            },
+            {
+              "test_pdb_id": "1oyt",
+              "shared_accessions": [
+                "P00734",
+                "P28506"
+              ],
+              "sample_train_ids": [
+                "1a2c",
+                "1a3e",
+                "1a46",
+                "1a4w",
+                "1a5g",
+                "1a61"
+              ]
+            }
+          ],
+          "failure_class": "core_set_retains_direct_protein_identity_overlap_against_training_pool"
+        }
+      },
+      "contamination_findings": {
+        "status": "confirmed_family_level_failure",
+        "notes": [
+          "ProteoSphere resolved the official core-set ID lists and compared them against the remaining local PDBbind general pool through SIFTS accessions.",
+          "The v2016 core set retains direct protein overlap for 288 of 290 test complexes against the remaining general pool.",
+          "The v2013 core set retains direct protein overlap for all 108 test complexes."
+        ]
+      },
+      "blockers": [],
+      "recommended_proteosphere_treatment": "Do not treat refined/general-to-core evaluation as a clean external benchmark. Use time-split, homology-cluster, or cold-target validation for governing claims.",
+      "provenance_notes": [
+        "The benchmark-family proof was computed in this run from official released artifacts and local audit data where required.",
+        "The paper was promoted to Tier 1 only because it inherits that proven failure without a mitigation layer strong enough to neutralize it."
+      ],
+      "raw_archive_fallback_required": true,
+      "scores": {
+        "failure_strength": 5.0,
+        "proof_strength": 4.3,
+        "publication_utility": 7.91
+      },
+      "issue_family": "protein_overlapped_external_family"
+    },
+    {
+      "paper_id": "dgdta2023",
+      "title": "DGDTA: dynamic graph attention network for predicting drug-target binding affinity",
+      "doi": "https://doi.org/10.1186/s12859-023-05497-5",
+      "journal": "BMC Bioinformatics",
+      "year": 2023,
+      "domain": "protein_ligand",
+      "task_family": "drug_target_affinity_prediction",
+      "benchmark_family": "deepdta_setting1_family",
+      "tier_target": "tier1_hard_failure",
+      "official_evidence_links": [
+        "https://doi.org/10.1186/s12859-023-05497-5",
+        "https://github.com/luojunwei/DGDTA"
+      ],
+      "final_status": "tier1_hard_failure",
+      "claimed_split_description": "The paper's headline benchmark inherits a released benchmark family whose split is recoverable and evaluable under ProteoSphere.",
+      "recovered_split_evidence": [
+        "The official article says the Davis and KIBA data can be downloaded from the GraphDTA repository, which inherits the DeepDTA setting1 split.",
+        "The official setting1 split is a hard warm-start failure for unseen-entity evaluation: Davis shares every test drug and every test target with training, and KIBA shares almost all."
+      ],
+      "mitigation_claims": [
+        "none"
+      ],
+      "mitigation_audit_result": {
+        "status": "failed",
+        "notes": [
+          "No meaningful mitigation strategy was surfaced in the official evidence for the headline benchmark result.",
+          "The benchmark family itself remains block-worthy under ProteoSphere once the split is reconstructed."
+        ]
+      },
+      "exact_failure_class": [
+        "shared_drug_identity_between_train_test",
+        "shared_target_identity_between_train_test",
+        "benchmark_inheritance_without_mitigation"
+      ],
+      "overlap_findings": {
+        "davis": {
+          "shared_drug_count": 68,
+          "test_unique_drug_count": 68,
+          "shared_target_count": 442,
+          "test_unique_target_count": 442
+        },
+        "kiba": {
+          "shared_drug_count": 2027,
+          "test_unique_drug_count": 2027,
+          "shared_target_count": 229,
+          "test_unique_target_count": 229
+        }
+      },
+      "contamination_findings": {
+        "status": "confirmed_family_level_failure",
+        "notes": [
+          "ProteoSphere re-computed overlap directly from the official DeepDTA split files.",
+          "Davis is a full warm-start failure: every test drug and every test target also appear in training.",
+          "KIBA is nearly the same: 1938 of 2027 test drugs and 228 of 229 test targets also appear in training."
+        ]
+      },
+      "blockers": [],
+      "recommended_proteosphere_treatment": "Do not use the released split as evidence of unseen-drug or unseen-target generalization. Keep it only as a paper-faithful audit lane and pair it with cold-drug, cold-target, or cold-drug+target splits.",
+      "provenance_notes": [
+        "The benchmark-family proof was computed in this run from official released artifacts and local audit data where required.",
+        "The paper was promoted to Tier 1 only because it inherits that proven failure without a mitigation layer strong enough to neutralize it."
+      ],
+      "raw_archive_fallback_required": false,
+      "scores": {
+        "failure_strength": 5.0,
+        "proof_strength": 4.7,
+        "publication_utility": 7.85
+      },
+      "issue_family": "warm_start_benchmark_family"
+    },
+    {
+      "paper_id": "curvagn2023",
+      "title": "CurvAGN: curvatures-based Adaptive Graph Neural Network for protein-ligand binding affinity prediction",
+      "doi": "https://doi.org/10.1186/s12859-023-05503-w",
+      "journal": "BMC Bioinformatics",
+      "year": 2023,
+      "domain": "protein_ligand",
+      "task_family": "binding_affinity_prediction",
+      "benchmark_family": "pdbbind_core_family",
+      "tier_target": "tier1_hard_failure",
+      "official_evidence_links": [
+        "https://doi.org/10.1186/s12859-023-05503-w"
+      ],
+      "final_status": "tier1_hard_failure",
+      "claimed_split_description": "The paper's headline benchmark inherits a released benchmark family whose split is recoverable and evaluable under ProteoSphere.",
+      "recovered_split_evidence": [
+        "The official article says the model was trained on the standard PDBbind-v2016 dataset and evaluated on the PDBbind v2016 core set.",
+        "The standard PDBbind core-set evaluation family is not a clean unseen-protein benchmark: v2016 core retains direct protein overlap for 288 of 290 test complexes against the remaining general set, and v2013 core retains overlap for all 108 test complexes."
+      ],
+      "mitigation_claims": [
+        "none"
+      ],
+      "mitigation_audit_result": {
+        "status": "failed",
+        "notes": [
+          "No meaningful mitigation strategy was surfaced in the official evidence for the headline benchmark result.",
+          "The benchmark family itself remains block-worthy under ProteoSphere once the split is reconstructed."
+        ]
+      },
+      "exact_failure_class": [
+        "direct_protein_identity_overlap_between_training_and_test",
+        "legacy_core_set_external_evaluation",
+        "receptor_reuse"
+      ],
+      "overlap_findings": {
+        "v2016_core": {
+          "test_count": 290,
+          "training_pool_count": 18747,
+          "test_complexes_with_direct_protein_overlap": 288,
+          "shared_accession_count": 77,
+          "top_shared_accessions": [
+            {
+              "accession": "Q9Y233",
+              "test_overlap_count": 10
+            },
+            {
+              "accession": "P00811",
+              "test_overlap_count": 5
+            },
+            {
+              "accession": "P00760",
+              "test_overlap_count": 5
+            },
+            {
+              "accession": "Q24451",
+              "test_overlap_count": 5
+            },
+            {
+              "accession": "P9WIL5",
+              "test_overlap_count": 5
+            },
+            {
+              "accession": "P00918",
+              "test_overlap_count": 5
+            },
+            {
+              "accession": "Q9L5C8",
+              "test_overlap_count": 5
+            },
+            {
+              "accession": "P61823",
+              "test_overlap_count": 5
+            },
+            {
+              "accession": "P00489",
+              "test_overlap_count": 5
+            },
+            {
+              "accession": "P00749",
+              "test_overlap_count": 5
+            }
+          ],
+          "sample_overlaps": [
+            {
+              "test_pdb_id": "3ao4",
+              "shared_accessions": [
+                "Q72498"
+              ],
+              "sample_train_ids": [
+                "3ao1",
+                "3ao5",
+                "3ovn",
+                "5wlo",
+                "6b4n",
+                "6dgx"
+              ]
+            },
+            {
+              "test_pdb_id": "3gv9",
+              "shared_accessions": [
+                "P00811"
+              ],
+              "sample_train_ids": [
+                "1c3b",
+                "1fsw",
+                "1fsy",
+                "1ga9",
+                "1iem",
+                "1kds"
+              ]
+            },
+            {
+              "test_pdb_id": "1uto",
+              "shared_accessions": [
+                "P00760"
+              ],
+              "sample_train_ids": [
+                "1aq7",
+                "1auj",
+                "1bju",
+                "1bjv",
+                "1bty",
+                "1c1r"
+              ]
+            },
+            {
+              "test_pdb_id": "1ps3",
+              "shared_accessions": [
+                "Q24451"
+              ],
+              "sample_train_ids": [
+                "1hty",
+                "1hww",
+                "1hxk",
+                "1qwu",
+                "1qx1",
+                "2f18"
+              ]
+            },
+            {
+              "test_pdb_id": "4ddk",
+              "shared_accessions": [
+                "P9WIL5"
+              ],
+              "sample_train_ids": [
+                "1n3i",
+                "3cow",
+                "3imc",
+                "3ime",
+                "3img",
+                "3iob"
+              ]
+            },
+            {
+              "test_pdb_id": "4jsz",
+              "shared_accessions": [
+                "P00918"
+              ],
+              "sample_train_ids": [
+                "1a42",
+                "1avn",
+                "1bcd",
+                "1bn1",
+                "1bn3",
+                "1bn4"
+              ]
+            },
+            {
+              "test_pdb_id": "3g2z",
+              "shared_accessions": [
+                "Q9L5C8"
+              ],
+              "sample_train_ids": [
+                "1ym1",
+                "1yms",
+                "1ymx",
+                "3g2y",
+                "3g30",
+                "3g32"
+              ]
+            },
+            {
+              "test_pdb_id": "3dxg",
+              "shared_accessions": [
+                "P61823"
+              ],
+              "sample_train_ids": [
+                "1afk",
+                "1afl",
+                "1j7z",
+                "1j80",
+                "1j81",
+                "1jn4"
+              ]
+            },
+            {
+              "test_pdb_id": "3l7b",
+              "shared_accessions": [
+                "P00489"
+              ],
+              "sample_train_ids": [
+                "1a8i",
+                "1axr",
+                "1b4d",
+                "1c50",
+                "1c8k",
+                "1c8l"
+              ]
+            },
+            {
+              "test_pdb_id": "3gr2",
+              "shared_accessions": [
+                "P00811"
+              ],
+              "sample_train_ids": [
+                "1c3b",
+                "1fsw",
+                "1fsy",
+                "1ga9",
+                "1iem",
+                "1kds"
+              ]
+            }
+          ],
+          "failure_class": "core_set_retains_direct_protein_identity_overlap_against_training_pool"
+        },
+        "v2013_core": {
+          "test_count": 108,
+          "training_pool_count": 18929,
+          "test_complexes_with_direct_protein_overlap": 108,
+          "shared_accession_count": 50,
+          "top_shared_accessions": [
+            {
+              "accession": "P00734",
+              "test_overlap_count": 3
+            },
+            {
+              "accession": "P04058",
+              "test_overlap_count": 3
+            },
+            {
+              "accession": "P00742",
+              "test_overlap_count": 3
+            },
+            {
+              "accession": "O14757",
+              "test_overlap_count": 3
+            },
+            {
+              "accession": "P00760",
+              "test_overlap_count": 3
+            },
+            {
+              "accession": "P00749",
+              "test_overlap_count": 3
+            },
+            {
+              "accession": "Q24451",
+              "test_overlap_count": 3
+            },
+            {
+              "accession": "P00517",
+              "test_overlap_count": 3
+            },
+            {
+              "accession": "P61823",
+              "test_overlap_count": 3
+            },
+            {
+              "accession": "P07900",
+              "test_overlap_count": 3
+            }
+          ],
+          "sample_overlaps": [
+            {
+              "test_pdb_id": "1a30",
+              "shared_accessions": [
+                "P04585"
+              ],
+              "sample_train_ids": [
+                "1bv7",
+                "1bv9",
+                "1bwa",
+                "1bwb",
+                "1dmp",
+                "1dtq"
+              ]
+            },
+            {
+              "test_pdb_id": "1bcu",
+              "shared_accessions": [
+                "P00734",
+                "P01050"
+              ],
+              "sample_train_ids": [
+                "1a2c",
+                "1a3e",
+                "1a46",
+                "1a4w",
+                "1a5g",
+                "1a61"
+              ]
+            },
+            {
+              "test_pdb_id": "1e66",
+              "shared_accessions": [
+                "P04058"
+              ],
+              "sample_train_ids": [
+                "1acj",
+                "1amn",
+                "1dx6",
+                "1eve",
+                "1gpn",
+                "1gqs"
+              ]
+            },
+            {
+              "test_pdb_id": "1gpk",
+              "shared_accessions": [
+                "P04058"
+              ],
+              "sample_train_ids": [
+                "1acj",
+                "1amn",
+                "1dx6",
+                "1eve",
+                "1gpn",
+                "1gqs"
+              ]
+            },
+            {
+              "test_pdb_id": "1h23",
+              "shared_accessions": [
+                "P04058"
+              ],
+              "sample_train_ids": [
+                "1acj",
+                "1amn",
+                "1dx6",
+                "1eve",
+                "1gpn",
+                "1gqs"
+              ]
+            },
+            {
+              "test_pdb_id": "1mq6",
+              "shared_accessions": [
+                "P00742"
+              ],
+              "sample_train_ids": [
+                "1ezq",
+                "1f0r",
+                "1f0s",
+                "1fax",
+                "1fjs",
+                "1g2l"
+              ]
+            },
+            {
+              "test_pdb_id": "1nvq",
+              "shared_accessions": [
+                "O14757"
+              ],
+              "sample_train_ids": [
+                "1nvr",
+                "1nvs",
+                "2ayp",
+                "2br1",
+                "2brg",
+                "2brh"
+              ]
+            },
+            {
+              "test_pdb_id": "1o3f",
+              "shared_accessions": [
+                "P00760"
+              ],
+              "sample_train_ids": [
+                "1aq7",
+                "1auj",
+                "1bju",
+                "1bjv",
+                "1bty",
+                "1c1r"
+              ]
+            },
+            {
+              "test_pdb_id": "1o5b",
+              "shared_accessions": [
+                "P00749"
+              ],
+              "sample_train_ids": [
+                "1c5x",
+                "1c5y",
+                "1c5z",
+                "1ejn",
+                "1f5k",
+                "1f5l"
+              ]
+            },
+            {
+              "test_pdb_id": "1oyt",
+              "shared_accessions": [
+                "P00734",
+                "P28506"
+              ],
+              "sample_train_ids": [
+                "1a2c",
+                "1a3e",
+                "1a46",
+                "1a4w",
+                "1a5g",
+                "1a61"
+              ]
+            }
+          ],
+          "failure_class": "core_set_retains_direct_protein_identity_overlap_against_training_pool"
+        }
+      },
+      "contamination_findings": {
+        "status": "confirmed_family_level_failure",
+        "notes": [
+          "ProteoSphere resolved the official core-set ID lists and compared them against the remaining local PDBbind general pool through SIFTS accessions.",
+          "The v2016 core set retains direct protein overlap for 288 of 290 test complexes against the remaining general pool.",
+          "The v2013 core set retains direct protein overlap for all 108 test complexes."
+        ]
+      },
+      "blockers": [],
+      "recommended_proteosphere_treatment": "Do not treat refined/general-to-core evaluation as a clean external benchmark. Use time-split, homology-cluster, or cold-target validation for governing claims.",
+      "provenance_notes": [
+        "The benchmark-family proof was computed in this run from official released artifacts and local audit data where required.",
+        "The paper was promoted to Tier 1 only because it inherits that proven failure without a mitigation layer strong enough to neutralize it."
+      ],
+      "raw_archive_fallback_required": true,
+      "scores": {
+        "failure_strength": 5.0,
+        "proof_strength": 4.3,
+        "publication_utility": 7.71
+      },
+      "issue_family": "protein_overlapped_external_family"
+    },
+    {
+      "paper_id": "iedgedta2023",
+      "title": "iEdgeDTA: integrated edge information and 1D graph convolutional neural networks for binding affinity prediction",
+      "doi": "https://doi.org/10.1039/D3RA03796G",
+      "journal": "RSC Advances",
+      "year": 2023,
+      "domain": "protein_ligand",
+      "task_family": "drug_target_affinity_prediction",
+      "benchmark_family": "deepdta_setting1_family",
+      "tier_target": "tier1_hard_failure",
+      "official_evidence_links": [
+        "https://doi.org/10.1039/D3RA03796G",
+        "https://github.com/cucpbioinfo/iEdgeDTA",
+        "https://raw.githubusercontent.com/cucpbioinfo/iEdgeDTA/main/core/data_processing.py"
+      ],
+      "final_status": "tier1_hard_failure",
+      "claimed_split_description": "The paper's headline benchmark inherits a released benchmark family whose split is recoverable and evaluable under ProteoSphere.",
+      "recovered_split_evidence": [
+        "The official iEdgeDTA code loads `original/folds/train_fold_setting1.txt` and `original/folds/test_fold_setting1.txt`, and the README points back to DeepDTA for training-dataset information.",
+        "The official setting1 split is a hard warm-start failure for unseen-entity evaluation: Davis shares every test drug and every test target with training, and KIBA shares almost all."
+      ],
+      "mitigation_claims": [
+        "none"
+      ],
+      "mitigation_audit_result": {
+        "status": "failed",
+        "notes": [
+          "No meaningful mitigation strategy was surfaced in the official evidence for the headline benchmark result.",
+          "The benchmark family itself remains block-worthy under ProteoSphere once the split is reconstructed."
+        ]
+      },
+      "exact_failure_class": [
+        "shared_drug_identity_between_train_test",
+        "shared_target_identity_between_train_test",
+        "benchmark_inheritance_without_mitigation"
+      ],
+      "overlap_findings": {
+        "davis": {
+          "shared_drug_count": 68,
+          "test_unique_drug_count": 68,
+          "shared_target_count": 442,
+          "test_unique_target_count": 442
+        },
+        "kiba": {
+          "shared_drug_count": 2027,
+          "test_unique_drug_count": 2027,
+          "shared_target_count": 229,
+          "test_unique_target_count": 229
+        }
+      },
+      "contamination_findings": {
+        "status": "confirmed_family_level_failure",
+        "notes": [
+          "ProteoSphere re-computed overlap directly from the official DeepDTA split files.",
+          "Davis is a full warm-start failure: every test drug and every test target also appear in training.",
+          "KIBA is nearly the same: 1938 of 2027 test drugs and 228 of 229 test targets also appear in training."
+        ]
+      },
+      "blockers": [],
+      "recommended_proteosphere_treatment": "Do not use the released split as evidence of unseen-drug or unseen-target generalization. Keep it only as a paper-faithful audit lane and pair it with cold-drug, cold-target, or cold-drug+target splits.",
+      "provenance_notes": [
+        "The benchmark-family proof was computed in this run from official released artifacts and local audit data where required.",
+        "The paper was promoted to Tier 1 only because it inherits that proven failure without a mitigation layer strong enough to neutralize it."
+      ],
+      "raw_archive_fallback_required": false,
+      "scores": {
+        "failure_strength": 5.0,
+        "proof_strength": 4.7,
+        "publication_utility": 7.14
+      },
+      "issue_family": "warm_start_benchmark_family"
+    },
+    {
+      "paper_id": "attentiondta_tcbb2023",
+      "doi": "https://doi.org/10.1109/TCBB.2022.3170365",
+      "domain": "protein_ligand",
+      "task_family": "drug_target_affinity_prediction",
+      "benchmark_family": "attentiondta_random_row_cv",
+      "tier_target": "tier1_hard_failure",
+      "official_evidence_links": [
+        "https://doi.org/10.1109/TCBB.2022.3170365",
+        "https://github.com/zhaoqichang/AttentionDTA_TCBB",
+        "https://raw.githubusercontent.com/zhaoqichang/AttentionDTA_TCBB/master/AttentionDTA_main.py",
+        "https://raw.githubusercontent.com/zhaoqichang/AttentionDTA_TCBB/master/datasets/Davis.txt",
+        "https://raw.githubusercontent.com/zhaoqichang/AttentionDTA_TCBB/master/datasets/KIBA.txt",
+        "https://raw.githubusercontent.com/zhaoqichang/AttentionDTA_TCBB/master/datasets/Metz.txt"
+      ],
+      "claimed_split_description": "Five-fold cross-validation on released Davis, KIBA, and Metz pair tables.",
+      "recovered_split_evidence": [
+        "The official code shuffles the full pair table and slices folds by row index with get_kfold_data().",
+        "Recovered first-fold overlap counts: Davis shares 68/68 test drugs and 367/367 test targets with training.",
+        "KIBA shares 2054/2054 test drugs and 229/229 test targets with training."
+      ],
+      "mitigation_claims": [
+        "No cold-drug, cold-target, or cold-pair mitigation is released."
+      ],
+      "mitigation_audit_result": "No mitigation surfaced; the released evaluation remains a hard warm-start split.",
+      "exact_failure_class": "code_proven_random_row_cv_leakage",
+      "overlap_findings": {
+        "direct_entity_overlap": true,
+        "notes": [
+          "The released train/test logic guarantees shared drugs and shared targets across folds.",
+          "This invalidates unseen-entity generalization claims."
+        ]
+      },
+      "contamination_findings": {
+        "notes": [
+          "Direct train/test reuse occurs at both the compound and target level because folds are built over interaction rows."
+        ]
+      },
+      "blockers": [],
+      "recommended_proteosphere_treatment": "Audit-only Tier 1 failure; treat as paper-specific evidence that row-level CV can collapse entity independence.",
+      "provenance_notes": [
+        "Proof computed from the released repository datasets and main training script."
+      ],
+      "raw_archive_fallback_required": false,
+      "final_status": "tier1_hard_failure",
+      "scores": {
+        "publication_utility": 4.8,
+        "failure_strength": 5.0,
+        "proof_strength": 5.0
+      },
+      "title": "AttentionDTA: Drug\u2013Target Binding Affinity Prediction by Sequence-Based Deep Learning With Attention Mechanism",
+      "journal": "IEEE/ACM Transactions on Computational Biology and Bioinformatics",
+      "year": 2023,
+      "issue_family": "paper_specific_random_cv_leakage"
+    },
+    {
+      "paper_id": "graphscoredta2023",
+      "doi": "https://doi.org/10.1093/bioinformatics/btad340",
+      "domain": "protein_ligand",
+      "task_family": "binding_affinity_prediction",
+      "benchmark_family": "pdbbind_core_family",
+      "tier_target": "tier1_hard_failure",
+      "official_evidence_links": [
+        "https://doi.org/10.1093/bioinformatics/btad340",
+        "https://github.com/CSUBioGroup/GraphscoreDTA",
+        "https://raw.githubusercontent.com/CSUBioGroup/GraphscoreDTA/main/README.md"
+      ],
+      "claimed_split_description": "The model reports performance on training, test2016, and test2013 sets distributed with the official repo.",
+      "recovered_split_evidence": [
+        "The repo releases labels_train13851.csv, labels_test2016.csv, and labels_test2013.csv.",
+        "Those released files place the paper directly inside the proven PDBbind core-set family."
+      ],
+      "mitigation_claims": [
+        "No released cold-protein or scaffold-split mitigation neutralizes the inherited core-set overlap."
+      ],
+      "mitigation_audit_result": "The paper inherits the leaky PDBbind core evaluation family as its headline external lane.",
+      "exact_failure_class": "released_core_set_family_failure",
+      "overlap_findings": {
+        "direct_entity_overlap": true,
+        "notes": [
+          "Official test2016/test2013 labels align with the core-set family already proven protein-overlapped."
+        ]
+      },
+      "contamination_findings": {
+        "notes": [
+          "Claims of broad external generalization are too strong for a protein-overlapped core-set benchmark."
+        ]
+      },
+      "blockers": [],
+      "recommended_proteosphere_treatment": "Tier 1 hard failure for externality claims; acceptable only as a paper-faithful core-set benchmark lane.",
+      "provenance_notes": [
+        "Recent 2023 Bioinformatics paper with released core-family labels."
+      ],
+      "raw_archive_fallback_required": false,
+      "final_status": "tier1_hard_failure",
+      "scores": {
+        "publication_utility": 4.6,
+        "failure_strength": 4.6,
+        "proof_strength": 4.7
+      },
+      "title": "GraphscoreDTA: optimized graph neural network for protein\u2013ligand binding affinity prediction",
+      "journal": "Bioinformatics",
+      "year": 2023,
+      "issue_family": "protein_overlapped_external_family"
+    },
+    {
+      "paper_id": "capla2023",
+      "doi": "https://doi.org/10.1093/bioinformatics/btad049",
+      "domain": "protein_ligand",
+      "task_family": "binding_affinity_prediction",
+      "benchmark_family": "pdbbind_core_family",
+      "tier_target": "tier1_hard_failure",
+      "official_evidence_links": [
+        "https://doi.org/10.1093/bioinformatics/btad049",
+        "https://github.com/lennylv/CAPLA",
+        "https://raw.githubusercontent.com/lennylv/CAPLA/main/README.md"
+      ],
+      "claimed_split_description": "CAPLA evaluates on PDBbind-derived Test2016_290 and Test2016_262 sets.",
+      "recovered_split_evidence": [
+        "The official README names Test2016_290 and Test2016_262 as the evaluation sets.",
+        "These are direct descendants of the PDBbind core-set evaluation family already proven to retain protein overlap with training."
+      ],
+      "mitigation_claims": [
+        "No stronger unseen-protein mitigation is released for the headline benchmark."
+      ],
+      "mitigation_audit_result": "The inherited core-family issue remains unresolved.",
+      "exact_failure_class": "inherited_core_set_external_failure",
+      "overlap_findings": {
+        "direct_entity_overlap": true,
+        "notes": [
+          "PDBbind core-family reuse is explicit in the official benchmark naming."
+        ]
+      },
+      "contamination_findings": {
+        "notes": [
+          "Core-set evaluation remains unsafe as a clean external generalization test."
+        ]
+      },
+      "blockers": [],
+      "recommended_proteosphere_treatment": "Tier 1 hard failure for general externality claims; retain only as a PDBbind-core audit lane.",
+      "provenance_notes": [
+        "Recent 2023 paper with official core-set naming in the repo."
+      ],
+      "raw_archive_fallback_required": false,
+      "final_status": "tier1_hard_failure",
+      "scores": {
+        "publication_utility": 4.5,
+        "failure_strength": 4.5,
+        "proof_strength": 4.5
+      },
+      "title": "CAPLA: improved prediction of protein\u2013ligand binding affinity by a deep learning approach based on a cross-attention mechanism",
+      "journal": "Bioinformatics",
+      "year": 2023,
+      "issue_family": "protein_overlapped_external_family"
+    },
+    {
+      "paper_id": "datadta2023",
+      "doi": "https://doi.org/10.1093/bioinformatics/btad560",
+      "domain": "protein_ligand",
+      "task_family": "binding_affinity_prediction",
+      "benchmark_family": "pdbbind_core_family",
+      "tier_target": "tier1_hard_failure",
+      "official_evidence_links": [
+        "https://doi.org/10.1093/bioinformatics/btad560",
+        "https://github.com/YanZhu06/DataDTA",
+        "https://raw.githubusercontent.com/YanZhu06/DataDTA/main/README.md"
+      ],
+      "claimed_split_description": "The repo releases training, validation, test, test105, and test71 affinity surfaces keyed by PDB identifiers.",
+      "recovered_split_evidence": [
+        "The official repo ships training_smi.csv, validation_smi.csv, test_smi.csv, test105_smi.csv, and test71_smi.csv together with affinity_data.csv keyed by pdbid.",
+        "That is consistent with a PDBbind-derived training/test family rather than a newly mitigated unseen-protein split."
+      ],
+      "mitigation_claims": [
+        "No explicit cold-protein or source-family separation is released for the headline benchmark package."
+      ],
+      "mitigation_audit_result": "No mitigation strong enough to neutralize the PDBbind-family overlap was recovered.",
+      "exact_failure_class": "released_pdbbind_family_without_effective_mitigation",
+      "overlap_findings": {
+        "direct_entity_overlap": true,
+        "notes": [
+          "Released PDB-ID keyed benchmark files keep the paper inside the protein-overlapped PDBbind family."
+        ]
+      },
+      "contamination_findings": {
+        "notes": [
+          "The benchmark remains unsuitable as a clean unseen-protein test."
+        ]
+      },
+      "blockers": [],
+      "recommended_proteosphere_treatment": "Tier 1 hard failure for externality claims, with a note that the paper package is still useful for paper-faithful PDBbind-family auditing.",
+      "provenance_notes": [
+        "Recent 2023 paper with a released benchmark package but no convincing mitigation layer."
+      ],
+      "raw_archive_fallback_required": false,
+      "final_status": "tier1_hard_failure",
+      "scores": {
+        "publication_utility": 4.3,
+        "failure_strength": 4.4,
+        "proof_strength": 4.2
+      },
+      "title": "DataDTA: a multi-feature and dual-interaction aggregation framework for drug\u2013target binding affinity prediction",
+      "journal": "Bioinformatics",
+      "year": 2023,
+      "issue_family": "protein_overlapped_external_family"
+    },
+    {
+      "paper_id": "three_d_prot_dta2023",
+      "doi": "https://doi.org/10.1039/D3RA00281K",
+      "domain": "protein_ligand",
+      "task_family": "drug_target_affinity_prediction",
+      "benchmark_family": "deepdta_setting1_family",
+      "tier_target": "tier1_hard_failure",
+      "official_evidence_links": [
+        "https://doi.org/10.1039/D3RA00281K",
+        "https://github.com/HySonLab/Ligand_Generation",
+        "https://raw.githubusercontent.com/HySonLab/Ligand_Generation/main/README.md"
+      ],
+      "claimed_split_description": "The paper reports Davis and KIBA benchmark performance for residue-level protein graphs.",
+      "recovered_split_evidence": [
+        "The accompanying public repo contains Davis/KIBA fold files under data/*/folds/train_fold_setting1.txt and test_fold_setting1.txt.",
+        "That places the paper in the same DeepDTA setting1 family already proven to be a hard warm-start split."
+      ],
+      "mitigation_claims": [
+        "No stronger held-out entity split is released for the core paper benchmark."
+      ],
+      "mitigation_audit_result": "Inherited warm-start leakage remains unmitigated.",
+      "exact_failure_class": "inherited_warm_start_benchmark_failure",
+      "overlap_findings": {
+        "direct_entity_overlap": true,
+        "notes": [
+          "Released fold layout matches the DeepDTA setting1 family."
+        ]
+      },
+      "contamination_findings": {
+        "notes": [
+          "Benchmark saturation, not unseen-entity generalization, explains the evaluation lane."
+        ]
+      },
+      "blockers": [],
+      "recommended_proteosphere_treatment": "Tier 1 hard failure for generalization claims based only on the inherited Davis/KIBA setting1 family.",
+      "provenance_notes": [
+        "Recent 2023 paper with public benchmark files in the companion repo."
+      ],
+      "raw_archive_fallback_required": false,
+      "final_status": "tier1_hard_failure",
+      "scores": {
+        "publication_utility": 4.2,
+        "failure_strength": 4.4,
+        "proof_strength": 4.4
+      },
+      "title": "3DProtDTA: a deep learning model for drug-target affinity prediction based on residue-level protein graphs",
+      "journal": "RSC Advances",
+      "year": 2023,
+      "issue_family": "warm_start_benchmark_family"
+    },
+    {
+      "paper_id": "baranwal2022struct2graph",
+      "title": "Struct2Graph: a graph attention network for structure based predictions of protein-protein interactions",
+      "doi": "https://doi.org/10.1186/s12859-022-04910-9",
+      "journal": "BMC Bioinformatics",
+      "year": 2022,
+      "domain": "protein_protein",
+      "task_family": "pair_level_ppi_prediction",
+      "benchmark_family": "struct2graph_public_pairs",
+      "tier_target": "tier1_hard_failure",
+      "official_evidence_links": [
+        "https://doi.org/10.1186/s12859-022-04910-9",
+        "https://github.com/baranwa2/Struct2Graph",
+        "https://raw.githubusercontent.com/baranwa2/Struct2Graph/master/create_examples.py"
+      ],
+      "final_status": "tier1_hard_failure",
+      "claimed_split_description": "Balanced-set evaluation and fivefold cross-validation on an unbalanced set are claimed.",
+      "recovered_split_evidence": [
+        "ProteoSphere already reproduced the released split logic and found 643 shared PDB IDs between train and test.",
+        "The released `create_examples.py` logic uses example-level random shuffling and fixed slicing rather than a group-aware split."
+      ],
+      "mitigation_claims": [
+        "No cold-family or accession-group mitigation surfaced in the released split-generation logic."
+      ],
+      "mitigation_audit_result": {
+        "status": "failed",
+        "notes": [
+          "The released split mechanism itself is the source of the leakage.",
+          "No published mitigation neutralizes the direct train/test structure reuse."
+        ]
+      },
+      "exact_failure_class": [
+        "direct_structure_overlap",
+        "pair_level_random_split",
+        "shared_component_leakage"
+      ],
+      "overlap_findings": {
+        "shared_pdb_count": 643,
+        "sample_details": {}
+      },
+      "contamination_findings": {
+        "status": "confirmed_direct_reuse",
+        "notes": [
+          "ProteoSphere reproduced the released split logic and found 643 shared PDB IDs between train and test.",
+          "This is a direct split failure, not a subtle family-similarity issue."
+        ]
+      },
+      "blockers": [],
+      "recommended_proteosphere_treatment": "Keep the original split only as a forensic audit example and rebuild any canonical version with accession- or structure-group-aware partitioning.",
+      "provenance_notes": [
+        "Primary proof came from the local Struct2Graph forensic artifact and reproduced overlap analysis.",
+        "No raw/archive fallback was required for this paper in the current run."
+      ],
+      "raw_archive_fallback_required": false,
+      "scores": {
+        "failure_strength": 5.0,
+        "proof_strength": 5.0,
+        "publication_utility": 7.95
+      },
+      "issue_family": "paper_specific_direct_reuse"
+    },
+    {
+      "paper_id": "csatdta2022",
+      "title": "CSatDTA: Prediction of Drug-Target Binding Affinity Using Convolution Model with Self-Attention",
+      "doi": "https://doi.org/10.3390/ijms23158453",
+      "journal": "International Journal of Molecular Sciences",
+      "year": 2022,
+      "domain": "protein_ligand",
+      "task_family": "drug_target_affinity_prediction",
+      "benchmark_family": "deepdta_setting1_family",
+      "tier_target": "tier1_hard_failure",
+      "official_evidence_links": [
+        "https://doi.org/10.3390/ijms23158453",
+        "https://github.com/aashutoshghimire/CSatDTA",
+        "https://raw.githubusercontent.com/aashutoshghimire/CSatDTA/main/data/README.md"
+      ],
+      "final_status": "tier1_hard_failure",
+      "claimed_split_description": "The paper's headline benchmark inherits a released benchmark family whose split is recoverable and evaluable under ProteoSphere.",
+      "recovered_split_evidence": [
+        "The vendored data README exposes `test_fold_setting1.txt` and `train_fold_setting1.txt` and points back to the DeepDTA data article.",
+        "The official setting1 split is a hard warm-start failure for unseen-entity evaluation: Davis shares every test drug and every test target with training, and KIBA shares almost all."
+      ],
+      "mitigation_claims": [
+        "none"
+      ],
+      "mitigation_audit_result": {
+        "status": "failed",
+        "notes": [
+          "No meaningful mitigation strategy was surfaced in the official evidence for the headline benchmark result.",
+          "The benchmark family itself remains block-worthy under ProteoSphere once the split is reconstructed."
+        ]
+      },
+      "exact_failure_class": [
+        "shared_drug_identity_between_train_test",
+        "shared_target_identity_between_train_test",
+        "benchmark_inheritance_without_mitigation"
+      ],
+      "overlap_findings": {
+        "davis": {
+          "shared_drug_count": 68,
+          "test_unique_drug_count": 68,
+          "shared_target_count": 442,
+          "test_unique_target_count": 442
+        },
+        "kiba": {
+          "shared_drug_count": 2027,
+          "test_unique_drug_count": 2027,
+          "shared_target_count": 229,
+          "test_unique_target_count": 229
+        }
+      },
+      "contamination_findings": {
+        "status": "confirmed_family_level_failure",
+        "notes": [
+          "ProteoSphere re-computed overlap directly from the official DeepDTA split files.",
+          "Davis is a full warm-start failure: every test drug and every test target also appear in training.",
+          "KIBA is nearly the same: 1938 of 2027 test drugs and 228 of 229 test targets also appear in training."
+        ]
+      },
+      "blockers": [],
+      "recommended_proteosphere_treatment": "Do not use the released split as evidence of unseen-drug or unseen-target generalization. Keep it only as a paper-faithful audit lane and pair it with cold-drug, cold-target, or cold-drug+target splits.",
+      "provenance_notes": [
+        "The benchmark-family proof was computed in this run from official released artifacts and local audit data where required.",
+        "The paper was promoted to Tier 1 only because it inherits that proven failure without a mitigation layer strong enough to neutralize it."
+      ],
+      "raw_archive_fallback_required": false,
+      "scores": {
+        "failure_strength": 5.0,
+        "proof_strength": 4.7,
+        "publication_utility": 7.24
+      },
+      "issue_family": "warm_start_benchmark_family"
+    },
+    {
+      "paper_id": "mgraphdta2022",
+      "doi": "https://doi.org/10.1039/D1SC05180F",
+      "domain": "protein_ligand",
+      "task_family": "drug_target_affinity_prediction",
+      "benchmark_family": "deepdta_setting1_family",
+      "tier_target": "tier1_hard_failure",
+      "official_evidence_links": [
+        "https://doi.org/10.1039/D1SC05180F",
+        "https://github.com/guaguabujianle/MGraphDTA",
+        "https://raw.githubusercontent.com/guaguabujianle/MGraphDTA/master/README.md"
+      ],
+      "claimed_split_description": "Performance is reported on Davis and KIBA benchmark splits inherited from earlier DTA work.",
+      "recovered_split_evidence": [
+        "The official README states that Davis and KIBA data come from the DeepDTA benchmark family.",
+        "The inherited DeepDTA setting1 family is already proven to share 68/68 Davis test drugs and 2027/2027 KIBA test drugs with training in ProteoSphere's benchmark proof."
+      ],
+      "mitigation_claims": [
+        "No cold-drug or cold-target split is released in the official repo."
+      ],
+      "mitigation_audit_result": "No paper-specific mitigation neutralizes the inherited DeepDTA warm-start leakage.",
+      "exact_failure_class": "inherited_warm_start_benchmark_failure",
+      "overlap_findings": {
+        "direct_entity_overlap": true,
+        "notes": [
+          "Inherited DeepDTA setting1 retains complete test-drug reuse and complete/near-complete target reuse."
+        ]
+      },
+      "contamination_findings": {
+        "notes": [
+          "This is a benchmark-family failure rather than a bespoke split bug."
+        ]
+      },
+      "blockers": [],
+      "recommended_proteosphere_treatment": "Tier 1 hard failure for generalization claims built on DeepDTA setting1 only.",
+      "provenance_notes": [
+        "Recent peer-reviewed DTA paper that still inherits the warm-start family."
+      ],
+      "raw_archive_fallback_required": false,
+      "final_status": "tier1_hard_failure",
+      "scores": {
+        "publication_utility": 4.5,
+        "failure_strength": 4.6,
+        "proof_strength": 4.5
+      },
+      "title": "MGraphDTA: deep multiscale graph neural network for explainable drug\u2013target binding affinity prediction",
+      "journal": "Chemical Science",
+      "year": 2022,
+      "issue_family": "warm_start_benchmark_family"
+    },
+    {
+      "paper_id": "graphdta2021",
+      "title": "GraphDTA: predicting drug-target binding affinity with graph neural networks",
+      "doi": "https://doi.org/10.1093/bioinformatics/btaa921",
+      "journal": "Bioinformatics",
+      "year": 2021,
+      "domain": "protein_ligand",
+      "task_family": "drug_target_affinity_prediction",
+      "benchmark_family": "deepdta_setting1_family",
+      "tier_target": "tier1_hard_failure",
+      "official_evidence_links": [
+        "https://doi.org/10.1093/bioinformatics/btaa921",
+        "https://github.com/thinng/GraphDTA",
+        "https://raw.githubusercontent.com/thinng/GraphDTA/master/README.md"
+      ],
+      "final_status": "tier1_hard_failure",
+      "claimed_split_description": "The paper's headline benchmark inherits a released benchmark family whose split is recoverable and evaluable under ProteoSphere.",
+      "recovered_split_evidence": [
+        "The official GraphDTA README says the Davis/KIBA `test_fold_setting1.txt` and `train_fold_setting1.txt` files were downloaded from DeepDTA.",
+        "The official setting1 split is a hard warm-start failure for unseen-entity evaluation: Davis shares every test drug and every test target with training, and KIBA shares almost all."
+      ],
+      "mitigation_claims": [
+        "none"
+      ],
+      "mitigation_audit_result": {
+        "status": "failed",
+        "notes": [
+          "No meaningful mitigation strategy was surfaced in the official evidence for the headline benchmark result.",
+          "The benchmark family itself remains block-worthy under ProteoSphere once the split is reconstructed."
+        ]
+      },
+      "exact_failure_class": [
+        "shared_drug_identity_between_train_test",
+        "shared_target_identity_between_train_test",
+        "benchmark_inheritance_without_mitigation"
+      ],
+      "overlap_findings": {
+        "davis": {
+          "shared_drug_count": 68,
+          "test_unique_drug_count": 68,
+          "shared_target_count": 442,
+          "test_unique_target_count": 442
+        },
+        "kiba": {
+          "shared_drug_count": 2027,
+          "test_unique_drug_count": 2027,
+          "shared_target_count": 229,
+          "test_unique_target_count": 229
+        }
+      },
+      "contamination_findings": {
+        "status": "confirmed_family_level_failure",
+        "notes": [
+          "ProteoSphere re-computed overlap directly from the official DeepDTA split files.",
+          "Davis is a full warm-start failure: every test drug and every test target also appear in training.",
+          "KIBA is nearly the same: 1938 of 2027 test drugs and 228 of 229 test targets also appear in training."
+        ]
+      },
+      "blockers": [],
+      "recommended_proteosphere_treatment": "Do not use the released split as evidence of unseen-drug or unseen-target generalization. Keep it only as a paper-faithful audit lane and pair it with cold-drug, cold-target, or cold-drug+target splits.",
+      "provenance_notes": [
+        "The benchmark-family proof was computed in this run from official released artifacts and local audit data where required.",
+        "The paper was promoted to Tier 1 only because it inherits that proven failure without a mitigation layer strong enough to neutralize it."
+      ],
+      "raw_archive_fallback_required": false,
+      "scores": {
+        "failure_strength": 5.0,
+        "proof_strength": 4.7,
+        "publication_utility": 8.54
+      },
+      "issue_family": "warm_start_benchmark_family"
+    },
+    {
+      "paper_id": "sagdta2021",
+      "title": "SAG-DTA: Prediction of Drug-Target Affinity Using Self-Attention Graph Network",
+      "doi": "https://doi.org/10.3390/ijms22168993",
+      "journal": "International Journal of Molecular Sciences",
+      "year": 2021,
+      "domain": "protein_ligand",
+      "task_family": "drug_target_affinity_prediction",
+      "benchmark_family": "deepdta_setting1_family",
+      "tier_target": "tier1_hard_failure",
+      "official_evidence_links": [
+        "https://doi.org/10.3390/ijms22168993",
+        "https://github.com/ShugangZhang/SAG-DTA",
+        "https://raw.githubusercontent.com/ShugangZhang/SAG-DTA/master/prepare_data.py"
+      ],
+      "final_status": "tier1_hard_failure",
+      "claimed_split_description": "The paper's headline benchmark inherits a released benchmark family whose split is recoverable and evaluable under ProteoSphere.",
+      "recovered_split_evidence": [
+        "The official data-preparation script says `convert data from DeepDTA` and reads `train_fold_setting1.txt` plus `test_fold_setting1.txt`.",
+        "The official setting1 split is a hard warm-start failure for unseen-entity evaluation: Davis shares every test drug and every test target with training, and KIBA shares almost all."
+      ],
+      "mitigation_claims": [
+        "none"
+      ],
+      "mitigation_audit_result": {
+        "status": "failed",
+        "notes": [
+          "No meaningful mitigation strategy was surfaced in the official evidence for the headline benchmark result.",
+          "The benchmark family itself remains block-worthy under ProteoSphere once the split is reconstructed."
+        ]
+      },
+      "exact_failure_class": [
+        "shared_drug_identity_between_train_test",
+        "shared_target_identity_between_train_test",
+        "benchmark_inheritance_without_mitigation"
+      ],
+      "overlap_findings": {
+        "davis": {
+          "shared_drug_count": 68,
+          "test_unique_drug_count": 68,
+          "shared_target_count": 442,
+          "test_unique_target_count": 442
+        },
+        "kiba": {
+          "shared_drug_count": 2027,
+          "test_unique_drug_count": 2027,
+          "shared_target_count": 229,
+          "test_unique_target_count": 229
+        }
+      },
+      "contamination_findings": {
+        "status": "confirmed_family_level_failure",
+        "notes": [
+          "ProteoSphere re-computed overlap directly from the official DeepDTA split files.",
+          "Davis is a full warm-start failure: every test drug and every test target also appear in training.",
+          "KIBA is nearly the same: 1938 of 2027 test drugs and 228 of 229 test targets also appear in training."
+        ]
+      },
+      "blockers": [],
+      "recommended_proteosphere_treatment": "Do not use the released split as evidence of unseen-drug or unseen-target generalization. Keep it only as a paper-faithful audit lane and pair it with cold-drug, cold-target, or cold-drug+target splits.",
+      "provenance_notes": [
+        "The benchmark-family proof was computed in this run from official released artifacts and local audit data where required.",
+        "The paper was promoted to Tier 1 only because it inherits that proven failure without a mitigation layer strong enough to neutralize it."
+      ],
+      "raw_archive_fallback_required": false,
+      "scores": {
+        "failure_strength": 5.0,
+        "proof_strength": 4.7,
+        "publication_utility": 7.24
+      },
+      "issue_family": "warm_start_benchmark_family"
+    },
+    {
+      "paper_id": "onionnet2_2021",
+      "title": "OnionNet-2: A Convolutional Neural Network Model for Predicting Protein-Ligand Binding Affinity Based on Residue-Atom Contacting Shells",
+      "doi": "https://doi.org/10.3389/fchem.2021.753002",
+      "journal": "Frontiers in Chemistry",
+      "year": 2021,
+      "domain": "protein_ligand",
+      "task_family": "binding_affinity_prediction",
+      "benchmark_family": "pdbbind_core_family",
+      "tier_target": "tier1_hard_failure",
+      "official_evidence_links": [
+        "https://doi.org/10.3389/fchem.2021.753002"
+      ],
+      "final_status": "tier1_hard_failure",
+      "claimed_split_description": "The paper's headline benchmark inherits a released benchmark family whose split is recoverable and evaluable under ProteoSphere.",
+      "recovered_split_evidence": [
+        "The official Frontiers article says OnionNet-2 was trained on the PDBbind database and evaluated primarily on CASF-2016.",
+        "The standard PDBbind core-set evaluation family is not a clean unseen-protein benchmark: v2016 core retains direct protein overlap for 288 of 290 test complexes against the remaining general set, and v2013 core retains overlap for all 108 test complexes."
+      ],
+      "mitigation_claims": [
+        "none"
+      ],
+      "mitigation_audit_result": {
+        "status": "failed",
+        "notes": [
+          "No meaningful mitigation strategy was surfaced in the official evidence for the headline benchmark result.",
+          "The benchmark family itself remains block-worthy under ProteoSphere once the split is reconstructed."
+        ]
+      },
+      "exact_failure_class": [
+        "direct_protein_identity_overlap_between_training_and_test",
+        "legacy_core_set_external_evaluation",
+        "receptor_reuse"
+      ],
+      "overlap_findings": {
+        "v2016_core": {
+          "test_count": 290,
+          "training_pool_count": 18747,
+          "test_complexes_with_direct_protein_overlap": 288,
+          "shared_accession_count": 77,
+          "top_shared_accessions": [
+            {
+              "accession": "Q9Y233",
+              "test_overlap_count": 10
+            },
+            {
+              "accession": "P00811",
+              "test_overlap_count": 5
+            },
+            {
+              "accession": "P00760",
+              "test_overlap_count": 5
+            },
+            {
+              "accession": "Q24451",
+              "test_overlap_count": 5
+            },
+            {
+              "accession": "P9WIL5",
+              "test_overlap_count": 5
+            },
+            {
+              "accession": "P00918",
+              "test_overlap_count": 5
+            },
+            {
+              "accession": "Q9L5C8",
+              "test_overlap_count": 5
+            },
+            {
+              "accession": "P61823",
+              "test_overlap_count": 5
+            },
+            {
+              "accession": "P00489",
+              "test_overlap_count": 5
+            },
+            {
+              "accession": "P00749",
+              "test_overlap_count": 5
+            }
+          ],
+          "sample_overlaps": [
+            {
+              "test_pdb_id": "3ao4",
+              "shared_accessions": [
+                "Q72498"
+              ],
+              "sample_train_ids": [
+                "3ao1",
+                "3ao5",
+                "3ovn",
+                "5wlo",
+                "6b4n",
+                "6dgx"
+              ]
+            },
+            {
+              "test_pdb_id": "3gv9",
+              "shared_accessions": [
+                "P00811"
+              ],
+              "sample_train_ids": [
+                "1c3b",
+                "1fsw",
+                "1fsy",
+                "1ga9",
+                "1iem",
+                "1kds"
+              ]
+            },
+            {
+              "test_pdb_id": "1uto",
+              "shared_accessions": [
+                "P00760"
+              ],
+              "sample_train_ids": [
+                "1aq7",
+                "1auj",
+                "1bju",
+                "1bjv",
+                "1bty",
+                "1c1r"
+              ]
+            },
+            {
+              "test_pdb_id": "1ps3",
+              "shared_accessions": [
+                "Q24451"
+              ],
+              "sample_train_ids": [
+                "1hty",
+                "1hww",
+                "1hxk",
+                "1qwu",
+                "1qx1",
+                "2f18"
+              ]
+            },
+            {
+              "test_pdb_id": "4ddk",
+              "shared_accessions": [
+                "P9WIL5"
+              ],
+              "sample_train_ids": [
+                "1n3i",
+                "3cow",
+                "3imc",
+                "3ime",
+                "3img",
+                "3iob"
+              ]
+            },
+            {
+              "test_pdb_id": "4jsz",
+              "shared_accessions": [
+                "P00918"
+              ],
+              "sample_train_ids": [
+                "1a42",
+                "1avn",
+                "1bcd",
+                "1bn1",
+                "1bn3",
+                "1bn4"
+              ]
+            },
+            {
+              "test_pdb_id": "3g2z",
+              "shared_accessions": [
+                "Q9L5C8"
+              ],
+              "sample_train_ids": [
+                "1ym1",
+                "1yms",
+                "1ymx",
+                "3g2y",
+                "3g30",
+                "3g32"
+              ]
+            },
+            {
+              "test_pdb_id": "3dxg",
+              "shared_accessions": [
+                "P61823"
+              ],
+              "sample_train_ids": [
+                "1afk",
+                "1afl",
+                "1j7z",
+                "1j80",
+                "1j81",
+                "1jn4"
+              ]
+            },
+            {
+              "test_pdb_id": "3l7b",
+              "shared_accessions": [
+                "P00489"
+              ],
+              "sample_train_ids": [
+                "1a8i",
+                "1axr",
+                "1b4d",
+                "1c50",
+                "1c8k",
+                "1c8l"
+              ]
+            },
+            {
+              "test_pdb_id": "3gr2",
+              "shared_accessions": [
+                "P00811"
+              ],
+              "sample_train_ids": [
+                "1c3b",
+                "1fsw",
+                "1fsy",
+                "1ga9",
+                "1iem",
+                "1kds"
+              ]
+            }
+          ],
+          "failure_class": "core_set_retains_direct_protein_identity_overlap_against_training_pool"
+        },
+        "v2013_core": {
+          "test_count": 108,
+          "training_pool_count": 18929,
+          "test_complexes_with_direct_protein_overlap": 108,
+          "shared_accession_count": 50,
+          "top_shared_accessions": [
+            {
+              "accession": "P00734",
+              "test_overlap_count": 3
+            },
+            {
+              "accession": "P04058",
+              "test_overlap_count": 3
+            },
+            {
+              "accession": "P00742",
+              "test_overlap_count": 3
+            },
+            {
+              "accession": "O14757",
+              "test_overlap_count": 3
+            },
+            {
+              "accession": "P00760",
+              "test_overlap_count": 3
+            },
+            {
+              "accession": "P00749",
+              "test_overlap_count": 3
+            },
+            {
+              "accession": "Q24451",
+              "test_overlap_count": 3
+            },
+            {
+              "accession": "P00517",
+              "test_overlap_count": 3
+            },
+            {
+              "accession": "P61823",
+              "test_overlap_count": 3
+            },
+            {
+              "accession": "P07900",
+              "test_overlap_count": 3
+            }
+          ],
+          "sample_overlaps": [
+            {
+              "test_pdb_id": "1a30",
+              "shared_accessions": [
+                "P04585"
+              ],
+              "sample_train_ids": [
+                "1bv7",
+                "1bv9",
+                "1bwa",
+                "1bwb",
+                "1dmp",
+                "1dtq"
+              ]
+            },
+            {
+              "test_pdb_id": "1bcu",
+              "shared_accessions": [
+                "P00734",
+                "P01050"
+              ],
+              "sample_train_ids": [
+                "1a2c",
+                "1a3e",
+                "1a46",
+                "1a4w",
+                "1a5g",
+                "1a61"
+              ]
+            },
+            {
+              "test_pdb_id": "1e66",
+              "shared_accessions": [
+                "P04058"
+              ],
+              "sample_train_ids": [
+                "1acj",
+                "1amn",
+                "1dx6",
+                "1eve",
+                "1gpn",
+                "1gqs"
+              ]
+            },
+            {
+              "test_pdb_id": "1gpk",
+              "shared_accessions": [
+                "P04058"
+              ],
+              "sample_train_ids": [
+                "1acj",
+                "1amn",
+                "1dx6",
+                "1eve",
+                "1gpn",
+                "1gqs"
+              ]
+            },
+            {
+              "test_pdb_id": "1h23",
+              "shared_accessions": [
+                "P04058"
+              ],
+              "sample_train_ids": [
+                "1acj",
+                "1amn",
+                "1dx6",
+                "1eve",
+                "1gpn",
+                "1gqs"
+              ]
+            },
+            {
+              "test_pdb_id": "1mq6",
+              "shared_accessions": [
+                "P00742"
+              ],
+              "sample_train_ids": [
+                "1ezq",
+                "1f0r",
+                "1f0s",
+                "1fax",
+                "1fjs",
+                "1g2l"
+              ]
+            },
+            {
+              "test_pdb_id": "1nvq",
+              "shared_accessions": [
+                "O14757"
+              ],
+              "sample_train_ids": [
+                "1nvr",
+                "1nvs",
+                "2ayp",
+                "2br1",
+                "2brg",
+                "2brh"
+              ]
+            },
+            {
+              "test_pdb_id": "1o3f",
+              "shared_accessions": [
+                "P00760"
+              ],
+              "sample_train_ids": [
+                "1aq7",
+                "1auj",
+                "1bju",
+                "1bjv",
+                "1bty",
+                "1c1r"
+              ]
+            },
+            {
+              "test_pdb_id": "1o5b",
+              "shared_accessions": [
+                "P00749"
+              ],
+              "sample_train_ids": [
+                "1c5x",
+                "1c5y",
+                "1c5z",
+                "1ejn",
+                "1f5k",
+                "1f5l"
+              ]
+            },
+            {
+              "test_pdb_id": "1oyt",
+              "shared_accessions": [
+                "P00734",
+                "P28506"
+              ],
+              "sample_train_ids": [
+                "1a2c",
+                "1a3e",
+                "1a46",
+                "1a4w",
+                "1a5g",
+                "1a61"
+              ]
+            }
+          ],
+          "failure_class": "core_set_retains_direct_protein_identity_overlap_against_training_pool"
+        }
+      },
+      "contamination_findings": {
+        "status": "confirmed_family_level_failure",
+        "notes": [
+          "ProteoSphere resolved the official core-set ID lists and compared them against the remaining local PDBbind general pool through SIFTS accessions.",
+          "The v2016 core set retains direct protein overlap for 288 of 290 test complexes against the remaining general pool.",
+          "The v2013 core set retains direct protein overlap for all 108 test complexes."
+        ]
+      },
+      "blockers": [],
+      "recommended_proteosphere_treatment": "Do not treat refined/general-to-core evaluation as a clean external benchmark. Use time-split, homology-cluster, or cold-target validation for governing claims.",
+      "provenance_notes": [
+        "The benchmark-family proof was computed in this run from official released artifacts and local audit data where required.",
+        "The paper was promoted to Tier 1 only because it inherits that proven failure without a mitigation layer strong enough to neutralize it."
+      ],
+      "raw_archive_fallback_required": true,
+      "scores": {
+        "failure_strength": 5.0,
+        "proof_strength": 4.3,
+        "publication_utility": 7.21
+      },
+      "issue_family": "protein_overlapped_external_family"
+    },
+    {
+      "paper_id": "se_onionnet2021",
+      "title": "SE-OnionNet: A Convolution Neural Network for Protein-Ligand Binding Affinity Prediction",
+      "doi": "https://doi.org/10.3389/fgene.2020.607824",
+      "journal": "Frontiers in Genetics",
+      "year": 2021,
+      "domain": "protein_ligand",
+      "task_family": "binding_affinity_prediction",
+      "benchmark_family": "pdbbind_core_family",
+      "tier_target": "tier1_hard_failure",
+      "official_evidence_links": [
+        "https://doi.org/10.3389/fgene.2020.607824"
+      ],
+      "final_status": "tier1_hard_failure",
+      "claimed_split_description": "The paper's headline benchmark inherits a released benchmark family whose split is recoverable and evaluable under ProteoSphere.",
+      "recovered_split_evidence": [
+        "The official Frontiers article says the model was tested using scoring functions on PDBbind and the CASF-2016 benchmark.",
+        "The standard PDBbind core-set evaluation family is not a clean unseen-protein benchmark: v2016 core retains direct protein overlap for 288 of 290 test complexes against the remaining general set, and v2013 core retains overlap for all 108 test complexes."
+      ],
+      "mitigation_claims": [
+        "none"
+      ],
+      "mitigation_audit_result": {
+        "status": "failed",
+        "notes": [
+          "No meaningful mitigation strategy was surfaced in the official evidence for the headline benchmark result.",
+          "The benchmark family itself remains block-worthy under ProteoSphere once the split is reconstructed."
+        ]
+      },
+      "exact_failure_class": [
+        "direct_protein_identity_overlap_between_training_and_test",
+        "legacy_core_set_external_evaluation",
+        "receptor_reuse"
+      ],
+      "overlap_findings": {
+        "v2016_core": {
+          "test_count": 290,
+          "training_pool_count": 18747,
+          "test_complexes_with_direct_protein_overlap": 288,
+          "shared_accession_count": 77,
+          "top_shared_accessions": [
+            {
+              "accession": "Q9Y233",
+              "test_overlap_count": 10
+            },
+            {
+              "accession": "P00811",
+              "test_overlap_count": 5
+            },
+            {
+              "accession": "P00760",
+              "test_overlap_count": 5
+            },
+            {
+              "accession": "Q24451",
+              "test_overlap_count": 5
+            },
+            {
+              "accession": "P9WIL5",
+              "test_overlap_count": 5
+            },
+            {
+              "accession": "P00918",
+              "test_overlap_count": 5
+            },
+            {
+              "accession": "Q9L5C8",
+              "test_overlap_count": 5
+            },
+            {
+              "accession": "P61823",
+              "test_overlap_count": 5
+            },
+            {
+              "accession": "P00489",
+              "test_overlap_count": 5
+            },
+            {
+              "accession": "P00749",
+              "test_overlap_count": 5
+            }
+          ],
+          "sample_overlaps": [
+            {
+              "test_pdb_id": "3ao4",
+              "shared_accessions": [
+                "Q72498"
+              ],
+              "sample_train_ids": [
+                "3ao1",
+                "3ao5",
+                "3ovn",
+                "5wlo",
+                "6b4n",
+                "6dgx"
+              ]
+            },
+            {
+              "test_pdb_id": "3gv9",
+              "shared_accessions": [
+                "P00811"
+              ],
+              "sample_train_ids": [
+                "1c3b",
+                "1fsw",
+                "1fsy",
+                "1ga9",
+                "1iem",
+                "1kds"
+              ]
+            },
+            {
+              "test_pdb_id": "1uto",
+              "shared_accessions": [
+                "P00760"
+              ],
+              "sample_train_ids": [
+                "1aq7",
+                "1auj",
+                "1bju",
+                "1bjv",
+                "1bty",
+                "1c1r"
+              ]
+            },
+            {
+              "test_pdb_id": "1ps3",
+              "shared_accessions": [
+                "Q24451"
+              ],
+              "sample_train_ids": [
+                "1hty",
+                "1hww",
+                "1hxk",
+                "1qwu",
+                "1qx1",
+                "2f18"
+              ]
+            },
+            {
+              "test_pdb_id": "4ddk",
+              "shared_accessions": [
+                "P9WIL5"
+              ],
+              "sample_train_ids": [
+                "1n3i",
+                "3cow",
+                "3imc",
+                "3ime",
+                "3img",
+                "3iob"
+              ]
+            },
+            {
+              "test_pdb_id": "4jsz",
+              "shared_accessions": [
+                "P00918"
+              ],
+              "sample_train_ids": [
+                "1a42",
+                "1avn",
+                "1bcd",
+                "1bn1",
+                "1bn3",
+                "1bn4"
+              ]
+            },
+            {
+              "test_pdb_id": "3g2z",
+              "shared_accessions": [
+                "Q9L5C8"
+              ],
+              "sample_train_ids": [
+                "1ym1",
+                "1yms",
+                "1ymx",
+                "3g2y",
+                "3g30",
+                "3g32"
+              ]
+            },
+            {
+              "test_pdb_id": "3dxg",
+              "shared_accessions": [
+                "P61823"
+              ],
+              "sample_train_ids": [
+                "1afk",
+                "1afl",
+                "1j7z",
+                "1j80",
+                "1j81",
+                "1jn4"
+              ]
+            },
+            {
+              "test_pdb_id": "3l7b",
+              "shared_accessions": [
+                "P00489"
+              ],
+              "sample_train_ids": [
+                "1a8i",
+                "1axr",
+                "1b4d",
+                "1c50",
+                "1c8k",
+                "1c8l"
+              ]
+            },
+            {
+              "test_pdb_id": "3gr2",
+              "shared_accessions": [
+                "P00811"
+              ],
+              "sample_train_ids": [
+                "1c3b",
+                "1fsw",
+                "1fsy",
+                "1ga9",
+                "1iem",
+                "1kds"
+              ]
+            }
+          ],
+          "failure_class": "core_set_retains_direct_protein_identity_overlap_against_training_pool"
+        },
+        "v2013_core": {
+          "test_count": 108,
+          "training_pool_count": 18929,
+          "test_complexes_with_direct_protein_overlap": 108,
+          "shared_accession_count": 50,
+          "top_shared_accessions": [
+            {
+              "accession": "P00734",
+              "test_overlap_count": 3
+            },
+            {
+              "accession": "P04058",
+              "test_overlap_count": 3
+            },
+            {
+              "accession": "P00742",
+              "test_overlap_count": 3
+            },
+            {
+              "accession": "O14757",
+              "test_overlap_count": 3
+            },
+            {
+              "accession": "P00760",
+              "test_overlap_count": 3
+            },
+            {
+              "accession": "P00749",
+              "test_overlap_count": 3
+            },
+            {
+              "accession": "Q24451",
+              "test_overlap_count": 3
+            },
+            {
+              "accession": "P00517",
+              "test_overlap_count": 3
+            },
+            {
+              "accession": "P61823",
+              "test_overlap_count": 3
+            },
+            {
+              "accession": "P07900",
+              "test_overlap_count": 3
+            }
+          ],
+          "sample_overlaps": [
+            {
+              "test_pdb_id": "1a30",
+              "shared_accessions": [
+                "P04585"
+              ],
+              "sample_train_ids": [
+                "1bv7",
+                "1bv9",
+                "1bwa",
+                "1bwb",
+                "1dmp",
+                "1dtq"
+              ]
+            },
+            {
+              "test_pdb_id": "1bcu",
+              "shared_accessions": [
+                "P00734",
+                "P01050"
+              ],
+              "sample_train_ids": [
+                "1a2c",
+                "1a3e",
+                "1a46",
+                "1a4w",
+                "1a5g",
+                "1a61"
+              ]
+            },
+            {
+              "test_pdb_id": "1e66",
+              "shared_accessions": [
+                "P04058"
+              ],
+              "sample_train_ids": [
+                "1acj",
+                "1amn",
+                "1dx6",
+                "1eve",
+                "1gpn",
+                "1gqs"
+              ]
+            },
+            {
+              "test_pdb_id": "1gpk",
+              "shared_accessions": [
+                "P04058"
+              ],
+              "sample_train_ids": [
+                "1acj",
+                "1amn",
+                "1dx6",
+                "1eve",
+                "1gpn",
+                "1gqs"
+              ]
+            },
+            {
+              "test_pdb_id": "1h23",
+              "shared_accessions": [
+                "P04058"
+              ],
+              "sample_train_ids": [
+                "1acj",
+                "1amn",
+                "1dx6",
+                "1eve",
+                "1gpn",
+                "1gqs"
+              ]
+            },
+            {
+              "test_pdb_id": "1mq6",
+              "shared_accessions": [
+                "P00742"
+              ],
+              "sample_train_ids": [
+                "1ezq",
+                "1f0r",
+                "1f0s",
+                "1fax",
+                "1fjs",
+                "1g2l"
+              ]
+            },
+            {
+              "test_pdb_id": "1nvq",
+              "shared_accessions": [
+                "O14757"
+              ],
+              "sample_train_ids": [
+                "1nvr",
+                "1nvs",
+                "2ayp",
+                "2br1",
+                "2brg",
+                "2brh"
+              ]
+            },
+            {
+              "test_pdb_id": "1o3f",
+              "shared_accessions": [
+                "P00760"
+              ],
+              "sample_train_ids": [
+                "1aq7",
+                "1auj",
+                "1bju",
+                "1bjv",
+                "1bty",
+                "1c1r"
+              ]
+            },
+            {
+              "test_pdb_id": "1o5b",
+              "shared_accessions": [
+                "P00749"
+              ],
+              "sample_train_ids": [
+                "1c5x",
+                "1c5y",
+                "1c5z",
+                "1ejn",
+                "1f5k",
+                "1f5l"
+              ]
+            },
+            {
+              "test_pdb_id": "1oyt",
+              "shared_accessions": [
+                "P00734",
+                "P28506"
+              ],
+              "sample_train_ids": [
+                "1a2c",
+                "1a3e",
+                "1a46",
+                "1a4w",
+                "1a5g",
+                "1a61"
+              ]
+            }
+          ],
+          "failure_class": "core_set_retains_direct_protein_identity_overlap_against_training_pool"
+        }
+      },
+      "contamination_findings": {
+        "status": "confirmed_family_level_failure",
+        "notes": [
+          "ProteoSphere resolved the official core-set ID lists and compared them against the remaining local PDBbind general pool through SIFTS accessions.",
+          "The v2016 core set retains direct protein overlap for 288 of 290 test complexes against the remaining general pool.",
+          "The v2013 core set retains direct protein overlap for all 108 test complexes."
+        ]
+      },
+      "blockers": [],
+      "recommended_proteosphere_treatment": "Do not treat refined/general-to-core evaluation as a clean external benchmark. Use time-split, homology-cluster, or cold-target validation for governing claims.",
+      "provenance_notes": [
+        "The benchmark-family proof was computed in this run from official released artifacts and local audit data where required.",
+        "The paper was promoted to Tier 1 only because it inherits that proven failure without a mitigation layer strong enough to neutralize it."
+      ],
+      "raw_archive_fallback_required": true,
+      "scores": {
+        "failure_strength": 5.0,
+        "proof_strength": 4.3,
+        "publication_utility": 7.21
+      },
+      "issue_family": "protein_overlapped_external_family"
+    },
+    {
+      "paper_id": "gansdta2020",
+      "title": "GANsDTA: Predicting Drug-Target Binding Affinity Using GANs",
+      "doi": "https://doi.org/10.3389/fgene.2019.01243",
+      "journal": "Frontiers in Genetics",
+      "year": 2020,
+      "domain": "protein_ligand",
+      "task_family": "drug_target_affinity_prediction",
+      "benchmark_family": "deepdta_setting1_family",
+      "tier_target": "tier1_hard_failure",
+      "official_evidence_links": [
+        "https://doi.org/10.3389/fgene.2019.01243"
+      ],
+      "final_status": "tier1_hard_failure",
+      "claimed_split_description": "The paper's headline benchmark inherits a released benchmark family whose split is recoverable and evaluable under ProteoSphere.",
+      "recovered_split_evidence": [
+        "The official Frontiers article states that the Davis and KIBA experiments used the same setting as DeepDTA, with 80% training and 20% testing.",
+        "The official setting1 split is a hard warm-start failure for unseen-entity evaluation: Davis shares every test drug and every test target with training, and KIBA shares almost all."
+      ],
+      "mitigation_claims": [
+        "none"
+      ],
+      "mitigation_audit_result": {
+        "status": "failed",
+        "notes": [
+          "No meaningful mitigation strategy was surfaced in the official evidence for the headline benchmark result.",
+          "The benchmark family itself remains block-worthy under ProteoSphere once the split is reconstructed."
+        ]
+      },
+      "exact_failure_class": [
+        "shared_drug_identity_between_train_test",
+        "shared_target_identity_between_train_test",
+        "benchmark_inheritance_without_mitigation"
+      ],
+      "overlap_findings": {
+        "davis": {
+          "shared_drug_count": 68,
+          "test_unique_drug_count": 68,
+          "shared_target_count": 442,
+          "test_unique_target_count": 442
+        },
+        "kiba": {
+          "shared_drug_count": 2027,
+          "test_unique_drug_count": 2027,
+          "shared_target_count": 229,
+          "test_unique_target_count": 229
+        }
+      },
+      "contamination_findings": {
+        "status": "confirmed_family_level_failure",
+        "notes": [
+          "ProteoSphere re-computed overlap directly from the official DeepDTA split files.",
+          "Davis is a full warm-start failure: every test drug and every test target also appear in training.",
+          "KIBA is nearly the same: 1938 of 2027 test drugs and 228 of 229 test targets also appear in training."
+        ]
+      },
+      "blockers": [],
+      "recommended_proteosphere_treatment": "Do not use the released split as evidence of unseen-drug or unseen-target generalization. Keep it only as a paper-faithful audit lane and pair it with cold-drug, cold-target, or cold-drug+target splits.",
+      "provenance_notes": [
+        "The benchmark-family proof was computed in this run from official released artifacts and local audit data where required.",
+        "The paper was promoted to Tier 1 only because it inherits that proven failure without a mitigation layer strong enough to neutralize it."
+      ],
+      "raw_archive_fallback_required": false,
+      "scores": {
+        "failure_strength": 5.0,
+        "proof_strength": 4.7,
+        "publication_utility": 7.35
+      },
+      "issue_family": "warm_start_benchmark_family"
+    },
+    {
+      "paper_id": "onionnet2019",
+      "title": "OnionNet: a Multiple-Layer Intermolecular-Contact-Based Convolutional Neural Network for Protein-Ligand Binding Affinity Prediction",
+      "doi": "https://doi.org/10.1021/acsomega.9b01997",
+      "journal": "ACS Omega",
+      "year": 2019,
+      "domain": "protein_ligand",
+      "task_family": "binding_affinity_prediction",
+      "benchmark_family": "pdbbind_core_family",
+      "tier_target": "tier1_hard_failure",
+      "official_evidence_links": [
+        "https://doi.org/10.1021/acsomega.9b01997",
+        "https://github.com/zhenglz/onionnet",
+        "https://raw.githubusercontent.com/zhenglz/onionnet/master/README.md"
+      ],
+      "final_status": "tier1_hard_failure",
+      "claimed_split_description": "The paper's headline benchmark inherits a released benchmark family whose split is recoverable and evaluable under ProteoSphere.",
+      "recovered_split_evidence": [
+        "The official OnionNet README says the testing set is the CASF-2013 benchmark and the PDBbind v2016 core set.",
+        "The standard PDBbind core-set evaluation family is not a clean unseen-protein benchmark: v2016 core retains direct protein overlap for 288 of 290 test complexes against the remaining general set, and v2013 core retains overlap for all 108 test complexes."
+      ],
+      "mitigation_claims": [
+        "none"
+      ],
+      "mitigation_audit_result": {
+        "status": "failed",
+        "notes": [
+          "No meaningful mitigation strategy was surfaced in the official evidence for the headline benchmark result.",
+          "The benchmark family itself remains block-worthy under ProteoSphere once the split is reconstructed."
+        ]
+      },
+      "exact_failure_class": [
+        "direct_protein_identity_overlap_between_training_and_test",
+        "legacy_core_set_external_evaluation",
+        "receptor_reuse"
+      ],
+      "overlap_findings": {
+        "v2016_core": {
+          "test_count": 290,
+          "training_pool_count": 18747,
+          "test_complexes_with_direct_protein_overlap": 288,
+          "shared_accession_count": 77,
+          "top_shared_accessions": [
+            {
+              "accession": "Q9Y233",
+              "test_overlap_count": 10
+            },
+            {
+              "accession": "P00811",
+              "test_overlap_count": 5
+            },
+            {
+              "accession": "P00760",
+              "test_overlap_count": 5
+            },
+            {
+              "accession": "Q24451",
+              "test_overlap_count": 5
+            },
+            {
+              "accession": "P9WIL5",
+              "test_overlap_count": 5
+            },
+            {
+              "accession": "P00918",
+              "test_overlap_count": 5
+            },
+            {
+              "accession": "Q9L5C8",
+              "test_overlap_count": 5
+            },
+            {
+              "accession": "P61823",
+              "test_overlap_count": 5
+            },
+            {
+              "accession": "P00489",
+              "test_overlap_count": 5
+            },
+            {
+              "accession": "P00749",
+              "test_overlap_count": 5
+            }
+          ],
+          "sample_overlaps": [
+            {
+              "test_pdb_id": "3ao4",
+              "shared_accessions": [
+                "Q72498"
+              ],
+              "sample_train_ids": [
+                "3ao1",
+                "3ao5",
+                "3ovn",
+                "5wlo",
+                "6b4n",
+                "6dgx"
+              ]
+            },
+            {
+              "test_pdb_id": "3gv9",
+              "shared_accessions": [
+                "P00811"
+              ],
+              "sample_train_ids": [
+                "1c3b",
+                "1fsw",
+                "1fsy",
+                "1ga9",
+                "1iem",
+                "1kds"
+              ]
+            },
+            {
+              "test_pdb_id": "1uto",
+              "shared_accessions": [
+                "P00760"
+              ],
+              "sample_train_ids": [
+                "1aq7",
+                "1auj",
+                "1bju",
+                "1bjv",
+                "1bty",
+                "1c1r"
+              ]
+            },
+            {
+              "test_pdb_id": "1ps3",
+              "shared_accessions": [
+                "Q24451"
+              ],
+              "sample_train_ids": [
+                "1hty",
+                "1hww",
+                "1hxk",
+                "1qwu",
+                "1qx1",
+                "2f18"
+              ]
+            },
+            {
+              "test_pdb_id": "4ddk",
+              "shared_accessions": [
+                "P9WIL5"
+              ],
+              "sample_train_ids": [
+                "1n3i",
+                "3cow",
+                "3imc",
+                "3ime",
+                "3img",
+                "3iob"
+              ]
+            },
+            {
+              "test_pdb_id": "4jsz",
+              "shared_accessions": [
+                "P00918"
+              ],
+              "sample_train_ids": [
+                "1a42",
+                "1avn",
+                "1bcd",
+                "1bn1",
+                "1bn3",
+                "1bn4"
+              ]
+            },
+            {
+              "test_pdb_id": "3g2z",
+              "shared_accessions": [
+                "Q9L5C8"
+              ],
+              "sample_train_ids": [
+                "1ym1",
+                "1yms",
+                "1ymx",
+                "3g2y",
+                "3g30",
+                "3g32"
+              ]
+            },
+            {
+              "test_pdb_id": "3dxg",
+              "shared_accessions": [
+                "P61823"
+              ],
+              "sample_train_ids": [
+                "1afk",
+                "1afl",
+                "1j7z",
+                "1j80",
+                "1j81",
+                "1jn4"
+              ]
+            },
+            {
+              "test_pdb_id": "3l7b",
+              "shared_accessions": [
+                "P00489"
+              ],
+              "sample_train_ids": [
+                "1a8i",
+                "1axr",
+                "1b4d",
+                "1c50",
+                "1c8k",
+                "1c8l"
+              ]
+            },
+            {
+              "test_pdb_id": "3gr2",
+              "shared_accessions": [
+                "P00811"
+              ],
+              "sample_train_ids": [
+                "1c3b",
+                "1fsw",
+                "1fsy",
+                "1ga9",
+                "1iem",
+                "1kds"
+              ]
+            }
+          ],
+          "failure_class": "core_set_retains_direct_protein_identity_overlap_against_training_pool"
+        },
+        "v2013_core": {
+          "test_count": 108,
+          "training_pool_count": 18929,
+          "test_complexes_with_direct_protein_overlap": 108,
+          "shared_accession_count": 50,
+          "top_shared_accessions": [
+            {
+              "accession": "P00734",
+              "test_overlap_count": 3
+            },
+            {
+              "accession": "P04058",
+              "test_overlap_count": 3
+            },
+            {
+              "accession": "P00742",
+              "test_overlap_count": 3
+            },
+            {
+              "accession": "O14757",
+              "test_overlap_count": 3
+            },
+            {
+              "accession": "P00760",
+              "test_overlap_count": 3
+            },
+            {
+              "accession": "P00749",
+              "test_overlap_count": 3
+            },
+            {
+              "accession": "Q24451",
+              "test_overlap_count": 3
+            },
+            {
+              "accession": "P00517",
+              "test_overlap_count": 3
+            },
+            {
+              "accession": "P61823",
+              "test_overlap_count": 3
+            },
+            {
+              "accession": "P07900",
+              "test_overlap_count": 3
+            }
+          ],
+          "sample_overlaps": [
+            {
+              "test_pdb_id": "1a30",
+              "shared_accessions": [
+                "P04585"
+              ],
+              "sample_train_ids": [
+                "1bv7",
+                "1bv9",
+                "1bwa",
+                "1bwb",
+                "1dmp",
+                "1dtq"
+              ]
+            },
+            {
+              "test_pdb_id": "1bcu",
+              "shared_accessions": [
+                "P00734",
+                "P01050"
+              ],
+              "sample_train_ids": [
+                "1a2c",
+                "1a3e",
+                "1a46",
+                "1a4w",
+                "1a5g",
+                "1a61"
+              ]
+            },
+            {
+              "test_pdb_id": "1e66",
+              "shared_accessions": [
+                "P04058"
+              ],
+              "sample_train_ids": [
+                "1acj",
+                "1amn",
+                "1dx6",
+                "1eve",
+                "1gpn",
+                "1gqs"
+              ]
+            },
+            {
+              "test_pdb_id": "1gpk",
+              "shared_accessions": [
+                "P04058"
+              ],
+              "sample_train_ids": [
+                "1acj",
+                "1amn",
+                "1dx6",
+                "1eve",
+                "1gpn",
+                "1gqs"
+              ]
+            },
+            {
+              "test_pdb_id": "1h23",
+              "shared_accessions": [
+                "P04058"
+              ],
+              "sample_train_ids": [
+                "1acj",
+                "1amn",
+                "1dx6",
+                "1eve",
+                "1gpn",
+                "1gqs"
+              ]
+            },
+            {
+              "test_pdb_id": "1mq6",
+              "shared_accessions": [
+                "P00742"
+              ],
+              "sample_train_ids": [
+                "1ezq",
+                "1f0r",
+                "1f0s",
+                "1fax",
+                "1fjs",
+                "1g2l"
+              ]
+            },
+            {
+              "test_pdb_id": "1nvq",
+              "shared_accessions": [
+                "O14757"
+              ],
+              "sample_train_ids": [
+                "1nvr",
+                "1nvs",
+                "2ayp",
+                "2br1",
+                "2brg",
+                "2brh"
+              ]
+            },
+            {
+              "test_pdb_id": "1o3f",
+              "shared_accessions": [
+                "P00760"
+              ],
+              "sample_train_ids": [
+                "1aq7",
+                "1auj",
+                "1bju",
+                "1bjv",
+                "1bty",
+                "1c1r"
+              ]
+            },
+            {
+              "test_pdb_id": "1o5b",
+              "shared_accessions": [
+                "P00749"
+              ],
+              "sample_train_ids": [
+                "1c5x",
+                "1c5y",
+                "1c5z",
+                "1ejn",
+                "1f5k",
+                "1f5l"
+              ]
+            },
+            {
+              "test_pdb_id": "1oyt",
+              "shared_accessions": [
+                "P00734",
+                "P28506"
+              ],
+              "sample_train_ids": [
+                "1a2c",
+                "1a3e",
+                "1a46",
+                "1a4w",
+                "1a5g",
+                "1a61"
+              ]
+            }
+          ],
+          "failure_class": "core_set_retains_direct_protein_identity_overlap_against_training_pool"
+        }
+      },
+      "contamination_findings": {
+        "status": "confirmed_family_level_failure",
+        "notes": [
+          "ProteoSphere resolved the official core-set ID lists and compared them against the remaining local PDBbind general pool through SIFTS accessions.",
+          "The v2016 core set retains direct protein overlap for 288 of 290 test complexes against the remaining general pool.",
+          "The v2013 core set retains direct protein overlap for all 108 test complexes."
+        ]
+      },
+      "blockers": [],
+      "recommended_proteosphere_treatment": "Do not treat refined/general-to-core evaluation as a clean external benchmark. Use time-split, homology-cluster, or cold-target validation for governing claims.",
+      "provenance_notes": [
+        "The benchmark-family proof was computed in this run from official released artifacts and local audit data where required.",
+        "The paper was promoted to Tier 1 only because it inherits that proven failure without a mitigation layer strong enough to neutralize it."
+      ],
+      "raw_archive_fallback_required": true,
+      "scores": {
+        "failure_strength": 5.0,
+        "proof_strength": 4.3,
+        "publication_utility": 7.91
+      },
+      "issue_family": "protein_overlapped_external_family"
+    },
+    {
+      "paper_id": "deepdta2018",
+      "title": "DeepDTA: deep drug-target binding affinity prediction",
+      "doi": "https://doi.org/10.1093/bioinformatics/bty593",
+      "journal": "Bioinformatics",
+      "year": 2018,
+      "domain": "protein_ligand",
+      "task_family": "drug_target_affinity_prediction",
+      "benchmark_family": "deepdta_setting1_family",
+      "tier_target": "tier1_hard_failure",
+      "official_evidence_links": [
+        "https://doi.org/10.1093/bioinformatics/bty593",
+        "https://raw.githubusercontent.com/hkmztrk/DeepDTA/master/data/README.md"
+      ],
+      "final_status": "tier1_hard_failure",
+      "claimed_split_description": "The paper's headline benchmark inherits a released benchmark family whose split is recoverable and evaluable under ProteoSphere.",
+      "recovered_split_evidence": [
+        "DeepDTA ships `train_fold_setting1.txt` and `test_fold_setting1.txt`; ProteoSphere re-computed overlap directly from the official files.",
+        "The official setting1 split is a hard warm-start failure for unseen-entity evaluation: Davis shares every test drug and every test target with training, and KIBA shares almost all."
+      ],
+      "mitigation_claims": [
+        "none"
+      ],
+      "mitigation_audit_result": {
+        "status": "failed",
+        "notes": [
+          "No meaningful mitigation strategy was surfaced in the official evidence for the headline benchmark result.",
+          "The benchmark family itself remains block-worthy under ProteoSphere once the split is reconstructed."
+        ]
+      },
+      "exact_failure_class": [
+        "shared_drug_identity_between_train_test",
+        "shared_target_identity_between_train_test",
+        "warm_start_split"
+      ],
+      "overlap_findings": {
+        "davis": {
+          "shared_drug_count": 68,
+          "test_unique_drug_count": 68,
+          "shared_target_count": 442,
+          "test_unique_target_count": 442
+        },
+        "kiba": {
+          "shared_drug_count": 2027,
+          "test_unique_drug_count": 2027,
+          "shared_target_count": 229,
+          "test_unique_target_count": 229
+        }
+      },
+      "contamination_findings": {
+        "status": "confirmed_family_level_failure",
+        "notes": [
+          "ProteoSphere re-computed overlap directly from the official DeepDTA split files.",
+          "Davis is a full warm-start failure: every test drug and every test target also appear in training.",
+          "KIBA is nearly the same: 1938 of 2027 test drugs and 228 of 229 test targets also appear in training."
+        ]
+      },
+      "blockers": [],
+      "recommended_proteosphere_treatment": "Do not use the released split as evidence of unseen-drug or unseen-target generalization. Keep it only as a paper-faithful audit lane and pair it with cold-drug, cold-target, or cold-drug+target splits.",
+      "provenance_notes": [
+        "The benchmark-family proof was computed in this run from official released artifacts and local audit data where required.",
+        "The paper was promoted to Tier 1 only because it inherits that proven failure without a mitigation layer strong enough to neutralize it."
+      ],
+      "raw_archive_fallback_required": false,
+      "scores": {
+        "failure_strength": 5.0,
+        "proof_strength": 4.7,
+        "publication_utility": 8.54
+      },
+      "issue_family": "warm_start_benchmark_family"
+    },
+    {
+      "paper_id": "pafnucy2018",
+      "title": "Development and evaluation of a deep learning model for protein-ligand binding affinity prediction",
+      "doi": "https://doi.org/10.1093/bioinformatics/bty374",
+      "journal": "Bioinformatics",
+      "year": 2018,
+      "domain": "protein_ligand",
+      "task_family": "binding_affinity_prediction",
+      "benchmark_family": "pdbbind_core_family",
+      "tier_target": "tier1_hard_failure",
+      "official_evidence_links": [
+        "https://doi.org/10.1093/bioinformatics/bty374"
+      ],
+      "final_status": "tier1_hard_failure",
+      "claimed_split_description": "The paper's headline benchmark inherits a released benchmark family whose split is recoverable and evaluable under ProteoSphere.",
+      "recovered_split_evidence": [
+        "The paper's widely reused benchmark story is training on PDBbind and evaluating on CASF/core-set scoring power; ProteoSphere's direct overlap audit shows the core-set family is not independent at the protein level.",
+        "The standard PDBbind core-set evaluation family is not a clean unseen-protein benchmark: v2016 core retains direct protein overlap for 288 of 290 test complexes against the remaining general set, and v2013 core retains overlap for all 108 test complexes."
+      ],
+      "mitigation_claims": [
+        "no homology-aware split surfaced in headline benchmark"
+      ],
+      "mitigation_audit_result": {
+        "status": "failed",
+        "notes": [
+          "No meaningful mitigation strategy was surfaced in the official evidence for the headline benchmark result.",
+          "The benchmark family itself remains block-worthy under ProteoSphere once the split is reconstructed."
+        ]
+      },
+      "exact_failure_class": [
+        "direct_protein_identity_overlap_between_training_and_test",
+        "legacy_core_set_external_evaluation",
+        "receptor_reuse"
+      ],
+      "overlap_findings": {
+        "v2016_core": {
+          "test_count": 290,
+          "training_pool_count": 18747,
+          "test_complexes_with_direct_protein_overlap": 288,
+          "shared_accession_count": 77,
+          "top_shared_accessions": [
+            {
+              "accession": "Q9Y233",
+              "test_overlap_count": 10
+            },
+            {
+              "accession": "P00811",
+              "test_overlap_count": 5
+            },
+            {
+              "accession": "P00760",
+              "test_overlap_count": 5
+            },
+            {
+              "accession": "Q24451",
+              "test_overlap_count": 5
+            },
+            {
+              "accession": "P9WIL5",
+              "test_overlap_count": 5
+            },
+            {
+              "accession": "P00918",
+              "test_overlap_count": 5
+            },
+            {
+              "accession": "Q9L5C8",
+              "test_overlap_count": 5
+            },
+            {
+              "accession": "P61823",
+              "test_overlap_count": 5
+            },
+            {
+              "accession": "P00489",
+              "test_overlap_count": 5
+            },
+            {
+              "accession": "P00749",
+              "test_overlap_count": 5
+            }
+          ],
+          "sample_overlaps": [
+            {
+              "test_pdb_id": "3ao4",
+              "shared_accessions": [
+                "Q72498"
+              ],
+              "sample_train_ids": [
+                "3ao1",
+                "3ao5",
+                "3ovn",
+                "5wlo",
+                "6b4n",
+                "6dgx"
+              ]
+            },
+            {
+              "test_pdb_id": "3gv9",
+              "shared_accessions": [
+                "P00811"
+              ],
+              "sample_train_ids": [
+                "1c3b",
+                "1fsw",
+                "1fsy",
+                "1ga9",
+                "1iem",
+                "1kds"
+              ]
+            },
+            {
+              "test_pdb_id": "1uto",
+              "shared_accessions": [
+                "P00760"
+              ],
+              "sample_train_ids": [
+                "1aq7",
+                "1auj",
+                "1bju",
+                "1bjv",
+                "1bty",
+                "1c1r"
+              ]
+            },
+            {
+              "test_pdb_id": "1ps3",
+              "shared_accessions": [
+                "Q24451"
+              ],
+              "sample_train_ids": [
+                "1hty",
+                "1hww",
+                "1hxk",
+                "1qwu",
+                "1qx1",
+                "2f18"
+              ]
+            },
+            {
+              "test_pdb_id": "4ddk",
+              "shared_accessions": [
+                "P9WIL5"
+              ],
+              "sample_train_ids": [
+                "1n3i",
+                "3cow",
+                "3imc",
+                "3ime",
+                "3img",
+                "3iob"
+              ]
+            },
+            {
+              "test_pdb_id": "4jsz",
+              "shared_accessions": [
+                "P00918"
+              ],
+              "sample_train_ids": [
+                "1a42",
+                "1avn",
+                "1bcd",
+                "1bn1",
+                "1bn3",
+                "1bn4"
+              ]
+            },
+            {
+              "test_pdb_id": "3g2z",
+              "shared_accessions": [
+                "Q9L5C8"
+              ],
+              "sample_train_ids": [
+                "1ym1",
+                "1yms",
+                "1ymx",
+                "3g2y",
+                "3g30",
+                "3g32"
+              ]
+            },
+            {
+              "test_pdb_id": "3dxg",
+              "shared_accessions": [
+                "P61823"
+              ],
+              "sample_train_ids": [
+                "1afk",
+                "1afl",
+                "1j7z",
+                "1j80",
+                "1j81",
+                "1jn4"
+              ]
+            },
+            {
+              "test_pdb_id": "3l7b",
+              "shared_accessions": [
+                "P00489"
+              ],
+              "sample_train_ids": [
+                "1a8i",
+                "1axr",
+                "1b4d",
+                "1c50",
+                "1c8k",
+                "1c8l"
+              ]
+            },
+            {
+              "test_pdb_id": "3gr2",
+              "shared_accessions": [
+                "P00811"
+              ],
+              "sample_train_ids": [
+                "1c3b",
+                "1fsw",
+                "1fsy",
+                "1ga9",
+                "1iem",
+                "1kds"
+              ]
+            }
+          ],
+          "failure_class": "core_set_retains_direct_protein_identity_overlap_against_training_pool"
+        },
+        "v2013_core": {
+          "test_count": 108,
+          "training_pool_count": 18929,
+          "test_complexes_with_direct_protein_overlap": 108,
+          "shared_accession_count": 50,
+          "top_shared_accessions": [
+            {
+              "accession": "P00734",
+              "test_overlap_count": 3
+            },
+            {
+              "accession": "P04058",
+              "test_overlap_count": 3
+            },
+            {
+              "accession": "P00742",
+              "test_overlap_count": 3
+            },
+            {
+              "accession": "O14757",
+              "test_overlap_count": 3
+            },
+            {
+              "accession": "P00760",
+              "test_overlap_count": 3
+            },
+            {
+              "accession": "P00749",
+              "test_overlap_count": 3
+            },
+            {
+              "accession": "Q24451",
+              "test_overlap_count": 3
+            },
+            {
+              "accession": "P00517",
+              "test_overlap_count": 3
+            },
+            {
+              "accession": "P61823",
+              "test_overlap_count": 3
+            },
+            {
+              "accession": "P07900",
+              "test_overlap_count": 3
+            }
+          ],
+          "sample_overlaps": [
+            {
+              "test_pdb_id": "1a30",
+              "shared_accessions": [
+                "P04585"
+              ],
+              "sample_train_ids": [
+                "1bv7",
+                "1bv9",
+                "1bwa",
+                "1bwb",
+                "1dmp",
+                "1dtq"
+              ]
+            },
+            {
+              "test_pdb_id": "1bcu",
+              "shared_accessions": [
+                "P00734",
+                "P01050"
+              ],
+              "sample_train_ids": [
+                "1a2c",
+                "1a3e",
+                "1a46",
+                "1a4w",
+                "1a5g",
+                "1a61"
+              ]
+            },
+            {
+              "test_pdb_id": "1e66",
+              "shared_accessions": [
+                "P04058"
+              ],
+              "sample_train_ids": [
+                "1acj",
+                "1amn",
+                "1dx6",
+                "1eve",
+                "1gpn",
+                "1gqs"
+              ]
+            },
+            {
+              "test_pdb_id": "1gpk",
+              "shared_accessions": [
+                "P04058"
+              ],
+              "sample_train_ids": [
+                "1acj",
+                "1amn",
+                "1dx6",
+                "1eve",
+                "1gpn",
+                "1gqs"
+              ]
+            },
+            {
+              "test_pdb_id": "1h23",
+              "shared_accessions": [
+                "P04058"
+              ],
+              "sample_train_ids": [
+                "1acj",
+                "1amn",
+                "1dx6",
+                "1eve",
+                "1gpn",
+                "1gqs"
+              ]
+            },
+            {
+              "test_pdb_id": "1mq6",
+              "shared_accessions": [
+                "P00742"
+              ],
+              "sample_train_ids": [
+                "1ezq",
+                "1f0r",
+                "1f0s",
+                "1fax",
+                "1fjs",
+                "1g2l"
+              ]
+            },
+            {
+              "test_pdb_id": "1nvq",
+              "shared_accessions": [
+                "O14757"
+              ],
+              "sample_train_ids": [
+                "1nvr",
+                "1nvs",
+                "2ayp",
+                "2br1",
+                "2brg",
+                "2brh"
+              ]
+            },
+            {
+              "test_pdb_id": "1o3f",
+              "shared_accessions": [
+                "P00760"
+              ],
+              "sample_train_ids": [
+                "1aq7",
+                "1auj",
+                "1bju",
+                "1bjv",
+                "1bty",
+                "1c1r"
+              ]
+            },
+            {
+              "test_pdb_id": "1o5b",
+              "shared_accessions": [
+                "P00749"
+              ],
+              "sample_train_ids": [
+                "1c5x",
+                "1c5y",
+                "1c5z",
+                "1ejn",
+                "1f5k",
+                "1f5l"
+              ]
+            },
+            {
+              "test_pdb_id": "1oyt",
+              "shared_accessions": [
+                "P00734",
+                "P28506"
+              ],
+              "sample_train_ids": [
+                "1a2c",
+                "1a3e",
+                "1a46",
+                "1a4w",
+                "1a5g",
+                "1a61"
+              ]
+            }
+          ],
+          "failure_class": "core_set_retains_direct_protein_identity_overlap_against_training_pool"
+        }
+      },
+      "contamination_findings": {
+        "status": "confirmed_family_level_failure",
+        "notes": [
+          "ProteoSphere resolved the official core-set ID lists and compared them against the remaining local PDBbind general pool through SIFTS accessions.",
+          "The v2016 core set retains direct protein overlap for 288 of 290 test complexes against the remaining general pool.",
+          "The v2013 core set retains direct protein overlap for all 108 test complexes."
+        ]
+      },
+      "blockers": [],
+      "recommended_proteosphere_treatment": "Do not treat refined/general-to-core evaluation as a clean external benchmark. Use time-split, homology-cluster, or cold-target validation for governing claims.",
+      "provenance_notes": [
+        "The benchmark-family proof was computed in this run from official released artifacts and local audit data where required.",
+        "The paper was promoted to Tier 1 only because it inherits that proven failure without a mitigation layer strong enough to neutralize it."
+      ],
+      "raw_archive_fallback_required": true,
+      "scores": {
+        "failure_strength": 5.0,
+        "proof_strength": 4.3,
+        "publication_utility": 8.41
+      },
+      "issue_family": "protein_overlapped_external_family"
+    }
+  ],
+  "broader_search_assessment": {
+    "status": "broadened_but_evidence_disciplined",
+    "notes": [
+      "The broader recent search did surface more biomolecular interaction areas, but proof-backed Tier 1 confirmations still cluster most strongly in DTA and PDBbind-style evaluation families.",
+      "The project deliberately did not promote weaker candidates from antibody, peptide, protein-RNA, or protein-DNA tasks without equally strong split recovery and mitigation auditing.",
+      "This makes the current Tier 1 set narrower by domain than ideal, but stronger and more publishable by evidentiary standard."
+    ]
+  }
+}

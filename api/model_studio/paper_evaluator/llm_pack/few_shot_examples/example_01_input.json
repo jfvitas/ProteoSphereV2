@@ -1,0 +1,7 @@
+{
+  "paper_id": "example_unseen_protein",
+  "claimed_dataset": "Unseen-protein benchmark",
+  "claimed_split_description": "Strict unseen-protein holdout is claimed, but no explicit roster is included.",
+  "split_style": "strict_unseen_protein",
+  "source_families": ["intact", "uniprot"]
+}

@@ -1,0 +1,1755 @@
+{
+  "artifact_id": "paper_split_audit_friendly_evaluation",
+  "schema_id": "proteosphere-paper-split-audit-friendly-2026-04-13",
+  "status": "complete",
+  "generated_at": "2026-04-13T19:09:22.644307+00:00",
+  "warehouse_root": "D:\\ProteoSphere\\reference_library",
+  "catalog_path": "D:\\ProteoSphere\\reference_library\\catalog\\reference_library.duckdb",
+  "manifest_path": "D:\\ProteoSphere\\reference_library\\warehouse_manifest.json",
+  "source_registry_path": "D:\\ProteoSphere\\reference_library\\control\\source_registry.json",
+  "default_view": "best_evidence",
+  "manifest_default_views": {},
+  "warehouse_profile": {
+    "protein_uniref_coverage": {
+      "proteins": 262440613,
+      "uniref90": 203085208
+    },
+    "pdb_entry_rows": 234767,
+    "structure_unit_rows": 968580,
+    "local_structure_rows": 85651
+  },
+  "summary": {
+    "paper_count": 20,
+    "verdict_counts": {
+      "audit-useful but non-canonical": 9,
+      "faithful and acceptable as-is": 10,
+      "incomplete because required evidence is missing": 1
+    },
+    "project_status_counts": {
+      "audit_only": 9,
+      "blocked_pending_mapping": 1,
+      "usable": 10
+    },
+    "benchmark_family_counts": {
+      "bernett_plus_cross_species": 1,
+      "bernett_plus_species_holdout": 1,
+      "deepppisp_186_72_164": 1,
+      "dscript_benchmark_family": 2,
+      "dscript_human_plus_species_holdout": 1,
+      "hssppi_public_tasks": 1,
+      "ppis_train335_family": 10,
+      "rapppid_c123": 1,
+      "seq_insite_similarity_guarded_ppis": 1,
+      "topsy_turvy_edgelists": 1
+    }
+  },
+  "warehouse_sufficiency_notes": [
+    "This paper set is much more auditable than the earlier reading list because most papers either ship direct split artifacts or inherit a named public benchmark family.",
+    "Even so, best_evidence still does not materialize DOI-indexed paper roster tables, so exact overlap computation requires mirroring the released split files into the local audit workspace.",
+    "The GraphPPIS lineage demonstrates another reviewer value-add: published splits can still be overused as a single benchmark family, which is fair for like-for-like comparison but weak for claims of broad generalization."
+  ],
+  "raw_archive_fallback_notes": [
+    "No raw/archive fallback was required for this report.",
+    "Direct local verification was performed for the D-SCRIPT and RAPPPID release artifacts already downloaded into the audit workspace."
+  ],
+  "papers": [
+    {
+      "paper_id": "szymborski2022rapppid",
+      "title": "RAPPPID: towards generalizable protein interaction prediction with AWD-LSTM twin networks",
+      "doi": "https://doi.org/10.1093/bioinformatics/btac429",
+      "task_group": "ppi_prediction",
+      "auditability": "high",
+      "benchmark_family": "rapppid_c123",
+      "claimed_split_description": "Official Zenodo package ships strict train/val/test comparative splits (C1/C2/C3) with explicit pair files and sequence dictionaries.",
+      "resolved_split_policy": {
+        "policy": "uniref_grouped",
+        "reason": "Beta split compiler now groups on explicit UniRef keys where they exist and reports fallback coverage where they do not.",
+        "recommended_for_training": true,
+        "paper_faithful_only": false
+      },
+      "overlap_findings": {
+        "direct_overlap": {
+          "status": "mapping_blocked_after_roster_recovery",
+          "notes": [
+            "The exact split files are available and auditable, but direct overlap checks remain blocked until Ensembl/FlyBase-style IDs are bridged into the warehouse."
+          ]
+        },
+        "accession_root_overlap": {
+          "status": "mapping_blocked_after_roster_recovery",
+          "notes": [
+            "The exact split files are available and auditable, but direct overlap checks remain blocked until Ensembl/FlyBase-style IDs are bridged into the warehouse."
+          ]
+        },
+        "uniref_overlap": {
+          "status": "theoretically_supported",
+          "notes": [
+            "The exact split files are available and auditable, but direct overlap checks remain blocked until Ensembl/FlyBase-style IDs are bridged into the warehouse.",
+            "Warehouse proteins already cover 203,085,208 UniRef90-assigned rows."
+          ]
+        }
+      },
+      "leakage_findings": {
+        "status": "reviewed",
+        "notes": [
+          "This paper set was pre-filtered to avoid pure cross-validation studies and to prefer explicit held-out or external test splits.",
+          "The main residual risks are identifier-bridge gaps, benchmark-family saturation, and derivative reuse of the same public split family across many later papers."
+        ]
+      },
+      "source_family_findings": [
+        "STRING is present in the library with license scope `internal_only` and scope tier `authoritative` (registry records: 1).",
+        "UniProt is present in the library with license scope `public_metadata` and scope tier `authoritative` (registry records: 8).",
+        "The proteins surface has 203,085,208 UniRef90-assigned proteins, so strict unseen-protein or UniRef-aware audits are feasible once released identifiers bridge into best_evidence."
+      ],
+      "governed_eligibility_findings": {
+        "status": "candidate_only",
+        "notes": [
+          "best_evidence remains the governing warehouse read view for this evaluation.",
+          "Published external splits can be faithful and acceptable as paper-faithful audit lanes without automatically becoming the default ProteoSphere training benchmark.",
+          "This split is strong enough to trust as an external audit lane, but canonical training use still depends on warehouse mirroring and identifier resolution."
+        ]
+      },
+      "verdict": "faithful and acceptable as-is",
+      "project_status": "usable",
+      "blockers": [
+        "released split artifacts are published, but the identifiers are not bridged into warehouse-native protein refs"
+      ],
+      "warnings": [
+        "STRING remains non-public or non-redistributable in the condensed library, so it should stay audit-facing rather than governing."
+      ],
+      "recommended_canonical_treatment": "Keep this as a `uniref_grouped` audit lane and mirror the exact released roster into the warehouse so direct leakage diagnostics become first-class rather than inferred.",
+      "provenance_notes": [
+        "Primary evidence came from the condensed warehouse catalog, manifest, source registry, and Model Studio split-policy code.",
+        "Supplemental paper/repo evidence came from official links provided in the curated audit-friendly list and from directly inspected release artifacts where available.",
+        "No raw/archive fallback was used."
+      ],
+      "supplemental_evidence": {
+        "status": "locally_verified_release_artifact",
+        "summary": "Local RAPPPID Zenodo archive contains explicit C1/C2/C3 split artifacts.",
+        "details": [
+          "The local archive includes train/val/test pair files and sequence dictionaries for the comparative splits.",
+          "Identifiers are STRING/Ensembl protein IDs rather than warehouse-native accessions."
+        ],
+        "artifact_paths": [
+          "D:\\documents\\ProteoSphereV2\\artifacts\\status\\paper_split_external\\rapppid\\rapppid_data.zip"
+        ]
+      },
+      "source_links": [
+        "https://doi.org/10.1093/bioinformatics/btac429",
+        "https://doi.org/10.5281/zenodo.6817258"
+      ],
+      "named_entities": [
+        "C1",
+        "C2",
+        "C3",
+        "STRING v11 human"
+      ],
+      "source_families": [
+        "string",
+        "uniprot"
+      ],
+      "raw_archive_fallback_required": false
+    },
+    {
+      "paper_id": "graphppis2021",
+      "title": "GraphPPIS",
+      "doi": "https://doi.org/10.1093/bioinformatics/btab643",
+      "task_group": "binding_site_prediction",
+      "auditability": "high",
+      "benchmark_family": "ppis_train335_family",
+      "claimed_split_description": "GraphPPIS is the anchor PPIS benchmark paper for the Train_335/Test_60/Test_315/UBtest_31 family and the official release ships the exact datasets.",
+      "resolved_split_policy": {
+        "policy": "paper_faithful_external",
+        "reason": "Reviewable beta split lane can now hold out external source components for audit and comparison workflows without becoming the default recommended split.",
+        "recommended_for_training": false,
+        "paper_faithful_only": true
+      },
+      "overlap_findings": {
+        "direct_overlap": {
+          "status": "published_not_mirrored",
+          "notes": [
+            "The shared PPIS benchmark family is explicit enough for audit planning, but exact chain/residue overlap could not be enumerated without mirroring the pkl/fa files."
+          ]
+        },
+        "accession_root_overlap": {
+          "status": "published_not_mirrored",
+          "notes": [
+            "The shared PPIS benchmark family is explicit enough for audit planning, but exact chain/residue overlap could not be enumerated without mirroring the pkl/fa files."
+          ]
+        },
+        "uniref_overlap": {
+          "status": "theoretically_supported",
+          "notes": [
+            "The shared PPIS benchmark family is explicit enough for audit planning, but exact chain/residue overlap could not be enumerated without mirroring the pkl/fa files.",
+            "Warehouse proteins already cover 203,085,208 UniRef90-assigned rows."
+          ]
+        }
+      },
+      "leakage_findings": {
+        "status": "reviewed",
+        "notes": [
+          "This paper set was pre-filtered to avoid pure cross-validation studies and to prefer explicit held-out or external test splits.",
+          "The main residual risks are identifier-bridge gaps, benchmark-family saturation, and derivative reuse of the same public split family across many later papers.",
+          "Because many later PPIS papers reuse the Train_335/Test_60 lineage, a reviewer should distinguish fair within-family comparison from genuine out-of-family generalization."
+        ]
+      },
+      "source_family_findings": [
+        "RCSB/PDBe is present in the library with license scope `public_metadata` and scope tier `authoritative` (registry records: 7).",
+        "The warehouse already holds 234,767 PDB entries and 85,651 local structure-unit rows, so published PPIS benchmark files would be structurally groundable once mirrored."
+      ],
+      "governed_eligibility_findings": {
+        "status": "candidate_only",
+        "notes": [
+          "best_evidence remains the governing warehouse read view for this evaluation.",
+          "Published external splits can be faithful and acceptable as paper-faithful audit lanes without automatically becoming the default ProteoSphere training benchmark.",
+          "This split is strong enough to trust as an external audit lane, but canonical training use still depends on warehouse mirroring and identifier resolution."
+        ]
+      },
+      "verdict": "faithful and acceptable as-is",
+      "project_status": "usable",
+      "blockers": [
+        "benchmark filenames are known, but the exact PPIS roster files were not mirrored into the local audit workspace in this run"
+      ],
+      "warnings": [],
+      "recommended_canonical_treatment": "Keep this as a `paper_faithful_external` audit lane and mirror the exact released roster into the warehouse so direct leakage diagnostics become first-class rather than inferred.",
+      "provenance_notes": [
+        "Primary evidence came from the condensed warehouse catalog, manifest, source registry, and Model Studio split-policy code.",
+        "Supplemental paper/repo evidence came from official links provided in the curated audit-friendly list and from directly inspected release artifacts where available.",
+        "No raw/archive fallback was used."
+      ],
+      "supplemental_evidence": {},
+      "source_links": [
+        "https://doi.org/10.1093/bioinformatics/btab643"
+      ],
+      "named_entities": [
+        "Train_335",
+        "Test_60",
+        "Test_315",
+        "UBtest_31"
+      ],
+      "source_families": [
+        "rcsb_pdbe"
+      ],
+      "raw_archive_fallback_required": false
+    },
+    {
+      "paper_id": "equippis2023",
+      "title": "EquiPPIS",
+      "doi": "https://doi.org/10.1371/journal.pcbi.1011435",
+      "task_group": "binding_site_prediction",
+      "auditability": "medium",
+      "benchmark_family": "ppis_train335_family",
+      "claimed_split_description": "EquiPPIS explicitly follows the public GraphPPIS train/test split rather than introducing a new benchmark family.",
+      "resolved_split_policy": {
+        "policy": "paper_faithful_external",
+        "reason": "Reviewable beta split lane can now hold out external source components for audit and comparison workflows without becoming the default recommended split.",
+        "recommended_for_training": false,
+        "paper_faithful_only": true
+      },
+      "overlap_findings": {
+        "direct_overlap": {
+          "status": "published_not_mirrored",
+          "notes": [
+            "The shared PPIS benchmark family is explicit enough for audit planning, but exact chain/residue overlap could not be enumerated without mirroring the pkl/fa files."
+          ]
+        },
+        "accession_root_overlap": {
+          "status": "published_not_mirrored",
+          "notes": [
+            "The shared PPIS benchmark family is explicit enough for audit planning, but exact chain/residue overlap could not be enumerated without mirroring the pkl/fa files."
+          ]
+        },
+        "uniref_overlap": {
+          "status": "theoretically_supported",
+          "notes": [
+            "The shared PPIS benchmark family is explicit enough for audit planning, but exact chain/residue overlap could not be enumerated without mirroring the pkl/fa files.",
+            "Warehouse proteins already cover 203,085,208 UniRef90-assigned rows."
+          ]
+        }
+      },
+      "leakage_findings": {
+        "status": "reviewed",
+        "notes": [
+          "This paper set was pre-filtered to avoid pure cross-validation studies and to prefer explicit held-out or external test splits.",
+          "The main residual risks are identifier-bridge gaps, benchmark-family saturation, and derivative reuse of the same public split family across many later papers.",
+          "Because many later PPIS papers reuse the Train_335/Test_60 lineage, a reviewer should distinguish fair within-family comparison from genuine out-of-family generalization.",
+          "This paper inherits a strong public benchmark rather than releasing a new one, so its main audit value is comparability, not novel split design."
+        ]
+      },
+      "source_family_findings": [
+        "RCSB/PDBe is present in the library with license scope `public_metadata` and scope tier `authoritative` (registry records: 7).",
+        "The warehouse already holds 234,767 PDB entries and 85,651 local structure-unit rows, so published PPIS benchmark files would be structurally groundable once mirrored."
+      ],
+      "governed_eligibility_findings": {
+        "status": "audit_only",
+        "notes": [
+          "best_evidence remains the governing warehouse read view for this evaluation.",
+          "Published external splits can be faithful and acceptable as paper-faithful audit lanes without automatically becoming the default ProteoSphere training benchmark.",
+          "This split is most useful as an external comparison lane or shared-community benchmark, not as the sole canonical release target."
+        ]
+      },
+      "verdict": "audit-useful but non-canonical",
+      "project_status": "audit_only",
+      "blockers": [
+        "benchmark filenames are known, but the exact PPIS roster files were not mirrored into the local audit workspace in this run"
+      ],
+      "warnings": [],
+      "recommended_canonical_treatment": "Keep it as a fair shared-benchmark comparison lane, but pair it with at least one out-of-family validation set before using it for strong generalization claims.",
+      "provenance_notes": [
+        "Primary evidence came from the condensed warehouse catalog, manifest, source registry, and Model Studio split-policy code.",
+        "Supplemental paper/repo evidence came from official links provided in the curated audit-friendly list and from directly inspected release artifacts where available.",
+        "No raw/archive fallback was used."
+      ],
+      "supplemental_evidence": {},
+      "source_links": [
+        "https://doi.org/10.1371/journal.pcbi.1011435"
+      ],
+      "named_entities": [
+        "Train_335",
+        "Test_60",
+        "AlphaFold2 models"
+      ],
+      "source_families": [
+        "rcsb_pdbe"
+      ],
+      "raw_archive_fallback_required": false
+    },
+    {
+      "paper_id": "agat_ppis2023",
+      "title": "AGAT-PPIS",
+      "doi": "https://doi.org/10.1093/bib/bbad122",
+      "task_group": "binding_site_prediction",
+      "auditability": "high",
+      "benchmark_family": "ppis_train335_family",
+      "claimed_split_description": "Official repo ships explicit Train_335/Test_60/Test_315-28/UBtest_31-6 benchmark files.",
+      "resolved_split_policy": {
+        "policy": "paper_faithful_external",
+        "reason": "Reviewable beta split lane can now hold out external source components for audit and comparison workflows without becoming the default recommended split.",
+        "recommended_for_training": false,
+        "paper_faithful_only": true
+      },
+      "overlap_findings": {
+        "direct_overlap": {
+          "status": "published_not_mirrored",
+          "notes": [
+            "The shared PPIS benchmark family is explicit enough for audit planning, but exact chain/residue overlap could not be enumerated without mirroring the pkl/fa files."
+          ]
+        },
+        "accession_root_overlap": {
+          "status": "published_not_mirrored",
+          "notes": [
+            "The shared PPIS benchmark family is explicit enough for audit planning, but exact chain/residue overlap could not be enumerated without mirroring the pkl/fa files."
+          ]
+        },
+        "uniref_overlap": {
+          "status": "theoretically_supported",
+          "notes": [
+            "The shared PPIS benchmark family is explicit enough for audit planning, but exact chain/residue overlap could not be enumerated without mirroring the pkl/fa files.",
+            "Warehouse proteins already cover 203,085,208 UniRef90-assigned rows."
+          ]
+        }
+      },
+      "leakage_findings": {
+        "status": "reviewed",
+        "notes": [
+          "This paper set was pre-filtered to avoid pure cross-validation studies and to prefer explicit held-out or external test splits.",
+          "The main residual risks are identifier-bridge gaps, benchmark-family saturation, and derivative reuse of the same public split family across many later papers.",
+          "Because many later PPIS papers reuse the Train_335/Test_60 lineage, a reviewer should distinguish fair within-family comparison from genuine out-of-family generalization."
+        ]
+      },
+      "source_family_findings": [
+        "RCSB/PDBe is present in the library with license scope `public_metadata` and scope tier `authoritative` (registry records: 7).",
+        "The warehouse already holds 234,767 PDB entries and 85,651 local structure-unit rows, so published PPIS benchmark files would be structurally groundable once mirrored."
+      ],
+      "governed_eligibility_findings": {
+        "status": "candidate_only",
+        "notes": [
+          "best_evidence remains the governing warehouse read view for this evaluation.",
+          "Published external splits can be faithful and acceptable as paper-faithful audit lanes without automatically becoming the default ProteoSphere training benchmark.",
+          "This split is strong enough to trust as an external audit lane, but canonical training use still depends on warehouse mirroring and identifier resolution."
+        ]
+      },
+      "verdict": "faithful and acceptable as-is",
+      "project_status": "usable",
+      "blockers": [
+        "benchmark filenames are known, but the exact PPIS roster files were not mirrored into the local audit workspace in this run"
+      ],
+      "warnings": [],
+      "recommended_canonical_treatment": "Keep this as a `paper_faithful_external` audit lane and mirror the exact released roster into the warehouse so direct leakage diagnostics become first-class rather than inferred.",
+      "provenance_notes": [
+        "Primary evidence came from the condensed warehouse catalog, manifest, source registry, and Model Studio split-policy code.",
+        "Supplemental paper/repo evidence came from official links provided in the curated audit-friendly list and from directly inspected release artifacts where available.",
+        "No raw/archive fallback was used."
+      ],
+      "supplemental_evidence": {},
+      "source_links": [
+        "https://doi.org/10.1093/bib/bbad122",
+        "https://github.com/AILBC/AGAT-PPIS"
+      ],
+      "named_entities": [
+        "Train_335.pkl",
+        "Test_60.pkl",
+        "Test_315-28.pkl",
+        "UBtest_31-6.pkl"
+      ],
+      "source_families": [
+        "rcsb_pdbe"
+      ],
+      "raw_archive_fallback_required": false
+    },
+    {
+      "paper_id": "ghgpr_ppis2023",
+      "title": "GHGPR-PPIS",
+      "doi": "https://doi.org/10.1016/j.compbiomed.2023.107683",
+      "task_group": "binding_site_prediction",
+      "auditability": "high",
+      "benchmark_family": "ppis_train335_family",
+      "claimed_split_description": "Official repo provides the shared PPIS benchmark files directly.",
+      "resolved_split_policy": {
+        "policy": "paper_faithful_external",
+        "reason": "Reviewable beta split lane can now hold out external source components for audit and comparison workflows without becoming the default recommended split.",
+        "recommended_for_training": false,
+        "paper_faithful_only": true
+      },
+      "overlap_findings": {
+        "direct_overlap": {
+          "status": "published_not_mirrored",
+          "notes": [
+            "The shared PPIS benchmark family is explicit enough for audit planning, but exact chain/residue overlap could not be enumerated without mirroring the pkl/fa files."
+          ]
+        },
+        "accession_root_overlap": {
+          "status": "published_not_mirrored",
+          "notes": [
+            "The shared PPIS benchmark family is explicit enough for audit planning, but exact chain/residue overlap could not be enumerated without mirroring the pkl/fa files."
+          ]
+        },
+        "uniref_overlap": {
+          "status": "theoretically_supported",
+          "notes": [
+            "The shared PPIS benchmark family is explicit enough for audit planning, but exact chain/residue overlap could not be enumerated without mirroring the pkl/fa files.",
+            "Warehouse proteins already cover 203,085,208 UniRef90-assigned rows."
+          ]
+        }
+      },
+      "leakage_findings": {
+        "status": "reviewed",
+        "notes": [
+          "This paper set was pre-filtered to avoid pure cross-validation studies and to prefer explicit held-out or external test splits.",
+          "The main residual risks are identifier-bridge gaps, benchmark-family saturation, and derivative reuse of the same public split family across many later papers.",
+          "Because many later PPIS papers reuse the Train_335/Test_60 lineage, a reviewer should distinguish fair within-family comparison from genuine out-of-family generalization."
+        ]
+      },
+      "source_family_findings": [
+        "RCSB/PDBe is present in the library with license scope `public_metadata` and scope tier `authoritative` (registry records: 7).",
+        "The warehouse already holds 234,767 PDB entries and 85,651 local structure-unit rows, so published PPIS benchmark files would be structurally groundable once mirrored."
+      ],
+      "governed_eligibility_findings": {
+        "status": "candidate_only",
+        "notes": [
+          "best_evidence remains the governing warehouse read view for this evaluation.",
+          "Published external splits can be faithful and acceptable as paper-faithful audit lanes without automatically becoming the default ProteoSphere training benchmark.",
+          "This split is strong enough to trust as an external audit lane, but canonical training use still depends on warehouse mirroring and identifier resolution."
+        ]
+      },
+      "verdict": "faithful and acceptable as-is",
+      "project_status": "usable",
+      "blockers": [
+        "benchmark filenames are known, but the exact PPIS roster files were not mirrored into the local audit workspace in this run"
+      ],
+      "warnings": [],
+      "recommended_canonical_treatment": "Keep this as a `paper_faithful_external` audit lane and mirror the exact released roster into the warehouse so direct leakage diagnostics become first-class rather than inferred.",
+      "provenance_notes": [
+        "Primary evidence came from the condensed warehouse catalog, manifest, source registry, and Model Studio split-policy code.",
+        "Supplemental paper/repo evidence came from official links provided in the curated audit-friendly list and from directly inspected release artifacts where available.",
+        "No raw/archive fallback was used."
+      ],
+      "supplemental_evidence": {},
+      "source_links": [
+        "https://doi.org/10.1016/j.compbiomed.2023.107683",
+        "https://github.com/dldxzx/GHGPR-PPIS"
+      ],
+      "named_entities": [
+        "train_335.pkl",
+        "test_60.pkl",
+        "test_315.pkl",
+        "UBtest_31.pkl"
+      ],
+      "source_families": [
+        "rcsb_pdbe"
+      ],
+      "raw_archive_fallback_required": false
+    },
+    {
+      "paper_id": "gact_ppis2024",
+      "title": "GACT-PPIS",
+      "doi": "https://doi.org/10.1016/j.ijbiomac.2024.137272",
+      "task_group": "binding_site_prediction",
+      "auditability": "medium",
+      "benchmark_family": "ppis_train335_family",
+      "claimed_split_description": "GACT-PPIS evaluates on the same public PPIS benchmark family rather than introducing a new split lineage.",
+      "resolved_split_policy": {
+        "policy": "paper_faithful_external",
+        "reason": "Reviewable beta split lane can now hold out external source components for audit and comparison workflows without becoming the default recommended split.",
+        "recommended_for_training": false,
+        "paper_faithful_only": true
+      },
+      "overlap_findings": {
+        "direct_overlap": {
+          "status": "published_not_mirrored",
+          "notes": [
+            "The shared PPIS benchmark family is explicit enough for audit planning, but exact chain/residue overlap could not be enumerated without mirroring the pkl/fa files."
+          ]
+        },
+        "accession_root_overlap": {
+          "status": "published_not_mirrored",
+          "notes": [
+            "The shared PPIS benchmark family is explicit enough for audit planning, but exact chain/residue overlap could not be enumerated without mirroring the pkl/fa files."
+          ]
+        },
+        "uniref_overlap": {
+          "status": "theoretically_supported",
+          "notes": [
+            "The shared PPIS benchmark family is explicit enough for audit planning, but exact chain/residue overlap could not be enumerated without mirroring the pkl/fa files.",
+            "Warehouse proteins already cover 203,085,208 UniRef90-assigned rows."
+          ]
+        }
+      },
+      "leakage_findings": {
+        "status": "reviewed",
+        "notes": [
+          "This paper set was pre-filtered to avoid pure cross-validation studies and to prefer explicit held-out or external test splits.",
+          "The main residual risks are identifier-bridge gaps, benchmark-family saturation, and derivative reuse of the same public split family across many later papers.",
+          "Because many later PPIS papers reuse the Train_335/Test_60 lineage, a reviewer should distinguish fair within-family comparison from genuine out-of-family generalization.",
+          "This paper inherits a strong public benchmark rather than releasing a new one, so its main audit value is comparability, not novel split design."
+        ]
+      },
+      "source_family_findings": [
+        "RCSB/PDBe is present in the library with license scope `public_metadata` and scope tier `authoritative` (registry records: 7).",
+        "The warehouse already holds 234,767 PDB entries and 85,651 local structure-unit rows, so published PPIS benchmark files would be structurally groundable once mirrored."
+      ],
+      "governed_eligibility_findings": {
+        "status": "audit_only",
+        "notes": [
+          "best_evidence remains the governing warehouse read view for this evaluation.",
+          "Published external splits can be faithful and acceptable as paper-faithful audit lanes without automatically becoming the default ProteoSphere training benchmark.",
+          "This split is most useful as an external comparison lane or shared-community benchmark, not as the sole canonical release target."
+        ]
+      },
+      "verdict": "audit-useful but non-canonical",
+      "project_status": "audit_only",
+      "blockers": [
+        "benchmark filenames are known, but the exact PPIS roster files were not mirrored into the local audit workspace in this run"
+      ],
+      "warnings": [],
+      "recommended_canonical_treatment": "Keep it as a fair shared-benchmark comparison lane, but pair it with at least one out-of-family validation set before using it for strong generalization claims.",
+      "provenance_notes": [
+        "Primary evidence came from the condensed warehouse catalog, manifest, source registry, and Model Studio split-policy code.",
+        "Supplemental paper/repo evidence came from official links provided in the curated audit-friendly list and from directly inspected release artifacts where available.",
+        "No raw/archive fallback was used."
+      ],
+      "supplemental_evidence": {},
+      "source_links": [
+        "https://doi.org/10.1016/j.ijbiomac.2024.137272"
+      ],
+      "named_entities": [
+        "Test-60",
+        "UBTest-31-6"
+      ],
+      "source_families": [
+        "rcsb_pdbe"
+      ],
+      "raw_archive_fallback_required": false
+    },
+    {
+      "paper_id": "gte_ppis2025",
+      "title": "GTE-PPIS",
+      "doi": "https://doi.org/10.1093/bib/bbaf290",
+      "task_group": "binding_site_prediction",
+      "auditability": "high",
+      "benchmark_family": "ppis_train335_family",
+      "claimed_split_description": "Official repo releases the curated PPIS dataset files used in the paper.",
+      "resolved_split_policy": {
+        "policy": "paper_faithful_external",
+        "reason": "Reviewable beta split lane can now hold out external source components for audit and comparison workflows without becoming the default recommended split.",
+        "recommended_for_training": false,
+        "paper_faithful_only": true
+      },
+      "overlap_findings": {
+        "direct_overlap": {
+          "status": "published_not_mirrored",
+          "notes": [
+            "The shared PPIS benchmark family is explicit enough for audit planning, but exact chain/residue overlap could not be enumerated without mirroring the pkl/fa files."
+          ]
+        },
+        "accession_root_overlap": {
+          "status": "published_not_mirrored",
+          "notes": [
+            "The shared PPIS benchmark family is explicit enough for audit planning, but exact chain/residue overlap could not be enumerated without mirroring the pkl/fa files."
+          ]
+        },
+        "uniref_overlap": {
+          "status": "theoretically_supported",
+          "notes": [
+            "The shared PPIS benchmark family is explicit enough for audit planning, but exact chain/residue overlap could not be enumerated without mirroring the pkl/fa files.",
+            "Warehouse proteins already cover 203,085,208 UniRef90-assigned rows."
+          ]
+        }
+      },
+      "leakage_findings": {
+        "status": "reviewed",
+        "notes": [
+          "This paper set was pre-filtered to avoid pure cross-validation studies and to prefer explicit held-out or external test splits.",
+          "The main residual risks are identifier-bridge gaps, benchmark-family saturation, and derivative reuse of the same public split family across many later papers.",
+          "Because many later PPIS papers reuse the Train_335/Test_60 lineage, a reviewer should distinguish fair within-family comparison from genuine out-of-family generalization."
+        ]
+      },
+      "source_family_findings": [
+        "RCSB/PDBe is present in the library with license scope `public_metadata` and scope tier `authoritative` (registry records: 7).",
+        "The warehouse already holds 234,767 PDB entries and 85,651 local structure-unit rows, so published PPIS benchmark files would be structurally groundable once mirrored."
+      ],
+      "governed_eligibility_findings": {
+        "status": "candidate_only",
+        "notes": [
+          "best_evidence remains the governing warehouse read view for this evaluation.",
+          "Published external splits can be faithful and acceptable as paper-faithful audit lanes without automatically becoming the default ProteoSphere training benchmark.",
+          "This split is strong enough to trust as an external audit lane, but canonical training use still depends on warehouse mirroring and identifier resolution."
+        ]
+      },
+      "verdict": "faithful and acceptable as-is",
+      "project_status": "usable",
+      "blockers": [
+        "benchmark filenames are known, but the exact PPIS roster files were not mirrored into the local audit workspace in this run"
+      ],
+      "warnings": [],
+      "recommended_canonical_treatment": "Keep this as a `paper_faithful_external` audit lane and mirror the exact released roster into the warehouse so direct leakage diagnostics become first-class rather than inferred.",
+      "provenance_notes": [
+        "Primary evidence came from the condensed warehouse catalog, manifest, source registry, and Model Studio split-policy code.",
+        "Supplemental paper/repo evidence came from official links provided in the curated audit-friendly list and from directly inspected release artifacts where available.",
+        "No raw/archive fallback was used."
+      ],
+      "supplemental_evidence": {},
+      "source_links": [
+        "https://doi.org/10.1093/bib/bbaf290"
+      ],
+      "named_entities": [
+        "Train_335",
+        "Test_60",
+        "Test_315",
+        "UBtest_31"
+      ],
+      "source_families": [
+        "rcsb_pdbe"
+      ],
+      "raw_archive_fallback_required": false
+    },
+    {
+      "paper_id": "asce_ppis2025",
+      "title": "ASCE-PPIS",
+      "doi": "https://doi.org/10.1093/bioinformatics/btaf423",
+      "task_group": "binding_site_prediction",
+      "auditability": "high",
+      "benchmark_family": "ppis_train335_family",
+      "claimed_split_description": "Official repo ships the full Train_335/Test_60/Test_315/UBtest benchmark lineage.",
+      "resolved_split_policy": {
+        "policy": "paper_faithful_external",
+        "reason": "Reviewable beta split lane can now hold out external source components for audit and comparison workflows without becoming the default recommended split.",
+        "recommended_for_training": false,
+        "paper_faithful_only": true
+      },
+      "overlap_findings": {
+        "direct_overlap": {
+          "status": "published_not_mirrored",
+          "notes": [
+            "The shared PPIS benchmark family is explicit enough for audit planning, but exact chain/residue overlap could not be enumerated without mirroring the pkl/fa files."
+          ]
+        },
+        "accession_root_overlap": {
+          "status": "published_not_mirrored",
+          "notes": [
+            "The shared PPIS benchmark family is explicit enough for audit planning, but exact chain/residue overlap could not be enumerated without mirroring the pkl/fa files."
+          ]
+        },
+        "uniref_overlap": {
+          "status": "theoretically_supported",
+          "notes": [
+            "The shared PPIS benchmark family is explicit enough for audit planning, but exact chain/residue overlap could not be enumerated without mirroring the pkl/fa files.",
+            "Warehouse proteins already cover 203,085,208 UniRef90-assigned rows."
+          ]
+        }
+      },
+      "leakage_findings": {
+        "status": "reviewed",
+        "notes": [
+          "This paper set was pre-filtered to avoid pure cross-validation studies and to prefer explicit held-out or external test splits.",
+          "The main residual risks are identifier-bridge gaps, benchmark-family saturation, and derivative reuse of the same public split family across many later papers.",
+          "Because many later PPIS papers reuse the Train_335/Test_60 lineage, a reviewer should distinguish fair within-family comparison from genuine out-of-family generalization."
+        ]
+      },
+      "source_family_findings": [
+        "RCSB/PDBe is present in the library with license scope `public_metadata` and scope tier `authoritative` (registry records: 7).",
+        "The warehouse already holds 234,767 PDB entries and 85,651 local structure-unit rows, so published PPIS benchmark files would be structurally groundable once mirrored."
+      ],
+      "governed_eligibility_findings": {
+        "status": "candidate_only",
+        "notes": [
+          "best_evidence remains the governing warehouse read view for this evaluation.",
+          "Published external splits can be faithful and acceptable as paper-faithful audit lanes without automatically becoming the default ProteoSphere training benchmark.",
+          "This split is strong enough to trust as an external audit lane, but canonical training use still depends on warehouse mirroring and identifier resolution."
+        ]
+      },
+      "verdict": "faithful and acceptable as-is",
+      "project_status": "usable",
+      "blockers": [
+        "benchmark filenames are known, but the exact PPIS roster files were not mirrored into the local audit workspace in this run"
+      ],
+      "warnings": [],
+      "recommended_canonical_treatment": "Keep this as a `paper_faithful_external` audit lane and mirror the exact released roster into the warehouse so direct leakage diagnostics become first-class rather than inferred.",
+      "provenance_notes": [
+        "Primary evidence came from the condensed warehouse catalog, manifest, source registry, and Model Studio split-policy code.",
+        "Supplemental paper/repo evidence came from official links provided in the curated audit-friendly list and from directly inspected release artifacts where available.",
+        "No raw/archive fallback was used."
+      ],
+      "supplemental_evidence": {},
+      "source_links": [
+        "https://doi.org/10.1093/bioinformatics/btaf423"
+      ],
+      "named_entities": [
+        "Train_335.pkl",
+        "Test_60.pkl",
+        "Test_315.pkl",
+        "Test_315-28.pkl",
+        "UBtest_31.pkl",
+        "UBtest_31-6.pkl"
+      ],
+      "source_families": [
+        "rcsb_pdbe"
+      ],
+      "raw_archive_fallback_required": false
+    },
+    {
+      "paper_id": "sledzieski2021dscript",
+      "title": "D-SCRIPT translates genome to phenome with sequence-based, structure-aware, genome-scale predictions of protein-protein interactions",
+      "doi": "https://doi.org/10.1016/j.cels.2021.08.010",
+      "task_group": "ppi_prediction",
+      "auditability": "high",
+      "benchmark_family": "dscript_human_plus_species_holdout",
+      "claimed_split_description": "Official docs and repo expose Human Train, Human Test, and species transfer test files as concrete pair lists.",
+      "resolved_split_policy": {
+        "policy": "paper_faithful_external",
+        "reason": "Reviewable beta split lane can now hold out external source components for audit and comparison workflows without becoming the default recommended split.",
+        "recommended_for_training": false,
+        "paper_faithful_only": true
+      },
+      "overlap_findings": {
+        "direct_overlap": {
+          "status": "mapping_blocked_after_roster_recovery",
+          "notes": [
+            "The exact split files are available and auditable, but direct overlap checks remain blocked until Ensembl/FlyBase-style IDs are bridged into the warehouse."
+          ]
+        },
+        "accession_root_overlap": {
+          "status": "mapping_blocked_after_roster_recovery",
+          "notes": [
+            "The exact split files are available and auditable, but direct overlap checks remain blocked until Ensembl/FlyBase-style IDs are bridged into the warehouse."
+          ]
+        },
+        "uniref_overlap": {
+          "status": "theoretically_supported",
+          "notes": [
+            "The exact split files are available and auditable, but direct overlap checks remain blocked until Ensembl/FlyBase-style IDs are bridged into the warehouse.",
+            "Warehouse proteins already cover 203,085,208 UniRef90-assigned rows."
+          ]
+        }
+      },
+      "leakage_findings": {
+        "status": "reviewed",
+        "notes": [
+          "This paper set was pre-filtered to avoid pure cross-validation studies and to prefer explicit held-out or external test splits.",
+          "The main residual risks are identifier-bridge gaps, benchmark-family saturation, and derivative reuse of the same public split family across many later papers."
+        ]
+      },
+      "source_family_findings": [
+        "IntAct is present in the library with license scope `public_metadata` and scope tier `authoritative` (registry records: 7).",
+        "UniProt is present in the library with license scope `public_metadata` and scope tier `authoritative` (registry records: 8).",
+        "The proteins surface has 203,085,208 UniRef90-assigned proteins, so strict unseen-protein or UniRef-aware audits are feasible once released identifiers bridge into best_evidence."
+      ],
+      "governed_eligibility_findings": {
+        "status": "candidate_only",
+        "notes": [
+          "best_evidence remains the governing warehouse read view for this evaluation.",
+          "Published external splits can be faithful and acceptable as paper-faithful audit lanes without automatically becoming the default ProteoSphere training benchmark.",
+          "This split is strong enough to trust as an external audit lane, but canonical training use still depends on warehouse mirroring and identifier resolution."
+        ]
+      },
+      "verdict": "faithful and acceptable as-is",
+      "project_status": "usable",
+      "blockers": [
+        "released split artifacts are published, but the identifiers are not bridged into warehouse-native protein refs"
+      ],
+      "warnings": [],
+      "recommended_canonical_treatment": "Keep this as a `paper_faithful_external` audit lane and mirror the exact released roster into the warehouse so direct leakage diagnostics become first-class rather than inferred.",
+      "provenance_notes": [
+        "Primary evidence came from the condensed warehouse catalog, manifest, source registry, and Model Studio split-policy code.",
+        "Supplemental paper/repo evidence came from official links provided in the curated audit-friendly list and from directly inspected release artifacts where available.",
+        "No raw/archive fallback was used."
+      ],
+      "supplemental_evidence": {
+        "status": "locally_verified_release_artifact",
+        "summary": "Local D-SCRIPT release files expose concrete human train/test pair lists.",
+        "details": [
+          "`human_train.tsv` contains 421,792 labeled pairs across 15,816 unique proteins.",
+          "`human_test.tsv` contains 52,725 labeled pairs across 15,525 unique proteins.",
+          "Identifiers are Ensembl/FlyBase-style protein IDs rather than warehouse-native accessions."
+        ],
+        "artifact_paths": [
+          "D:\\documents\\ProteoSphereV2\\artifacts\\status\\paper_split_external\\dscript\\human_train.tsv",
+          "D:\\documents\\ProteoSphereV2\\artifacts\\status\\paper_split_external\\dscript\\human_test.tsv"
+        ]
+      },
+      "source_links": [
+        "https://doi.org/10.1016/j.cels.2021.08.010",
+        "https://github.com/samsledje/D-SCRIPT/blob/main/docs/source/data.rst"
+      ],
+      "named_entities": [
+        "human_train.tsv",
+        "human_test.tsv",
+        "fly_test.tsv"
+      ],
+      "source_families": [
+        "intact",
+        "uniprot"
+      ],
+      "raw_archive_fallback_required": false
+    },
+    {
+      "paper_id": "topsy_turvy2022",
+      "title": "Topsy-Turvy",
+      "doi": "https://doi.org/10.1093/bioinformatics/btac258",
+      "task_group": "ppi_prediction",
+      "auditability": "medium",
+      "benchmark_family": "topsy_turvy_edgelists",
+      "claimed_split_description": "Official repo documents explicit positive and negative edgelists for training and testing.",
+      "resolved_split_policy": {
+        "policy": "accession_grouped",
+        "reason": "Beta split compiler groups by exact accession signatures, not single-accession holdout.",
+        "recommended_for_training": true,
+        "paper_faithful_only": false
+      },
+      "overlap_findings": {
+        "direct_overlap": {
+          "status": "preflight_only",
+          "notes": [
+            "The split style is explicit and published enough to trust qualitatively, but exact overlap enumeration still depends on mirroring the released membership files into the warehouse audit path."
+          ]
+        },
+        "accession_root_overlap": {
+          "status": "preflight_only",
+          "notes": [
+            "The split style is explicit and published enough to trust qualitatively, but exact overlap enumeration still depends on mirroring the released membership files into the warehouse audit path."
+          ]
+        },
+        "uniref_overlap": {
+          "status": "theoretically_supported",
+          "notes": [
+            "The split style is explicit and published enough to trust qualitatively, but exact overlap enumeration still depends on mirroring the released membership files into the warehouse audit path.",
+            "Warehouse proteins already cover 203,085,208 UniRef90-assigned rows."
+          ]
+        }
+      },
+      "leakage_findings": {
+        "status": "reviewed",
+        "notes": [
+          "This paper set was pre-filtered to avoid pure cross-validation studies and to prefer explicit held-out or external test splits.",
+          "The main residual risks are identifier-bridge gaps, benchmark-family saturation, and derivative reuse of the same public split family across many later papers."
+        ]
+      },
+      "source_family_findings": [
+        "UniProt is present in the library with license scope `public_metadata` and scope tier `authoritative` (registry records: 8).",
+        "STRING is present in the library with license scope `internal_only` and scope tier `authoritative` (registry records: 1).",
+        "The proteins surface has 203,085,208 UniRef90-assigned proteins, so strict unseen-protein or UniRef-aware audits are feasible once released identifiers bridge into best_evidence."
+      ],
+      "governed_eligibility_findings": {
+        "status": "audit_only",
+        "notes": [
+          "best_evidence remains the governing warehouse read view for this evaluation.",
+          "Published external splits can be faithful and acceptable as paper-faithful audit lanes without automatically becoming the default ProteoSphere training benchmark.",
+          "This split is most useful as an external comparison lane or shared-community benchmark, not as the sole canonical release target."
+        ]
+      },
+      "verdict": "audit-useful but non-canonical",
+      "project_status": "audit_only",
+      "blockers": [],
+      "warnings": [
+        "STRING remains non-public or non-redistributable in the condensed library, so it should stay audit-facing rather than governing."
+      ],
+      "recommended_canonical_treatment": "Treat it as a `accession_grouped` audit lane or inherited benchmark family rather than a new canonical split.",
+      "provenance_notes": [
+        "Primary evidence came from the condensed warehouse catalog, manifest, source registry, and Model Studio split-policy code.",
+        "Supplemental paper/repo evidence came from official links provided in the curated audit-friendly list and from directly inspected release artifacts where available.",
+        "No raw/archive fallback was used."
+      ],
+      "supplemental_evidence": {
+        "status": "repo_readme_verified",
+        "summary": "The README explicitly documents `--pos-pairs`, `--neg-pairs`, `--pos-test`, and `--neg-test` arguments.",
+        "details": [
+          "This is strong evidence that the code expects distinct train and test edgelists rather than a CV-only workflow."
+        ]
+      },
+      "source_links": [
+        "https://doi.org/10.1093/bioinformatics/btac258",
+        "https://github.com/kap-devkota/Topsy-Turvy"
+      ],
+      "named_entities": [
+        "pos_pairs",
+        "neg_pairs",
+        "pos_test",
+        "neg_test"
+      ],
+      "source_families": [
+        "uniprot",
+        "string"
+      ],
+      "raw_archive_fallback_required": false
+    },
+    {
+      "paper_id": "tt3d2023",
+      "title": "TT3D",
+      "doi": "https://doi.org/10.1093/bioinformatics/btad663",
+      "task_group": "ppi_prediction",
+      "auditability": "medium",
+      "benchmark_family": "dscript_benchmark_family",
+      "claimed_split_description": "TT3D inherits the published D-SCRIPT benchmark artifacts and layers Foldseek 3Di information on top of that split family.",
+      "resolved_split_policy": {
+        "policy": "paper_faithful_external",
+        "reason": "Reviewable beta split lane can now hold out external source components for audit and comparison workflows without becoming the default recommended split.",
+        "recommended_for_training": false,
+        "paper_faithful_only": true
+      },
+      "overlap_findings": {
+        "direct_overlap": {
+          "status": "preflight_only",
+          "notes": [
+            "The split style is explicit and published enough to trust qualitatively, but exact overlap enumeration still depends on mirroring the released membership files into the warehouse audit path."
+          ]
+        },
+        "accession_root_overlap": {
+          "status": "preflight_only",
+          "notes": [
+            "The split style is explicit and published enough to trust qualitatively, but exact overlap enumeration still depends on mirroring the released membership files into the warehouse audit path."
+          ]
+        },
+        "uniref_overlap": {
+          "status": "theoretically_supported",
+          "notes": [
+            "The split style is explicit and published enough to trust qualitatively, but exact overlap enumeration still depends on mirroring the released membership files into the warehouse audit path.",
+            "Warehouse proteins already cover 203,085,208 UniRef90-assigned rows."
+          ]
+        }
+      },
+      "leakage_findings": {
+        "status": "reviewed",
+        "notes": [
+          "This paper set was pre-filtered to avoid pure cross-validation studies and to prefer explicit held-out or external test splits.",
+          "The main residual risks are identifier-bridge gaps, benchmark-family saturation, and derivative reuse of the same public split family across many later papers.",
+          "This paper inherits a strong public benchmark rather than releasing a new one, so its main audit value is comparability, not novel split design."
+        ]
+      },
+      "source_family_findings": [
+        "UniProt is present in the library with license scope `public_metadata` and scope tier `authoritative` (registry records: 8).",
+        "STRING is present in the library with license scope `internal_only` and scope tier `authoritative` (registry records: 1).",
+        "The proteins surface has 203,085,208 UniRef90-assigned proteins, so strict unseen-protein or UniRef-aware audits are feasible once released identifiers bridge into best_evidence."
+      ],
+      "governed_eligibility_findings": {
+        "status": "audit_only",
+        "notes": [
+          "best_evidence remains the governing warehouse read view for this evaluation.",
+          "Published external splits can be faithful and acceptable as paper-faithful audit lanes without automatically becoming the default ProteoSphere training benchmark.",
+          "This split is most useful as an external comparison lane or shared-community benchmark, not as the sole canonical release target."
+        ]
+      },
+      "verdict": "audit-useful but non-canonical",
+      "project_status": "audit_only",
+      "blockers": [],
+      "warnings": [
+        "STRING remains non-public or non-redistributable in the condensed library, so it should stay audit-facing rather than governing."
+      ],
+      "recommended_canonical_treatment": "Treat it as a `paper_faithful_external` audit lane or inherited benchmark family rather than a new canonical split.",
+      "provenance_notes": [
+        "Primary evidence came from the condensed warehouse catalog, manifest, source registry, and Model Studio split-policy code.",
+        "Supplemental paper/repo evidence came from official links provided in the curated audit-friendly list and from directly inspected release artifacts where available.",
+        "No raw/archive fallback was used."
+      ],
+      "supplemental_evidence": {},
+      "source_links": [
+        "https://doi.org/10.1093/bioinformatics/btad663",
+        "https://github.com/samsledje/D-SCRIPT/blob/main/docs/source/data.rst"
+      ],
+      "named_entities": [
+        "D-SCRIPT benchmark",
+        "3Di sequences"
+      ],
+      "source_families": [
+        "uniprot",
+        "string"
+      ],
+      "raw_archive_fallback_required": false
+    },
+    {
+      "paper_id": "ppitrans2024",
+      "title": "PPITrans",
+      "doi": "https://doi.org/10.1109/TCBB.2024.3381825",
+      "task_group": "ppi_prediction",
+      "auditability": "medium",
+      "benchmark_family": "dscript_benchmark_family",
+      "claimed_split_description": "Official repo instructs users to download the D-SCRIPT benchmark into ./data/dscript/data and then runs dedicated train/evaluate/test scripts.",
+      "resolved_split_policy": {
+        "policy": "paper_faithful_external",
+        "reason": "Reviewable beta split lane can now hold out external source components for audit and comparison workflows without becoming the default recommended split.",
+        "recommended_for_training": false,
+        "paper_faithful_only": true
+      },
+      "overlap_findings": {
+        "direct_overlap": {
+          "status": "preflight_only",
+          "notes": [
+            "The split style is explicit and published enough to trust qualitatively, but exact overlap enumeration still depends on mirroring the released membership files into the warehouse audit path."
+          ]
+        },
+        "accession_root_overlap": {
+          "status": "preflight_only",
+          "notes": [
+            "The split style is explicit and published enough to trust qualitatively, but exact overlap enumeration still depends on mirroring the released membership files into the warehouse audit path."
+          ]
+        },
+        "uniref_overlap": {
+          "status": "theoretically_supported",
+          "notes": [
+            "The split style is explicit and published enough to trust qualitatively, but exact overlap enumeration still depends on mirroring the released membership files into the warehouse audit path.",
+            "Warehouse proteins already cover 203,085,208 UniRef90-assigned rows."
+          ]
+        }
+      },
+      "leakage_findings": {
+        "status": "reviewed",
+        "notes": [
+          "This paper set was pre-filtered to avoid pure cross-validation studies and to prefer explicit held-out or external test splits.",
+          "The main residual risks are identifier-bridge gaps, benchmark-family saturation, and derivative reuse of the same public split family across many later papers.",
+          "This paper inherits a strong public benchmark rather than releasing a new one, so its main audit value is comparability, not novel split design."
+        ]
+      },
+      "source_family_findings": [
+        "UniProt is present in the library with license scope `public_metadata` and scope tier `authoritative` (registry records: 8).",
+        "IntAct is present in the library with license scope `public_metadata` and scope tier `authoritative` (registry records: 7).",
+        "The proteins surface has 203,085,208 UniRef90-assigned proteins, so strict unseen-protein or UniRef-aware audits are feasible once released identifiers bridge into best_evidence."
+      ],
+      "governed_eligibility_findings": {
+        "status": "audit_only",
+        "notes": [
+          "best_evidence remains the governing warehouse read view for this evaluation.",
+          "Published external splits can be faithful and acceptable as paper-faithful audit lanes without automatically becoming the default ProteoSphere training benchmark.",
+          "This split is most useful as an external comparison lane or shared-community benchmark, not as the sole canonical release target."
+        ]
+      },
+      "verdict": "audit-useful but non-canonical",
+      "project_status": "audit_only",
+      "blockers": [],
+      "warnings": [],
+      "recommended_canonical_treatment": "Treat it as a `paper_faithful_external` audit lane or inherited benchmark family rather than a new canonical split.",
+      "provenance_notes": [
+        "Primary evidence came from the condensed warehouse catalog, manifest, source registry, and Model Studio split-policy code.",
+        "Supplemental paper/repo evidence came from official links provided in the curated audit-friendly list and from directly inspected release artifacts where available.",
+        "No raw/archive fallback was used."
+      ],
+      "supplemental_evidence": {
+        "status": "repo_readme_verified",
+        "summary": "The README explicitly instructs users to place the D-SCRIPT benchmark in `./data/dscript/data` and then run train/predict/evaluate scripts.",
+        "details": [
+          "This confirms that PPITrans is benchmarking on a fixed external split family rather than only reporting random folds."
+        ]
+      },
+      "source_links": [
+        "https://doi.org/10.1109/TCBB.2024.3381825",
+        "https://github.com/LtECoD/PPITrans"
+      ],
+      "named_entities": [
+        "./data/dscript/data"
+      ],
+      "source_families": [
+        "uniprot",
+        "intact"
+      ],
+      "raw_archive_fallback_required": false
+    },
+    {
+      "paper_id": "tuna2024",
+      "title": "TUnA",
+      "doi": "https://doi.org/10.1093/bib/bbae359",
+      "task_group": "ppi_prediction",
+      "auditability": "high",
+      "benchmark_family": "bernett_plus_cross_species",
+      "claimed_split_description": "Official manuscript repo documents processing for cross-species and Bernett datasets and requires explicit train/val/test dictionary inputs.",
+      "resolved_split_policy": {
+        "policy": "uniref_grouped",
+        "reason": "Beta split compiler now groups on explicit UniRef keys where they exist and reports fallback coverage where they do not.",
+        "recommended_for_training": true,
+        "paper_faithful_only": false
+      },
+      "overlap_findings": {
+        "direct_overlap": {
+          "status": "preflight_only",
+          "notes": [
+            "The split style is explicit and published enough to trust qualitatively, but exact overlap enumeration still depends on mirroring the released membership files into the warehouse audit path."
+          ]
+        },
+        "accession_root_overlap": {
+          "status": "preflight_only",
+          "notes": [
+            "The split style is explicit and published enough to trust qualitatively, but exact overlap enumeration still depends on mirroring the released membership files into the warehouse audit path."
+          ]
+        },
+        "uniref_overlap": {
+          "status": "theoretically_supported",
+          "notes": [
+            "The split style is explicit and published enough to trust qualitatively, but exact overlap enumeration still depends on mirroring the released membership files into the warehouse audit path.",
+            "Warehouse proteins already cover 203,085,208 UniRef90-assigned rows."
+          ]
+        }
+      },
+      "leakage_findings": {
+        "status": "reviewed",
+        "notes": [
+          "This paper set was pre-filtered to avoid pure cross-validation studies and to prefer explicit held-out or external test splits.",
+          "The main residual risks are identifier-bridge gaps, benchmark-family saturation, and derivative reuse of the same public split family across many later papers."
+        ]
+      },
+      "source_family_findings": [
+        "UniProt is present in the library with license scope `public_metadata` and scope tier `authoritative` (registry records: 8).",
+        "IntAct is present in the library with license scope `public_metadata` and scope tier `authoritative` (registry records: 7).",
+        "The proteins surface has 203,085,208 UniRef90-assigned proteins, so strict unseen-protein or UniRef-aware audits are feasible once released identifiers bridge into best_evidence."
+      ],
+      "governed_eligibility_findings": {
+        "status": "audit_only",
+        "notes": [
+          "best_evidence remains the governing warehouse read view for this evaluation.",
+          "Published external splits can be faithful and acceptable as paper-faithful audit lanes without automatically becoming the default ProteoSphere training benchmark.",
+          "This split is most useful as an external comparison lane or shared-community benchmark, not as the sole canonical release target."
+        ]
+      },
+      "verdict": "audit-useful but non-canonical",
+      "project_status": "audit_only",
+      "blockers": [],
+      "warnings": [],
+      "recommended_canonical_treatment": "Treat it as a `uniref_grouped` audit lane or inherited benchmark family rather than a new canonical split.",
+      "provenance_notes": [
+        "Primary evidence came from the condensed warehouse catalog, manifest, source registry, and Model Studio split-policy code.",
+        "Supplemental paper/repo evidence came from official links provided in the curated audit-friendly list and from directly inspected release artifacts where available.",
+        "No raw/archive fallback was used."
+      ],
+      "supplemental_evidence": {
+        "status": "repo_readme_verified",
+        "summary": "The README documents Bernett and cross-species preprocessing plus explicit train/val/test dictionary inputs in config files.",
+        "details": [
+          "This is strong evidence for split reproducibility, though the exact dictionaries were not mirrored locally in this run."
+        ]
+      },
+      "source_links": [
+        "https://doi.org/10.1093/bib/bbae359",
+        "https://github.com/Wang-lab-UCSD/TUnA"
+      ],
+      "named_entities": [
+        "train_dict",
+        "val_dict",
+        "test_dict",
+        "Bernett"
+      ],
+      "source_families": [
+        "uniprot",
+        "intact"
+      ],
+      "raw_archive_fallback_required": false
+    },
+    {
+      "paper_id": "plm_interact2025",
+      "title": "PLM-interact",
+      "doi": "https://doi.org/10.1038/s41467-025-64512-w",
+      "task_group": "ppi_prediction",
+      "auditability": "high",
+      "benchmark_family": "bernett_plus_species_holdout",
+      "claimed_split_description": "The paper reports source data and evaluates on the Bernett leakage-minimized benchmark plus held-out species splits.",
+      "resolved_split_policy": {
+        "policy": "uniref_grouped",
+        "reason": "Beta split compiler now groups on explicit UniRef keys where they exist and reports fallback coverage where they do not.",
+        "recommended_for_training": true,
+        "paper_faithful_only": false
+      },
+      "overlap_findings": {
+        "direct_overlap": {
+          "status": "preflight_only",
+          "notes": [
+            "The split style is explicit and published enough to trust qualitatively, but exact overlap enumeration still depends on mirroring the released membership files into the warehouse audit path."
+          ]
+        },
+        "accession_root_overlap": {
+          "status": "preflight_only",
+          "notes": [
+            "The split style is explicit and published enough to trust qualitatively, but exact overlap enumeration still depends on mirroring the released membership files into the warehouse audit path."
+          ]
+        },
+        "uniref_overlap": {
+          "status": "theoretically_supported",
+          "notes": [
+            "The split style is explicit and published enough to trust qualitatively, but exact overlap enumeration still depends on mirroring the released membership files into the warehouse audit path.",
+            "Warehouse proteins already cover 203,085,208 UniRef90-assigned rows."
+          ]
+        }
+      },
+      "leakage_findings": {
+        "status": "reviewed",
+        "notes": [
+          "This paper set was pre-filtered to avoid pure cross-validation studies and to prefer explicit held-out or external test splits.",
+          "The main residual risks are identifier-bridge gaps, benchmark-family saturation, and derivative reuse of the same public split family across many later papers."
+        ]
+      },
+      "source_family_findings": [
+        "UniProt is present in the library with license scope `public_metadata` and scope tier `authoritative` (registry records: 8).",
+        "IntAct is present in the library with license scope `public_metadata` and scope tier `authoritative` (registry records: 7).",
+        "The proteins surface has 203,085,208 UniRef90-assigned proteins, so strict unseen-protein or UniRef-aware audits are feasible once released identifiers bridge into best_evidence."
+      ],
+      "governed_eligibility_findings": {
+        "status": "candidate_only",
+        "notes": [
+          "best_evidence remains the governing warehouse read view for this evaluation.",
+          "Published external splits can be faithful and acceptable as paper-faithful audit lanes without automatically becoming the default ProteoSphere training benchmark.",
+          "This split is strong enough to trust as an external audit lane, but canonical training use still depends on warehouse mirroring and identifier resolution."
+        ]
+      },
+      "verdict": "faithful and acceptable as-is",
+      "project_status": "usable",
+      "blockers": [],
+      "warnings": [],
+      "recommended_canonical_treatment": "Keep this as a `uniref_grouped` audit lane and mirror the exact released roster into the warehouse so direct leakage diagnostics become first-class rather than inferred.",
+      "provenance_notes": [
+        "Primary evidence came from the condensed warehouse catalog, manifest, source registry, and Model Studio split-policy code.",
+        "Supplemental paper/repo evidence came from official links provided in the curated audit-friendly list and from directly inspected release artifacts where available.",
+        "No raw/archive fallback was used."
+      ],
+      "supplemental_evidence": {},
+      "source_links": [
+        "https://doi.org/10.1038/s41467-025-64512-w",
+        "https://figshare.com/articles/dataset/PPI_prediction_from_sequence_gold_standard_dataset/21591618"
+      ],
+      "named_entities": [
+        "Bernett benchmark",
+        "held-out species"
+      ],
+      "source_families": [
+        "uniprot",
+        "intact"
+      ],
+      "raw_archive_fallback_required": false
+    },
+    {
+      "paper_id": "egcppis2025",
+      "title": "EGCPPIS",
+      "doi": "https://doi.org/10.1186/s12859-025-06328-5",
+      "task_group": "binding_site_prediction",
+      "auditability": "high",
+      "benchmark_family": "ppis_train335_family",
+      "claimed_split_description": "Official repo includes the train/test benchmark files together with associated dataset folders.",
+      "resolved_split_policy": {
+        "policy": "paper_faithful_external",
+        "reason": "Reviewable beta split lane can now hold out external source components for audit and comparison workflows without becoming the default recommended split.",
+        "recommended_for_training": false,
+        "paper_faithful_only": true
+      },
+      "overlap_findings": {
+        "direct_overlap": {
+          "status": "published_not_mirrored",
+          "notes": [
+            "The shared PPIS benchmark family is explicit enough for audit planning, but exact chain/residue overlap could not be enumerated without mirroring the pkl/fa files."
+          ]
+        },
+        "accession_root_overlap": {
+          "status": "published_not_mirrored",
+          "notes": [
+            "The shared PPIS benchmark family is explicit enough for audit planning, but exact chain/residue overlap could not be enumerated without mirroring the pkl/fa files."
+          ]
+        },
+        "uniref_overlap": {
+          "status": "theoretically_supported",
+          "notes": [
+            "The shared PPIS benchmark family is explicit enough for audit planning, but exact chain/residue overlap could not be enumerated without mirroring the pkl/fa files.",
+            "Warehouse proteins already cover 203,085,208 UniRef90-assigned rows."
+          ]
+        }
+      },
+      "leakage_findings": {
+        "status": "reviewed",
+        "notes": [
+          "This paper set was pre-filtered to avoid pure cross-validation studies and to prefer explicit held-out or external test splits.",
+          "The main residual risks are identifier-bridge gaps, benchmark-family saturation, and derivative reuse of the same public split family across many later papers.",
+          "Because many later PPIS papers reuse the Train_335/Test_60 lineage, a reviewer should distinguish fair within-family comparison from genuine out-of-family generalization."
+        ]
+      },
+      "source_family_findings": [
+        "RCSB/PDBe is present in the library with license scope `public_metadata` and scope tier `authoritative` (registry records: 7).",
+        "The warehouse already holds 234,767 PDB entries and 85,651 local structure-unit rows, so published PPIS benchmark files would be structurally groundable once mirrored."
+      ],
+      "governed_eligibility_findings": {
+        "status": "candidate_only",
+        "notes": [
+          "best_evidence remains the governing warehouse read view for this evaluation.",
+          "Published external splits can be faithful and acceptable as paper-faithful audit lanes without automatically becoming the default ProteoSphere training benchmark.",
+          "This split is strong enough to trust as an external audit lane, but canonical training use still depends on warehouse mirroring and identifier resolution."
+        ]
+      },
+      "verdict": "faithful and acceptable as-is",
+      "project_status": "usable",
+      "blockers": [
+        "benchmark filenames are known, but the exact PPIS roster files were not mirrored into the local audit workspace in this run"
+      ],
+      "warnings": [],
+      "recommended_canonical_treatment": "Keep this as a `paper_faithful_external` audit lane and mirror the exact released roster into the warehouse so direct leakage diagnostics become first-class rather than inferred.",
+      "provenance_notes": [
+        "Primary evidence came from the condensed warehouse catalog, manifest, source registry, and Model Studio split-policy code.",
+        "Supplemental paper/repo evidence came from official links provided in the curated audit-friendly list and from directly inspected release artifacts where available.",
+        "No raw/archive fallback was used."
+      ],
+      "supplemental_evidence": {},
+      "source_links": [
+        "https://doi.org/10.1186/s12859-025-06328-5"
+      ],
+      "named_entities": [
+        "Train_335.fa",
+        "Test_60.fa"
+      ],
+      "source_families": [
+        "rcsb_pdbe"
+      ],
+      "raw_archive_fallback_required": false
+    },
+    {
+      "paper_id": "mvso_ppis2025",
+      "title": "MVSO-PPIS",
+      "doi": "https://doi.org/10.1093/bioinformatics/btaf470",
+      "task_group": "binding_site_prediction",
+      "auditability": "high",
+      "benchmark_family": "ppis_train335_family",
+      "claimed_split_description": "Official repo provides the PPIS benchmark files plus processed PDB files.",
+      "resolved_split_policy": {
+        "policy": "paper_faithful_external",
+        "reason": "Reviewable beta split lane can now hold out external source components for audit and comparison workflows without becoming the default recommended split.",
+        "recommended_for_training": false,
+        "paper_faithful_only": true
+      },
+      "overlap_findings": {
+        "direct_overlap": {
+          "status": "published_not_mirrored",
+          "notes": [
+            "The shared PPIS benchmark family is explicit enough for audit planning, but exact chain/residue overlap could not be enumerated without mirroring the pkl/fa files."
+          ]
+        },
+        "accession_root_overlap": {
+          "status": "published_not_mirrored",
+          "notes": [
+            "The shared PPIS benchmark family is explicit enough for audit planning, but exact chain/residue overlap could not be enumerated without mirroring the pkl/fa files."
+          ]
+        },
+        "uniref_overlap": {
+          "status": "theoretically_supported",
+          "notes": [
+            "The shared PPIS benchmark family is explicit enough for audit planning, but exact chain/residue overlap could not be enumerated without mirroring the pkl/fa files.",
+            "Warehouse proteins already cover 203,085,208 UniRef90-assigned rows."
+          ]
+        }
+      },
+      "leakage_findings": {
+        "status": "reviewed",
+        "notes": [
+          "This paper set was pre-filtered to avoid pure cross-validation studies and to prefer explicit held-out or external test splits.",
+          "The main residual risks are identifier-bridge gaps, benchmark-family saturation, and derivative reuse of the same public split family across many later papers.",
+          "Because many later PPIS papers reuse the Train_335/Test_60 lineage, a reviewer should distinguish fair within-family comparison from genuine out-of-family generalization."
+        ]
+      },
+      "source_family_findings": [
+        "RCSB/PDBe is present in the library with license scope `public_metadata` and scope tier `authoritative` (registry records: 7).",
+        "The warehouse already holds 234,767 PDB entries and 85,651 local structure-unit rows, so published PPIS benchmark files would be structurally groundable once mirrored."
+      ],
+      "governed_eligibility_findings": {
+        "status": "candidate_only",
+        "notes": [
+          "best_evidence remains the governing warehouse read view for this evaluation.",
+          "Published external splits can be faithful and acceptable as paper-faithful audit lanes without automatically becoming the default ProteoSphere training benchmark.",
+          "This split is strong enough to trust as an external audit lane, but canonical training use still depends on warehouse mirroring and identifier resolution."
+        ]
+      },
+      "verdict": "faithful and acceptable as-is",
+      "project_status": "usable",
+      "blockers": [
+        "benchmark filenames are known, but the exact PPIS roster files were not mirrored into the local audit workspace in this run"
+      ],
+      "warnings": [],
+      "recommended_canonical_treatment": "Keep this as a `paper_faithful_external` audit lane and mirror the exact released roster into the warehouse so direct leakage diagnostics become first-class rather than inferred.",
+      "provenance_notes": [
+        "Primary evidence came from the condensed warehouse catalog, manifest, source registry, and Model Studio split-policy code.",
+        "Supplemental paper/repo evidence came from official links provided in the curated audit-friendly list and from directly inspected release artifacts where available.",
+        "No raw/archive fallback was used."
+      ],
+      "supplemental_evidence": {},
+      "source_links": [
+        "https://doi.org/10.1093/bioinformatics/btaf470",
+        "https://github.com/Edwardblue282/MVSO-PPIS"
+      ],
+      "named_entities": [
+        "Train_335.pkl",
+        "Test_60.pkl",
+        "Test_315-28.pkl",
+        "UBtest_31-6.pkl"
+      ],
+      "source_families": [
+        "rcsb_pdbe"
+      ],
+      "raw_archive_fallback_required": false
+    },
+    {
+      "paper_id": "hssppi2025",
+      "title": "HSSPPI",
+      "doi": "https://doi.org/10.1093/bib/bbaf079",
+      "task_group": "binding_site_prediction",
+      "auditability": "medium",
+      "benchmark_family": "hssppi_public_tasks",
+      "claimed_split_description": "The paper and official release describe train/test datasets and trained models for two PPIS benchmark tasks.",
+      "resolved_split_policy": {
+        "policy": "paper_faithful_external",
+        "reason": "Reviewable beta split lane can now hold out external source components for audit and comparison workflows without becoming the default recommended split.",
+        "recommended_for_training": false,
+        "paper_faithful_only": true
+      },
+      "overlap_findings": {
+        "direct_overlap": {
+          "status": "preflight_only",
+          "notes": [
+            "The split style is explicit and published enough to trust qualitatively, but exact overlap enumeration still depends on mirroring the released membership files into the warehouse audit path."
+          ]
+        },
+        "accession_root_overlap": {
+          "status": "preflight_only",
+          "notes": [
+            "The split style is explicit and published enough to trust qualitatively, but exact overlap enumeration still depends on mirroring the released membership files into the warehouse audit path."
+          ]
+        },
+        "uniref_overlap": {
+          "status": "theoretically_supported",
+          "notes": [
+            "The split style is explicit and published enough to trust qualitatively, but exact overlap enumeration still depends on mirroring the released membership files into the warehouse audit path.",
+            "Warehouse proteins already cover 203,085,208 UniRef90-assigned rows."
+          ]
+        }
+      },
+      "leakage_findings": {
+        "status": "reviewed",
+        "notes": [
+          "This paper set was pre-filtered to avoid pure cross-validation studies and to prefer explicit held-out or external test splits.",
+          "The main residual risks are identifier-bridge gaps, benchmark-family saturation, and derivative reuse of the same public split family across many later papers."
+        ]
+      },
+      "source_family_findings": [
+        "RCSB/PDBe is present in the library with license scope `public_metadata` and scope tier `authoritative` (registry records: 7).",
+        "The warehouse already holds 234,767 PDB entries and 85,651 local structure-unit rows, so published PPIS benchmark files would be structurally groundable once mirrored."
+      ],
+      "governed_eligibility_findings": {
+        "status": "audit_only",
+        "notes": [
+          "best_evidence remains the governing warehouse read view for this evaluation.",
+          "Published external splits can be faithful and acceptable as paper-faithful audit lanes without automatically becoming the default ProteoSphere training benchmark.",
+          "This split is most useful as an external comparison lane or shared-community benchmark, not as the sole canonical release target."
+        ]
+      },
+      "verdict": "audit-useful but non-canonical",
+      "project_status": "audit_only",
+      "blockers": [],
+      "warnings": [],
+      "recommended_canonical_treatment": "Treat it as a `paper_faithful_external` audit lane or inherited benchmark family rather than a new canonical split.",
+      "provenance_notes": [
+        "Primary evidence came from the condensed warehouse catalog, manifest, source registry, and Model Studio split-policy code.",
+        "Supplemental paper/repo evidence came from official links provided in the curated audit-friendly list and from directly inspected release artifacts where available.",
+        "No raw/archive fallback was used."
+      ],
+      "supplemental_evidence": {},
+      "source_links": [
+        "https://doi.org/10.1093/bib/bbaf079"
+      ],
+      "named_entities": [
+        "Train335",
+        "Test60",
+        "Test287",
+        "TestB25",
+        "TestUB25"
+      ],
+      "source_families": [
+        "rcsb_pdbe"
+      ],
+      "raw_archive_fallback_required": false
+    },
+    {
+      "paper_id": "mippis2024",
+      "title": "MIPPIS",
+      "doi": "https://doi.org/10.1186/s12859-024-05964-7",
+      "task_group": "binding_site_prediction",
+      "auditability": "medium",
+      "benchmark_family": "ppis_train335_family",
+      "claimed_split_description": "MIPPIS uses the public Train_335/Test_60 benchmark family; exact IDs are recoverable through the shared benchmark repos.",
+      "resolved_split_policy": {
+        "policy": "paper_faithful_external",
+        "reason": "Reviewable beta split lane can now hold out external source components for audit and comparison workflows without becoming the default recommended split.",
+        "recommended_for_training": false,
+        "paper_faithful_only": true
+      },
+      "overlap_findings": {
+        "direct_overlap": {
+          "status": "published_not_mirrored",
+          "notes": [
+            "The shared PPIS benchmark family is explicit enough for audit planning, but exact chain/residue overlap could not be enumerated without mirroring the pkl/fa files."
+          ]
+        },
+        "accession_root_overlap": {
+          "status": "published_not_mirrored",
+          "notes": [
+            "The shared PPIS benchmark family is explicit enough for audit planning, but exact chain/residue overlap could not be enumerated without mirroring the pkl/fa files."
+          ]
+        },
+        "uniref_overlap": {
+          "status": "theoretically_supported",
+          "notes": [
+            "The shared PPIS benchmark family is explicit enough for audit planning, but exact chain/residue overlap could not be enumerated without mirroring the pkl/fa files.",
+            "Warehouse proteins already cover 203,085,208 UniRef90-assigned rows."
+          ]
+        }
+      },
+      "leakage_findings": {
+        "status": "reviewed",
+        "notes": [
+          "This paper set was pre-filtered to avoid pure cross-validation studies and to prefer explicit held-out or external test splits.",
+          "The main residual risks are identifier-bridge gaps, benchmark-family saturation, and derivative reuse of the same public split family across many later papers.",
+          "Because many later PPIS papers reuse the Train_335/Test_60 lineage, a reviewer should distinguish fair within-family comparison from genuine out-of-family generalization.",
+          "This paper inherits a strong public benchmark rather than releasing a new one, so its main audit value is comparability, not novel split design."
+        ]
+      },
+      "source_family_findings": [
+        "RCSB/PDBe is present in the library with license scope `public_metadata` and scope tier `authoritative` (registry records: 7).",
+        "The warehouse already holds 234,767 PDB entries and 85,651 local structure-unit rows, so published PPIS benchmark files would be structurally groundable once mirrored."
+      ],
+      "governed_eligibility_findings": {
+        "status": "audit_only",
+        "notes": [
+          "best_evidence remains the governing warehouse read view for this evaluation.",
+          "Published external splits can be faithful and acceptable as paper-faithful audit lanes without automatically becoming the default ProteoSphere training benchmark.",
+          "This split is most useful as an external comparison lane or shared-community benchmark, not as the sole canonical release target."
+        ]
+      },
+      "verdict": "audit-useful but non-canonical",
+      "project_status": "audit_only",
+      "blockers": [
+        "benchmark filenames are known, but the exact PPIS roster files were not mirrored into the local audit workspace in this run"
+      ],
+      "warnings": [],
+      "recommended_canonical_treatment": "Keep it as a fair shared-benchmark comparison lane, but pair it with at least one out-of-family validation set before using it for strong generalization claims.",
+      "provenance_notes": [
+        "Primary evidence came from the condensed warehouse catalog, manifest, source registry, and Model Studio split-policy code.",
+        "Supplemental paper/repo evidence came from official links provided in the curated audit-friendly list and from directly inspected release artifacts where available.",
+        "No raw/archive fallback was used."
+      ],
+      "supplemental_evidence": {},
+      "source_links": [
+        "https://doi.org/10.1186/s12859-024-05964-7",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC11536593/"
+      ],
+      "named_entities": [
+        "Train_335",
+        "Test_60"
+      ],
+      "source_families": [
+        "rcsb_pdbe"
+      ],
+      "raw_archive_fallback_required": false
+    },
+    {
+      "paper_id": "seq_insite2024",
+      "title": "Seq-InSite",
+      "doi": "https://doi.org/10.1093/bioinformatics/btad738",
+      "task_group": "binding_site_prediction",
+      "auditability": "medium",
+      "benchmark_family": "seq_insite_similarity_guarded_ppis",
+      "claimed_split_description": "Official repo releases models and datasets trained to avoid similarity with held-out PPIS benchmark sets such as without60 and without315.",
+      "resolved_split_policy": {
+        "policy": "uniref_grouped",
+        "reason": "Beta split compiler now groups on explicit UniRef keys where they exist and reports fallback coverage where they do not.",
+        "recommended_for_training": true,
+        "paper_faithful_only": false
+      },
+      "overlap_findings": {
+        "direct_overlap": {
+          "status": "preflight_only",
+          "notes": [
+            "The split style is explicit and published enough to trust qualitatively, but exact overlap enumeration still depends on mirroring the released membership files into the warehouse audit path."
+          ]
+        },
+        "accession_root_overlap": {
+          "status": "preflight_only",
+          "notes": [
+            "The split style is explicit and published enough to trust qualitatively, but exact overlap enumeration still depends on mirroring the released membership files into the warehouse audit path."
+          ]
+        },
+        "uniref_overlap": {
+          "status": "theoretically_supported",
+          "notes": [
+            "The split style is explicit and published enough to trust qualitatively, but exact overlap enumeration still depends on mirroring the released membership files into the warehouse audit path.",
+            "Warehouse proteins already cover 203,085,208 UniRef90-assigned rows."
+          ]
+        }
+      },
+      "leakage_findings": {
+        "status": "reviewed",
+        "notes": [
+          "This paper set was pre-filtered to avoid pure cross-validation studies and to prefer explicit held-out or external test splits.",
+          "The main residual risks are identifier-bridge gaps, benchmark-family saturation, and derivative reuse of the same public split family across many later papers."
+        ]
+      },
+      "source_family_findings": [
+        "UniProt is present in the library with license scope `public_metadata` and scope tier `authoritative` (registry records: 8).",
+        "RCSB/PDBe is present in the library with license scope `public_metadata` and scope tier `authoritative` (registry records: 7).",
+        "The warehouse already holds 234,767 PDB entries and 85,651 local structure-unit rows, so published PPIS benchmark files would be structurally groundable once mirrored."
+      ],
+      "governed_eligibility_findings": {
+        "status": "audit_only",
+        "notes": [
+          "best_evidence remains the governing warehouse read view for this evaluation.",
+          "Published external splits can be faithful and acceptable as paper-faithful audit lanes without automatically becoming the default ProteoSphere training benchmark.",
+          "This split is most useful as an external comparison lane or shared-community benchmark, not as the sole canonical release target."
+        ]
+      },
+      "verdict": "audit-useful but non-canonical",
+      "project_status": "audit_only",
+      "blockers": [],
+      "warnings": [],
+      "recommended_canonical_treatment": "Treat it as a `uniref_grouped` audit lane or inherited benchmark family rather than a new canonical split.",
+      "provenance_notes": [
+        "Primary evidence came from the condensed warehouse catalog, manifest, source registry, and Model Studio split-policy code.",
+        "Supplemental paper/repo evidence came from official links provided in the curated audit-friendly list and from directly inspected release artifacts where available.",
+        "No raw/archive fallback was used."
+      ],
+      "supplemental_evidence": {
+        "status": "repo_readme_verified",
+        "summary": "The README names released weights such as `without60`, `without70`, and `without315` and explains that they avoid similarity to the corresponding held-out datasets.",
+        "details": [
+          "This supports a similarity-guarded evaluation story even though the exact split tables were not mirrored locally in this run."
+        ]
+      },
+      "source_links": [
+        "https://doi.org/10.1093/bioinformatics/btad738",
+        "https://github.com/lucian-ilie/Seq-InSite"
+      ],
+      "named_entities": [
+        "without60",
+        "without70",
+        "without315"
+      ],
+      "source_families": [
+        "uniprot",
+        "rcsb_pdbe"
+      ],
+      "raw_archive_fallback_required": false
+    },
+    {
+      "paper_id": "deepppisp2019",
+      "title": "DeepPPISP",
+      "doi": "https://doi.org/10.1093/bioinformatics/btz699",
+      "task_group": "binding_site_prediction",
+      "auditability": "high",
+      "benchmark_family": "deepppisp_186_72_164",
+      "claimed_split_description": "Official repo ships the benchmark datasets and data_cache features, but the README still describes splitting the raw union yourself for the 350/70 partition.",
+      "resolved_split_policy": {
+        "policy": "accession_grouped",
+        "reason": "Beta split compiler groups by exact accession signatures, not single-accession holdout.",
+        "recommended_for_training": true,
+        "paper_faithful_only": false
+      },
+      "overlap_findings": {
+        "direct_overlap": {
+          "status": "split_membership_not_fixed_enough",
+          "notes": [
+            "A published benchmark corpus exists, but the governing split membership is not released as a stable artifact."
+          ]
+        },
+        "accession_root_overlap": {
+          "status": "split_membership_not_fixed_enough",
+          "notes": [
+            "A published benchmark corpus exists, but the governing split membership is not released as a stable artifact."
+          ]
+        },
+        "uniref_overlap": {
+          "status": "theoretically_supported",
+          "notes": [
+            "A published benchmark corpus exists, but the governing split membership is not released as a stable artifact.",
+            "Warehouse proteins already cover 203,085,208 UniRef90-assigned rows."
+          ]
+        }
+      },
+      "leakage_findings": {
+        "status": "reviewed",
+        "notes": [
+          "This paper set was pre-filtered to avoid pure cross-validation studies and to prefer explicit held-out or external test splits.",
+          "The main residual risks are identifier-bridge gaps, benchmark-family saturation, and derivative reuse of the same public split family across many later papers.",
+          "The benchmark corpus is published, but the exact fixed train/test membership is not released cleanly enough to remove ambiguity."
+        ]
+      },
+      "source_family_findings": [
+        "RCSB/PDBe is present in the library with license scope `public_metadata` and scope tier `authoritative` (registry records: 7).",
+        "UniProt is present in the library with license scope `public_metadata` and scope tier `authoritative` (registry records: 8).",
+        "The warehouse already holds 234,767 PDB entries and 85,651 local structure-unit rows, so published PPIS benchmark files would be structurally groundable once mirrored."
+      ],
+      "governed_eligibility_findings": {
+        "status": "audit_only",
+        "notes": [
+          "best_evidence remains the governing warehouse read view for this evaluation.",
+          "Published external splits can be faithful and acceptable as paper-faithful audit lanes without automatically becoming the default ProteoSphere training benchmark.",
+          "This paper needs additional split-membership cleanup before it can support strong release claims."
+        ]
+      },
+      "verdict": "incomplete because required evidence is missing",
+      "project_status": "blocked_pending_mapping",
+      "blockers": [
+        "benchmark datasets are shipped, but the exact fixed 350/70 train/test membership is not exposed cleanly enough in the release surface"
+      ],
+      "warnings": [],
+      "recommended_canonical_treatment": "Do not rely on the paper split alone. Reconstruct a fixed released roster and then reevaluate it under `accession_grouped`.",
+      "provenance_notes": [
+        "Primary evidence came from the condensed warehouse catalog, manifest, source registry, and Model Studio split-policy code.",
+        "Supplemental paper/repo evidence came from official links provided in the curated audit-friendly list and from directly inspected release artifacts where available.",
+        "No raw/archive fallback was used."
+      ],
+      "supplemental_evidence": {
+        "status": "repo_readme_verified",
+        "summary": "The README ships Dset_186/Dset_72/PDBset_164 and data_cache features but still states that users may split the raw union themselves.",
+        "details": [
+          "This weakens exact split auditability relative to papers that publish a fixed train/test membership file."
+        ]
+      },
+      "source_links": [
+        "https://doi.org/10.1093/bioinformatics/btz699",
+        "https://github.com/CSUBioGroup/DeepPPISP"
+      ],
+      "named_entities": [
+        "Dset_186",
+        "Dset_72",
+        "PDBset_164",
+        "350/70 split"
+      ],
+      "source_families": [
+        "rcsb_pdbe",
+        "uniprot"
+      ],
+      "raw_archive_fallback_required": false
+    }
+  ]
+}

@@ -4,6 +4,8 @@ import csv
 import time
 from pathlib import Path
 
+from api.model_studio import catalog as studio_catalog
+from api.model_studio import contracts
 from api.model_studio import runtime
 from api.model_studio.catalog import default_pipeline_spec
 from api.model_studio.contracts import pipeline_spec_from_dict
@@ -126,6 +128,31 @@ def test_launch_run_persists_metrics_and_artifacts(tmp_path, monkeypatch) -> Non
             }
         ],
     )
+    original_build_release_catalog = studio_catalog.build_release_catalog
+
+    def _patched_catalog():
+        catalog = original_build_release_catalog()
+        registry = catalog.setdefault("ui_option_registry", {})
+        dataset_refs = list(registry.get("dataset_refs") or [])
+        dataset_refs.append(
+            {
+                "value": "toy_pp_benchmark",
+                "label": "Toy benchmark",
+                "status": "beta",
+                "reason": "unit-test fixture dataset",
+            }
+        )
+        registry["dataset_refs"] = dataset_refs
+        return catalog
+
+    monkeypatch.setattr(studio_catalog, "build_release_catalog", _patched_catalog)
+    original_is_active = contracts.is_active_option
+    def _patched_is_active(category: str, value: str) -> bool:
+        if category == "dataset_refs" and value == "toy_pp_benchmark":
+            return True
+        return original_is_active(category, value)
+
+    monkeypatch.setattr(contracts, "is_active_option", _patched_is_active)
 
     spec_dict = default_pipeline_spec().to_dict()
     spec_dict["pipeline_id"] = "pipeline:toy"
@@ -225,6 +252,33 @@ def test_preview_and_build_training_set_return_split_diagnostics(tmp_path, monke
             }
         ],
     )
+
+    original_build_release_catalog = studio_catalog.build_release_catalog
+
+    def _patched_catalog():
+        catalog = original_build_release_catalog()
+        registry = catalog.setdefault("ui_option_registry", {})
+        dataset_refs = list(registry.get("dataset_refs") or [])
+        dataset_refs.append(
+            {
+                "value": "preview_pp_benchmark",
+                "label": "Preview benchmark",
+                "status": "beta",
+                "reason": "unit-test fixture dataset",
+            }
+        )
+        registry["dataset_refs"] = dataset_refs
+        return catalog
+
+    monkeypatch.setattr(studio_catalog, "build_release_catalog", _patched_catalog)
+    original_is_active = contracts.is_active_option
+
+    def _patched_is_active(category: str, value: str) -> bool:
+        if category == "dataset_refs" and value == "preview_pp_benchmark":
+            return True
+        return original_is_active(category, value)
+
+    monkeypatch.setattr(contracts, "is_active_option", _patched_is_active)
 
     spec = default_pipeline_spec()
     preview = runtime.preview_training_set_request(

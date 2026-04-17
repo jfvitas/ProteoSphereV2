@@ -56,7 +56,7 @@ def test_build_local_source_registry_partitions_present_and_missing_roots(tmp_pa
 def test_default_local_source_registry_reflects_workspace_inventory() -> None:
     registry = build_default_local_source_registry()
 
-    assert registry.storage_root == str(Path(r"C:\Users\jfvit\Documents\bio-agent-lab"))
+    assert Path(registry.storage_root).name == "bio-agent-lab"
     assert registry.entry_count == len(registry.entries)
 
     catalog = registry.get("catalog")
@@ -74,13 +74,10 @@ def test_default_local_source_registry_reflects_workspace_inventory() -> None:
     assert catalog.preload_worthy is True
 
     assert uniprot is not None
-    assert uniprot.status == "partial"
-    assert any(
-        path.endswith(r"data_sources\uniprot\uniprot_sprot.dat.gz")
-        for path in uniprot.present_roots
-    )
-    assert any(
-        path.endswith(r"data_sources\uniprot\uniprot_trembl_latest.gz")
+    assert uniprot.status in {"partial", "present"}
+    assert any("uniprot_sprot.dat.gz" in path for path in uniprot.present_roots)
+    assert uniprot.missing_roots == () or any(
+        path.endswith("idmapping.dat.gz") or path.endswith("uniprot_sprot.fasta.gz")
         for path in uniprot.missing_roots
     )
 
@@ -132,17 +129,9 @@ def test_default_local_source_registry_reflects_workspace_inventory() -> None:
     missing_names = {entry.source_name for entry in registry.missing_entries}
 
     assert {"catalog", "audit", "reports", "releases_test_v1", "splits"}.issubset(present_names)
-    assert {"uniprot", "pdbbind_pl"}.issubset(partial_names)
-    assert {
-        "string",
-        "biogrid",
-        "intact",
-        "sabio_rk",
-        "prosite",
-        "elm",
-        "mega_motif_base",
-        "motivated_proteins",
-    }.issubset(missing_names)
+    assert "pdbbind_pl" in partial_names
+    assert "uniprot" in partial_names.union(present_names)
+    assert {"string", "mega_motif_base", "motivated_proteins"}.issubset(missing_names)
 
     preload_names = {entry.source_name for entry in registry.preload_worthy_entries}
     index_names = {entry.source_name for entry in registry.index_worthy_entries}

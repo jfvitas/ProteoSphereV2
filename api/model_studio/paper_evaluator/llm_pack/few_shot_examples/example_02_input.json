@@ -1,0 +1,7 @@
+{
+  "paper_id": "example_cross_validation",
+  "claimed_dataset": "Fivefold CV benchmark",
+  "claimed_split_description": "Fivefold cross-validation on a benchmark set is claimed.",
+  "split_style": "cross_validation",
+  "source_families": ["rcsb_pdbe", "pdbbind"]
+}

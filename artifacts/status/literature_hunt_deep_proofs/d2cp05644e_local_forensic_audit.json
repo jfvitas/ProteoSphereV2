@@ -1,0 +1,9 @@
+{
+  "proof_id": "d2cp05644e_forensic_audit",
+  "benchmark_family": "prodigy78_plus_external_panels",
+  "local_artifact_path": "D:\\documents\\ProteoSphereV2\\artifacts\\status\\paper_d2cp05644e\\summary.json",
+  "pdbbind50_direct_protein_overlap_count": 4,
+  "nanobody47_direct_protein_overlap_count": 1,
+  "metadynamics19_direct_protein_overlap_count": 26,
+  "verdict": "The reconstructed benchmark and all three claimed external panels fail clean independence expectations."
+}

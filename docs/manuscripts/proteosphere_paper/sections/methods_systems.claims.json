@@ -1,0 +1,92 @@
+[
+  {
+    "claim_text": "ProteoSphere uses a warehouse-first architecture with pinned source mirrors, a compact reference library, and on-demand materialization of heavy payloads.",
+    "source_path": "D:\\documents\\ProteoSphereV2\\docs\\reports\\source_storage_strategy.md",
+    "status": "supported"
+  },
+  {
+    "claim_text": "The release matrix defines UniProt, RCSB/PDBe, AlphaFold DB, BindingDB, BioGRID, IntAct, InterPro/motif systems, DisProt, Reactome, EMDB, and a pending evolutionary corpus as the current source contract.",
+    "source_path": "D:\\documents\\ProteoSphereV2\\docs\\reports\\source_release_matrix.md",
+    "status": "supported"
+  },
+  {
+    "claim_text": "The warehouse summary reports best_evidence as the default view and metadata sync status as ready.",
+    "source_path": "D:\\ProteoSphere\\reference_library\\warehouse_summary.json",
+    "status": "supported"
+  },
+  {
+    "claim_text": "The manifest currently materializes 13 family tables, including proteins, protein_variants, pdb_entries, structure_units, ligands, protein_ligand_edges, protein_protein_edges, motif_domain_site_annotations, pathway_roles, provenance_claims, materialization_routes, leakage_groups, and similarity_signatures.",
+    "source_path": "D:\\ProteoSphere\\reference_library\\warehouse_manifest.json",
+    "status": "supported"
+  },
+  {
+    "claim_text": "The manifest records 968,580 structure_units.",
+    "source_path": "D:\\ProteoSphere\\reference_library\\warehouse_manifest.json",
+    "status": "supported"
+  },
+  {
+    "claim_text": "The manifest records 24,804 protein_ligand_edges and 5,595 protein_protein_edges.",
+    "source_path": "D:\\ProteoSphere\\reference_library\\warehouse_manifest.json",
+    "status": "supported"
+  },
+  {
+    "claim_text": "The manifest records 5,687,488 motif_domain_site_annotations and 16,047,392 pathway_roles.",
+    "source_path": "D:\\ProteoSphere\\reference_library\\warehouse_manifest.json",
+    "status": "supported"
+  },
+  {
+    "claim_text": "Supplemental scraping is limited to accession-scoped InterPro, PROSITE, ELM, DisProt, Reactome, and RCSB motif-search payloads.",
+    "source_path": "D:\\documents\\ProteoSphereV2\\docs\\reports\\source_storage_strategy.md",
+    "status": "supported"
+  },
+  {
+    "claim_text": "reference_library.py defaults to the best_evidence claim view and can also expose raw and derived_or_scraped views on request.",
+    "source_path": "D:\\documents\\ProteoSphereV2\\api\\model_studio\\reference_library.py",
+    "status": "supported"
+  },
+  {
+    "claim_text": "reference_library.py exposes a conflict summary that flags whether claim surfaces disagree and falls back to a summary-contract interpretation for compact warehouse rows.",
+    "source_path": "D:\\documents\\ProteoSphereV2\\api\\model_studio\\reference_library.py",
+    "status": "supported"
+  },
+  {
+    "claim_text": "resolve_materialization_route() normalizes source-family names and anchors materialization routes against the source registry instead of guessing from local paths.",
+    "source_path": "D:\\documents\\ProteoSphereV2\\api\\model_studio\\reference_library.py",
+    "status": "supported"
+  },
+  {
+    "claim_text": "_custom_dataset_warehouse_catalog_path() checks PROTEOSPHERE_WAREHOUSE_ROOT first and then local default warehouse roots.",
+    "source_path": "D:\\documents\\ProteoSphereV2\\api\\model_studio\\runtime.py",
+    "status": "supported"
+  },
+  {
+    "claim_text": "_custom_manifest_record_to_row() carries accession grounding and UniRef cluster hints into benchmark-row metadata.",
+    "source_path": "D:\\documents\\ProteoSphereV2\\api\\model_studio\\runtime.py",
+    "status": "supported"
+  },
+  {
+    "claim_text": "_build_leakage_summary() blocks splits when direct protein overlap is found between train-plus-validation and test rows.",
+    "source_path": "D:\\documents\\ProteoSphereV2\\api\\model_studio\\runtime.py",
+    "status": "supported"
+  },
+  {
+    "claim_text": "The literature audit corpus contains 29 confirmed Tier 1 hard-failure papers, 18 of which are from 2023 or later.",
+    "source_path": "D:\\documents\\ProteoSphereV2\\docs\\reports\\literature_hunt_tier1_master_summary.md",
+    "status": "supported"
+  },
+  {
+    "claim_text": "The local Tier 1 source bundle contains 29/29 article PDFs and 119 supplemental or evidence items.",
+    "source_path": "D:\\documents\\ProteoSphereV2\\docs\\reports\\literature_hunt_tier1_source_bundle.md",
+    "status": "supported"
+  },
+  {
+    "claim_text": "The condensed warehouse is operationally effective but not yet a full evidence-equivalent replacement for the broader downloaded collection.",
+    "source_path": "D:\\documents\\ProteoSphereV2\\docs\\reports\\library_vs_broad_collection_equivalence.md",
+    "status": "softened"
+  },
+  {
+    "claim_text": "The validation report matches 20 of 20 top-level paper statuses between the condensed library and the broader audit path.",
+    "source_path": "D:\\documents\\ProteoSphereV2\\docs\\reports\\library_vs_broad_collection_equivalence.md",
+    "status": "supported"
+  }
+]

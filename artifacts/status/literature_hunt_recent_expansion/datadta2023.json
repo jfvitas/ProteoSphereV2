@@ -1,0 +1,49 @@
+{
+  "paper_id": "datadta2023",
+  "doi": "https://doi.org/10.1093/bioinformatics/btad560",
+  "domain": "protein_ligand",
+  "task_family": "binding_affinity_prediction",
+  "benchmark_family": "pdbbind_core_family",
+  "tier_target": "tier1_hard_failure",
+  "official_evidence_links": [
+    "https://doi.org/10.1093/bioinformatics/btad560",
+    "https://github.com/YanZhu06/DataDTA",
+    "https://raw.githubusercontent.com/YanZhu06/DataDTA/main/README.md"
+  ],
+  "claimed_split_description": "The repo releases training, validation, test, test105, and test71 affinity surfaces keyed by PDB identifiers.",
+  "recovered_split_evidence": [
+    "The official repo ships training_smi.csv, validation_smi.csv, test_smi.csv, test105_smi.csv, and test71_smi.csv together with affinity_data.csv keyed by pdbid.",
+    "That is consistent with a PDBbind-derived training/test family rather than a newly mitigated unseen-protein split."
+  ],
+  "mitigation_claims": [
+    "No explicit cold-protein or source-family separation is released for the headline benchmark package."
+  ],
+  "mitigation_audit_result": "No mitigation strong enough to neutralize the PDBbind-family overlap was recovered.",
+  "exact_failure_class": "released_pdbbind_family_without_effective_mitigation",
+  "overlap_findings": {
+    "direct_entity_overlap": true,
+    "notes": [
+      "Released PDB-ID keyed benchmark files keep the paper inside the protein-overlapped PDBbind family."
+    ]
+  },
+  "contamination_findings": {
+    "notes": [
+      "The benchmark remains unsuitable as a clean unseen-protein test."
+    ]
+  },
+  "blockers": [],
+  "recommended_proteosphere_treatment": "Tier 1 hard failure for externality claims, with a note that the paper package is still useful for paper-faithful PDBbind-family auditing.",
+  "provenance_notes": [
+    "Recent 2023 paper with a released benchmark package but no convincing mitigation layer."
+  ],
+  "raw_archive_fallback_required": false,
+  "final_status": "tier1_hard_failure",
+  "scores": {
+    "publication_utility": 4.3,
+    "failure_strength": 4.4,
+    "proof_strength": 4.2
+  },
+  "title": "DataDTA: a multi-feature and dual-interaction aggregation framework for drug\u2013target binding affinity prediction",
+  "journal": "Bioinformatics",
+  "year": 2023
+}

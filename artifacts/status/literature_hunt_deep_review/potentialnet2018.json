@@ -1,0 +1,47 @@
+{
+  "paper_id": "potentialnet2018",
+  "title": "PotentialNet for Molecular Property Prediction",
+  "doi": "https://doi.org/10.1021/acscentsci.8b00507",
+  "journal": "ACS Central Science",
+  "year": 2018,
+  "domain": "protein_ligand",
+  "task_family": "binding_affinity_prediction",
+  "benchmark_family": "mitigation_aware_control",
+  "tier_target": "control_nonfailure",
+  "official_evidence_links": [
+    "https://doi.org/10.1021/acscentsci.8b00507"
+  ],
+  "final_status": "control_nonfailure",
+  "claimed_split_description": "The paper explicitly adds a mitigation-aware split or clustering strategy aimed at measuring genuine generalization.",
+  "recovered_split_evidence": [
+    "PotentialNet explicitly proposes sequence- and structure-homology-clustered cross-validation to measure generalizability more honestly."
+  ],
+  "mitigation_claims": [
+    "PotentialNet explicitly proposes sequence- and structure-homology-clustered cross-validation to measure generalizability more honestly."
+  ],
+  "mitigation_audit_result": {
+    "status": "passes_control_check",
+    "notes": [
+      "This paper is a useful fairness control because the mitigation directly addresses one of the failure modes highlighted elsewhere in the hunt."
+    ]
+  },
+  "exact_failure_class": [],
+  "overlap_findings": {},
+  "contamination_findings": {
+    "status": "control_case",
+    "notes": [
+      "No Tier 1 promotion was attempted because the paper includes a meaningful mitigation strategy."
+    ]
+  },
+  "blockers": [],
+  "recommended_proteosphere_treatment": "Use as a fairness control in the review paper to show that the analyzer distinguishes better split design from leakage-prone benchmarking.",
+  "provenance_notes": [
+    "This control was kept intentionally to avoid turning the review into a one-sided takedown."
+  ],
+  "raw_archive_fallback_required": false,
+  "scores": {
+    "failure_strength": 0.0,
+    "proof_strength": 4.0,
+    "publication_utility": 6.4
+  }
+}

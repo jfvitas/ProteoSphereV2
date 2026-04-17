@@ -1,0 +1,132 @@
+{
+  "paper_id": "d2cp05644e_2023",
+  "title": "An artificial neural network model to predict structure-based protein-protein free energy of binding from Rosetta-calculated properties",
+  "doi": "https://doi.org/10.1039/D2CP05644E",
+  "journal": "Physical Chemistry Chemical Physics",
+  "year": 2023,
+  "domain": "protein_protein",
+  "task_family": "binding_affinity_regression",
+  "benchmark_family": "prodigy78_plus_external_panels",
+  "tier_target": "tier1_hard_failure",
+  "official_evidence_links": [
+    "https://doi.org/10.1039/D2CP05644E",
+    "https://www.rsc.org/suppdata/d2/cp/d2cp05644e/d2cp05644e1.pdf",
+    "https://github.com/DSIMB/PPSUS"
+  ],
+  "final_status": "tier1_hard_failure",
+  "claimed_split_description": "Recovered public materials reconstruct a 78-complex benchmark pool plus three claimed external panels: PDBbind-50, nanobody-47, and metadynamics-19.",
+  "recovered_split_evidence": [
+    "ProteoSphere recovered the benchmark pool and three validation panels; all three external panels fail independence checks.",
+    "The benchmark pool was reconstructed from the public repository rather than from a warehouse-native split artifact."
+  ],
+  "mitigation_claims": [
+    "No release-date, accession-group, or family-aware mitigation is evident in the recovered training/external panel design."
+  ],
+  "mitigation_audit_result": {
+    "status": "failed",
+    "notes": [
+      "The PDBbind panel retains direct protein overlap against the recovered benchmark pool.",
+      "The nanobody panel reuses a central antigen target.",
+      "The metadynamics panel shows severe direct reuse and cannot count as independent external validation."
+    ]
+  },
+  "exact_failure_class": [
+    "direct_protein_overlap",
+    "exact_sequence_reuse",
+    "invalid_external_validation",
+    "shared_partner_context"
+  ],
+  "overlap_findings": {
+    "prodigy78_vs_pdbbind50": {
+      "overall_decision": "blocked",
+      "blocked_reasons": [
+        "critical_structure_state_reuse",
+        "direct_protein_leakage",
+        "exact_sequence_reuse"
+      ],
+      "review_reasons": [
+        "cluster_or_partner_overlap_review",
+        "coverage",
+        "local_structure_files",
+        "missing_structure_coverage",
+        "sequence_family_review"
+      ],
+      "coverage_fraction": 0.9766,
+      "covered_structure_count": 125,
+      "total_structure_count": 128,
+      "direct_protein_overlap_count": 4,
+      "exact_sequence_overlap_count": 4,
+      "mutation_like_pair_count": 0,
+      "flagged_structure_pair_count": 16,
+      "top_recommendation": "Re-split the dataset before training use."
+    },
+    "prodigy78_vs_nanobody47": {
+      "overall_decision": "blocked",
+      "blocked_reasons": [
+        "critical_structure_state_reuse",
+        "direct_protein_leakage",
+        "exact_sequence_reuse"
+      ],
+      "review_reasons": [
+        "cluster_or_partner_overlap_review",
+        "coverage",
+        "local_structure_files",
+        "missing_structure_coverage",
+        "sequence_family_review"
+      ],
+      "coverage_fraction": 0.84,
+      "covered_structure_count": 105,
+      "total_structure_count": 125,
+      "direct_protein_overlap_count": 1,
+      "exact_sequence_overlap_count": 1,
+      "mutation_like_pair_count": 0,
+      "flagged_structure_pair_count": 24,
+      "top_recommendation": "Re-split the dataset before training use."
+    },
+    "prodigy78_vs_metadynamics19": {
+      "overall_decision": "blocked",
+      "blocked_reasons": [
+        "critical_structure_state_reuse",
+        "direct_protein_leakage",
+        "exact_sequence_reuse"
+      ],
+      "review_reasons": [
+        "cluster_or_partner_overlap_review",
+        "coverage",
+        "local_structure_files",
+        "missing_structure_coverage",
+        "sequence_family_review"
+      ],
+      "coverage_fraction": 0.9691,
+      "covered_structure_count": 94,
+      "total_structure_count": 97,
+      "direct_protein_overlap_count": 26,
+      "exact_sequence_overlap_count": 26,
+      "mutation_like_pair_count": 0,
+      "flagged_structure_pair_count": 24,
+      "top_recommendation": "Re-split the dataset before training use."
+    }
+  },
+  "contamination_findings": {
+    "status": "confirmed_invalid_external_validation",
+    "notes": [
+      "PDBbind-50 retains 4 direct protein overlaps.",
+      "Nanobody-47 retains 1 direct protein overlaps.",
+      "Metadynamics-19 retains 26 direct protein overlaps and repeated exact complexes."
+    ]
+  },
+  "blockers": [
+    "The paper-internal benchmark split is under-disclosed even though the effective benchmark pool was reconstructable."
+  ],
+  "recommended_proteosphere_treatment": "Treat this paper as a flagship forensic case study and do not accept any of its validation lanes as canonical without a re-split.",
+  "provenance_notes": [
+    "This record relies on previously recovered public artifacts materialized in the local audit workspace.",
+    "It is one of the clearest examples of why paper prose about an 'external test set' is not enough."
+  ],
+  "raw_archive_fallback_required": true,
+  "scores": {
+    "failure_strength": 5.0,
+    "proof_strength": 5.0,
+    "publication_utility": 8.35
+  }
+}

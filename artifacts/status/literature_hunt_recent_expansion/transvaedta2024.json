@@ -1,0 +1,49 @@
+{
+  "paper_id": "transvaedta2024",
+  "doi": "https://doi.org/10.1016/j.cmpb.2023.108003",
+  "domain": "protein_ligand",
+  "task_family": "drug_target_affinity_prediction",
+  "benchmark_family": "deepdta_setting1_family",
+  "tier_target": "tier1_hard_failure",
+  "official_evidence_links": [
+    "https://doi.org/10.1016/j.cmpb.2023.108003",
+    "https://github.com/HPC-NEAU/TransVAE-DTA",
+    "https://raw.githubusercontent.com/HPC-NEAU/TransVAE-DTA/main/README.md"
+  ],
+  "claimed_split_description": "Davis and KIBA performance is reported using released fold files.",
+  "recovered_split_evidence": [
+    "The official repo ships train_fold_setting1.txt and test_fold_setting1.txt under both Davis and KIBA.",
+    "Those files place the paper directly inside the already-proven DeepDTA setting1 warm-start family."
+  ],
+  "mitigation_claims": [
+    "No cold split or unseen-target split is surfaced in the released package."
+  ],
+  "mitigation_audit_result": "The paper reuses the leaky fold family without countervailing mitigation.",
+  "exact_failure_class": "released_inherited_fold_family_failure",
+  "overlap_findings": {
+    "direct_entity_overlap": true,
+    "notes": [
+      "Released fold artifacts map directly to the DeepDTA setting1 family."
+    ]
+  },
+  "contamination_findings": {
+    "notes": [
+      "Warm-start split family blocks clean unseen-entity interpretation."
+    ]
+  },
+  "blockers": [],
+  "recommended_proteosphere_treatment": "Tier 1 hard failure for broad generalization; acceptable only as a paper-faithful warm-start audit lane.",
+  "provenance_notes": [
+    "Recent 2024 journal paper with official fold artifacts."
+  ],
+  "raw_archive_fallback_required": false,
+  "final_status": "tier1_hard_failure",
+  "scores": {
+    "publication_utility": 4.4,
+    "failure_strength": 4.5,
+    "proof_strength": 4.7
+  },
+  "title": "TransVAE-DTA: Transformer and variational autoencoder network for drug-target binding affinity prediction",
+  "journal": "Computer Methods and Programs in Biomedicine",
+  "year": 2024
+}

@@ -1,0 +1,73 @@
+{
+  "paper_id": "szymborski2022rapppid",
+  "title": "RAPPPID: towards generalizable protein interaction prediction with AWD-LSTM twin networks",
+  "doi": "https://doi.org/10.1093/bioinformatics/btac429",
+  "journal": "Bioinformatics",
+  "year": 2022,
+  "domain": "protein_protein",
+  "task_family": "ppi_prediction",
+  "benchmark_family": "rapppid_c123",
+  "tier_target": "control_nonfailure",
+  "official_evidence_links": [
+    "https://doi.org/10.1093/bioinformatics/btac429",
+    "https://doi.org/10.5281/zenodo.6817258"
+  ],
+  "final_status": "control_nonfailure",
+  "claimed_split_description": "Official Zenodo package ships strict train/val/test comparative splits (C1/C2/C3) with explicit pair files and sequence dictionaries.",
+  "recovered_split_evidence": [
+    "Strict C1/C2/C3 split design and explicit release artifacts make this a good fairness check for the analyzer."
+  ],
+  "mitigation_claims": [
+    "uniref_grouped"
+  ],
+  "mitigation_audit_result": {
+    "status": "passes_control_check",
+    "notes": [
+      "This paper is useful because the analyzer can validate it as comparatively well-designed instead of flagging everything."
+    ]
+  },
+  "exact_failure_class": [],
+  "overlap_findings": {
+    "direct_overlap": {
+      "status": "mapping_blocked_after_roster_recovery",
+      "notes": [
+        "The exact split files are available and auditable, but direct overlap checks remain blocked until Ensembl/FlyBase-style IDs are bridged into the warehouse."
+      ]
+    },
+    "accession_root_overlap": {
+      "status": "mapping_blocked_after_roster_recovery",
+      "notes": [
+        "The exact split files are available and auditable, but direct overlap checks remain blocked until Ensembl/FlyBase-style IDs are bridged into the warehouse."
+      ]
+    },
+    "uniref_overlap": {
+      "status": "theoretically_supported",
+      "notes": [
+        "The exact split files are available and auditable, but direct overlap checks remain blocked until Ensembl/FlyBase-style IDs are bridged into the warehouse.",
+        "Warehouse proteins already cover 203,085,208 UniRef90-assigned rows."
+      ]
+    }
+  },
+  "contamination_findings": {
+    "status": "reviewed",
+    "notes": [
+      "This paper set was pre-filtered to avoid pure cross-validation studies and to prefer explicit held-out or external test splits.",
+      "The main residual risks are identifier-bridge gaps, benchmark-family saturation, and derivative reuse of the same public split family across many later papers."
+    ]
+  },
+  "blockers": [
+    "released split artifacts are published, but the identifiers are not bridged into warehouse-native protein refs"
+  ],
+  "recommended_proteosphere_treatment": "Keep this as a `uniref_grouped` audit lane and mirror the exact released roster into the warehouse so direct leakage diagnostics become first-class rather than inferred.",
+  "provenance_notes": [
+    "Primary evidence came from the condensed warehouse catalog, manifest, source registry, and Model Studio split-policy code.",
+    "Supplemental paper/repo evidence came from official links provided in the curated audit-friendly list and from directly inspected release artifacts where available.",
+    "No raw/archive fallback was used."
+  ],
+  "raw_archive_fallback_required": false,
+  "scores": {
+    "failure_strength": 0.0,
+    "proof_strength": 3.6,
+    "publication_utility": 6.02
+  }
+}

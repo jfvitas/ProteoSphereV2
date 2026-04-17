@@ -1,0 +1,48 @@
+{
+  "paper_id": "bicompdta2023",
+  "doi": "https://doi.org/10.1371/journal.pcbi.1011036",
+  "domain": "protein_ligand",
+  "task_family": "drug_target_affinity_prediction",
+  "benchmark_family": "deepdta_setting1_family",
+  "tier_target": "tier2_strong_supporting_case",
+  "official_evidence_links": [
+    "https://doi.org/10.1371/journal.pcbi.1011036"
+  ],
+  "claimed_split_description": "The paper reports Davis and KIBA benchmark results.",
+  "recovered_split_evidence": [
+    "The journal paper clearly uses the same DTA benchmark family, but the official split artifacts were not recovered in this pass."
+  ],
+  "mitigation_claims": [
+    "No released countervailing cold split was recovered."
+  ],
+  "mitigation_audit_result": "Remains a strong supporting case, not Tier 1, because split artifacts were not fully recovered.",
+  "exact_failure_class": "likely_benchmark_family_dependence",
+  "overlap_findings": {
+    "direct_entity_overlap": true,
+    "notes": [
+      "Benchmark choice strongly suggests warm-start exposure."
+    ]
+  },
+  "contamination_findings": {
+    "notes": [
+      "Needs one more evidence pass before Tier 1 promotion."
+    ]
+  },
+  "blockers": [
+    "Official split artifacts or repo evidence were not recovered in this run."
+  ],
+  "recommended_proteosphere_treatment": "Tier 2 supporting case.",
+  "provenance_notes": [
+    "Recent 2023 peer-reviewed DTA paper retained for breadth."
+  ],
+  "raw_archive_fallback_required": false,
+  "final_status": "tier2_strong_supporting_case",
+  "scores": {
+    "publication_utility": 3.7,
+    "failure_strength": 3.6,
+    "proof_strength": 2.8
+  },
+  "title": "BiComp-DTA: Drug-target binding affinity prediction through complementary biological-related and compression-based featurization approach",
+  "journal": "PLOS Computational Biology",
+  "year": 2023
+}

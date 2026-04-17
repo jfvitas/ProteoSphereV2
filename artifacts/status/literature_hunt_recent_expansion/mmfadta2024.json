@@ -1,0 +1,48 @@
+{
+  "paper_id": "mmfadta2024",
+  "doi": "https://doi.org/10.1021/acs.jctc.4c00663",
+  "domain": "protein_ligand",
+  "task_family": "drug_target_affinity_prediction",
+  "benchmark_family": "deepdta_setting1_family",
+  "tier_target": "tier2_strong_supporting_case",
+  "official_evidence_links": [
+    "https://doi.org/10.1021/acs.jctc.4c00663"
+  ],
+  "claimed_split_description": "The paper uses the common DTA benchmark stack for SARS-CoV-2 repurposing work.",
+  "recovered_split_evidence": [
+    "Article-level evidence suggests standard Davis/KIBA-style benchmarking, but the released split surface was not recovered deeply enough here."
+  ],
+  "mitigation_claims": [
+    "No verified mitigation package recovered in this pass."
+  ],
+  "mitigation_audit_result": "Remains Tier 2 until split artifacts are reconstructed.",
+  "exact_failure_class": "likely_benchmark_family_dependence",
+  "overlap_findings": {
+    "direct_entity_overlap": true,
+    "notes": [
+      "Likely benchmark-family exposure, pending stronger artifact recovery."
+    ]
+  },
+  "contamination_findings": {
+    "notes": [
+      "Supporting case only."
+    ]
+  },
+  "blockers": [
+    "Split artifacts not fully recovered."
+  ],
+  "recommended_proteosphere_treatment": "Tier 2 supporting case.",
+  "provenance_notes": [
+    "Recent 2024 paper kept below Tier 1 to preserve evidentiary discipline."
+  ],
+  "raw_archive_fallback_required": false,
+  "final_status": "tier2_strong_supporting_case",
+  "scores": {
+    "publication_utility": 3.5,
+    "failure_strength": 3.2,
+    "proof_strength": 2.5
+  },
+  "title": "MMFA-DTA: Multimodal Feature Attention Fusion Network for Drug-Target Affinity Prediction for Drug Repurposing Against SARS-CoV-2",
+  "journal": "Journal of Chemical Theory and Computation",
+  "year": 2024
+}

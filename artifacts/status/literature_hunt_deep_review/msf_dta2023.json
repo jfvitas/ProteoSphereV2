@@ -1,0 +1,40 @@
+{
+  "paper_id": "msf_dta2023",
+  "title": "Predicting Drug-Target Affinity by Learning Protein Knowledge From Biological Networks",
+  "doi": "https://doi.org/10.1109/JBHI.2023.3240305",
+  "journal": "IEEE Journal of Biomedical and Health Informatics",
+  "year": 2023,
+  "domain": "protein_ligand",
+  "task_family": "drug_target_affinity_prediction",
+  "benchmark_family": "needs_more_recovery",
+  "tier_target": "candidate_needs_more_recovery",
+  "official_evidence_links": [
+    "https://doi.org/10.1109/JBHI.2023.3240305"
+  ],
+  "final_status": "candidate_needs_more_recovery",
+  "claimed_split_description": "The paper is relevant, but the current run did not recover enough split evidence to classify it fairly.",
+  "recovered_split_evidence": [],
+  "mitigation_claims": [],
+  "mitigation_audit_result": {
+    "status": "unknown",
+    "notes": [
+      "This candidate stays out of the flagship argument until the split lineage or mitigation story is clearer."
+    ]
+  },
+  "exact_failure_class": [],
+  "overlap_findings": {},
+  "contamination_findings": {},
+  "blockers": [
+    "The paper is interesting, but the public evidence located in this run is still too weak to prove whether the headline split is warm-start or mitigation-aware."
+  ],
+  "recommended_proteosphere_treatment": "Do not use in the main review narrative until the split is reconstructed or the mitigation story is verified.",
+  "provenance_notes": [
+    "Kept as backlog to remain truthful rather than guessing from an incomplete public trail."
+  ],
+  "raw_archive_fallback_required": false,
+  "scores": {
+    "failure_strength": 0.0,
+    "proof_strength": 1.5,
+    "publication_utility": 4.3
+  }
+}

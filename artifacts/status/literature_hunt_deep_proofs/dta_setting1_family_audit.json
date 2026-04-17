@@ -1,0 +1,92 @@
+{
+  "proof_id": "deepdta_setting1_family_audit",
+  "benchmark_family": "deepdta_setting1_family",
+  "family_description": "Warm-start Davis/KIBA split family inherited across many later DTA papers.",
+  "official_evidence_links": [
+    "https://doi.org/10.1093/bioinformatics/bty593",
+    "https://raw.githubusercontent.com/hkmztrk/DeepDTA/master/data/README.md",
+    "https://raw.githubusercontent.com/hkmztrk/DeepDTA/master/data/davis/folds/test_fold_setting1.txt",
+    "https://raw.githubusercontent.com/hkmztrk/DeepDTA/master/data/davis/folds/train_fold_setting1.txt",
+    "https://raw.githubusercontent.com/hkmztrk/DeepDTA/master/data/kiba/folds/test_fold_setting1.txt",
+    "https://raw.githubusercontent.com/hkmztrk/DeepDTA/master/data/kiba/folds/train_fold_setting1.txt"
+  ],
+  "released_split_note": "DeepDTA ships `train_fold_setting1.txt` and `test_fold_setting1.txt`, and the data README states that the same test set is reused across the five training folds.",
+  "datasets": {
+    "davis": {
+      "train_pair_count": 25046,
+      "test_pair_count": 5010,
+      "train_unique_drug_count": 68,
+      "test_unique_drug_count": 68,
+      "shared_drug_count": 68,
+      "train_unique_target_count": 442,
+      "test_unique_target_count": 442,
+      "shared_target_count": 442,
+      "shared_drug_fraction_of_test": 1.0,
+      "shared_target_fraction_of_test": 1.0,
+      "failure_class": "warm_start_split_with_shared_drug_and_target_entities",
+      "sample_shared_drug_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "sample_shared_target_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ]
+    },
+    "kiba": {
+      "train_pair_count": 98545,
+      "test_pair_count": 19709,
+      "train_unique_drug_count": 2111,
+      "test_unique_drug_count": 2027,
+      "shared_drug_count": 2027,
+      "train_unique_target_count": 229,
+      "test_unique_target_count": 229,
+      "shared_target_count": 229,
+      "shared_drug_fraction_of_test": 1.0,
+      "shared_target_fraction_of_test": 1.0,
+      "failure_class": "warm_start_split_with_shared_drug_and_target_entities",
+      "sample_shared_drug_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        9,
+        10
+      ],
+      "sample_shared_target_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ]
+    }
+  },
+  "raw_archive_fallback_required": false,
+  "verdict": "The official setting1 split is a hard warm-start failure for unseen-entity evaluation: Davis shares every test drug and every test target with training, and KIBA shares almost all."
+}

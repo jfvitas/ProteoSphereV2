@@ -1,0 +1,45 @@
+{
+  "proof_id": "attentiondta_random_cv_family_audit",
+  "benchmark_family": "attentiondta_random_row_cv",
+  "family_description": "AttentionDTA releases full pair tables and applies five-fold row-level random CV after shuffling, which preserves complete drug and target reuse across train/test.",
+  "official_evidence_links": [
+    "https://doi.org/10.1109/TCBB.2022.3170365",
+    "https://github.com/zhaoqichang/AttentionDTA_TCBB",
+    "https://raw.githubusercontent.com/zhaoqichang/AttentionDTA_TCBB/master/AttentionDTA_main.py",
+    "https://raw.githubusercontent.com/zhaoqichang/AttentionDTA_TCBB/master/datasets/Davis.txt",
+    "https://raw.githubusercontent.com/zhaoqichang/AttentionDTA_TCBB/master/datasets/KIBA.txt",
+    "https://raw.githubusercontent.com/zhaoqichang/AttentionDTA_TCBB/master/datasets/Metz.txt"
+  ],
+  "released_split_note": "The released code shuffles all rows, then slices folds by row index via get_kfold_data().",
+  "datasets": {
+    "davis": {
+      "total_rows": 24956,
+      "train_rows": 19965,
+      "test_rows": 4991,
+      "shared_drug_count": 68,
+      "test_unique_drug_count": 68,
+      "shared_target_count": 367,
+      "test_unique_target_count": 367
+    },
+    "kiba": {
+      "total_rows": 118254,
+      "train_rows": 94604,
+      "test_rows": 23650,
+      "shared_drug_count": 2054,
+      "test_unique_drug_count": 2054,
+      "shared_target_count": 229,
+      "test_unique_target_count": 229
+    },
+    "metz": {
+      "total_rows": 35259,
+      "train_rows": 28208,
+      "test_rows": 7051,
+      "shared_drug_count": 1206,
+      "test_unique_drug_count": 1214,
+      "shared_target_count": 169,
+      "test_unique_target_count": 169
+    }
+  },
+  "raw_archive_fallback_required": false,
+  "verdict": "Row-level random CV is a hard warm-start failure under ProteoSphere logic."
+}

@@ -1,0 +1,441 @@
+{
+  "paper_id": "ss_gnn2023",
+  "title": "SS-GNN: A Simple-Structured Graph Neural Network for Affinity Prediction",
+  "doi": "https://doi.org/10.1021/acsomega.3c00085",
+  "journal": "ACS Omega",
+  "year": 2023,
+  "domain": "protein_ligand",
+  "task_family": "binding_affinity_prediction",
+  "benchmark_family": "pdbbind_core_family",
+  "tier_target": "tier1_hard_failure",
+  "official_evidence_links": [
+    "https://doi.org/10.1021/acsomega.3c00085"
+  ],
+  "final_status": "tier1_hard_failure",
+  "claimed_split_description": "The paper's headline benchmark inherits a released benchmark family whose split is recoverable and evaluable under ProteoSphere.",
+  "recovered_split_evidence": [
+    "The official paper describes results on the standard PDBbind v2016 core test set without a homology- or time-based mitigation layer.",
+    "The standard PDBbind core-set evaluation family is not a clean unseen-protein benchmark: v2016 core retains direct protein overlap for 288 of 290 test complexes against the remaining general set, and v2013 core retains overlap for all 108 test complexes."
+  ],
+  "mitigation_claims": [
+    "none surfaced in benchmark description"
+  ],
+  "mitigation_audit_result": {
+    "status": "failed",
+    "notes": [
+      "No meaningful mitigation strategy was surfaced in the official evidence for the headline benchmark result.",
+      "The benchmark family itself remains block-worthy under ProteoSphere once the split is reconstructed."
+    ]
+  },
+  "exact_failure_class": [
+    "direct_protein_identity_overlap_between_training_and_test",
+    "legacy_core_set_external_evaluation",
+    "receptor_reuse"
+  ],
+  "overlap_findings": {
+    "v2016_core": {
+      "test_count": 290,
+      "training_pool_count": 18747,
+      "test_complexes_with_direct_protein_overlap": 288,
+      "shared_accession_count": 77,
+      "top_shared_accessions": [
+        {
+          "accession": "Q9Y233",
+          "test_overlap_count": 10
+        },
+        {
+          "accession": "P00811",
+          "test_overlap_count": 5
+        },
+        {
+          "accession": "P00760",
+          "test_overlap_count": 5
+        },
+        {
+          "accession": "Q24451",
+          "test_overlap_count": 5
+        },
+        {
+          "accession": "P9WIL5",
+          "test_overlap_count": 5
+        },
+        {
+          "accession": "P00918",
+          "test_overlap_count": 5
+        },
+        {
+          "accession": "Q9L5C8",
+          "test_overlap_count": 5
+        },
+        {
+          "accession": "P61823",
+          "test_overlap_count": 5
+        },
+        {
+          "accession": "P00489",
+          "test_overlap_count": 5
+        },
+        {
+          "accession": "P00749",
+          "test_overlap_count": 5
+        }
+      ],
+      "sample_overlaps": [
+        {
+          "test_pdb_id": "3ao4",
+          "shared_accessions": [
+            "Q72498"
+          ],
+          "sample_train_ids": [
+            "3ao1",
+            "3ao5",
+            "3ovn",
+            "5wlo",
+            "6b4n",
+            "6dgx"
+          ]
+        },
+        {
+          "test_pdb_id": "3gv9",
+          "shared_accessions": [
+            "P00811"
+          ],
+          "sample_train_ids": [
+            "1c3b",
+            "1fsw",
+            "1fsy",
+            "1ga9",
+            "1iem",
+            "1kds"
+          ]
+        },
+        {
+          "test_pdb_id": "1uto",
+          "shared_accessions": [
+            "P00760"
+          ],
+          "sample_train_ids": [
+            "1aq7",
+            "1auj",
+            "1bju",
+            "1bjv",
+            "1bty",
+            "1c1r"
+          ]
+        },
+        {
+          "test_pdb_id": "1ps3",
+          "shared_accessions": [
+            "Q24451"
+          ],
+          "sample_train_ids": [
+            "1hty",
+            "1hww",
+            "1hxk",
+            "1qwu",
+            "1qx1",
+            "2f18"
+          ]
+        },
+        {
+          "test_pdb_id": "4ddk",
+          "shared_accessions": [
+            "P9WIL5"
+          ],
+          "sample_train_ids": [
+            "1n3i",
+            "3cow",
+            "3imc",
+            "3ime",
+            "3img",
+            "3iob"
+          ]
+        },
+        {
+          "test_pdb_id": "4jsz",
+          "shared_accessions": [
+            "P00918"
+          ],
+          "sample_train_ids": [
+            "1a42",
+            "1avn",
+            "1bcd",
+            "1bn1",
+            "1bn3",
+            "1bn4"
+          ]
+        },
+        {
+          "test_pdb_id": "3g2z",
+          "shared_accessions": [
+            "Q9L5C8"
+          ],
+          "sample_train_ids": [
+            "1ym1",
+            "1yms",
+            "1ymx",
+            "3g2y",
+            "3g30",
+            "3g32"
+          ]
+        },
+        {
+          "test_pdb_id": "3dxg",
+          "shared_accessions": [
+            "P61823"
+          ],
+          "sample_train_ids": [
+            "1afk",
+            "1afl",
+            "1j7z",
+            "1j80",
+            "1j81",
+            "1jn4"
+          ]
+        },
+        {
+          "test_pdb_id": "3l7b",
+          "shared_accessions": [
+            "P00489"
+          ],
+          "sample_train_ids": [
+            "1a8i",
+            "1axr",
+            "1b4d",
+            "1c50",
+            "1c8k",
+            "1c8l"
+          ]
+        },
+        {
+          "test_pdb_id": "3gr2",
+          "shared_accessions": [
+            "P00811"
+          ],
+          "sample_train_ids": [
+            "1c3b",
+            "1fsw",
+            "1fsy",
+            "1ga9",
+            "1iem",
+            "1kds"
+          ]
+        }
+      ],
+      "failure_class": "core_set_retains_direct_protein_identity_overlap_against_training_pool"
+    },
+    "v2013_core": {
+      "test_count": 108,
+      "training_pool_count": 18929,
+      "test_complexes_with_direct_protein_overlap": 108,
+      "shared_accession_count": 50,
+      "top_shared_accessions": [
+        {
+          "accession": "P00734",
+          "test_overlap_count": 3
+        },
+        {
+          "accession": "P04058",
+          "test_overlap_count": 3
+        },
+        {
+          "accession": "P00742",
+          "test_overlap_count": 3
+        },
+        {
+          "accession": "O14757",
+          "test_overlap_count": 3
+        },
+        {
+          "accession": "P00760",
+          "test_overlap_count": 3
+        },
+        {
+          "accession": "P00749",
+          "test_overlap_count": 3
+        },
+        {
+          "accession": "Q24451",
+          "test_overlap_count": 3
+        },
+        {
+          "accession": "P00517",
+          "test_overlap_count": 3
+        },
+        {
+          "accession": "P61823",
+          "test_overlap_count": 3
+        },
+        {
+          "accession": "P07900",
+          "test_overlap_count": 3
+        }
+      ],
+      "sample_overlaps": [
+        {
+          "test_pdb_id": "1a30",
+          "shared_accessions": [
+            "P04585"
+          ],
+          "sample_train_ids": [
+            "1bv7",
+            "1bv9",
+            "1bwa",
+            "1bwb",
+            "1dmp",
+            "1dtq"
+          ]
+        },
+        {
+          "test_pdb_id": "1bcu",
+          "shared_accessions": [
+            "P00734",
+            "P01050"
+          ],
+          "sample_train_ids": [
+            "1a2c",
+            "1a3e",
+            "1a46",
+            "1a4w",
+            "1a5g",
+            "1a61"
+          ]
+        },
+        {
+          "test_pdb_id": "1e66",
+          "shared_accessions": [
+            "P04058"
+          ],
+          "sample_train_ids": [
+            "1acj",
+            "1amn",
+            "1dx6",
+            "1eve",
+            "1gpn",
+            "1gqs"
+          ]
+        },
+        {
+          "test_pdb_id": "1gpk",
+          "shared_accessions": [
+            "P04058"
+          ],
+          "sample_train_ids": [
+            "1acj",
+            "1amn",
+            "1dx6",
+            "1eve",
+            "1gpn",
+            "1gqs"
+          ]
+        },
+        {
+          "test_pdb_id": "1h23",
+          "shared_accessions": [
+            "P04058"
+          ],
+          "sample_train_ids": [
+            "1acj",
+            "1amn",
+            "1dx6",
+            "1eve",
+            "1gpn",
+            "1gqs"
+          ]
+        },
+        {
+          "test_pdb_id": "1mq6",
+          "shared_accessions": [
+            "P00742"
+          ],
+          "sample_train_ids": [
+            "1ezq",
+            "1f0r",
+            "1f0s",
+            "1fax",
+            "1fjs",
+            "1g2l"
+          ]
+        },
+        {
+          "test_pdb_id": "1nvq",
+          "shared_accessions": [
+            "O14757"
+          ],
+          "sample_train_ids": [
+            "1nvr",
+            "1nvs",
+            "2ayp",
+            "2br1",
+            "2brg",
+            "2brh"
+          ]
+        },
+        {
+          "test_pdb_id": "1o3f",
+          "shared_accessions": [
+            "P00760"
+          ],
+          "sample_train_ids": [
+            "1aq7",
+            "1auj",
+            "1bju",
+            "1bjv",
+            "1bty",
+            "1c1r"
+          ]
+        },
+        {
+          "test_pdb_id": "1o5b",
+          "shared_accessions": [
+            "P00749"
+          ],
+          "sample_train_ids": [
+            "1c5x",
+            "1c5y",
+            "1c5z",
+            "1ejn",
+            "1f5k",
+            "1f5l"
+          ]
+        },
+        {
+          "test_pdb_id": "1oyt",
+          "shared_accessions": [
+            "P00734",
+            "P28506"
+          ],
+          "sample_train_ids": [
+            "1a2c",
+            "1a3e",
+            "1a46",
+            "1a4w",
+            "1a5g",
+            "1a61"
+          ]
+        }
+      ],
+      "failure_class": "core_set_retains_direct_protein_identity_overlap_against_training_pool"
+    }
+  },
+  "contamination_findings": {
+    "status": "confirmed_family_level_failure",
+    "notes": [
+      "ProteoSphere resolved the official core-set ID lists and compared them against the remaining local PDBbind general pool through SIFTS accessions.",
+      "The v2016 core set retains direct protein overlap for 288 of 290 test complexes against the remaining general pool.",
+      "The v2013 core set retains direct protein overlap for all 108 test complexes."
+    ]
+  },
+  "blockers": [],
+  "recommended_proteosphere_treatment": "Do not treat refined/general-to-core evaluation as a clean external benchmark. Use time-split, homology-cluster, or cold-target validation for governing claims.",
+  "provenance_notes": [
+    "The benchmark-family proof was computed in this run from official released artifacts and local audit data where required.",
+    "The paper was promoted to Tier 1 only because it inherits that proven failure without a mitigation layer strong enough to neutralize it."
+  ],
+  "raw_archive_fallback_required": true,
+  "scores": {
+    "failure_strength": 5.0,
+    "proof_strength": 4.3,
+    "publication_utility": 7.91
+  }
+}

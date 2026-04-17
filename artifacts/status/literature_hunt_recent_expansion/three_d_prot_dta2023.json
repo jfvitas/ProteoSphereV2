@@ -1,0 +1,49 @@
+{
+  "paper_id": "three_d_prot_dta2023",
+  "doi": "https://doi.org/10.1039/D3RA00281K",
+  "domain": "protein_ligand",
+  "task_family": "drug_target_affinity_prediction",
+  "benchmark_family": "deepdta_setting1_family",
+  "tier_target": "tier1_hard_failure",
+  "official_evidence_links": [
+    "https://doi.org/10.1039/D3RA00281K",
+    "https://github.com/HySonLab/Ligand_Generation",
+    "https://raw.githubusercontent.com/HySonLab/Ligand_Generation/main/README.md"
+  ],
+  "claimed_split_description": "The paper reports Davis and KIBA benchmark performance for residue-level protein graphs.",
+  "recovered_split_evidence": [
+    "The accompanying public repo contains Davis/KIBA fold files under data/*/folds/train_fold_setting1.txt and test_fold_setting1.txt.",
+    "That places the paper in the same DeepDTA setting1 family already proven to be a hard warm-start split."
+  ],
+  "mitigation_claims": [
+    "No stronger held-out entity split is released for the core paper benchmark."
+  ],
+  "mitigation_audit_result": "Inherited warm-start leakage remains unmitigated.",
+  "exact_failure_class": "inherited_warm_start_benchmark_failure",
+  "overlap_findings": {
+    "direct_entity_overlap": true,
+    "notes": [
+      "Released fold layout matches the DeepDTA setting1 family."
+    ]
+  },
+  "contamination_findings": {
+    "notes": [
+      "Benchmark saturation, not unseen-entity generalization, explains the evaluation lane."
+    ]
+  },
+  "blockers": [],
+  "recommended_proteosphere_treatment": "Tier 1 hard failure for generalization claims based only on the inherited Davis/KIBA setting1 family.",
+  "provenance_notes": [
+    "Recent 2023 paper with public benchmark files in the companion repo."
+  ],
+  "raw_archive_fallback_required": false,
+  "final_status": "tier1_hard_failure",
+  "scores": {
+    "publication_utility": 4.2,
+    "failure_strength": 4.4,
+    "proof_strength": 4.4
+  },
+  "title": "3DProtDTA: a deep learning model for drug-target affinity prediction based on residue-level protein graphs",
+  "journal": "RSC Advances",
+  "year": 2023
+}

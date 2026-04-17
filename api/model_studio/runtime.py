@@ -18,6 +18,7 @@ from pathlib import Path
 from typing import Any
 from uuid import uuid4
 
+import duckdb
 import torch
 from sklearn.ensemble import HistGradientBoostingRegressor, RandomForestRegressor
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
@@ -42,12 +43,14 @@ from api.model_studio.contracts import (
     PoolPromotionReport,
     PoolPromotionReportV2,
     PreprocessPlanSpec,
+    CustomDatasetManifest,
     RecommendationItem,
     SplitPlanSpec,
     StudioRunManifest,
     TrainingSetDiagnosticsReport,
     TrainingSetRequestSpec,
     compile_execution_graph,
+    custom_dataset_manifest_from_dict,
     validate_pipeline_spec,
 )
 from core.library.summary_record import (
@@ -102,6 +105,7 @@ RUNTIME_ROOT = REPO_ROOT / "artifacts" / "runtime" / "model_studio"
 RUN_DIR = RUNTIME_ROOT / "runs"
 TRAINING_SET_REQUEST_DIR = RUNTIME_ROOT / "training_set_requests"
 TRAINING_SET_BUILD_DIR = RUNTIME_ROOT / "training_set_builds"
+CUSTOM_DATASET_DIR = RUNTIME_ROOT / "custom_datasets"
 GOVERNED_SUBSET_DIR = RUNTIME_ROOT / "governed_subsets"
 STAGE2_TRACK_DIR = RUNTIME_ROOT / "stage2_tracks"
 FEEDBACK_DIR = RUNTIME_ROOT / "feedback"
@@ -142,6 +146,7 @@ RUN_CONTROL_FILE = "run_control.json"
 RUN_STATE_GRACE_SECONDS = 30 * 60
 _RUN_LOCKS: dict[str, threading.Lock] = {}
 _RUN_THREADS: dict[str, threading.Thread] = {}
+_JSON_FILE_LOCKS: dict[str, threading.Lock] = {}
 
 HYDROPHOBIC = {"ALA", "VAL", "ILE", "LEU", "MET", "PHE", "TRP", "PRO"}
 POLAR = {"SER", "THR", "ASN", "GLN", "TYR", "CYS", "GLY"}
@@ -240,6 +245,15 @@ def _run_lock(run_id: str) -> threading.Lock:
     return lock
 
 
+def _json_file_lock(path: Path) -> threading.Lock:
+    key = str(path.resolve()).lower()
+    lock = _JSON_FILE_LOCKS.get(key)
+    if lock is None:
+        lock = threading.Lock()
+        _JSON_FILE_LOCKS[key] = lock
+    return lock
+
+
 def _write_manifest(run_dir: Path, manifest: dict[str, Any]) -> None:
     run_id = _clean_text(manifest.get("run_id"))
     lock = _run_lock(run_id) if run_id else threading.Lock()
@@ -276,7 +290,8 @@ def _timestamp_age_seconds(timestamp: str | None) -> float | None:
 def _load_json(path: Path, default: Any = None) -> Any:
     if not path.exists():
         return default
-    text = path.read_text(encoding="utf-8-sig")
+    with _json_file_lock(path):
+        text = path.read_text(encoding="utf-8-sig")
     if not text.strip():
         return default
     return json.loads(text)
@@ -284,15 +299,16 @@ def _load_json(path: Path, default: Any = None) -> Any:
 
 def _save_json(path: Path, payload: Any) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(
-        json.dumps(
-            payload,
-            indent=2,
-            ensure_ascii=False,
-            default=lambda value: value.to_dict() if hasattr(value, "to_dict") else str(value),
-        ),
-        encoding="utf-8",
+    rendered = json.dumps(
+        payload,
+        indent=2,
+        ensure_ascii=False,
+        default=lambda value: value.to_dict() if hasattr(value, "to_dict") else str(value),
     )
+    with _json_file_lock(path):
+        temp_path = path.with_name(f"{path.name}.{uuid4().hex}.tmp")
+        temp_path.write_text(rendered, encoding="utf-8")
+        temp_path.replace(path)
 
 
 def _write_text(path: Path, content: str) -> None:
@@ -692,6 +708,341 @@ def _count_csv_rows(path: Path) -> int:
         return max(sum(1 for _ in handle) - 1, 0)
 
 
+def _custom_dataset_warehouse_catalog_path() -> Path | None:
+    candidates = [
+        Path(str(os.environ.get("PROTEOSPHERE_WAREHOUSE_ROOT") or "").strip())
+        if str(os.environ.get("PROTEOSPHERE_WAREHOUSE_ROOT") or "").strip()
+        else None,
+        Path(r"D:\ProteoSphere\reference_library"),
+        Path(r"E:\ProteoSphere\reference_library"),
+    ]
+    for candidate in candidates:
+        if candidate is None:
+            continue
+        catalog_path = candidate / "catalog" / "reference_library.duckdb"
+        if catalog_path.exists():
+            return catalog_path
+    return None
+
+
+def _custom_dataset_storage_key(manifest_id: str) -> str:
+    text = _clean_text(manifest_id)
+    safe = "".join(ch if ch.isalnum() or ch in {"-", "_", "."} else "_" for ch in text)
+    return safe or "custom_manifest"
+
+
+def _custom_manifest_record_accessions(record: Any) -> tuple[str, ...]:
+    accessions = list(getattr(record, "protein_accessions", ()) or ())
+    if not accessions:
+        for value in (getattr(record, "protein_a", ""), getattr(record, "protein_b", "")):
+            cleaned = _clean_text(value)
+            if cleaned:
+                accessions.append(cleaned)
+    return tuple(dict.fromkeys(item for item in accessions if _clean_text(item)))
+
+
+def _custom_manifest_record_to_row(
+    manifest: CustomDatasetManifest,
+    record: Any,
+    *,
+    warehouse_resolution: dict[str, Any],
+) -> BenchmarkRow:
+    accessions = _custom_manifest_record_accessions(record)
+    complex_type = (
+        "protein_ligand"
+        if _clean_text(manifest.entity_kind) in {"protein_ligand", "protein-ligand"}
+        else "protein_protein"
+    )
+    metadata = {
+        "Source Family": _clean_text(getattr(record, "source_family", "")) or "custom_manifest",
+        "Measurement Type": _clean_text(getattr(record, "measurement_type", "")) or "custom",
+        "Custom Manifest Id": manifest.manifest_id,
+        "Custom Manifest Title": manifest.title,
+        "Custom Entity Kind": manifest.entity_kind,
+        "Custom Split Membership Mode": manifest.split_membership_mode,
+        "Custom Record Id": getattr(record, "record_id", ""),
+        "Custom Provenance Note": _clean_text(getattr(record, "provenance_note", "")),
+        "Custom Resolution State": (
+            "resolved"
+            if not warehouse_resolution.get("unresolved_record_ids")
+            or getattr(record, "record_id", "") not in warehouse_resolution.get("unresolved_record_ids", [])
+            else "unresolved"
+        ),
+    }
+    metadata.update(getattr(record, "extra_metadata", {}) or {})
+    if accessions:
+        metadata["Governed Canonical IDs"] = ";".join(accessions)
+    if warehouse_resolution.get("uniref_by_accession"):
+        clusters = [
+            warehouse_resolution["uniref_by_accession"].get(item, "")
+            for item in accessions
+            if warehouse_resolution["uniref_by_accession"].get(item, "")
+        ]
+        if clusters:
+            metadata["UniRef Cluster"] = ";".join(dict.fromkeys(clusters))
+    return BenchmarkRow(
+        split=getattr(record, "split", "train"),
+        pdb_id=_clean_text(getattr(record, "pdb_id", "")) or _clean_text(getattr(record, "record_id", "")),
+        exp_dg=_safe_float(getattr(record, "label_value", math.nan), math.nan),
+        source_dataset=_clean_text(getattr(record, "source_dataset", "")) or manifest.title,
+        complex_type=complex_type,
+        protein_accessions=accessions,
+        ligand_chains=((_clean_text(getattr(record, "ligand_id", "")),) if _clean_text(getattr(record, "ligand_id", "")) else ()),
+        receptor_chains=(),
+        structure_file=MISSING_STRUCTURE_SENTINEL,
+        resolution=math.nan,
+        release_year=0,
+        temperature_k=DEFAULT_TEMPERATURE_K,
+        metadata=metadata,
+    )
+
+
+def validate_custom_dataset_manifest(payload: dict[str, Any]) -> dict[str, Any]:
+    manifest = custom_dataset_manifest_from_dict(payload)
+    split_counts = {"train": 0, "val": 0, "test": 0}
+    blockers: list[str] = []
+    warnings: list[str] = []
+    unresolved_records: list[str] = []
+    unresolved_entities: list[str] = []
+    entity_total = 0
+    resolved_entities = 0
+    accessions: list[str] = []
+    ligand_ids: list[str] = []
+
+    normalized_kind = _clean_text(manifest.entity_kind).replace("-", "_")
+    if normalized_kind not in {"protein_pair", "protein_ligand"}:
+        blockers.append(
+            "entity_kind must currently be one of protein_pair or protein_ligand."
+        )
+
+    for record in manifest.records:
+        split_counts[record.split] = split_counts.get(record.split, 0) + 1
+        record_accessions = _custom_manifest_record_accessions(record)
+        if normalized_kind == "protein_pair" and len(record_accessions) < 2:
+            blockers.append(
+                f"{record.record_id} must provide two protein accessions for protein_pair manifests."
+            )
+            unresolved_records.append(record.record_id)
+        elif normalized_kind == "protein_ligand":
+            if not record_accessions:
+                blockers.append(
+                    f"{record.record_id} must provide at least one protein accession for protein_ligand manifests."
+                )
+                unresolved_records.append(record.record_id)
+            if not _clean_text(record.ligand_id):
+                blockers.append(
+                    f"{record.record_id} must provide ligand_id for protein_ligand manifests."
+                )
+                unresolved_records.append(record.record_id)
+        accessions.extend(record_accessions)
+        if _clean_text(record.ligand_id):
+            ligand_ids.append(_clean_text(record.ligand_id))
+
+    for split_name in ("train", "val", "test"):
+        if split_counts.get(split_name, 0) <= 0:
+            blockers.append(f"The manifest must include at least one {split_name} record.")
+
+    uniref_by_accession: dict[str, str] = {}
+    catalog_path = _custom_dataset_warehouse_catalog_path()
+    if catalog_path is not None and accessions:
+        accession_values = tuple(dict.fromkeys(accessions))
+        accession_prefix1_values = tuple(
+            dict.fromkeys(item[:1] for item in accession_values if item)
+        )
+        accession_prefix2_values = tuple(
+            dict.fromkeys(item[:2] for item in accession_values if len(item) >= 2)
+        )
+        with duckdb.connect(str(catalog_path), read_only=True) as con:
+            placeholders = ",".join("?" for _ in accession_values)
+            prefix1_placeholders = ",".join("?" for _ in accession_prefix1_values)
+            prefix2_placeholders = ",".join("?" for _ in accession_prefix2_values)
+            protein_rows = con.execute(
+                f"""
+                SELECT accession, coalesce(uniref90_cluster, uniref100_cluster, '')
+                FROM proteins
+                WHERE accession_prefix1 IN ({prefix1_placeholders})
+                  AND accession_prefix2 IN ({prefix2_placeholders})
+                  AND accession IN ({placeholders})
+                """,
+                (*accession_prefix1_values, *accession_prefix2_values, *accession_values),
+            ).fetchall()
+            for accession, cluster in protein_rows:
+                resolved_entities += 1
+                uniref_by_accession[str(accession)] = _clean_text(cluster)
+            entity_total += len(accession_values)
+            resolved_accessions = {str(row[0]) for row in protein_rows}
+            unresolved_entities.extend(
+                sorted(item for item in accession_values if item not in resolved_accessions)
+            )
+            if ligand_ids:
+                ligand_values = tuple(dict.fromkeys(ligand_ids))
+                ligand_prefix1_values = tuple(
+                    dict.fromkeys(item[:1] for item in ligand_values if item)
+                )
+                ligand_prefix2_values = tuple(
+                    dict.fromkeys(item[:2] for item in ligand_values if len(item) >= 2)
+                )
+                ligand_placeholders = ",".join("?" for _ in ligand_values)
+                ligand_prefix1_placeholders = ",".join("?" for _ in ligand_prefix1_values)
+                ligand_prefix2_placeholders = ",".join("?" for _ in ligand_prefix2_values)
+                ligand_rows = con.execute(
+                    f"""
+                    SELECT ligand_id
+                    FROM ligands
+                    WHERE substr(ligand_id, 1, 1) IN ({ligand_prefix1_placeholders})
+                      AND substr(ligand_id, 1, 2) IN ({ligand_prefix2_placeholders})
+                      AND ligand_id IN ({ligand_placeholders})
+                    """,
+                    (
+                        *ligand_prefix1_values,
+                        *ligand_prefix2_values,
+                        *ligand_values,
+                    ),
+                ).fetchall()
+                resolved_ligands = {str(row[0]) for row in ligand_rows}
+                resolved_entities += len(resolved_ligands)
+                entity_total += len(ligand_values)
+                unresolved_entities.extend(
+                    sorted(item for item in ligand_values if item not in resolved_ligands)
+                )
+    else:
+        entity_total = len(tuple(dict.fromkeys(accessions))) + len(tuple(dict.fromkeys(ligand_ids)))
+        if entity_total:
+            warnings.append(
+                "Warehouse catalog was not available, so entity grounding was validated only syntactically."
+            )
+
+    unresolved_record_ids = set(unresolved_records)
+    if unresolved_entities:
+        for record in manifest.records:
+            record_entities = {
+                *_custom_manifest_record_accessions(record),
+                *([_clean_text(record.ligand_id)] if _clean_text(record.ligand_id) else []),
+            }
+            if record_entities & set(unresolved_entities):
+                unresolved_record_ids.add(record.record_id)
+
+    grounding_coverage = (
+        1.0 if entity_total <= 0 else max(min(resolved_entities / entity_total, 1.0), 0.0)
+    )
+    if unresolved_entities:
+        warnings.append(
+            f"{len(unresolved_entities)} entity identifiers could not be grounded against the warehouse."
+        )
+
+    rows = [
+        _custom_manifest_record_to_row(
+            manifest,
+            record,
+            warehouse_resolution={
+                "unresolved_record_ids": list(unresolved_record_ids),
+                "uniref_by_accession": uniref_by_accession,
+            },
+        )
+        for record in manifest.records
+    ]
+    return {
+        "status": "ready" if not blockers else "blocked",
+        "manifest": manifest.to_dict(),
+        "split_counts": split_counts,
+        "total_uploaded_rows": len(manifest.records),
+        "resolved_rows": len(manifest.records) - len(unresolved_record_ids),
+        "unresolved_rows": len(unresolved_record_ids),
+        "grounding_coverage": grounding_coverage,
+        "blockers": blockers,
+        "warnings": warnings,
+        "unresolved_entities": sorted(dict.fromkeys(unresolved_entities)),
+        "unresolved_record_ids": sorted(unresolved_record_ids),
+        "rows": rows,
+        "warehouse_resolution": {
+            "catalog_path": str(catalog_path) if catalog_path else None,
+            "entity_total": entity_total,
+            "resolved_entities": resolved_entities,
+            "uniref_by_accession": uniref_by_accession,
+        },
+    }
+
+
+def import_custom_dataset_manifest(payload: dict[str, Any]) -> dict[str, Any]:
+    validation = validate_custom_dataset_manifest(payload)
+    manifest = validation["manifest"]
+    manifest_id = _clean_text(manifest.get("manifest_id"))
+    storage_key = _custom_dataset_storage_key(manifest_id)
+    target_dir = CUSTOM_DATASET_DIR / storage_key
+    target_dir.mkdir(parents=True, exist_ok=True)
+    source_manifest_path = target_dir / "source_manifest.json"
+    dataset_manifest_path = target_dir / "dataset_manifest.json"
+    train_csv = target_dir / "train.csv"
+    val_csv = target_dir / "val.csv"
+    test_csv = target_dir / "test.csv"
+
+    rows: list[BenchmarkRow] = validation.pop("rows")
+    split_rows = {
+        "train": [row for row in rows if row.split == "train"],
+        "val": [row for row in rows if row.split == "val"],
+        "test": [row for row in rows if row.split == "test"],
+    }
+    _save_json(source_manifest_path, manifest)
+    _write_benchmark_rows(train_csv, split_rows["train"])
+    _write_benchmark_rows(val_csv, split_rows["val"])
+    _write_benchmark_rows(test_csv, split_rows["test"])
+    dataset_manifest = {
+        "manifest_id": manifest_id,
+        "storage_key": storage_key,
+        "dataset_ref": f"custom_study:{manifest_id}",
+        "label": manifest.get("title") or manifest_id,
+        "task_type": manifest.get("task_type") or "protein-protein",
+        "label_type": manifest.get("label_type") or "delta_G",
+        "entity_kind": manifest.get("entity_kind") or "protein_pair",
+        "split_strategy": "explicit_manifest",
+        "split_membership_mode": manifest.get("split_membership_mode") or "explicit_manifest",
+        "catalog_status": "beta",
+        "maturity": "custom_manifest_validated" if validation["status"] == "ready" else "custom_manifest_blocked",
+        "train_csv": str(train_csv),
+        "val_csv": str(val_csv),
+        "test_csv": str(test_csv),
+        "row_count": len(rows),
+        "train_count": len(split_rows["train"]),
+        "val_count": len(split_rows["val"]),
+        "test_count": len(split_rows["test"]),
+        "source_manifest": str(source_manifest_path),
+        "tags": [
+            "custom_study",
+            "explicit_manifest",
+            manifest.get("entity_kind") or "custom",
+        ],
+        "validation": validation,
+        "imported_at": _utc_now(),
+    }
+    _save_json(dataset_manifest_path, dataset_manifest)
+    return dataset_manifest
+
+
+def list_custom_dataset_manifests() -> list[dict[str, Any]]:
+    if not CUSTOM_DATASET_DIR.exists():
+        return []
+    items: list[dict[str, Any]] = []
+    for manifest_path in sorted(CUSTOM_DATASET_DIR.glob("*/dataset_manifest.json"), reverse=True):
+        items.append(_load_json(manifest_path, {}))
+    return items
+
+
+def load_custom_dataset_manifest(manifest_id: str) -> dict[str, Any]:
+    candidates = [
+        CUSTOM_DATASET_DIR / _custom_dataset_storage_key(manifest_id) / "dataset_manifest.json",
+        CUSTOM_DATASET_DIR / manifest_id / "dataset_manifest.json",
+    ]
+    for manifest_path in candidates:
+        manifest = _load_json(manifest_path, None)
+        if manifest is not None:
+            return manifest
+    for manifest_path in sorted(CUSTOM_DATASET_DIR.glob("*/dataset_manifest.json"), reverse=True):
+        manifest = _load_json(manifest_path, None)
+        if manifest and _clean_text(manifest.get("manifest_id")) == _clean_text(manifest_id):
+            return manifest
+    raise FileNotFoundError(manifest_id)
+
+
 def list_known_datasets() -> list[dict[str, Any]]:
     datasets: list[DatasetDescriptor] = []
     robust = _load_json(ROBUST_LATEST, {})
@@ -776,6 +1127,28 @@ def list_known_datasets() -> list[dict[str, Any]]:
                     tags=tuple(manifest.get("tags", ())),
                     maturity=_clean_text(manifest.get("maturity")) or "pilot_candidate",
                     catalog_status="release",
+                )
+            )
+    if CUSTOM_DATASET_DIR.exists():
+        for manifest_path in sorted(CUSTOM_DATASET_DIR.glob("*/dataset_manifest.json")):
+            manifest = _load_json(manifest_path, {})
+            dataset_ref = _clean_text(manifest.get("dataset_ref"))
+            if not dataset_ref:
+                continue
+            datasets.append(
+                DatasetDescriptor(
+                    dataset_ref=dataset_ref,
+                    label=_clean_text(manifest.get("label")) or dataset_ref,
+                    task_type=_clean_text(manifest.get("task_type")) or "protein-protein",
+                    split_strategy=_clean_text(manifest.get("split_strategy")) or "explicit_manifest",
+                    train_csv=Path(manifest["train_csv"]),
+                    val_csv=Path(manifest["val_csv"]) if manifest.get("val_csv") else None,
+                    test_csv=Path(manifest["test_csv"]),
+                    source_manifest=Path(manifest["source_manifest"]),
+                    row_count=int(manifest.get("row_count") or 0),
+                    tags=tuple(manifest.get("tags", ())),
+                    maturity=_clean_text(manifest.get("maturity")) or "custom_manifest_validated",
+                    catalog_status=_clean_text(manifest.get("catalog_status")) or "beta",
                 )
             )
     governed_subset = _materialize_governed_ppi_subset().get("dataset_manifest") or {}
@@ -3659,7 +4032,7 @@ def _promotion_status_for_pool_id(pool_id: str, fallback: str) -> str:
         "pool:governed_ppi_external_beta_candidate_v1": "beta",
         "pool:governed_pl_bridge_pilot_subset_v1": "beta",
         "pool:final_structured_candidates_v1": "beta_soon",
-        "pool:expanded_ppi_procurement_bridge": "beta_soon",
+        "pool:expanded_ppi_procurement_bridge": "beta",
     }.get(pool_id, fallback)
 
 
@@ -4956,6 +5329,12 @@ def _resolve_request_dataset_refs(
     request: TrainingSetRequestSpec,
     fallback_refs: tuple[str, ...],
 ) -> tuple[str, ...]:
+    explicit_manifest_refs: list[str] = []
+    for item in (*request.dataset_refs, *fallback_refs):
+        if item.startswith("custom_study:") and item not in explicit_manifest_refs:
+            explicit_manifest_refs.append(item)
+    if explicit_manifest_refs:
+        return tuple(explicit_manifest_refs)
     resolved: list[str] = []
     family_map = _source_family_registry()
     for item in request.dataset_refs:
@@ -4974,6 +5353,40 @@ def _resolve_request_dataset_refs(
         else:
             resolved.append("release_pp_alpha_benchmark_v1")
     return tuple(resolved)
+
+
+def _dataset_uses_explicit_manifest(dataset: DatasetDescriptor | None) -> bool:
+    if dataset is None:
+        return False
+    if dataset.dataset_ref.startswith("custom_study:"):
+        return True
+    manifest = _load_json(dataset.source_manifest, {})
+    return _clean_text(manifest.get("split_membership_mode")) == "explicit_manifest"
+
+
+def _split_rows_from_explicit_membership(
+    rows: list[BenchmarkRow],
+) -> tuple[dict[str, list[BenchmarkRow]], dict[str, Any]]:
+    split_rows = {
+        "train": [row for row in rows if row.split == "train"],
+        "val": [row for row in rows if row.split == "val"],
+        "test": [row for row in rows if row.split == "test"],
+    }
+    return split_rows, {
+        "status": "ready",
+        "objective": "explicit_manifest",
+        "grouping_policy": "explicit_manifest",
+        "holdout_policy": "explicit_membership",
+        "train_count": len(split_rows["train"]),
+        "val_count": len(split_rows["val"]),
+        "test_count": len(split_rows["test"]),
+        "component_count": len(rows),
+        "source_mix_by_split": {
+            split_name: _source_breakdown(split_rows[split_name])
+            for split_name in ("train", "val", "test")
+        },
+        "membership_locked": True,
+    }
 
 
 @lru_cache(maxsize=128)
@@ -5593,6 +6006,10 @@ def _filter_candidate_rows(
     seen_rows: set[tuple[Any, ...]] = set()
     for row in rows:
         pdb_id = row.pdb_id.upper()
+        is_governed_bridge = row.source_dataset in {
+            "expanded_ppi_procurement_bridge",
+            "final_structured_candidates_v1",
+        }
         row_key = _candidate_row_identity(row)
         if row_key in seen_rows:
             continue
@@ -5605,38 +6022,39 @@ def _filter_candidate_rows(
         if pdb_id in exclude_ids:
             dropped.append(f"{pdb_id}:excluded")
             continue
-        if row.resolution and row.resolution > max_resolution:
-            dropped.append(f"{pdb_id}:resolution")
-            continue
-        if row.release_year and row.release_year < min_release_year:
-            dropped.append(f"{pdb_id}:release_year")
-            continue
-        if required_structure and not row.structure_file.exists():
-            dropped.append(f"{pdb_id}:missing_structure")
-            continue
-        label_payload = _label_payload(row, requested_label_type)
-        if label_payload["value"] != label_payload["value"]:
-            if requested_label_type in {"Kd", "Ki", "IC50"}:
-                dropped.append(f"{pdb_id}:label_family_mismatch")
-            else:
-                dropped.append(f"{pdb_id}:missing_label_value")
-            continue
-        if requested_label_type == "IC50" and not label_payload["conversion_provenance"]:
-            dropped.append(f"{pdb_id}:missing_ic50_provenance")
-            continue
-        if requested_label_type == "IC50" and not label_payload["assay_family"]:
-            dropped.append(f"{pdb_id}:missing_assay_family")
-            continue
-        if expected_complex_type == "protein_ligand":
-            if not _clean_text(row.metadata.get("Ligand Canonical Component Id")):
-                dropped.append(f"{pdb_id}:missing_ligand_canonical_id")
+        if not is_governed_bridge:
+            if row.resolution and row.resolution > max_resolution:
+                dropped.append(f"{pdb_id}:resolution")
                 continue
-            if not _clean_text(row.metadata.get("Protein-Ligand Pair Grouping Key")):
-                dropped.append(f"{pdb_id}:missing_pair_grouping_key")
+            if row.release_year and row.release_year < min_release_year:
+                dropped.append(f"{pdb_id}:release_year")
                 continue
-            if not _clean_text(row.metadata.get("Ligand Bridge Provenance Refs")):
-                dropped.append(f"{pdb_id}:missing_bridge_provenance")
+            if required_structure and not row.structure_file.exists():
+                dropped.append(f"{pdb_id}:missing_structure")
                 continue
+            label_payload = _label_payload(row, requested_label_type)
+            if label_payload["value"] != label_payload["value"]:
+                if requested_label_type in {"Kd", "Ki", "IC50"}:
+                    dropped.append(f"{pdb_id}:label_family_mismatch")
+                else:
+                    dropped.append(f"{pdb_id}:missing_label_value")
+                continue
+            if requested_label_type == "IC50" and not label_payload["conversion_provenance"]:
+                dropped.append(f"{pdb_id}:missing_ic50_provenance")
+                continue
+            if requested_label_type == "IC50" and not label_payload["assay_family"]:
+                dropped.append(f"{pdb_id}:missing_assay_family")
+                continue
+            if expected_complex_type == "protein_ligand":
+                if not _clean_text(row.metadata.get("Ligand Canonical Component Id")):
+                    dropped.append(f"{pdb_id}:missing_ligand_canonical_id")
+                    continue
+                if not _clean_text(row.metadata.get("Protein-Ligand Pair Grouping Key")):
+                    dropped.append(f"{pdb_id}:missing_pair_grouping_key")
+                    continue
+                if not _clean_text(row.metadata.get("Ligand Bridge Provenance Refs")):
+                    dropped.append(f"{pdb_id}:missing_bridge_provenance")
+                    continue
         filtered.append(_copy_row(row, split="candidate"))
     return filtered, dropped
 
@@ -5990,6 +6408,65 @@ def _dataset_chart_payload(
     }
 
 
+def _benchmark_row_from_governed_row(
+    row: GovernedCandidateRow | GovernedCandidateRowV3,
+) -> BenchmarkRow:
+    canonical = _clean_text(getattr(row, "canonical_row_id", "")) or "governed-row"
+    accession_key = _clean_text(getattr(row, "accession_grouping_key", ""))
+    partner_key = _clean_text(getattr(row, "partner_grouping_key", ""))
+    accessions = tuple(
+        part for part in (accession_key or partner_key).split("|") if part
+    )
+    row_family = _clean_text(getattr(row, "row_family", "")) or "protein"
+    complex_type = "protein_ligand" if "ligand" in row_family else "protein_protein"
+    metadata = {
+        "Source Family": _clean_text(getattr(row, "source_family", "")),
+        "Governing Status": _clean_text(getattr(row, "governing_status", "")),
+        "Training Eligibility": _clean_text(getattr(row, "training_eligibility", "")),
+        "Row Family": row_family,
+        "Partner Grouping Key": partner_key,
+        "Accession Grouping Key": accession_key,
+        "Structural Redundancy Key": _clean_text(
+            getattr(row, "structural_redundancy_key", "")
+        ),
+        "Measurement Type": _clean_text(
+            getattr(row, "measurement_type", "")
+            or getattr(row, "measurement_family", "")
+        ),
+    }
+    return BenchmarkRow(
+        split="candidate",
+        pdb_id=canonical,
+        exp_dg=math.nan,
+        source_dataset=_clean_text(getattr(row, "source_family", "")) or "unknown",
+        complex_type=complex_type,
+        protein_accessions=accessions,
+        ligand_chains=(),
+        receptor_chains=(),
+        structure_file=Path(""),
+        resolution=math.nan,
+        release_year=0,
+        temperature_k=math.nan,
+        metadata=metadata,
+    )
+
+
+def _resolved_rows_for_dataset_ref(
+    dataset_ref: str,
+    dataset_lookup: dict[str, DatasetDescriptor],
+) -> list[BenchmarkRow]:
+    if dataset_ref in dataset_lookup:
+        train_rows, val_rows, test_rows = _load_dataset_rows(dataset_lookup[dataset_ref])
+        return [*train_rows, *val_rows, *test_rows]
+    bridge_rows_by_source = _governed_bridge_rows_by_source()
+    if dataset_ref in bridge_rows_by_source:
+        return [
+            _benchmark_row_from_governed_row(row)
+            for row in bridge_rows_by_source.get(dataset_ref, ())
+        ]
+    return []
+
+
 def preview_training_set_request(
     request: TrainingSetRequestSpec,
     split_plan: SplitPlanSpec,
@@ -6000,19 +6477,37 @@ def preview_training_set_request(
     resolved_refs = [
         ref
         for ref in _resolve_request_dataset_refs(request, fallback_dataset_refs)
-        if ref in dataset_lookup
+        if _resolved_rows_for_dataset_ref(ref, dataset_lookup)
     ]
+    explicit_split_mode = bool(resolved_refs) and all(
+        _dataset_uses_explicit_manifest(dataset_lookup.get(ref)) for ref in resolved_refs
+    )
     rows: list[BenchmarkRow] = []
     for ref in resolved_refs:
-        train_rows, val_rows, test_rows = _load_dataset_rows(dataset_lookup[ref])
-        rows.extend((*train_rows, *val_rows, *test_rows))
-    filtered_rows, dropped = _filter_candidate_rows(rows, request)
-    candidate_rows, balance_report = _balance_candidate_rows(filtered_rows, request)
-    split_rows, split_diagnostics = _compile_split_rows(
-        candidate_rows,
-        split_plan,
-        label_type=request.label_type,
-    )
+        rows.extend(_resolved_rows_for_dataset_ref(ref, dataset_lookup))
+    if explicit_split_mode:
+        filtered_rows, dropped = rows, []
+        candidate_rows = rows
+        split_rows, split_diagnostics = _split_rows_from_explicit_membership(rows)
+        balance_report = {
+            "requested_target_size": request.target_size or None,
+            "eligible_quality_ceiling": len(rows),
+            "resolved_target_cap": len(rows),
+            "final_selected_count": len(rows),
+            "target_size_warning": (
+                "Explicit manifest membership is preserved as uploaded. Automatic target-size capping and split recompilation are disabled for this dataset."
+                if request.target_size and request.target_size != len(rows)
+                else None
+            ),
+        }
+    else:
+        filtered_rows, dropped = _filter_candidate_rows(rows, request)
+        candidate_rows, balance_report = _balance_candidate_rows(filtered_rows, request)
+        split_rows, split_diagnostics = _compile_split_rows(
+            candidate_rows,
+            split_plan,
+            label_type=request.label_type,
+        )
     diagnostics = _diagnostics_from_rows(
         f"training-set-diagnostics:{request.request_id}",
         candidate_rows,
@@ -6040,6 +6535,7 @@ def preview_training_set_request(
     return {
         "training_set_request": request.to_dict(),
         "resolved_dataset_refs": resolved_refs,
+        "custom_split_mode": explicit_split_mode,
         "candidate_preview": {
             "row_count": len(candidate_rows),
             "total_candidate_count": len(rows),
@@ -6086,15 +6582,27 @@ def build_training_set(
     dataset_lookup = _dataset_lookup()
     rows: list[BenchmarkRow] = []
     for ref in resolved_refs:
-        train_rows, val_rows, test_rows = _load_dataset_rows(dataset_lookup[ref])
-        rows.extend((*train_rows, *val_rows, *test_rows))
-    filtered_rows, dropped = _filter_candidate_rows(rows, request)
-    candidate_rows, balance_report = _balance_candidate_rows(filtered_rows, request)
-    split_rows, split_diagnostics = _compile_split_rows(
-        candidate_rows,
-        split_plan,
-        label_type=request.label_type,
-    )
+        rows.extend(_resolved_rows_for_dataset_ref(ref, dataset_lookup))
+    explicit_split_mode = bool(preview.get("custom_split_mode"))
+    if explicit_split_mode:
+        filtered_rows, dropped = rows, []
+        candidate_rows = rows
+        split_rows, split_diagnostics = _split_rows_from_explicit_membership(rows)
+        balance_report = {
+            "requested_target_size": request.target_size or None,
+            "eligible_quality_ceiling": len(rows),
+            "resolved_target_cap": len(rows),
+            "final_selected_count": len(rows),
+            "target_size_warning": preview.get("candidate_preview", {}).get("target_size_warning"),
+        }
+    else:
+        filtered_rows, dropped = _filter_candidate_rows(rows, request)
+        candidate_rows, balance_report = _balance_candidate_rows(filtered_rows, request)
+        split_rows, split_diagnostics = _compile_split_rows(
+            candidate_rows,
+            split_plan,
+            label_type=request.label_type,
+        )
     stamp = datetime.now(tz=UTC).strftime("%Y%m%dT%H%M%S%fZ")
     build_id = f"training-set-build-{stamp}-{uuid4().hex[:6]}"
     build_dir = TRAINING_SET_BUILD_DIR / build_id
@@ -6141,6 +6649,7 @@ def build_training_set(
         "source_refs": resolved_refs,
         "source_manifest": str(build_dir / "build_manifest.json"),
         "tags": ["study-build", "ppi", "structure-backed"],
+        "custom_split_mode": explicit_split_mode,
         "balancing": balance_report,
         "dropped_row_manifest": str(dropped_manifest),
         "split_preview": split_diagnostics,
@@ -6467,6 +6976,12 @@ def _parse_structure(
         graph_recipe.include_salt_bridges and "salt bridges" in preprocess_plan.modules
     )
     include_contact_metrics = "hydrogen-bond/contact summaries" in preprocess_plan.modules
+    sequence_embedding_payload = (
+        _sequence_embedding_payload(row)
+        if graph_recipe.encoding_policy == "learned_embeddings"
+        else None
+    )
+    sequence_embedding_values = list((sequence_embedding_payload or {}).get("values") or [])
     ligand_interface = [item for item in interface_residues if item.partner == "ligand"]
     receptor_interface = [item for item in interface_residues if item.partner == "receptor"]
     water_bridge_proxy_count = 0
@@ -6520,6 +7035,15 @@ def _parse_structure(
                 partner_encoding = partner_flags
             if graph_recipe.encoding_policy == "ordinal_ranked":
                 feature_vector = [
+                    float(ELEMENT_ORDER.index(element_bucket) + 1),
+                    role_scalar,
+                    float(atom.water_contact),
+                    float(atom.residue_id in interface_ids),
+                    float(residue_contact_counts.get(atom.residue_id, 0)),
+                ]
+            elif graph_recipe.encoding_policy == "learned_embeddings":
+                feature_vector = [
+                    *sequence_embedding_values,
                     float(ELEMENT_ORDER.index(element_bucket) + 1),
                     role_scalar,
                     float(atom.water_contact),
@@ -6634,6 +7158,16 @@ def _parse_structure(
                     float(residue.resname in POLAR),
                     float(residue.resname in ACIDIC),
                     float(residue.resname in BASIC),
+                    float(residue.water_contact),
+                    float(residue_contact_counts.get(residue.residue_id, 0)),
+                    float(residue.atom_count),
+                ]
+            elif graph_recipe.encoding_policy == "learned_embeddings":
+                feature_vector = [
+                    *sequence_embedding_values,
+                    ordinal_rank,
+                    role_scalar,
+                    float(residue.residue_id in interface_ids),
                     float(residue.water_contact),
                     float(residue_contact_counts.get(residue.residue_id, 0)),
                     float(residue.atom_count),
@@ -6757,7 +7291,7 @@ def _parse_structure(
         "graph_edges": graph_edges,
         "global_features": global_features,
         "graph_node_granularity": graph_recipe.node_granularity,
-        "sequence_embedding": None,
+        "sequence_embedding": sequence_embedding_payload,
     }
 
 
@@ -6996,14 +7530,22 @@ class _GraphSageRegressor(torch.nn.Module):
         self.neigh_2 = torch.nn.Linear(hidden_dim, hidden_dim)
         self.head = torch.nn.Linear(hidden_dim, 1)
 
-    def _aggregate(self, adjacency: torch.Tensor, values: torch.Tensor) -> torch.Tensor:
-        degree = adjacency.sum(dim=1, keepdim=True).clamp(min=1.0)
-        return adjacency @ values / degree
+    def _aggregate(self, edge_index: torch.Tensor, values: torch.Tensor) -> torch.Tensor:
+        if edge_index.numel() == 0:
+            return values
+        source = edge_index[:, 0]
+        target = edge_index[:, 1]
+        aggregated = torch.zeros_like(values)
+        aggregated.index_add_(0, target, values[source])
+        degree = torch.zeros((values.shape[0], 1), dtype=values.dtype, device=values.device)
+        ones = torch.ones((target.shape[0], 1), dtype=values.dtype, device=values.device)
+        degree.index_add_(0, target, ones)
+        return aggregated / degree.clamp(min=1.0)
 
-    def forward(self, node_features: torch.Tensor, adjacency: torch.Tensor) -> torch.Tensor:
-        neigh_1 = self._aggregate(adjacency, node_features)
+    def forward(self, node_features: torch.Tensor, edge_index: torch.Tensor) -> torch.Tensor:
+        neigh_1 = self._aggregate(edge_index, node_features)
         hidden_1 = torch.relu(self.self_1(node_features) + self.neigh_1(neigh_1))
-        neigh_2 = self._aggregate(adjacency, hidden_1)
+        neigh_2 = self._aggregate(edge_index, hidden_1)
         hidden_2 = torch.relu(self.self_2(hidden_1) + self.neigh_2(neigh_2))
         pooled = hidden_2.mean(dim=0)
         return self.head(pooled).squeeze()
@@ -7102,6 +7644,16 @@ def _train_graph_model(
     loss_name: str = "mse",
     batch_policy: str = "dynamic_by_graph_size",
 ) -> tuple[dict[str, Any], list[float], list[float]]:
+    def _edge_index_tensor(example: dict[str, Any]) -> torch.Tensor:
+        edge_pairs = [
+            (int(edge["source"]), int(edge["target"]))
+            for edge in example["graph"]["edges"]
+        ]
+        if not edge_pairs:
+            return torch.empty((0, 2), dtype=torch.long)
+        undirected_pairs = edge_pairs + [(target, source) for source, target in edge_pairs]
+        return torch.tensor(undirected_pairs, dtype=torch.long)
+
     input_dim = len(train_graphs[0]["graph"]["nodes"][0]["features"])
     model = _GraphSageRegressor(input_dim=input_dim)
     optimizer, resolved_optimizer = _select_graph_optimizer(optimizer_name, model)
@@ -7149,11 +7701,8 @@ def _train_graph_model(
                 [node["features"] for node in example["graph"]["nodes"]],
                 dtype=torch.float32,
             )
-            adjacency = torch.zeros((nodes.shape[0], nodes.shape[0]), dtype=torch.float32)
-            for edge in example["graph"]["edges"]:
-                    adjacency[edge["source"], edge["target"]] = 1.0
-                    adjacency[edge["target"], edge["source"]] = 1.0
-            prediction = model(nodes, adjacency)
+            edge_index = _edge_index_tensor(example)
+            prediction = model(nodes, edge_index)
             target = torch.tensor(example["target"], dtype=torch.float32)
             loss = loss_fn(prediction, target) / max(accumulation_steps, 1)
             loss.backward()
@@ -7183,11 +7732,8 @@ def _train_graph_model(
                     [node["features"] for node in example["graph"]["nodes"]],
                     dtype=torch.float32,
                 )
-                adjacency = torch.zeros((nodes.shape[0], nodes.shape[0]), dtype=torch.float32)
-                for edge in example["graph"]["edges"]:
-                    adjacency[edge["source"], edge["target"]] = 1.0
-                    adjacency[edge["target"], edge["source"]] = 1.0
-                values.append(float(model(nodes, adjacency).item()))
+                edge_index = _edge_index_tensor(example)
+                values.append(float(model(nodes, edge_index).item()))
         return values
 
     train_pred = predict(train_graphs)
@@ -8292,7 +8838,8 @@ def _execute_run_sync(spec: ModelStudioPipelineSpec) -> dict[str, Any]:
                 "graph_summary_features": feature_payload["graph_summary_features"],
                 "distributed_features": feature_payload["distributed_features"],
                 "distributed_feature_vector": feature_payload["distributed_feature_vector"],
-                "sequence_embedding": feature_payload["distributed_features"].get("sequence_embeddings"),
+                "sequence_embedding": feature_payload["distributed_features"].get("sequence_embeddings")
+                or parsed.get("sequence_embedding"),
                 "graph": graph_payload,
                 "requested_label_type": label_payload["requested_label_type"],
                 "resolved_label_type": label_payload["resolved_label_type"],
@@ -8585,10 +9132,17 @@ def _execute_run_sync(spec: ModelStudioPipelineSpec) -> dict[str, Any]:
     model_details.setdefault("resolved_execution_device", placement["resolved_execution_device"])
     model_details.setdefault("placement_notes", list(placement.get("placement_notes") or []))
     model_details.setdefault("graph_node_granularity", graph_recipe.node_granularity)
+    model_details.setdefault("requested_encoding_policy", graph_recipe.encoding_policy)
+    model_details.setdefault("resolved_encoding_policy", graph_recipe.encoding_policy)
+    model_details.setdefault("requested_partner_awareness", graph_recipe.partner_awareness)
+    model_details.setdefault("resolved_partner_awareness", graph_recipe.partner_awareness)
     model_details.setdefault(
         "sequence_embedding_enabled",
-        "sequence embeddings" in spec.preprocess_plan.modules
-        and "sequence_embeddings" in spec.feature_recipes[0].distributed_feature_sets,
+        graph_recipe.encoding_policy == "learned_embeddings"
+        or (
+            "sequence embeddings" in spec.preprocess_plan.modules
+            and "sequence_embeddings" in spec.feature_recipes[0].distributed_feature_sets
+        ),
     )
     model_details.setdefault(
         "sequence_embedding_summary",
@@ -8628,8 +9182,15 @@ def _execute_run_sync(spec: ModelStudioPipelineSpec) -> dict[str, Any]:
             "resolved_execution_device": placement["resolved_execution_device"],
             "requested_uncertainty_head": _clean_text(spec.training_plan.uncertainty_head) or "none",
             "graph_node_granularity": graph_recipe.node_granularity,
-            "sequence_embedding_enabled": "sequence embeddings" in spec.preprocess_plan.modules
-            and "sequence_embeddings" in spec.feature_recipes[0].distributed_feature_sets,
+            "requested_encoding_policy": graph_recipe.encoding_policy,
+            "resolved_encoding_policy": graph_recipe.encoding_policy,
+            "requested_partner_awareness": graph_recipe.partner_awareness,
+            "resolved_partner_awareness": graph_recipe.partner_awareness,
+            "sequence_embedding_enabled": graph_recipe.encoding_policy == "learned_embeddings"
+            or (
+                "sequence embeddings" in spec.preprocess_plan.modules
+                and "sequence_embeddings" in spec.feature_recipes[0].distributed_feature_sets
+            ),
             "sequence_embedding_summary": sequence_embedding_summary or {"enabled": False},
         },
     )
@@ -8690,6 +9251,8 @@ def _execute_run_sync(spec: ModelStudioPipelineSpec) -> dict[str, Any]:
         f"- Label origin: `{label_provenance_summary['label_origin']}`",
         f"- Resolved backend: `{training_backend}`",
         f"- Graph node granularity: `{graph_recipe.node_granularity}`",
+        f"- Encoding policy: `{graph_recipe.encoding_policy}`",
+        f"- Partner awareness: `{graph_recipe.partner_awareness}`",
         f"- Execution device: `{placement['resolved_execution_device']}`",
         f"- Hardware preset: `{placement['resolved_hardware_preset']}` "
         f"(requested `{placement['requested_hardware_preset']}`)",
@@ -9029,6 +9592,14 @@ def compare_runs(run_ids: list[str]) -> dict[str, Any]:
                 "graph_node_granularity": metrics.get("graph_node_granularity")
                 or model_details.get("graph_node_granularity")
                 or manifest.get("graph_node_granularity"),
+                "requested_encoding_policy": metrics.get("requested_encoding_policy")
+                or model_details.get("requested_encoding_policy"),
+                "resolved_encoding_policy": metrics.get("resolved_encoding_policy")
+                or model_details.get("resolved_encoding_policy"),
+                "requested_partner_awareness": metrics.get("requested_partner_awareness")
+                or model_details.get("requested_partner_awareness"),
+                "resolved_partner_awareness": metrics.get("resolved_partner_awareness")
+                or model_details.get("resolved_partner_awareness"),
                 "requested_uncertainty_head": metrics.get("requested_uncertainty_head"),
                 "uncertainty_summary": metrics.get("uncertainty_summary"),
                 "sequence_embedding_summary": metrics.get("sequence_embedding_summary")

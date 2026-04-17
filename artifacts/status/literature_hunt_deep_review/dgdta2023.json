@@ -1,0 +1,70 @@
+{
+  "paper_id": "dgdta2023",
+  "title": "DGDTA: dynamic graph attention network for predicting drug-target binding affinity",
+  "doi": "https://doi.org/10.1186/s12859-023-05497-5",
+  "journal": "BMC Bioinformatics",
+  "year": 2023,
+  "domain": "protein_ligand",
+  "task_family": "drug_target_affinity_prediction",
+  "benchmark_family": "deepdta_setting1_family",
+  "tier_target": "tier1_hard_failure",
+  "official_evidence_links": [
+    "https://doi.org/10.1186/s12859-023-05497-5",
+    "https://github.com/luojunwei/DGDTA"
+  ],
+  "final_status": "tier1_hard_failure",
+  "claimed_split_description": "The paper's headline benchmark inherits a released benchmark family whose split is recoverable and evaluable under ProteoSphere.",
+  "recovered_split_evidence": [
+    "The official article says the Davis and KIBA data can be downloaded from the GraphDTA repository, which inherits the DeepDTA setting1 split.",
+    "The official setting1 split is a hard warm-start failure for unseen-entity evaluation: Davis shares every test drug and every test target with training, and KIBA shares almost all."
+  ],
+  "mitigation_claims": [
+    "none"
+  ],
+  "mitigation_audit_result": {
+    "status": "failed",
+    "notes": [
+      "No meaningful mitigation strategy was surfaced in the official evidence for the headline benchmark result.",
+      "The benchmark family itself remains block-worthy under ProteoSphere once the split is reconstructed."
+    ]
+  },
+  "exact_failure_class": [
+    "shared_drug_identity_between_train_test",
+    "shared_target_identity_between_train_test",
+    "benchmark_inheritance_without_mitigation"
+  ],
+  "overlap_findings": {
+    "davis": {
+      "shared_drug_count": 68,
+      "test_unique_drug_count": 68,
+      "shared_target_count": 442,
+      "test_unique_target_count": 442
+    },
+    "kiba": {
+      "shared_drug_count": 2027,
+      "test_unique_drug_count": 2027,
+      "shared_target_count": 229,
+      "test_unique_target_count": 229
+    }
+  },
+  "contamination_findings": {
+    "status": "confirmed_family_level_failure",
+    "notes": [
+      "ProteoSphere re-computed overlap directly from the official DeepDTA split files.",
+      "Davis is a full warm-start failure: every test drug and every test target also appear in training.",
+      "KIBA is nearly the same: 1938 of 2027 test drugs and 228 of 229 test targets also appear in training."
+    ]
+  },
+  "blockers": [],
+  "recommended_proteosphere_treatment": "Do not use the released split as evidence of unseen-drug or unseen-target generalization. Keep it only as a paper-faithful audit lane and pair it with cold-drug, cold-target, or cold-drug+target splits.",
+  "provenance_notes": [
+    "The benchmark-family proof was computed in this run from official released artifacts and local audit data where required.",
+    "The paper was promoted to Tier 1 only because it inherits that proven failure without a mitigation layer strong enough to neutralize it."
+  ],
+  "raw_archive_fallback_required": false,
+  "scores": {
+    "failure_strength": 5.0,
+    "proof_strength": 4.7,
+    "publication_utility": 7.85
+  }
+}

@@ -1,0 +1,1735 @@
+{
+  "artifact_id": "paper_split_list_evaluation",
+  "schema_id": "proteosphere-paper-split-list-evaluation-2026-04-13",
+  "status": "complete",
+  "generated_at": "2026-04-13T17:48:40.296757+00:00",
+  "warehouse_root": "D:\\ProteoSphere\\reference_library",
+  "catalog_path": "D:\\ProteoSphere\\reference_library\\catalog\\reference_library.duckdb",
+  "manifest_path": "D:\\ProteoSphere\\reference_library\\warehouse_manifest.json",
+  "source_registry_path": "D:\\ProteoSphere\\reference_library\\control\\source_registry.json",
+  "default_view": "best_evidence",
+  "manifest_default_views": {},
+  "warehouse_profile": {
+    "protein_uniref_coverage": {
+      "proteins": 262440613,
+      "uniref100": 203130938,
+      "uniref90": 203085208,
+      "uniref50": 203085208
+    },
+    "connectivity_validation": {
+      "protein_ligand_edges": {
+        "edges_with_null_endpoint": 446,
+        "edges_with_unknown_ligand_ref": 18540,
+        "edges_with_unresolved_entity_ref": 0,
+        "total_edges": 24804
+      },
+      "protein_protein_edges": {
+        "edges_with_null_endpoint": 2798,
+        "edges_with_unresolved_protein_ref": 0,
+        "total_edges": 5595
+      }
+    },
+    "ppi_sources": {
+      "elm_interaction_domains": {
+        "row_count": 2797,
+        "resolved_endpoint_count": 2797
+      },
+      "pdbbind": {
+        "row_count": 2798,
+        "resolved_endpoint_count": 0
+      }
+    },
+    "variant_rows": 1874,
+    "joined_variant_rows": 1869,
+    "pdb_entry_rows": 234767,
+    "structure_unit_rows": 968580
+  },
+  "summary": {
+    "paper_count": 20,
+    "verdict_counts": {
+      "audit-useful but non-canonical": 9,
+      "incomplete because required evidence is missing": 8,
+      "misleading / leakage-prone": 3
+    },
+    "project_status_counts": {
+      "audit_only": 9,
+      "blocked_pending_mapping": 8,
+      "unsafe_for_training": 3
+    }
+  },
+  "warehouse_sufficiency_notes": [
+    "The condensed warehouse does not expose a DOI-indexed paper benchmark membership surface, so paper-specific train/test rosters could not be reconstructed from best_evidence alone.",
+    "IntAct and STRING are present as promoted sources, but the current best_evidence `protein_protein_edges` table only materializes `pdbbind` and `elm_interaction_domains` rows.",
+    "Structure families are well represented, but interface/contact benchmark labels such as CASP-CAPRI and PPDB5 are not materialized as paper-membership tables.",
+    "Mutation support exists in `protein_variants`, but named cohorts such as AB-Bind S645 and SM1124 are not represented as explicit warehouse splits.",
+    "Even when paper supplements were recovered, some released rosters were keyed by Ensembl/FlyBase or other non-warehouse identifiers, so overlap and admissibility checks remain blocked until identifier bridges are materialized."
+  ],
+  "raw_archive_fallback_notes": [
+    "No raw/archive fallback was required for this report.",
+    "If future roster reconstruction is needed, any raw/archive path must be resolved through `source_registry.json` and remain non-governing until validated.",
+    "Supplemental GitHub or Zenodo release artifacts were used for selected papers, but these were treated as audit-supporting evidence rather than governing warehouse truth."
+  ],
+  "papers": [
+    {
+      "paper_id": "zhang2012preppi",
+      "title": "Structure-based prediction of protein-protein interactions on a genome-wide scale",
+      "doi": "https://doi.org/10.1038/nature11503",
+      "task_group": "ppi_prediction",
+      "claimed_split_description": "Genome-scale discovery workflow in yeast and human; the supplied paper list does not provide an explicit train/test or external holdout roster.",
+      "resolved_split_policy": {
+        "policy": "paper_faithful_external",
+        "reason": "Reviewable beta split lane can now hold out external source components for audit and comparison workflows without becoming the default recommended split.",
+        "recommended_for_training": false,
+        "paper_faithful_only": true
+      },
+      "overlap_findings": {
+        "direct_overlap": {
+          "status": "not_computable",
+          "notes": [
+            "Direct, accession-root, and UniRef overlap checks require concrete train/test membership. The library exposes UniRef clusters broadly, but not the paper roster needed to apply them.",
+            "The proteins surface includes 203,085,208 proteins with UniRef90 assignments, so UniRef-grouped evaluation is generally possible once a roster is mapped."
+          ]
+        },
+        "accession_root_overlap": {
+          "status": "not_computable",
+          "notes": [
+            "Direct, accession-root, and UniRef overlap checks require concrete train/test membership. The library exposes UniRef clusters broadly, but not the paper roster needed to apply them.",
+            "The proteins surface includes 203,085,208 proteins with UniRef90 assignments, so UniRef-grouped evaluation is generally possible once a roster is mapped."
+          ]
+        },
+        "uniref_overlap": {
+          "status": "theoretically_supported",
+          "notes": [
+            "Direct, accession-root, and UniRef overlap checks require concrete train/test membership. The library exposes UniRef clusters broadly, but not the paper roster needed to apply them.",
+            "The proteins surface includes 203,085,208 proteins with UniRef90 assignments, so UniRef-grouped evaluation is generally possible once a roster is mapped."
+          ]
+        }
+      },
+      "leakage_findings": {
+        "status": "preflight_only",
+        "notes": [
+          "ProteoSphere treats direct accession reuse, accession-root reuse, UniRef reuse, and shared partner/component reuse as leakage axes.",
+          "Without a paper roster, partner/component leakage cannot be enumerated concretely from the condensed warehouse.",
+          "The runtime validation artifact reports 2,798 PPI edges with null endpoints, which further limits partner-level leakage analysis for structure-derived rows."
+        ]
+      },
+      "source_family_findings": [
+        "RCSB/PDBe is present in the library with license scope `public_metadata` and scope tier `authoritative` (registry records: 7).",
+        "UniProt is present in the library with license scope `public_metadata` and scope tier `authoritative` (registry records: 8).",
+        "STRING is present in the library with license scope `internal_only` and scope tier `authoritative` (registry records: 1).",
+        "IntAct is present in the library with license scope `public_metadata` and scope tier `authoritative` (registry records: 7).",
+        "The current best-evidence `protein_protein_edges` surface only materializes elm_interaction_domains, pdbbind; IntAct/STRING are present as sources but not as benchmark roster tables."
+      ],
+      "governed_eligibility_findings": {
+        "status": "audit_only",
+        "notes": [
+          "best_evidence is the governing read view for this evaluation.",
+          "Paper-specific benchmark claims remain non-governing until the condensed warehouse can resolve membership and provenance at roster level."
+        ]
+      },
+      "verdict": "incomplete because required evidence is missing",
+      "project_status": "blocked_pending_mapping",
+      "blockers": [
+        "paper-specific train/test membership roster is absent from the condensed warehouse"
+      ],
+      "warnings": [
+        "STRING is non-public or non-redistributable in the condensed library and should remain audit-facing rather than governing."
+      ],
+      "recommended_canonical_treatment": "Treat the paper as blocked pending roster mapping. If recovered later, canonicalize it under `paper_faithful_external` rather than trusting the paper split verbatim.",
+      "provenance_notes": [
+        "Primary evidence came from the condensed warehouse catalog, manifest, source registry, runtime validation artifact, and Model Studio split-policy code.",
+        "No raw/archive fallback was used for this paper evaluation.",
+        "Named entities or benchmark labels from the supplied paper list were mapped only to warehouse-visible source families and summary surfaces, not to raw membership rosters."
+      ],
+      "named_entities": [
+        "yeast",
+        "human",
+        "PrePPI"
+      ],
+      "source_families": [
+        "rcsb_pdbe",
+        "uniprot",
+        "string",
+        "intact"
+      ],
+      "raw_archive_fallback_required": false
+    },
+    {
+      "paper_id": "sun2017sequence",
+      "title": "Sequence-based prediction of protein protein interaction using a deep-learning algorithm",
+      "doi": "https://doi.org/10.1186/s12859-017-1700-2",
+      "task_group": "ppi_prediction",
+      "claimed_split_description": "10-fold cross-validation benchmark plus external test sets from the supplied reading list.",
+      "resolved_split_policy": {
+        "policy": "accession_grouped",
+        "reason": "Beta split compiler groups by exact accession signatures, not single-accession holdout.",
+        "recommended_for_training": true,
+        "paper_faithful_only": false
+      },
+      "overlap_findings": {
+        "direct_overlap": {
+          "status": "not_computable",
+          "notes": [
+            "Direct, accession-root, and UniRef overlap checks require concrete train/test membership. The library exposes UniRef clusters broadly, but not the paper roster needed to apply them.",
+            "The proteins surface includes 203,085,208 proteins with UniRef90 assignments, so UniRef-grouped evaluation is generally possible once a roster is mapped."
+          ]
+        },
+        "accession_root_overlap": {
+          "status": "not_computable",
+          "notes": [
+            "Direct, accession-root, and UniRef overlap checks require concrete train/test membership. The library exposes UniRef clusters broadly, but not the paper roster needed to apply them.",
+            "The proteins surface includes 203,085,208 proteins with UniRef90 assignments, so UniRef-grouped evaluation is generally possible once a roster is mapped."
+          ]
+        },
+        "uniref_overlap": {
+          "status": "theoretically_supported",
+          "notes": [
+            "Direct, accession-root, and UniRef overlap checks require concrete train/test membership. The library exposes UniRef clusters broadly, but not the paper roster needed to apply them.",
+            "The proteins surface includes 203,085,208 proteins with UniRef90 assignments, so UniRef-grouped evaluation is generally possible once a roster is mapped."
+          ]
+        }
+      },
+      "leakage_findings": {
+        "status": "preflight_only",
+        "notes": [
+          "ProteoSphere treats direct accession reuse, accession-root reuse, UniRef reuse, and shared partner/component reuse as leakage axes.",
+          "Without a paper roster, partner/component leakage cannot be enumerated concretely from the condensed warehouse.",
+          "Cross-validation over precompiled benchmark pairs is treated as leakage-prone unless accession/UniRef grouping is shown explicitly.",
+          "The runtime validation artifact reports 2,798 PPI edges with null endpoints, which further limits partner-level leakage analysis for structure-derived rows."
+        ]
+      },
+      "source_family_findings": [
+        "IntAct is present in the library with license scope `public_metadata` and scope tier `authoritative` (registry records: 7).",
+        "STRING is present in the library with license scope `internal_only` and scope tier `authoritative` (registry records: 1).",
+        "The current best-evidence `protein_protein_edges` surface only materializes elm_interaction_domains, pdbbind; IntAct/STRING are present as sources but not as benchmark roster tables."
+      ],
+      "governed_eligibility_findings": {
+        "status": "audit_only",
+        "notes": [
+          "best_evidence is the governing read view for this evaluation.",
+          "Paper-specific benchmark claims remain non-governing until the condensed warehouse can resolve membership and provenance at roster level."
+        ]
+      },
+      "verdict": "misleading / leakage-prone",
+      "project_status": "unsafe_for_training",
+      "blockers": [
+        "paper-specific train/test membership roster is absent from the condensed warehouse"
+      ],
+      "warnings": [
+        "STRING is non-public or non-redistributable in the condensed library and should remain audit-facing rather than governing."
+      ],
+      "recommended_canonical_treatment": "Do not accept the reported split as training-governing. Re-express the benchmark under `accession_grouped` before any comparison is treated as meaningful.",
+      "provenance_notes": [
+        "Primary evidence came from the condensed warehouse catalog, manifest, source registry, runtime validation artifact, and Model Studio split-policy code.",
+        "No raw/archive fallback was used for this paper evaluation.",
+        "Named entities or benchmark labels from the supplied paper list were mapped only to warehouse-visible source families and summary surfaces, not to raw membership rosters."
+      ],
+      "named_entities": [
+        "10-fold CV benchmark",
+        "external test sets"
+      ],
+      "source_families": [
+        "intact",
+        "string"
+      ],
+      "raw_archive_fallback_required": false
+    },
+    {
+      "paper_id": "du2017deepppi",
+      "title": "DeepPPI: Boosting Prediction of Protein-Protein Interactions with Deep Neural Networks",
+      "doi": "https://doi.org/10.1021/acs.jcim.7b00028",
+      "task_group": "ppi_prediction",
+      "claimed_split_description": "Held-out test set is claimed, but the supplied list does not identify the membership roster or grouping rule.",
+      "resolved_split_policy": {
+        "policy": "accession_grouped",
+        "reason": "Beta split compiler groups by exact accession signatures, not single-accession holdout.",
+        "recommended_for_training": true,
+        "paper_faithful_only": false
+      },
+      "overlap_findings": {
+        "direct_overlap": {
+          "status": "not_computable",
+          "notes": [
+            "Direct, accession-root, and UniRef overlap checks require concrete train/test membership. The library exposes UniRef clusters broadly, but not the paper roster needed to apply them.",
+            "The proteins surface includes 203,085,208 proteins with UniRef90 assignments, so UniRef-grouped evaluation is generally possible once a roster is mapped."
+          ]
+        },
+        "accession_root_overlap": {
+          "status": "not_computable",
+          "notes": [
+            "Direct, accession-root, and UniRef overlap checks require concrete train/test membership. The library exposes UniRef clusters broadly, but not the paper roster needed to apply them.",
+            "The proteins surface includes 203,085,208 proteins with UniRef90 assignments, so UniRef-grouped evaluation is generally possible once a roster is mapped."
+          ]
+        },
+        "uniref_overlap": {
+          "status": "theoretically_supported",
+          "notes": [
+            "Direct, accession-root, and UniRef overlap checks require concrete train/test membership. The library exposes UniRef clusters broadly, but not the paper roster needed to apply them.",
+            "The proteins surface includes 203,085,208 proteins with UniRef90 assignments, so UniRef-grouped evaluation is generally possible once a roster is mapped."
+          ]
+        }
+      },
+      "leakage_findings": {
+        "status": "preflight_only",
+        "notes": [
+          "ProteoSphere treats direct accession reuse, accession-root reuse, UniRef reuse, and shared partner/component reuse as leakage axes.",
+          "Without a paper roster, partner/component leakage cannot be enumerated concretely from the condensed warehouse.",
+          "The runtime validation artifact reports 2,798 PPI edges with null endpoints, which further limits partner-level leakage analysis for structure-derived rows."
+        ]
+      },
+      "source_family_findings": [
+        "IntAct is present in the library with license scope `public_metadata` and scope tier `authoritative` (registry records: 7).",
+        "STRING is present in the library with license scope `internal_only` and scope tier `authoritative` (registry records: 1).",
+        "The current best-evidence `protein_protein_edges` surface only materializes elm_interaction_domains, pdbbind; IntAct/STRING are present as sources but not as benchmark roster tables."
+      ],
+      "governed_eligibility_findings": {
+        "status": "audit_only",
+        "notes": [
+          "best_evidence is the governing read view for this evaluation.",
+          "Paper-specific benchmark claims remain non-governing until the condensed warehouse can resolve membership and provenance at roster level."
+        ]
+      },
+      "verdict": "incomplete because required evidence is missing",
+      "project_status": "blocked_pending_mapping",
+      "blockers": [
+        "paper-specific train/test membership roster is absent from the condensed warehouse"
+      ],
+      "warnings": [
+        "STRING is non-public or non-redistributable in the condensed library and should remain audit-facing rather than governing."
+      ],
+      "recommended_canonical_treatment": "Treat the paper as blocked pending roster mapping. If recovered later, canonicalize it under `accession_grouped` rather than trusting the paper split verbatim.",
+      "provenance_notes": [
+        "Primary evidence came from the condensed warehouse catalog, manifest, source registry, runtime validation artifact, and Model Studio split-policy code.",
+        "No raw/archive fallback was used for this paper evaluation.",
+        "Named entities or benchmark labels from the supplied paper list were mapped only to warehouse-visible source families and summary surfaces, not to raw membership rosters."
+      ],
+      "named_entities": [
+        "test set"
+      ],
+      "source_families": [
+        "intact",
+        "string"
+      ],
+      "raw_archive_fallback_required": false
+    },
+    {
+      "paper_id": "hashemifar2018dppi",
+      "title": "Predicting protein-protein interactions through sequence-based deep learning",
+      "doi": "https://doi.org/10.1093/bioinformatics/bty573",
+      "task_group": "ppi_prediction",
+      "claimed_split_description": "Several benchmarks are named, including the S. cerevisiae core subset, but the supplied list does not include explicit split membership evidence.",
+      "resolved_split_policy": {
+        "policy": "accession_grouped",
+        "reason": "Beta split compiler groups by exact accession signatures, not single-accession holdout.",
+        "recommended_for_training": true,
+        "paper_faithful_only": false
+      },
+      "overlap_findings": {
+        "direct_overlap": {
+          "status": "not_computable",
+          "notes": [
+            "Direct, accession-root, and UniRef overlap checks require concrete train/test membership. The library exposes UniRef clusters broadly, but not the paper roster needed to apply them.",
+            "The proteins surface includes 203,085,208 proteins with UniRef90 assignments, so UniRef-grouped evaluation is generally possible once a roster is mapped."
+          ]
+        },
+        "accession_root_overlap": {
+          "status": "not_computable",
+          "notes": [
+            "Direct, accession-root, and UniRef overlap checks require concrete train/test membership. The library exposes UniRef clusters broadly, but not the paper roster needed to apply them.",
+            "The proteins surface includes 203,085,208 proteins with UniRef90 assignments, so UniRef-grouped evaluation is generally possible once a roster is mapped."
+          ]
+        },
+        "uniref_overlap": {
+          "status": "theoretically_supported",
+          "notes": [
+            "Direct, accession-root, and UniRef overlap checks require concrete train/test membership. The library exposes UniRef clusters broadly, but not the paper roster needed to apply them.",
+            "The proteins surface includes 203,085,208 proteins with UniRef90 assignments, so UniRef-grouped evaluation is generally possible once a roster is mapped."
+          ]
+        }
+      },
+      "leakage_findings": {
+        "status": "preflight_only",
+        "notes": [
+          "ProteoSphere treats direct accession reuse, accession-root reuse, UniRef reuse, and shared partner/component reuse as leakage axes.",
+          "Without a paper roster, partner/component leakage cannot be enumerated concretely from the condensed warehouse.",
+          "The runtime validation artifact reports 2,798 PPI edges with null endpoints, which further limits partner-level leakage analysis for structure-derived rows."
+        ]
+      },
+      "source_family_findings": [
+        "IntAct is present in the library with license scope `public_metadata` and scope tier `authoritative` (registry records: 7).",
+        "STRING is present in the library with license scope `internal_only` and scope tier `authoritative` (registry records: 1).",
+        "The current best-evidence `protein_protein_edges` surface only materializes elm_interaction_domains, pdbbind; IntAct/STRING are present as sources but not as benchmark roster tables."
+      ],
+      "governed_eligibility_findings": {
+        "status": "audit_only",
+        "notes": [
+          "best_evidence is the governing read view for this evaluation.",
+          "Paper-specific benchmark claims remain non-governing until the condensed warehouse can resolve membership and provenance at roster level."
+        ]
+      },
+      "verdict": "incomplete because required evidence is missing",
+      "project_status": "blocked_pending_mapping",
+      "blockers": [
+        "paper-specific train/test membership roster is absent from the condensed warehouse"
+      ],
+      "warnings": [
+        "STRING is non-public or non-redistributable in the condensed library and should remain audit-facing rather than governing."
+      ],
+      "recommended_canonical_treatment": "Treat the paper as blocked pending roster mapping. If recovered later, canonicalize it under `accession_grouped` rather than trusting the paper split verbatim.",
+      "provenance_notes": [
+        "Primary evidence came from the condensed warehouse catalog, manifest, source registry, runtime validation artifact, and Model Studio split-policy code.",
+        "No raw/archive fallback was used for this paper evaluation.",
+        "Named entities or benchmark labels from the supplied paper list were mapped only to warehouse-visible source families and summary surfaces, not to raw membership rosters."
+      ],
+      "named_entities": [
+        "S. cerevisiae core subset",
+        "homodimers"
+      ],
+      "source_families": [
+        "intact",
+        "string"
+      ],
+      "raw_archive_fallback_required": false
+    },
+    {
+      "paper_id": "chen2019siamese_rcnn",
+      "title": "Multifaceted protein-protein interaction prediction based on Siamese residual RCNN",
+      "doi": "https://doi.org/10.1093/bioinformatics/btz328",
+      "task_group": "ppi_prediction",
+      "claimed_split_description": "Reported train/test evaluation on SHS27k and SHS148k, but the supplied list does not expose the actual roster or separation rule.",
+      "resolved_split_policy": {
+        "policy": "accession_grouped",
+        "reason": "Beta split compiler groups by exact accession signatures, not single-accession holdout.",
+        "recommended_for_training": true,
+        "paper_faithful_only": false
+      },
+      "overlap_findings": {
+        "direct_overlap": {
+          "status": "not_computable",
+          "notes": [
+            "Direct, accession-root, and UniRef overlap checks require concrete train/test membership. The library exposes UniRef clusters broadly, but not the paper roster needed to apply them.",
+            "The proteins surface includes 203,085,208 proteins with UniRef90 assignments, so UniRef-grouped evaluation is generally possible once a roster is mapped."
+          ]
+        },
+        "accession_root_overlap": {
+          "status": "not_computable",
+          "notes": [
+            "Direct, accession-root, and UniRef overlap checks require concrete train/test membership. The library exposes UniRef clusters broadly, but not the paper roster needed to apply them.",
+            "The proteins surface includes 203,085,208 proteins with UniRef90 assignments, so UniRef-grouped evaluation is generally possible once a roster is mapped."
+          ]
+        },
+        "uniref_overlap": {
+          "status": "theoretically_supported",
+          "notes": [
+            "Direct, accession-root, and UniRef overlap checks require concrete train/test membership. The library exposes UniRef clusters broadly, but not the paper roster needed to apply them.",
+            "The proteins surface includes 203,085,208 proteins with UniRef90 assignments, so UniRef-grouped evaluation is generally possible once a roster is mapped."
+          ]
+        }
+      },
+      "leakage_findings": {
+        "status": "preflight_only",
+        "notes": [
+          "ProteoSphere treats direct accession reuse, accession-root reuse, UniRef reuse, and shared partner/component reuse as leakage axes.",
+          "Without a paper roster, partner/component leakage cannot be enumerated concretely from the condensed warehouse.",
+          "The runtime validation artifact reports 2,798 PPI edges with null endpoints, which further limits partner-level leakage analysis for structure-derived rows."
+        ]
+      },
+      "source_family_findings": [
+        "IntAct is present in the library with license scope `public_metadata` and scope tier `authoritative` (registry records: 7).",
+        "STRING is present in the library with license scope `internal_only` and scope tier `authoritative` (registry records: 1).",
+        "The current best-evidence `protein_protein_edges` surface only materializes elm_interaction_domains, pdbbind; IntAct/STRING are present as sources but not as benchmark roster tables."
+      ],
+      "governed_eligibility_findings": {
+        "status": "audit_only",
+        "notes": [
+          "best_evidence is the governing read view for this evaluation.",
+          "Paper-specific benchmark claims remain non-governing until the condensed warehouse can resolve membership and provenance at roster level."
+        ]
+      },
+      "verdict": "incomplete because required evidence is missing",
+      "project_status": "blocked_pending_mapping",
+      "blockers": [
+        "paper-specific train/test membership roster is absent from the condensed warehouse"
+      ],
+      "warnings": [
+        "STRING is non-public or non-redistributable in the condensed library and should remain audit-facing rather than governing."
+      ],
+      "recommended_canonical_treatment": "Treat the paper as blocked pending roster mapping. If recovered later, canonicalize it under `accession_grouped` rather than trusting the paper split verbatim.",
+      "provenance_notes": [
+        "Primary evidence came from the condensed warehouse catalog, manifest, source registry, runtime validation artifact, and Model Studio split-policy code.",
+        "No raw/archive fallback was used for this paper evaluation.",
+        "Named entities or benchmark labels from the supplied paper list were mapped only to warehouse-visible source families and summary surfaces, not to raw membership rosters."
+      ],
+      "named_entities": [
+        "SHS27k",
+        "SHS148k"
+      ],
+      "source_families": [
+        "intact",
+        "string"
+      ],
+      "raw_archive_fallback_required": false
+    },
+    {
+      "paper_id": "sledzieski2021dscript",
+      "title": "D-SCRIPT translates genome to phenome with sequence-based, structure-aware, genome-scale predictions of protein-protein interactions",
+      "doi": "https://doi.org/10.1016/j.cels.2021.08.010",
+      "task_group": "ppi_prediction",
+      "claimed_split_description": "Model trained on 38,345 human PPIs and evaluated for cross-species transfer to fly proteins.",
+      "resolved_split_policy": {
+        "policy": "paper_faithful_external",
+        "reason": "Reviewable beta split lane can now hold out external source components for audit and comparison workflows without becoming the default recommended split.",
+        "recommended_for_training": false,
+        "paper_faithful_only": true
+      },
+      "overlap_findings": {
+        "direct_overlap": {
+          "status": "mapping_blocked_after_roster_recovery",
+          "notes": [
+            "Direct, accession-root, and UniRef overlap checks require concrete train/test membership. The library exposes UniRef clusters broadly, but not the paper roster needed to apply them.",
+            "The proteins surface includes 203,085,208 proteins with UniRef90 assignments, so UniRef-grouped evaluation is generally possible once a roster is mapped.",
+            "Released D-SCRIPT pair files were recovered locally, including human train/test and a fly transfer cohort."
+          ]
+        },
+        "accession_root_overlap": {
+          "status": "mapping_blocked_after_roster_recovery",
+          "notes": [
+            "Direct, accession-root, and UniRef overlap checks require concrete train/test membership. The library exposes UniRef clusters broadly, but not the paper roster needed to apply them.",
+            "The proteins surface includes 203,085,208 proteins with UniRef90 assignments, so UniRef-grouped evaluation is generally possible once a roster is mapped.",
+            "Released D-SCRIPT pair files were recovered locally, including human train/test and a fly transfer cohort."
+          ]
+        },
+        "uniref_overlap": {
+          "status": "mapping_blocked_after_roster_recovery",
+          "notes": [
+            "Direct, accession-root, and UniRef overlap checks require concrete train/test membership. The library exposes UniRef clusters broadly, but not the paper roster needed to apply them.",
+            "The proteins surface includes 203,085,208 proteins with UniRef90 assignments, so UniRef-grouped evaluation is generally possible once a roster is mapped.",
+            "Released D-SCRIPT pair files were recovered locally, including human train/test and a fly transfer cohort."
+          ]
+        }
+      },
+      "leakage_findings": {
+        "status": "preflight_only",
+        "notes": [
+          "ProteoSphere treats direct accession reuse, accession-root reuse, UniRef reuse, and shared partner/component reuse as leakage axes.",
+          "Without a paper roster, partner/component leakage cannot be enumerated concretely from the condensed warehouse.",
+          "The runtime validation artifact reports 2,798 PPI edges with null endpoints, which further limits partner-level leakage analysis for structure-derived rows.",
+          "The released human-train versus species-test files make the paper split auditable, but overlap and governed-eligibility checks remain blocked until an identifier bridge is materialized."
+        ]
+      },
+      "source_family_findings": [
+        "IntAct is present in the library with license scope `public_metadata` and scope tier `authoritative` (registry records: 7).",
+        "UniProt is present in the library with license scope `public_metadata` and scope tier `authoritative` (registry records: 8).",
+        "The current best-evidence `protein_protein_edges` surface only materializes elm_interaction_domains, pdbbind; IntAct/STRING are present as sources but not as benchmark roster tables."
+      ],
+      "governed_eligibility_findings": {
+        "status": "audit_only",
+        "notes": [
+          "best_evidence is the governing read view for this evaluation.",
+          "Paper-specific benchmark claims remain non-governing until the condensed warehouse can resolve membership and provenance at roster level.",
+          "Because the recovered rosters are not resolvable to warehouse identifiers, the paper can inform audit comparisons but cannot become a governing training split as-is."
+        ]
+      },
+      "verdict": "audit-useful but non-canonical",
+      "project_status": "audit_only",
+      "blockers": [
+        "published D-SCRIPT split files are keyed by Ensembl/FlyBase protein identifiers that the condensed warehouse does not currently bridge to `protein_ref` or UniProt accessions"
+      ],
+      "warnings": [],
+      "recommended_canonical_treatment": "Keep the paper in a `paper_faithful_external` audit lane. Build an Ensembl/FlyBase-to-UniProt bridge before comparing it with ProteoSphere-native accession- or UniRef-grouped evaluations.",
+      "provenance_notes": [
+        "Primary evidence came from the condensed warehouse catalog, manifest, source registry, runtime validation artifact, and Model Studio split-policy code.",
+        "No raw/archive fallback was used for this paper evaluation.",
+        "Named entities or benchmark labels from the supplied paper list were mapped only to warehouse-visible source families and summary surfaces, not to raw membership rosters.",
+        "Supplemental non-warehouse evidence was used from paper release/repository materials to clarify split membership or split-construction logic."
+      ],
+      "named_entities": [
+        "38,345 human PPIs",
+        "fly proteins"
+      ],
+      "source_families": [
+        "intact",
+        "uniprot"
+      ],
+      "raw_archive_fallback_required": false,
+      "supplemental_evidence": {
+        "status": "published_split_located",
+        "summary": "Released D-SCRIPT pair files were recovered locally, including human train/test and a fly transfer cohort.",
+        "details": [
+          "`human_train.tsv` contains 421,792 labeled pairs spanning 15,816 unique Ensembl proteins.",
+          "`human_test.tsv` contains 52,725 labeled pairs spanning 15,525 unique Ensembl proteins.",
+          "`fly_test.tsv` contains 55,000 labeled pairs spanning 19,213 FlyBase proteins.",
+          "The released identifiers are Ensembl/FlyBase protein IDs rather than warehouse-native `protein_ref` or UniProt accessions."
+        ],
+        "artifact_paths": [
+          "D:\\documents\\ProteoSphereV2\\artifacts\\status\\paper_split_external\\dscript\\human_train.tsv",
+          "D:\\documents\\ProteoSphereV2\\artifacts\\status\\paper_split_external\\dscript\\human_test.tsv",
+          "D:\\documents\\ProteoSphereV2\\artifacts\\status\\paper_split_external\\dscript\\fly_test.tsv"
+        ],
+        "source_links": [
+          "https://github.com/samsledje/D-SCRIPT/blob/main/docs/source/data.rst"
+        ]
+      }
+    },
+    {
+      "paper_id": "szymborski2022rapppid",
+      "title": "RAPPPID: towards generalizable protein interaction prediction with AWD-LSTM twin networks",
+      "doi": "https://doi.org/10.1093/bioinformatics/btac429",
+      "task_group": "ppi_prediction",
+      "claimed_split_description": "Strict train/test separation with unseen proteins is claimed in the supplied list.",
+      "resolved_split_policy": {
+        "policy": "uniref_grouped",
+        "reason": "Beta split compiler now groups on explicit UniRef keys where they exist and reports fallback coverage where they do not.",
+        "recommended_for_training": true,
+        "paper_faithful_only": false
+      },
+      "overlap_findings": {
+        "direct_overlap": {
+          "status": "mapping_blocked_after_roster_recovery",
+          "notes": [
+            "The claimed split style is compatible with ProteoSphere UniRef-aware grouping, but the paper roster is not present in the condensed warehouse, so no concrete train/test overlap rows could be emitted.",
+            "The proteins surface includes 203,085,208 proteins with UniRef90 assignments, so UniRef-grouped evaluation is generally possible once a roster is mapped.",
+            "A RAPPPID Zenodo release was recovered locally and contains explicit C1/C2/C3 split artifacts."
+          ]
+        },
+        "accession_root_overlap": {
+          "status": "mapping_blocked_after_roster_recovery",
+          "notes": [
+            "The claimed split style is compatible with ProteoSphere UniRef-aware grouping, but the paper roster is not present in the condensed warehouse, so no concrete train/test overlap rows could be emitted.",
+            "The proteins surface includes 203,085,208 proteins with UniRef90 assignments, so UniRef-grouped evaluation is generally possible once a roster is mapped.",
+            "A RAPPPID Zenodo release was recovered locally and contains explicit C1/C2/C3 split artifacts."
+          ]
+        },
+        "uniref_overlap": {
+          "status": "mapping_blocked_after_roster_recovery",
+          "notes": [
+            "The claimed split style is compatible with ProteoSphere UniRef-aware grouping, but the paper roster is not present in the condensed warehouse, so no concrete train/test overlap rows could be emitted.",
+            "The proteins surface includes 203,085,208 proteins with UniRef90 assignments, so UniRef-grouped evaluation is generally possible once a roster is mapped.",
+            "A RAPPPID Zenodo release was recovered locally and contains explicit C1/C2/C3 split artifacts."
+          ]
+        }
+      },
+      "leakage_findings": {
+        "status": "preflight_only",
+        "notes": [
+          "ProteoSphere treats direct accession reuse, accession-root reuse, UniRef reuse, and shared partner/component reuse as leakage axes.",
+          "Without a paper roster, partner/component leakage cannot be enumerated concretely from the condensed warehouse.",
+          "The runtime validation artifact reports 2,798 PPI edges with null endpoints, which further limits partner-level leakage analysis for structure-derived rows.",
+          "The recovered C1/C2/C3 artifacts anchor the paper's strict unseen-protein claim, but exact overlap diagnostics are still blocked by missing Ensembl-to-UniProt bridging in best_evidence."
+        ]
+      },
+      "source_family_findings": [
+        "IntAct is present in the library with license scope `public_metadata` and scope tier `authoritative` (registry records: 7).",
+        "STRING is present in the library with license scope `internal_only` and scope tier `authoritative` (registry records: 1).",
+        "UniProt is present in the library with license scope `public_metadata` and scope tier `authoritative` (registry records: 8).",
+        "The current best-evidence `protein_protein_edges` surface only materializes elm_interaction_domains, pdbbind; IntAct/STRING are present as sources but not as benchmark roster tables.",
+        "Recovered Zenodo artifacts show that the benchmark was packaged explicitly around STRING v11 human comparatives rather than only described narratively."
+      ],
+      "governed_eligibility_findings": {
+        "status": "audit_only",
+        "notes": [
+          "best_evidence is the governing read view for this evaluation.",
+          "Paper-specific benchmark claims remain non-governing until the condensed warehouse can resolve membership and provenance at roster level.",
+          "This split is precise enough to keep as an audit lane, but not admissible as governing training evidence until its identifiers resolve cleanly into the warehouse."
+        ]
+      },
+      "verdict": "audit-useful but non-canonical",
+      "project_status": "audit_only",
+      "blockers": [
+        "published RAPPPID split artifacts are keyed by STRING/Ensembl protein identifiers that the condensed warehouse does not currently bridge to canonical `protein_ref` rows"
+      ],
+      "warnings": [
+        "STRING is non-public or non-redistributable in the condensed library and should remain audit-facing rather than governing."
+      ],
+      "recommended_canonical_treatment": "Keep the released C1/C2/C3 splits as audit lanes and rebuild any governing comparison under `uniref_grouped` once STRING/Ensembl identifiers are bridged into warehouse proteins.",
+      "provenance_notes": [
+        "Primary evidence came from the condensed warehouse catalog, manifest, source registry, runtime validation artifact, and Model Studio split-policy code.",
+        "No raw/archive fallback was used for this paper evaluation.",
+        "Named entities or benchmark labels from the supplied paper list were mapped only to warehouse-visible source families and summary surfaces, not to raw membership rosters.",
+        "Supplemental non-warehouse evidence was used from paper release/repository materials to clarify split membership or split-construction logic."
+      ],
+      "named_entities": [
+        "unseen proteins"
+      ],
+      "source_families": [
+        "intact",
+        "string",
+        "uniprot"
+      ],
+      "raw_archive_fallback_required": false,
+      "supplemental_evidence": {
+        "status": "published_split_located",
+        "summary": "A RAPPPID Zenodo release was recovered locally and contains explicit C1/C2/C3 split artifacts.",
+        "details": [
+          "The archive includes 4 `string_c1` pickle members, 4 `string_c2` members, and 4 `string_c3` members.",
+          "The release packages `train_pairs.pkl.gz`, `val_pairs.pkl.gz`, `test_pairs.pkl.gz`, and `seqs.pkl.gz` for the comparative splits.",
+          "The serialized keys are Ensembl protein IDs in STRING-style namespace (for example `9606.ENSP...`), not warehouse-native accessions."
+        ],
+        "artifact_paths": [
+          "D:\\documents\\ProteoSphereV2\\artifacts\\status\\paper_split_external\\rapppid\\rapppid_data.zip"
+        ],
+        "source_links": [
+          "https://doi.org/10.5281/zenodo.6817258"
+        ]
+      }
+    },
+    {
+      "paper_id": "baranwal2022struct2graph",
+      "title": "Struct2Graph: a graph attention network for structure based predictions of protein-protein interactions",
+      "doi": "https://doi.org/10.1186/s12859-022-04910-9",
+      "task_group": "ppi_prediction",
+      "claimed_split_description": "Balanced-set evaluation and fivefold cross-validation on an unbalanced set are claimed.",
+      "resolved_split_policy": {
+        "policy": "accession_grouped",
+        "reason": "Beta split compiler groups by exact accession signatures, not single-accession holdout.",
+        "recommended_for_training": true,
+        "paper_faithful_only": false
+      },
+      "overlap_findings": {
+        "direct_overlap": {
+          "status": "reproduced_overlap_demonstrated",
+          "notes": [
+            "The Struct2Graph repository exposes the split-building code and it is example-level randomization rather than accession-grouped separation.",
+            "A deterministic reproduction of the released split logic over the public interaction table yielded 643 shared PDB IDs between train and test.",
+            "This reproduction is not claimed to be the paper's exact saved split, but it demonstrates that the released split mechanism permits direct structure reuse across partitions."
+          ]
+        },
+        "accession_root_overlap": {
+          "status": "not_needed_for_failure",
+          "notes": [
+            "Direct, accession-root, and UniRef overlap checks require concrete train/test membership. The library exposes UniRef clusters broadly, but not the paper roster needed to apply them.",
+            "The proteins surface includes 203,085,208 proteins with UniRef90 assignments, so UniRef-grouped evaluation is generally possible once a roster is mapped.",
+            "Direct PDB reuse already fails the split under ProteoSphere logic, so accession-root grouping is a downstream rather than primary concern here."
+          ]
+        },
+        "uniref_overlap": {
+          "status": "not_needed_for_failure",
+          "notes": [
+            "Direct, accession-root, and UniRef overlap checks require concrete train/test membership. The library exposes UniRef clusters broadly, but not the paper roster needed to apply them.",
+            "The proteins surface includes 203,085,208 proteins with UniRef90 assignments, so UniRef-grouped evaluation is generally possible once a roster is mapped.",
+            "UniRef grouping would be stricter still, but the reproduced direct structure overlap is already sufficient to classify the released split logic as leakage-prone."
+          ]
+        }
+      },
+      "leakage_findings": {
+        "status": "repo_code_and_reproduction_support_failure",
+        "notes": [
+          "ProteoSphere treats direct accession reuse, accession-root reuse, UniRef reuse, and shared partner/component reuse as leakage axes.",
+          "Without a paper roster, partner/component leakage cannot be enumerated concretely from the condensed warehouse.",
+          "Cross-validation over precompiled benchmark pairs is treated as leakage-prone unless accession/UniRef grouping is shown explicitly.",
+          "The runtime validation artifact reports 2,798 PPI edges with null endpoints, which further limits partner-level leakage analysis for structure-derived rows.",
+          "The released `create_examples.py` performs random example-level shuffling followed by 80/10/10 slicing, which is incompatible with accession-grouped, structure-grouped, or partner-isolated evaluation.",
+          "Using a deterministic reproduction seed (1337) on the public interaction table produced 643 overlapping PDB IDs across train and test."
+        ]
+      },
+      "source_family_findings": [
+        "RCSB/PDBe is present in the library with license scope `public_metadata` and scope tier `authoritative` (registry records: 7).",
+        "PDBBind is present in the library with license scope `restricted` and scope tier `authoritative` (registry records: 2).",
+        "The current best-evidence `protein_protein_edges` surface only materializes elm_interaction_domains, pdbbind; IntAct/STRING are present as sources but not as benchmark roster tables."
+      ],
+      "governed_eligibility_findings": {
+        "status": "audit_only",
+        "notes": [
+          "best_evidence is the governing read view for this evaluation.",
+          "Paper-specific benchmark claims remain non-governing until the condensed warehouse can resolve membership and provenance at roster level.",
+          "Because direct structure reuse is demonstrated by the released split logic itself, this paper split is not admissible for governing training evaluation."
+        ]
+      },
+      "verdict": "misleading / leakage-prone",
+      "project_status": "unsafe_for_training",
+      "blockers": [
+        "the repository exposes split-construction logic, but it does not provide a saved published split roster or seed-stable assignment artifact for the exact paper run"
+      ],
+      "warnings": [
+        "PDBBind is non-public or non-redistributable in the condensed library and should remain audit-facing rather than governing."
+      ],
+      "recommended_canonical_treatment": "Do not use the paper-faithful split for training claims. Rebuild the benchmark under an accession-grouped or stronger structure-aware grouping policy before treating any performance comparison as canonical.",
+      "provenance_notes": [
+        "Primary evidence came from the condensed warehouse catalog, manifest, source registry, runtime validation artifact, and Model Studio split-policy code.",
+        "No raw/archive fallback was used for this paper evaluation.",
+        "Named entities or benchmark labels from the supplied paper list were mapped only to warehouse-visible source families and summary surfaces, not to raw membership rosters.",
+        "Supplemental non-warehouse evidence was used from paper release/repository materials to clarify split membership or split-construction logic."
+      ],
+      "named_entities": [
+        "balanced set",
+        "1:10 unbalanced set",
+        "fivefold CV"
+      ],
+      "source_families": [
+        "rcsb_pdbe",
+        "pdbbind"
+      ],
+      "raw_archive_fallback_required": false,
+      "supplemental_evidence": {
+        "status": "repo_split_logic_located",
+        "summary": "The Struct2Graph repository exposes the split-building code and it is example-level randomization rather than accession-grouped separation.",
+        "details": [
+          "`interactions_data.txt` contains 10,004 labeled PDB-pair examples and `list_of_prots.txt` contains 4,031 accession-to-PDB-chain rows.",
+          "The released `create_examples.py` shuffles merged examples three times and then slices them into 80% train, 10% test, and 10% dev.",
+          "That repo logic operates on pair examples, not on proteins, accession roots, UniRef groups, or source-separated components."
+        ],
+        "artifact_paths": [
+          "D:\\documents\\ProteoSphereV2\\artifacts\\status\\paper_split_external\\struct2graph\\create_examples.py",
+          "D:\\documents\\ProteoSphereV2\\artifacts\\status\\paper_split_external\\struct2graph\\interactions_data.txt",
+          "D:\\documents\\ProteoSphereV2\\artifacts\\status\\paper_split_external\\struct2graph\\list_of_prots.txt"
+        ],
+        "source_links": [
+          "https://github.com/baranwa2/Struct2Graph",
+          "https://raw.githubusercontent.com/baranwa2/Struct2Graph/master/create_examples.py",
+          "https://raw.githubusercontent.com/baranwa2/Struct2Graph/master/interactions_data.txt",
+          "https://raw.githubusercontent.com/baranwa2/Struct2Graph/master/list_of_prots.txt"
+        ],
+        "reproduction": {
+          "reproduction_seed": 1337,
+          "interaction_rows": 10004,
+          "train_rows": 8003,
+          "test_rows": 1000,
+          "dev_rows": 1001,
+          "train_unique_pdb_ids": 3241,
+          "test_unique_pdb_ids": 865,
+          "shared_pdb_count": 643,
+          "shared_pdb_sample": [
+            "1A4E",
+            "1A5E",
+            "1AOJ",
+            "1AY0",
+            "1B6U",
+            "1BI7",
+            "1BMP",
+            "1BOR",
+            "1BUO",
+            "1CI6",
+            "1D5R",
+            "1DZF",
+            "1EFX",
+            "1EG3",
+            "1EH2",
+            "1EJP",
+            "1EK0",
+            "1EKX",
+            "1EOT",
+            "1F4J",
+            "1F9Q",
+            "1FNT",
+            "1FOS",
+            "1FOT",
+            "1G5J"
+          ]
+        }
+      }
+    },
+    {
+      "paper_id": "gainza2020masif",
+      "title": "Deciphering interaction fingerprints from protein molecular surfaces using geometric deep learning",
+      "doi": "https://doi.org/10.1038/s41592-019-0666-6",
+      "task_group": "interface_prediction",
+      "claimed_split_description": "Benchmarking is described through site/search tasks and a database scan example; the supplied list does not provide explicit train/test membership.",
+      "resolved_split_policy": {
+        "policy": "paper_faithful_external",
+        "reason": "Reviewable beta split lane can now hold out external source components for audit and comparison workflows without becoming the default recommended split.",
+        "recommended_for_training": false,
+        "paper_faithful_only": true
+      },
+      "overlap_findings": {
+        "direct_overlap": {
+          "status": "not_computable",
+          "notes": [
+            "Direct, accession-root, and UniRef overlap checks require concrete train/test membership. The library exposes UniRef clusters broadly, but not the paper roster needed to apply them.",
+            "The proteins surface includes 203,085,208 proteins with UniRef90 assignments, so UniRef-grouped evaluation is generally possible once a roster is mapped."
+          ]
+        },
+        "accession_root_overlap": {
+          "status": "not_computable",
+          "notes": [
+            "Direct, accession-root, and UniRef overlap checks require concrete train/test membership. The library exposes UniRef clusters broadly, but not the paper roster needed to apply them.",
+            "The proteins surface includes 203,085,208 proteins with UniRef90 assignments, so UniRef-grouped evaluation is generally possible once a roster is mapped."
+          ]
+        },
+        "uniref_overlap": {
+          "status": "theoretically_supported",
+          "notes": [
+            "Direct, accession-root, and UniRef overlap checks require concrete train/test membership. The library exposes UniRef clusters broadly, but not the paper roster needed to apply them.",
+            "The proteins surface includes 203,085,208 proteins with UniRef90 assignments, so UniRef-grouped evaluation is generally possible once a roster is mapped."
+          ]
+        }
+      },
+      "leakage_findings": {
+        "status": "preflight_only",
+        "notes": [
+          "ProteoSphere treats direct accession reuse, accession-root reuse, UniRef reuse, and shared partner/component reuse as leakage axes.",
+          "Without a paper roster, partner/component leakage cannot be enumerated concretely from the condensed warehouse."
+        ]
+      },
+      "source_family_findings": [
+        "RCSB/PDBe is present in the library with license scope `public_metadata` and scope tier `authoritative` (registry records: 7).",
+        "`pdb_entries` (234,767 rows) and `structure_units` (968,580 rows) are available in best_evidence, but paper-specific benchmark membership is not."
+      ],
+      "governed_eligibility_findings": {
+        "status": "audit_only",
+        "notes": [
+          "best_evidence is the governing read view for this evaluation.",
+          "Paper-specific benchmark claims remain non-governing until the condensed warehouse can resolve membership and provenance at roster level.",
+          "This paper is better treated as an audit/comparison benchmark than as a release-governing training split in current ProteoSphere surfaces."
+        ]
+      },
+      "verdict": "incomplete because required evidence is missing",
+      "project_status": "blocked_pending_mapping",
+      "blockers": [
+        "paper-specific train/test membership roster is absent from the condensed warehouse"
+      ],
+      "warnings": [],
+      "recommended_canonical_treatment": "Treat the paper as blocked pending roster mapping. If recovered later, canonicalize it under `paper_faithful_external` rather than trusting the paper split verbatim.",
+      "provenance_notes": [
+        "Primary evidence came from the condensed warehouse catalog, manifest, source registry, runtime validation artifact, and Model Studio split-policy code.",
+        "No raw/archive fallback was used for this paper evaluation.",
+        "Named entities or benchmark labels from the supplied paper list were mapped only to warehouse-visible source families and summary surfaces, not to raw membership rosters."
+      ],
+      "named_entities": [
+        "MaSIF-site",
+        "MaSIF-search",
+        "PD-L1:mouse PD1"
+      ],
+      "source_families": [
+        "rcsb_pdbe"
+      ],
+      "raw_archive_fallback_required": false
+    },
+    {
+      "paper_id": "dai2021geometric_interface",
+      "title": "Protein interaction interface region prediction by geometric deep learning",
+      "doi": "https://doi.org/10.1093/bioinformatics/btab154",
+      "task_group": "interface_prediction",
+      "claimed_split_description": "Multiple benchmarks are referenced, but the supplied list does not include membership evidence or a concrete grouping rule.",
+      "resolved_split_policy": {
+        "policy": "paper_faithful_external",
+        "reason": "Reviewable beta split lane can now hold out external source components for audit and comparison workflows without becoming the default recommended split.",
+        "recommended_for_training": false,
+        "paper_faithful_only": true
+      },
+      "overlap_findings": {
+        "direct_overlap": {
+          "status": "not_computable",
+          "notes": [
+            "Direct, accession-root, and UniRef overlap checks require concrete train/test membership. The library exposes UniRef clusters broadly, but not the paper roster needed to apply them.",
+            "The proteins surface includes 203,085,208 proteins with UniRef90 assignments, so UniRef-grouped evaluation is generally possible once a roster is mapped."
+          ]
+        },
+        "accession_root_overlap": {
+          "status": "not_computable",
+          "notes": [
+            "Direct, accession-root, and UniRef overlap checks require concrete train/test membership. The library exposes UniRef clusters broadly, but not the paper roster needed to apply them.",
+            "The proteins surface includes 203,085,208 proteins with UniRef90 assignments, so UniRef-grouped evaluation is generally possible once a roster is mapped."
+          ]
+        },
+        "uniref_overlap": {
+          "status": "theoretically_supported",
+          "notes": [
+            "Direct, accession-root, and UniRef overlap checks require concrete train/test membership. The library exposes UniRef clusters broadly, but not the paper roster needed to apply them.",
+            "The proteins surface includes 203,085,208 proteins with UniRef90 assignments, so UniRef-grouped evaluation is generally possible once a roster is mapped."
+          ]
+        }
+      },
+      "leakage_findings": {
+        "status": "preflight_only",
+        "notes": [
+          "ProteoSphere treats direct accession reuse, accession-root reuse, UniRef reuse, and shared partner/component reuse as leakage axes.",
+          "Without a paper roster, partner/component leakage cannot be enumerated concretely from the condensed warehouse."
+        ]
+      },
+      "source_family_findings": [
+        "RCSB/PDBe is present in the library with license scope `public_metadata` and scope tier `authoritative` (registry records: 7).",
+        "`pdb_entries` (234,767 rows) and `structure_units` (968,580 rows) are available in best_evidence, but paper-specific benchmark membership is not."
+      ],
+      "governed_eligibility_findings": {
+        "status": "audit_only",
+        "notes": [
+          "best_evidence is the governing read view for this evaluation.",
+          "Paper-specific benchmark claims remain non-governing until the condensed warehouse can resolve membership and provenance at roster level.",
+          "This paper is better treated as an audit/comparison benchmark than as a release-governing training split in current ProteoSphere surfaces."
+        ]
+      },
+      "verdict": "incomplete because required evidence is missing",
+      "project_status": "blocked_pending_mapping",
+      "blockers": [
+        "paper-specific train/test membership roster is absent from the condensed warehouse"
+      ],
+      "warnings": [],
+      "recommended_canonical_treatment": "Treat the paper as blocked pending roster mapping. If recovered later, canonicalize it under `paper_faithful_external` rather than trusting the paper split verbatim.",
+      "provenance_notes": [
+        "Primary evidence came from the condensed warehouse catalog, manifest, source registry, runtime validation artifact, and Model Studio split-policy code.",
+        "No raw/archive fallback was used for this paper evaluation.",
+        "Named entities or benchmark labels from the supplied paper list were mapped only to warehouse-visible source families and summary surfaces, not to raw membership rosters."
+      ],
+      "named_entities": [
+        "multiple benchmarks"
+      ],
+      "source_families": [
+        "rcsb_pdbe"
+      ],
+      "raw_archive_fallback_required": false
+    },
+    {
+      "paper_id": "xie2022interprotein_contacts",
+      "title": "Deep graph learning of inter-protein contacts",
+      "doi": "https://doi.org/10.1093/bioinformatics/btab761",
+      "task_group": "contact_prediction",
+      "claimed_split_description": "Evaluation is reported on homodimers and CASP-CAPRI data.",
+      "resolved_split_policy": {
+        "policy": "paper_faithful_external",
+        "reason": "Reviewable beta split lane can now hold out external source components for audit and comparison workflows without becoming the default recommended split.",
+        "recommended_for_training": false,
+        "paper_faithful_only": true
+      },
+      "overlap_findings": {
+        "direct_overlap": {
+          "status": "not_computable",
+          "notes": [
+            "Direct, accession-root, and UniRef overlap checks require concrete train/test membership. The library exposes UniRef clusters broadly, but not the paper roster needed to apply them.",
+            "The proteins surface includes 203,085,208 proteins with UniRef90 assignments, so UniRef-grouped evaluation is generally possible once a roster is mapped."
+          ]
+        },
+        "accession_root_overlap": {
+          "status": "not_computable",
+          "notes": [
+            "Direct, accession-root, and UniRef overlap checks require concrete train/test membership. The library exposes UniRef clusters broadly, but not the paper roster needed to apply them.",
+            "The proteins surface includes 203,085,208 proteins with UniRef90 assignments, so UniRef-grouped evaluation is generally possible once a roster is mapped."
+          ]
+        },
+        "uniref_overlap": {
+          "status": "theoretically_supported",
+          "notes": [
+            "Direct, accession-root, and UniRef overlap checks require concrete train/test membership. The library exposes UniRef clusters broadly, but not the paper roster needed to apply them.",
+            "The proteins surface includes 203,085,208 proteins with UniRef90 assignments, so UniRef-grouped evaluation is generally possible once a roster is mapped."
+          ]
+        }
+      },
+      "leakage_findings": {
+        "status": "preflight_only",
+        "notes": [
+          "ProteoSphere treats direct accession reuse, accession-root reuse, UniRef reuse, and shared partner/component reuse as leakage axes.",
+          "Without a paper roster, partner/component leakage cannot be enumerated concretely from the condensed warehouse."
+        ]
+      },
+      "source_family_findings": [
+        "RCSB/PDBe is present in the library with license scope `public_metadata` and scope tier `authoritative` (registry records: 7).",
+        "UniProt is present in the library with license scope `public_metadata` and scope tier `authoritative` (registry records: 8).",
+        "`pdb_entries` (234,767 rows) and `structure_units` (968,580 rows) are available in best_evidence, but paper-specific benchmark membership is not."
+      ],
+      "governed_eligibility_findings": {
+        "status": "audit_only",
+        "notes": [
+          "best_evidence is the governing read view for this evaluation.",
+          "Paper-specific benchmark claims remain non-governing until the condensed warehouse can resolve membership and provenance at roster level.",
+          "This paper is better treated as an audit/comparison benchmark than as a release-governing training split in current ProteoSphere surfaces."
+        ]
+      },
+      "verdict": "audit-useful but non-canonical",
+      "project_status": "audit_only",
+      "blockers": [
+        "paper-specific train/test membership roster is absent from the condensed warehouse"
+      ],
+      "warnings": [],
+      "recommended_canonical_treatment": "Keep the paper split in a `paper_faithful_external` audit lane only; do not treat it as the default canonical split for training or headline benchmarking.",
+      "provenance_notes": [
+        "Primary evidence came from the condensed warehouse catalog, manifest, source registry, runtime validation artifact, and Model Studio split-policy code.",
+        "No raw/archive fallback was used for this paper evaluation.",
+        "Named entities or benchmark labels from the supplied paper list were mapped only to warehouse-visible source families and summary surfaces, not to raw membership rosters."
+      ],
+      "named_entities": [
+        "homodimers",
+        "CASP-CAPRI data"
+      ],
+      "source_families": [
+        "rcsb_pdbe",
+        "uniprot"
+      ],
+      "raw_archive_fallback_required": false
+    },
+    {
+      "paper_id": "tubiana2022scannet",
+      "title": "ScanNet: an interpretable geometric deep learning model for structure-based protein binding site prediction",
+      "doi": "https://doi.org/10.1038/s41592-022-01490-7",
+      "task_group": "binding_site_prediction",
+      "claimed_split_description": "Unseen-fold generalization is claimed, but no explicit split roster is included in the supplied list.",
+      "resolved_split_policy": {
+        "policy": "uniref_grouped",
+        "reason": "Beta split compiler now groups on explicit UniRef keys where they exist and reports fallback coverage where they do not.",
+        "recommended_for_training": true,
+        "paper_faithful_only": false
+      },
+      "overlap_findings": {
+        "direct_overlap": {
+          "status": "not_computable",
+          "notes": [
+            "Direct, accession-root, and UniRef overlap checks require concrete train/test membership. The library exposes UniRef clusters broadly, but not the paper roster needed to apply them.",
+            "The proteins surface includes 203,085,208 proteins with UniRef90 assignments, so UniRef-grouped evaluation is generally possible once a roster is mapped."
+          ]
+        },
+        "accession_root_overlap": {
+          "status": "not_computable",
+          "notes": [
+            "Direct, accession-root, and UniRef overlap checks require concrete train/test membership. The library exposes UniRef clusters broadly, but not the paper roster needed to apply them.",
+            "The proteins surface includes 203,085,208 proteins with UniRef90 assignments, so UniRef-grouped evaluation is generally possible once a roster is mapped."
+          ]
+        },
+        "uniref_overlap": {
+          "status": "theoretically_supported",
+          "notes": [
+            "Direct, accession-root, and UniRef overlap checks require concrete train/test membership. The library exposes UniRef clusters broadly, but not the paper roster needed to apply them.",
+            "The proteins surface includes 203,085,208 proteins with UniRef90 assignments, so UniRef-grouped evaluation is generally possible once a roster is mapped."
+          ]
+        }
+      },
+      "leakage_findings": {
+        "status": "preflight_only",
+        "notes": [
+          "ProteoSphere treats direct accession reuse, accession-root reuse, UniRef reuse, and shared partner/component reuse as leakage axes.",
+          "Without a paper roster, partner/component leakage cannot be enumerated concretely from the condensed warehouse."
+        ]
+      },
+      "source_family_findings": [
+        "RCSB/PDBe is present in the library with license scope `public_metadata` and scope tier `authoritative` (registry records: 7).",
+        "`pdb_entries` (234,767 rows) and `structure_units` (968,580 rows) are available in best_evidence, but paper-specific benchmark membership is not."
+      ],
+      "governed_eligibility_findings": {
+        "status": "audit_only",
+        "notes": [
+          "best_evidence is the governing read view for this evaluation.",
+          "Paper-specific benchmark claims remain non-governing until the condensed warehouse can resolve membership and provenance at roster level.",
+          "This paper is better treated as an audit/comparison benchmark than as a release-governing training split in current ProteoSphere surfaces."
+        ]
+      },
+      "verdict": "audit-useful but non-canonical",
+      "project_status": "audit_only",
+      "blockers": [
+        "paper-specific train/test membership roster is absent from the condensed warehouse"
+      ],
+      "warnings": [],
+      "recommended_canonical_treatment": "Keep the paper split as a `paper_faithful_external` audit lane and compare it against a ProteoSphere-native `uniref_grouped` rebuild when roster evidence becomes available.",
+      "provenance_notes": [
+        "Primary evidence came from the condensed warehouse catalog, manifest, source registry, runtime validation artifact, and Model Studio split-policy code.",
+        "No raw/archive fallback was used for this paper evaluation.",
+        "Named entities or benchmark labels from the supplied paper list were mapped only to warehouse-visible source families and summary surfaces, not to raw membership rosters."
+      ],
+      "named_entities": [
+        "unseen folds",
+        "SARS-CoV-2 spike epitopes"
+      ],
+      "source_families": [
+        "rcsb_pdbe"
+      ],
+      "raw_archive_fallback_required": false
+    },
+    {
+      "paper_id": "krapp2023pesto",
+      "title": "PeSTo: parameter-free geometric deep learning for accurate prediction of protein binding interfaces",
+      "doi": "https://doi.org/10.1038/s41467-023-37701-8",
+      "task_group": "binding_site_prediction",
+      "claimed_split_description": "Comparison against prior interface predictors plus an unbound PPDB5 example; no explicit train/test membership evidence in the supplied list.",
+      "resolved_split_policy": {
+        "policy": "paper_faithful_external",
+        "reason": "Reviewable beta split lane can now hold out external source components for audit and comparison workflows without becoming the default recommended split.",
+        "recommended_for_training": false,
+        "paper_faithful_only": true
+      },
+      "overlap_findings": {
+        "direct_overlap": {
+          "status": "not_computable",
+          "notes": [
+            "Direct, accession-root, and UniRef overlap checks require concrete train/test membership. The library exposes UniRef clusters broadly, but not the paper roster needed to apply them.",
+            "The proteins surface includes 203,085,208 proteins with UniRef90 assignments, so UniRef-grouped evaluation is generally possible once a roster is mapped."
+          ]
+        },
+        "accession_root_overlap": {
+          "status": "not_computable",
+          "notes": [
+            "Direct, accession-root, and UniRef overlap checks require concrete train/test membership. The library exposes UniRef clusters broadly, but not the paper roster needed to apply them.",
+            "The proteins surface includes 203,085,208 proteins with UniRef90 assignments, so UniRef-grouped evaluation is generally possible once a roster is mapped."
+          ]
+        },
+        "uniref_overlap": {
+          "status": "theoretically_supported",
+          "notes": [
+            "Direct, accession-root, and UniRef overlap checks require concrete train/test membership. The library exposes UniRef clusters broadly, but not the paper roster needed to apply them.",
+            "The proteins surface includes 203,085,208 proteins with UniRef90 assignments, so UniRef-grouped evaluation is generally possible once a roster is mapped."
+          ]
+        }
+      },
+      "leakage_findings": {
+        "status": "preflight_only",
+        "notes": [
+          "ProteoSphere treats direct accession reuse, accession-root reuse, UniRef reuse, and shared partner/component reuse as leakage axes.",
+          "Without a paper roster, partner/component leakage cannot be enumerated concretely from the condensed warehouse."
+        ]
+      },
+      "source_family_findings": [
+        "RCSB/PDBe is present in the library with license scope `public_metadata` and scope tier `authoritative` (registry records: 7).",
+        "`pdb_entries` (234,767 rows) and `structure_units` (968,580 rows) are available in best_evidence, but paper-specific benchmark membership is not."
+      ],
+      "governed_eligibility_findings": {
+        "status": "audit_only",
+        "notes": [
+          "best_evidence is the governing read view for this evaluation.",
+          "Paper-specific benchmark claims remain non-governing until the condensed warehouse can resolve membership and provenance at roster level.",
+          "This paper is better treated as an audit/comparison benchmark than as a release-governing training split in current ProteoSphere surfaces."
+        ]
+      },
+      "verdict": "incomplete because required evidence is missing",
+      "project_status": "blocked_pending_mapping",
+      "blockers": [
+        "paper-specific train/test membership roster is absent from the condensed warehouse"
+      ],
+      "warnings": [],
+      "recommended_canonical_treatment": "Treat the paper as blocked pending roster mapping. If recovered later, canonicalize it under `paper_faithful_external` rather than trusting the paper split verbatim.",
+      "provenance_notes": [
+        "Primary evidence came from the condensed warehouse catalog, manifest, source registry, runtime validation artifact, and Model Studio split-policy code.",
+        "No raw/archive fallback was used for this paper evaluation.",
+        "Named entities or benchmark labels from the supplied paper list were mapped only to warehouse-visible source families and summary surfaces, not to raw membership rosters."
+      ],
+      "named_entities": [
+        "ScanNet comparison",
+        "PPDB5 example"
+      ],
+      "source_families": [
+        "rcsb_pdbe"
+      ],
+      "raw_archive_fallback_required": false
+    },
+    {
+      "paper_id": "yugandhar2014affinity",
+      "title": "Protein-protein binding affinity prediction from amino acid sequence",
+      "doi": "https://doi.org/10.1093/bioinformatics/btu580",
+      "task_group": "affinity_prediction",
+      "claimed_split_description": "Class-specific regression over 135 complexes with jackknife evaluation.",
+      "resolved_split_policy": {
+        "policy": "accession_grouped",
+        "reason": "Beta split compiler groups by exact accession signatures, not single-accession holdout.",
+        "recommended_for_training": true,
+        "paper_faithful_only": false
+      },
+      "overlap_findings": {
+        "direct_overlap": {
+          "status": "not_computable",
+          "notes": [
+            "Direct, accession-root, and UniRef overlap checks require concrete train/test membership. The library exposes UniRef clusters broadly, but not the paper roster needed to apply them.",
+            "The proteins surface includes 203,085,208 proteins with UniRef90 assignments, so UniRef-grouped evaluation is generally possible once a roster is mapped."
+          ]
+        },
+        "accession_root_overlap": {
+          "status": "not_computable",
+          "notes": [
+            "Direct, accession-root, and UniRef overlap checks require concrete train/test membership. The library exposes UniRef clusters broadly, but not the paper roster needed to apply them.",
+            "The proteins surface includes 203,085,208 proteins with UniRef90 assignments, so UniRef-grouped evaluation is generally possible once a roster is mapped."
+          ]
+        },
+        "uniref_overlap": {
+          "status": "theoretically_supported",
+          "notes": [
+            "Direct, accession-root, and UniRef overlap checks require concrete train/test membership. The library exposes UniRef clusters broadly, but not the paper roster needed to apply them.",
+            "The proteins surface includes 203,085,208 proteins with UniRef90 assignments, so UniRef-grouped evaluation is generally possible once a roster is mapped."
+          ]
+        }
+      },
+      "leakage_findings": {
+        "status": "preflight_only",
+        "notes": [
+          "ProteoSphere treats direct accession reuse, accession-root reuse, UniRef reuse, and shared partner/component reuse as leakage axes.",
+          "Without a paper roster, partner/component leakage cannot be enumerated concretely from the condensed warehouse.",
+          "Cross-validation over precompiled benchmark pairs is treated as leakage-prone unless accession/UniRef grouping is shown explicitly."
+        ]
+      },
+      "source_family_findings": [
+        "PDBBind is present in the library with license scope `restricted` and scope tier `authoritative` (registry records: 2).",
+        "UniProt is present in the library with license scope `public_metadata` and scope tier `authoritative` (registry records: 8)."
+      ],
+      "governed_eligibility_findings": {
+        "status": "audit_only",
+        "notes": [
+          "best_evidence is the governing read view for this evaluation.",
+          "Paper-specific benchmark claims remain non-governing until the condensed warehouse can resolve membership and provenance at roster level."
+        ]
+      },
+      "verdict": "misleading / leakage-prone",
+      "project_status": "unsafe_for_training",
+      "blockers": [
+        "paper-specific train/test membership roster is absent from the condensed warehouse"
+      ],
+      "warnings": [
+        "PDBBind is non-public or non-redistributable in the condensed library and should remain audit-facing rather than governing."
+      ],
+      "recommended_canonical_treatment": "Do not accept the reported split as training-governing. Re-express the benchmark under `accession_grouped` before any comparison is treated as meaningful.",
+      "provenance_notes": [
+        "Primary evidence came from the condensed warehouse catalog, manifest, source registry, runtime validation artifact, and Model Studio split-policy code.",
+        "No raw/archive fallback was used for this paper evaluation.",
+        "Named entities or benchmark labels from the supplied paper list were mapped only to warehouse-visible source families and summary surfaces, not to raw membership rosters."
+      ],
+      "named_entities": [
+        "135 complexes",
+        "jackknife"
+      ],
+      "source_families": [
+        "pdbbind",
+        "uniprot"
+      ],
+      "raw_archive_fallback_required": false
+    },
+    {
+      "paper_id": "rodrigues2019mcsm_ppi2",
+      "title": "mCSM-PPI2: predicting the effects of mutations on protein-protein interactions",
+      "doi": "https://doi.org/10.1093/nar/gkz383",
+      "task_group": "mutation_effect_prediction",
+      "claimed_split_description": "Benchmarking includes CAPRI blind tests, which function as an external holdout regime.",
+      "resolved_split_policy": {
+        "policy": "paper_faithful_external",
+        "reason": "Reviewable beta split lane can now hold out external source components for audit and comparison workflows without becoming the default recommended split.",
+        "recommended_for_training": false,
+        "paper_faithful_only": true
+      },
+      "overlap_findings": {
+        "direct_overlap": {
+          "status": "not_computable",
+          "notes": [
+            "Direct, accession-root, and UniRef overlap checks require concrete train/test membership. The library exposes UniRef clusters broadly, but not the paper roster needed to apply them.",
+            "The proteins surface includes 203,085,208 proteins with UniRef90 assignments, so UniRef-grouped evaluation is generally possible once a roster is mapped."
+          ]
+        },
+        "accession_root_overlap": {
+          "status": "not_computable",
+          "notes": [
+            "Direct, accession-root, and UniRef overlap checks require concrete train/test membership. The library exposes UniRef clusters broadly, but not the paper roster needed to apply them.",
+            "The proteins surface includes 203,085,208 proteins with UniRef90 assignments, so UniRef-grouped evaluation is generally possible once a roster is mapped."
+          ]
+        },
+        "uniref_overlap": {
+          "status": "theoretically_supported",
+          "notes": [
+            "Direct, accession-root, and UniRef overlap checks require concrete train/test membership. The library exposes UniRef clusters broadly, but not the paper roster needed to apply them.",
+            "The proteins surface includes 203,085,208 proteins with UniRef90 assignments, so UniRef-grouped evaluation is generally possible once a roster is mapped."
+          ]
+        }
+      },
+      "leakage_findings": {
+        "status": "preflight_only",
+        "notes": [
+          "ProteoSphere treats direct accession reuse, accession-root reuse, UniRef reuse, and shared partner/component reuse as leakage axes.",
+          "Without a paper roster, partner/component leakage cannot be enumerated concretely from the condensed warehouse."
+        ]
+      },
+      "source_family_findings": [
+        "RCSB/PDBe is present in the library with license scope `public_metadata` and scope tier `authoritative` (registry records: 7).",
+        "UniProt is present in the library with license scope `public_metadata` and scope tier `authoritative` (registry records: 8).",
+        "`protein_variants` contains 1,874 rows (1,869 joined), which is enough for mutation-level grounding but not enough to reconstruct named paper cohorts like AB-Bind or SM1124 from the condensed surface alone."
+      ],
+      "governed_eligibility_findings": {
+        "status": "audit_only",
+        "notes": [
+          "best_evidence is the governing read view for this evaluation.",
+          "Paper-specific benchmark claims remain non-governing until the condensed warehouse can resolve membership and provenance at roster level.",
+          "Mutation-effect papers can be grounded partially through `protein_variants`, but named benchmark splits remain audit-only unless cohort membership is materialized."
+        ]
+      },
+      "verdict": "audit-useful but non-canonical",
+      "project_status": "audit_only",
+      "blockers": [
+        "paper-specific train/test membership roster is absent from the condensed warehouse"
+      ],
+      "warnings": [],
+      "recommended_canonical_treatment": "Keep the paper split in a `paper_faithful_external` audit lane only; do not treat it as the default canonical split for training or headline benchmarking.",
+      "provenance_notes": [
+        "Primary evidence came from the condensed warehouse catalog, manifest, source registry, runtime validation artifact, and Model Studio split-policy code.",
+        "No raw/archive fallback was used for this paper evaluation.",
+        "Named entities or benchmark labels from the supplied paper list were mapped only to warehouse-visible source families and summary surfaces, not to raw membership rosters."
+      ],
+      "named_entities": [
+        "CAPRI blind tests"
+      ],
+      "source_families": [
+        "rcsb_pdbe",
+        "uniprot"
+      ],
+      "raw_archive_fallback_required": false
+    },
+    {
+      "paper_id": "wang2020nettree",
+      "title": "A topology-based network tree for the prediction of protein-protein binding affinity changes following mutation",
+      "doi": "https://doi.org/10.1038/s42256-020-0149-6",
+      "task_group": "mutation_effect_prediction",
+      "claimed_split_description": "Reported on AB-Bind S645 plus a blind homology subset.",
+      "resolved_split_policy": {
+        "policy": "paper_faithful_external",
+        "reason": "Reviewable beta split lane can now hold out external source components for audit and comparison workflows without becoming the default recommended split.",
+        "recommended_for_training": false,
+        "paper_faithful_only": true
+      },
+      "overlap_findings": {
+        "direct_overlap": {
+          "status": "not_computable",
+          "notes": [
+            "Direct, accession-root, and UniRef overlap checks require concrete train/test membership. The library exposes UniRef clusters broadly, but not the paper roster needed to apply them.",
+            "The proteins surface includes 203,085,208 proteins with UniRef90 assignments, so UniRef-grouped evaluation is generally possible once a roster is mapped."
+          ]
+        },
+        "accession_root_overlap": {
+          "status": "not_computable",
+          "notes": [
+            "Direct, accession-root, and UniRef overlap checks require concrete train/test membership. The library exposes UniRef clusters broadly, but not the paper roster needed to apply them.",
+            "The proteins surface includes 203,085,208 proteins with UniRef90 assignments, so UniRef-grouped evaluation is generally possible once a roster is mapped."
+          ]
+        },
+        "uniref_overlap": {
+          "status": "theoretically_supported",
+          "notes": [
+            "Direct, accession-root, and UniRef overlap checks require concrete train/test membership. The library exposes UniRef clusters broadly, but not the paper roster needed to apply them.",
+            "The proteins surface includes 203,085,208 proteins with UniRef90 assignments, so UniRef-grouped evaluation is generally possible once a roster is mapped."
+          ]
+        }
+      },
+      "leakage_findings": {
+        "status": "preflight_only",
+        "notes": [
+          "ProteoSphere treats direct accession reuse, accession-root reuse, UniRef reuse, and shared partner/component reuse as leakage axes.",
+          "Without a paper roster, partner/component leakage cannot be enumerated concretely from the condensed warehouse."
+        ]
+      },
+      "source_family_findings": [
+        "RCSB/PDBe is present in the library with license scope `public_metadata` and scope tier `authoritative` (registry records: 7).",
+        "`protein_variants` contains 1,874 rows (1,869 joined), which is enough for mutation-level grounding but not enough to reconstruct named paper cohorts like AB-Bind or SM1124 from the condensed surface alone."
+      ],
+      "governed_eligibility_findings": {
+        "status": "audit_only",
+        "notes": [
+          "best_evidence is the governing read view for this evaluation.",
+          "Paper-specific benchmark claims remain non-governing until the condensed warehouse can resolve membership and provenance at roster level.",
+          "Mutation-effect papers can be grounded partially through `protein_variants`, but named benchmark splits remain audit-only unless cohort membership is materialized."
+        ]
+      },
+      "verdict": "audit-useful but non-canonical",
+      "project_status": "audit_only",
+      "blockers": [
+        "paper-specific train/test membership roster is absent from the condensed warehouse"
+      ],
+      "warnings": [],
+      "recommended_canonical_treatment": "Keep the paper split in a `paper_faithful_external` audit lane only; do not treat it as the default canonical split for training or headline benchmarking.",
+      "provenance_notes": [
+        "Primary evidence came from the condensed warehouse catalog, manifest, source registry, runtime validation artifact, and Model Studio split-policy code.",
+        "No raw/archive fallback was used for this paper evaluation.",
+        "Named entities or benchmark labels from the supplied paper list were mapped only to warehouse-visible source families and summary surfaces, not to raw membership rosters."
+      ],
+      "named_entities": [
+        "AB-Bind S645",
+        "blind homology subset"
+      ],
+      "source_families": [
+        "rcsb_pdbe"
+      ],
+      "raw_archive_fallback_required": false
+    },
+    {
+      "paper_id": "zhang2020mutabind2",
+      "title": "MutaBind2: Predicting the Impacts of Single and Multiple Mutations on Protein-Protein Interactions",
+      "doi": "https://doi.org/10.1016/j.isci.2020.100939",
+      "task_group": "mutation_effect_prediction",
+      "claimed_split_description": "Single- and multiple-mutation benchmarking is claimed, but the supplied list does not provide the roster or split construction details.",
+      "resolved_split_policy": {
+        "policy": "accession_grouped",
+        "reason": "Beta split compiler groups by exact accession signatures, not single-accession holdout.",
+        "recommended_for_training": true,
+        "paper_faithful_only": false
+      },
+      "overlap_findings": {
+        "direct_overlap": {
+          "status": "not_computable",
+          "notes": [
+            "Direct, accession-root, and UniRef overlap checks require concrete train/test membership. The library exposes UniRef clusters broadly, but not the paper roster needed to apply them.",
+            "The proteins surface includes 203,085,208 proteins with UniRef90 assignments, so UniRef-grouped evaluation is generally possible once a roster is mapped."
+          ]
+        },
+        "accession_root_overlap": {
+          "status": "not_computable",
+          "notes": [
+            "Direct, accession-root, and UniRef overlap checks require concrete train/test membership. The library exposes UniRef clusters broadly, but not the paper roster needed to apply them.",
+            "The proteins surface includes 203,085,208 proteins with UniRef90 assignments, so UniRef-grouped evaluation is generally possible once a roster is mapped."
+          ]
+        },
+        "uniref_overlap": {
+          "status": "theoretically_supported",
+          "notes": [
+            "Direct, accession-root, and UniRef overlap checks require concrete train/test membership. The library exposes UniRef clusters broadly, but not the paper roster needed to apply them.",
+            "The proteins surface includes 203,085,208 proteins with UniRef90 assignments, so UniRef-grouped evaluation is generally possible once a roster is mapped."
+          ]
+        }
+      },
+      "leakage_findings": {
+        "status": "preflight_only",
+        "notes": [
+          "ProteoSphere treats direct accession reuse, accession-root reuse, UniRef reuse, and shared partner/component reuse as leakage axes.",
+          "Without a paper roster, partner/component leakage cannot be enumerated concretely from the condensed warehouse."
+        ]
+      },
+      "source_family_findings": [
+        "RCSB/PDBe is present in the library with license scope `public_metadata` and scope tier `authoritative` (registry records: 7).",
+        "UniProt is present in the library with license scope `public_metadata` and scope tier `authoritative` (registry records: 8).",
+        "`protein_variants` contains 1,874 rows (1,869 joined), which is enough for mutation-level grounding but not enough to reconstruct named paper cohorts like AB-Bind or SM1124 from the condensed surface alone."
+      ],
+      "governed_eligibility_findings": {
+        "status": "audit_only",
+        "notes": [
+          "best_evidence is the governing read view for this evaluation.",
+          "Paper-specific benchmark claims remain non-governing until the condensed warehouse can resolve membership and provenance at roster level.",
+          "Mutation-effect papers can be grounded partially through `protein_variants`, but named benchmark splits remain audit-only unless cohort membership is materialized."
+        ]
+      },
+      "verdict": "incomplete because required evidence is missing",
+      "project_status": "blocked_pending_mapping",
+      "blockers": [
+        "paper-specific train/test membership roster is absent from the condensed warehouse"
+      ],
+      "warnings": [],
+      "recommended_canonical_treatment": "Treat the paper as blocked pending roster mapping. If recovered later, canonicalize it under `accession_grouped` rather than trusting the paper split verbatim.",
+      "provenance_notes": [
+        "Primary evidence came from the condensed warehouse catalog, manifest, source registry, runtime validation artifact, and Model Studio split-policy code.",
+        "No raw/archive fallback was used for this paper evaluation.",
+        "Named entities or benchmark labels from the supplied paper list were mapped only to warehouse-visible source families and summary surfaces, not to raw membership rosters."
+      ],
+      "named_entities": [
+        "single and multiple mutations"
+      ],
+      "source_families": [
+        "rcsb_pdbe",
+        "uniprot"
+      ],
+      "raw_archive_fallback_required": false
+    },
+    {
+      "paper_id": "zhou2024ddmut_ppi",
+      "title": "DDMut-PPI: predicting effects of mutations on protein-protein interactions using graph-based deep learning",
+      "doi": "https://doi.org/10.1093/nar/gkae412",
+      "task_group": "mutation_effect_prediction",
+      "claimed_split_description": "Evaluation is reported on single- and multiple-mutation sets including SM1124.",
+      "resolved_split_policy": {
+        "policy": "paper_faithful_external",
+        "reason": "Reviewable beta split lane can now hold out external source components for audit and comparison workflows without becoming the default recommended split.",
+        "recommended_for_training": false,
+        "paper_faithful_only": true
+      },
+      "overlap_findings": {
+        "direct_overlap": {
+          "status": "not_computable",
+          "notes": [
+            "Direct, accession-root, and UniRef overlap checks require concrete train/test membership. The library exposes UniRef clusters broadly, but not the paper roster needed to apply them.",
+            "The proteins surface includes 203,085,208 proteins with UniRef90 assignments, so UniRef-grouped evaluation is generally possible once a roster is mapped."
+          ]
+        },
+        "accession_root_overlap": {
+          "status": "not_computable",
+          "notes": [
+            "Direct, accession-root, and UniRef overlap checks require concrete train/test membership. The library exposes UniRef clusters broadly, but not the paper roster needed to apply them.",
+            "The proteins surface includes 203,085,208 proteins with UniRef90 assignments, so UniRef-grouped evaluation is generally possible once a roster is mapped."
+          ]
+        },
+        "uniref_overlap": {
+          "status": "theoretically_supported",
+          "notes": [
+            "Direct, accession-root, and UniRef overlap checks require concrete train/test membership. The library exposes UniRef clusters broadly, but not the paper roster needed to apply them.",
+            "The proteins surface includes 203,085,208 proteins with UniRef90 assignments, so UniRef-grouped evaluation is generally possible once a roster is mapped."
+          ]
+        }
+      },
+      "leakage_findings": {
+        "status": "preflight_only",
+        "notes": [
+          "ProteoSphere treats direct accession reuse, accession-root reuse, UniRef reuse, and shared partner/component reuse as leakage axes.",
+          "Without a paper roster, partner/component leakage cannot be enumerated concretely from the condensed warehouse."
+        ]
+      },
+      "source_family_findings": [
+        "RCSB/PDBe is present in the library with license scope `public_metadata` and scope tier `authoritative` (registry records: 7).",
+        "UniProt is present in the library with license scope `public_metadata` and scope tier `authoritative` (registry records: 8).",
+        "`protein_variants` contains 1,874 rows (1,869 joined), which is enough for mutation-level grounding but not enough to reconstruct named paper cohorts like AB-Bind or SM1124 from the condensed surface alone."
+      ],
+      "governed_eligibility_findings": {
+        "status": "audit_only",
+        "notes": [
+          "best_evidence is the governing read view for this evaluation.",
+          "Paper-specific benchmark claims remain non-governing until the condensed warehouse can resolve membership and provenance at roster level.",
+          "Mutation-effect papers can be grounded partially through `protein_variants`, but named benchmark splits remain audit-only unless cohort membership is materialized."
+        ]
+      },
+      "verdict": "audit-useful but non-canonical",
+      "project_status": "audit_only",
+      "blockers": [
+        "paper-specific train/test membership roster is absent from the condensed warehouse"
+      ],
+      "warnings": [],
+      "recommended_canonical_treatment": "Keep the paper split in a `paper_faithful_external` audit lane only; do not treat it as the default canonical split for training or headline benchmarking.",
+      "provenance_notes": [
+        "Primary evidence came from the condensed warehouse catalog, manifest, source registry, runtime validation artifact, and Model Studio split-policy code.",
+        "No raw/archive fallback was used for this paper evaluation.",
+        "Named entities or benchmark labels from the supplied paper list were mapped only to warehouse-visible source families and summary surfaces, not to raw membership rosters."
+      ],
+      "named_entities": [
+        "SM1124",
+        "single and multiple mutants"
+      ],
+      "source_families": [
+        "rcsb_pdbe",
+        "uniprot"
+      ],
+      "raw_archive_fallback_required": false
+    },
+    {
+      "paper_id": "bryant2022af2_ppi",
+      "title": "Improved prediction of protein-protein interactions using AlphaFold2",
+      "doi": "https://doi.org/10.1038/s41467-022-28865-w",
+      "task_group": "complex_prediction",
+      "claimed_split_description": "Direct heterodimer complex prediction with ranked evaluation against docking baselines.",
+      "resolved_split_policy": {
+        "policy": "paper_faithful_external",
+        "reason": "Reviewable beta split lane can now hold out external source components for audit and comparison workflows without becoming the default recommended split.",
+        "recommended_for_training": false,
+        "paper_faithful_only": true
+      },
+      "overlap_findings": {
+        "direct_overlap": {
+          "status": "not_computable",
+          "notes": [
+            "Direct, accession-root, and UniRef overlap checks require concrete train/test membership. The library exposes UniRef clusters broadly, but not the paper roster needed to apply them.",
+            "The proteins surface includes 203,085,208 proteins with UniRef90 assignments, so UniRef-grouped evaluation is generally possible once a roster is mapped."
+          ]
+        },
+        "accession_root_overlap": {
+          "status": "not_computable",
+          "notes": [
+            "Direct, accession-root, and UniRef overlap checks require concrete train/test membership. The library exposes UniRef clusters broadly, but not the paper roster needed to apply them.",
+            "The proteins surface includes 203,085,208 proteins with UniRef90 assignments, so UniRef-grouped evaluation is generally possible once a roster is mapped."
+          ]
+        },
+        "uniref_overlap": {
+          "status": "theoretically_supported",
+          "notes": [
+            "Direct, accession-root, and UniRef overlap checks require concrete train/test membership. The library exposes UniRef clusters broadly, but not the paper roster needed to apply them.",
+            "The proteins surface includes 203,085,208 proteins with UniRef90 assignments, so UniRef-grouped evaluation is generally possible once a roster is mapped."
+          ]
+        }
+      },
+      "leakage_findings": {
+        "status": "preflight_only",
+        "notes": [
+          "ProteoSphere treats direct accession reuse, accession-root reuse, UniRef reuse, and shared partner/component reuse as leakage axes.",
+          "Without a paper roster, partner/component leakage cannot be enumerated concretely from the condensed warehouse."
+        ]
+      },
+      "source_family_findings": [
+        "AlphaFold DB is present in the library with license scope `public_metadata` and scope tier `authoritative` (registry records: 8).",
+        "RCSB/PDBe is present in the library with license scope `public_metadata` and scope tier `authoritative` (registry records: 7).",
+        "`pdb_entries` (234,767 rows) and `structure_units` (968,580 rows) are available in best_evidence, but paper-specific benchmark membership is not."
+      ],
+      "governed_eligibility_findings": {
+        "status": "audit_only",
+        "notes": [
+          "best_evidence is the governing read view for this evaluation.",
+          "Paper-specific benchmark claims remain non-governing until the condensed warehouse can resolve membership and provenance at roster level.",
+          "This paper is better treated as an audit/comparison benchmark than as a release-governing training split in current ProteoSphere surfaces."
+        ]
+      },
+      "verdict": "audit-useful but non-canonical",
+      "project_status": "audit_only",
+      "blockers": [
+        "paper-specific train/test membership roster is absent from the condensed warehouse"
+      ],
+      "warnings": [],
+      "recommended_canonical_treatment": "Keep the paper split in a `paper_faithful_external` audit lane only; do not treat it as the default canonical split for training or headline benchmarking.",
+      "provenance_notes": [
+        "Primary evidence came from the condensed warehouse catalog, manifest, source registry, runtime validation artifact, and Model Studio split-policy code.",
+        "No raw/archive fallback was used for this paper evaluation.",
+        "Named entities or benchmark labels from the supplied paper list were mapped only to warehouse-visible source families and summary surfaces, not to raw membership rosters."
+      ],
+      "named_entities": [
+        "heterodimers",
+        "CAPRI docking baseline"
+      ],
+      "source_families": [
+        "alphafold",
+        "rcsb_pdbe"
+      ],
+      "raw_archive_fallback_required": false
+    },
+    {
+      "paper_id": "gao2022af2complex",
+      "title": "AF2Complex predicts direct physical interactions in multimeric proteins with deep learning",
+      "doi": "https://doi.org/10.1038/s41467-022-29394-2",
+      "task_group": "complex_prediction",
+      "claimed_split_description": "Large-scale E. coli test for multimeric direct interaction identification.",
+      "resolved_split_policy": {
+        "policy": "paper_faithful_external",
+        "reason": "Reviewable beta split lane can now hold out external source components for audit and comparison workflows without becoming the default recommended split.",
+        "recommended_for_training": false,
+        "paper_faithful_only": true
+      },
+      "overlap_findings": {
+        "direct_overlap": {
+          "status": "not_computable",
+          "notes": [
+            "Direct, accession-root, and UniRef overlap checks require concrete train/test membership. The library exposes UniRef clusters broadly, but not the paper roster needed to apply them.",
+            "The proteins surface includes 203,085,208 proteins with UniRef90 assignments, so UniRef-grouped evaluation is generally possible once a roster is mapped."
+          ]
+        },
+        "accession_root_overlap": {
+          "status": "not_computable",
+          "notes": [
+            "Direct, accession-root, and UniRef overlap checks require concrete train/test membership. The library exposes UniRef clusters broadly, but not the paper roster needed to apply them.",
+            "The proteins surface includes 203,085,208 proteins with UniRef90 assignments, so UniRef-grouped evaluation is generally possible once a roster is mapped."
+          ]
+        },
+        "uniref_overlap": {
+          "status": "theoretically_supported",
+          "notes": [
+            "Direct, accession-root, and UniRef overlap checks require concrete train/test membership. The library exposes UniRef clusters broadly, but not the paper roster needed to apply them.",
+            "The proteins surface includes 203,085,208 proteins with UniRef90 assignments, so UniRef-grouped evaluation is generally possible once a roster is mapped."
+          ]
+        }
+      },
+      "leakage_findings": {
+        "status": "preflight_only",
+        "notes": [
+          "ProteoSphere treats direct accession reuse, accession-root reuse, UniRef reuse, and shared partner/component reuse as leakage axes.",
+          "Without a paper roster, partner/component leakage cannot be enumerated concretely from the condensed warehouse."
+        ]
+      },
+      "source_family_findings": [
+        "AlphaFold DB is present in the library with license scope `public_metadata` and scope tier `authoritative` (registry records: 8).",
+        "RCSB/PDBe is present in the library with license scope `public_metadata` and scope tier `authoritative` (registry records: 7).",
+        "`pdb_entries` (234,767 rows) and `structure_units` (968,580 rows) are available in best_evidence, but paper-specific benchmark membership is not."
+      ],
+      "governed_eligibility_findings": {
+        "status": "audit_only",
+        "notes": [
+          "best_evidence is the governing read view for this evaluation.",
+          "Paper-specific benchmark claims remain non-governing until the condensed warehouse can resolve membership and provenance at roster level.",
+          "This paper is better treated as an audit/comparison benchmark than as a release-governing training split in current ProteoSphere surfaces."
+        ]
+      },
+      "verdict": "audit-useful but non-canonical",
+      "project_status": "audit_only",
+      "blockers": [
+        "paper-specific train/test membership roster is absent from the condensed warehouse"
+      ],
+      "warnings": [],
+      "recommended_canonical_treatment": "Keep the paper split in a `paper_faithful_external` audit lane only; do not treat it as the default canonical split for training or headline benchmarking.",
+      "provenance_notes": [
+        "Primary evidence came from the condensed warehouse catalog, manifest, source registry, runtime validation artifact, and Model Studio split-policy code.",
+        "No raw/archive fallback was used for this paper evaluation.",
+        "Named entities or benchmark labels from the supplied paper list were mapped only to warehouse-visible source families and summary surfaces, not to raw membership rosters."
+      ],
+      "named_entities": [
+        "multimeric complexes",
+        "E. coli test"
+      ],
+      "source_families": [
+        "alphafold",
+        "rcsb_pdbe"
+      ],
+      "raw_archive_fallback_required": false
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "DIRECT_OVERLAP": "Train/test members overlap directly in the resolved member roster.",
+  "ACCESSION_ROOT_OVERLAP": "Train/test members reuse the same accession-root identifiers.",
+  "UNIREF_CLUSTER_OVERLAP": "Train/test members overlap at the UniRef cluster level.",
+  "SHARED_PARTNER_LEAKAGE": "Train/test members retain shared partner/component leakage signatures.",
+  "INSUFFICIENT_PROVENANCE": "Paper evidence is too weak to treat the claimed split as governing.",
+  "INCOMPLETE_MODALITY_COVERAGE": "Required modalities are missing or incomplete.",
+  "CANDIDATE_ONLY_NON_GOVERNING": "Some evidence remains candidate-only and non-governing.",
+  "AUDIT_ONLY_EVIDENCE": "Some evidence is audit-only or non-redistributable in the warehouse.",
+  "UNRESOLVED_ENTITY_MAPPING": "Explicit paper members could not be resolved against the warehouse.",
+  "UNRESOLVED_SPLIT_MEMBERSHIP": "The paper does not expose enough roster detail to reconstruct the split deterministically.",
+  "POLICY_MISMATCH": "The claimed split strategy does not satisfy ProteoSphere training policy.",
+  "WAREHOUSE_COVERAGE_GAP": "The warehouse does not fully materialize the needed source or benchmark surface."
+}

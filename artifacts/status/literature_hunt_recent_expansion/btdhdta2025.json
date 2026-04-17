@@ -1,0 +1,48 @@
+{
+  "paper_id": "btdhdta2025",
+  "doi": "https://doi.org/10.1021/acsomega.4c08048",
+  "domain": "protein_ligand",
+  "task_family": "drug_target_affinity_prediction",
+  "benchmark_family": "deepdta_setting1_family",
+  "tier_target": "tier2_strong_supporting_case",
+  "official_evidence_links": [
+    "https://doi.org/10.1021/acsomega.4c08048"
+  ],
+  "claimed_split_description": "The paper reports recent DTA benchmark results in the DeepDTA/Davis/KIBA ecosystem.",
+  "recovered_split_evidence": [
+    "The publication is recent and relevant, but official split artifacts or repository files were not recovered strongly enough for Tier 1 promotion."
+  ],
+  "mitigation_claims": [
+    "No verifiable mitigation package recovered in this pass."
+  ],
+  "mitigation_audit_result": "Held at Tier 2 because proof of the exact split lineage is incomplete.",
+  "exact_failure_class": "likely_warm_start_family_but_under_recovered",
+  "overlap_findings": {
+    "direct_entity_overlap": true,
+    "notes": [
+      "Likely benchmark-family exposure, but proof strength is incomplete."
+    ]
+  },
+  "contamination_findings": {
+    "notes": [
+      "This paper helps show the issue is current, but not yet as a flagship proof case."
+    ]
+  },
+  "blockers": [
+    "Insufficient official artifact recovery in this pass."
+  ],
+  "recommended_proteosphere_treatment": "Tier 2 supporting case pending deeper recovery.",
+  "provenance_notes": [
+    "Recent 2025 paper kept as a supporting example rather than over-promoted."
+  ],
+  "raw_archive_fallback_required": false,
+  "final_status": "tier2_strong_supporting_case",
+  "scores": {
+    "publication_utility": 3.8,
+    "failure_strength": 3.4,
+    "proof_strength": 2.6
+  },
+  "title": "Deep Drug\u2013Target Binding Affinity Prediction Base on Multiple Feature Extraction and Fusion",
+  "journal": "ACS Omega",
+  "year": 2025
+}

@@ -1,0 +1,27 @@
+{
+  "paper_id": "example_cross_validation",
+  "claimed_dataset": "Fivefold CV benchmark",
+  "claimed_split": {
+    "description": "Fivefold cross-validation on a benchmark set is claimed."
+  },
+  "claimed_split_policy": "cross_validation",
+  "resolved_split_policy": "accession_grouped",
+  "mapping_confidence": "medium",
+  "split_parse_confidence": "medium",
+  "provenance_grade": "weak",
+  "overlap_metrics": {},
+  "leakage_flags": [],
+  "modality_status": {
+    "status": "not_member_validated"
+  },
+  "eligibility_status": "unsafe_for_training",
+  "verdict": "unsafe_for_training",
+  "reason_codes": ["INSUFFICIENT_PROVENANCE", "POLICY_MISMATCH", "UNRESOLVED_SPLIT_MEMBERSHIP"],
+  "warnings": ["Paper evidence is too weak to treat the claimed split as governing."],
+  "blockers": [
+    "The claimed split strategy does not satisfy ProteoSphere training policy as written.",
+    "The paper does not expose enough roster detail to reconstruct the split deterministically."
+  ],
+  "needs_human_review": false,
+  "provenance_notes": ["Warehouse-first assessment without raw fallback."]
+}

@@ -1,0 +1,79 @@
+{
+  "paper_id": "agat_ppis2023",
+  "title": "AGAT-PPIS",
+  "doi": "https://doi.org/10.1093/bib/bbad122",
+  "journal": "Briefings in Bioinformatics",
+  "year": 2023,
+  "domain": "protein_protein",
+  "task_family": "binding_site_prediction",
+  "benchmark_family": "ppis_train335_family",
+  "tier_target": "tier2_strong_supporting_case",
+  "official_evidence_links": [
+    "https://doi.org/10.1093/bib/bbad122",
+    "https://github.com/AILBC/AGAT-PPIS"
+  ],
+  "final_status": "tier2_strong_supporting_case",
+  "claimed_split_description": "Official repo ships explicit Train_335/Test_60/Test_315-28/UBtest_31-6 benchmark files.",
+  "recovered_split_evidence": [
+    "Useful PPIS benchmark paper, but not a hard failure because exact chain-level overlap was not mirrored and the issue is benchmark saturation rather than proven leakage.",
+    "The paper is strongly benchmarked and audit-friendly, but the key problem is benchmark-family saturation rather than a recovered hard split failure."
+  ],
+  "mitigation_claims": [
+    "No extra out-of-family validation was mirrored into the warehouse for this run."
+  ],
+  "mitigation_audit_result": {
+    "status": "insufficient_for_tier1",
+    "notes": [
+      "This paper is better treated as a strong supporting case than as a flagship hard failure.",
+      "The current evidence does not prove a paper-specific split failure at the same level as Struct2Graph or the benchmark families above."
+    ]
+  },
+  "exact_failure_class": [
+    "benchmark_family_saturation",
+    "insufficient_out_of_family_validation"
+  ],
+  "overlap_findings": {
+    "direct_overlap": {
+      "status": "published_not_mirrored",
+      "notes": [
+        "The shared PPIS benchmark family is explicit enough for audit planning, but exact chain/residue overlap could not be enumerated without mirroring the pkl/fa files."
+      ]
+    },
+    "accession_root_overlap": {
+      "status": "published_not_mirrored",
+      "notes": [
+        "The shared PPIS benchmark family is explicit enough for audit planning, but exact chain/residue overlap could not be enumerated without mirroring the pkl/fa files."
+      ]
+    },
+    "uniref_overlap": {
+      "status": "theoretically_supported",
+      "notes": [
+        "The shared PPIS benchmark family is explicit enough for audit planning, but exact chain/residue overlap could not be enumerated without mirroring the pkl/fa files.",
+        "Warehouse proteins already cover 203,085,208 UniRef90-assigned rows."
+      ]
+    }
+  },
+  "contamination_findings": {
+    "status": "reviewed",
+    "notes": [
+      "This paper set was pre-filtered to avoid pure cross-validation studies and to prefer explicit held-out or external test splits.",
+      "The main residual risks are identifier-bridge gaps, benchmark-family saturation, and derivative reuse of the same public split family across many later papers.",
+      "Because many later PPIS papers reuse the Train_335/Test_60 lineage, a reviewer should distinguish fair within-family comparison from genuine out-of-family generalization."
+    ]
+  },
+  "blockers": [
+    "benchmark filenames are known, but the exact PPIS roster files were not mirrored into the local audit workspace in this run"
+  ],
+  "recommended_proteosphere_treatment": "Keep as an audit-only comparison lane and demand at least one additional out-of-family benchmark before treating the paper as a strong generalization result.",
+  "provenance_notes": [
+    "Primary evidence came from the condensed warehouse catalog, manifest, source registry, and Model Studio split-policy code.",
+    "Supplemental paper/repo evidence came from official links provided in the curated audit-friendly list and from directly inspected release artifacts where available.",
+    "No raw/archive fallback was used."
+  ],
+  "raw_archive_fallback_required": false,
+  "scores": {
+    "failure_strength": 2.4,
+    "proof_strength": 3.5,
+    "publication_utility": 6.5
+  }
+}

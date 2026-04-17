@@ -1,0 +1,49 @@
+{
+  "paper_id": "capla2023",
+  "doi": "https://doi.org/10.1093/bioinformatics/btad049",
+  "domain": "protein_ligand",
+  "task_family": "binding_affinity_prediction",
+  "benchmark_family": "pdbbind_core_family",
+  "tier_target": "tier1_hard_failure",
+  "official_evidence_links": [
+    "https://doi.org/10.1093/bioinformatics/btad049",
+    "https://github.com/lennylv/CAPLA",
+    "https://raw.githubusercontent.com/lennylv/CAPLA/main/README.md"
+  ],
+  "claimed_split_description": "CAPLA evaluates on PDBbind-derived Test2016_290 and Test2016_262 sets.",
+  "recovered_split_evidence": [
+    "The official README names Test2016_290 and Test2016_262 as the evaluation sets.",
+    "These are direct descendants of the PDBbind core-set evaluation family already proven to retain protein overlap with training."
+  ],
+  "mitigation_claims": [
+    "No stronger unseen-protein mitigation is released for the headline benchmark."
+  ],
+  "mitigation_audit_result": "The inherited core-family issue remains unresolved.",
+  "exact_failure_class": "inherited_core_set_external_failure",
+  "overlap_findings": {
+    "direct_entity_overlap": true,
+    "notes": [
+      "PDBbind core-family reuse is explicit in the official benchmark naming."
+    ]
+  },
+  "contamination_findings": {
+    "notes": [
+      "Core-set evaluation remains unsafe as a clean external generalization test."
+    ]
+  },
+  "blockers": [],
+  "recommended_proteosphere_treatment": "Tier 1 hard failure for general externality claims; retain only as a PDBbind-core audit lane.",
+  "provenance_notes": [
+    "Recent 2023 paper with official core-set naming in the repo."
+  ],
+  "raw_archive_fallback_required": false,
+  "final_status": "tier1_hard_failure",
+  "scores": {
+    "publication_utility": 4.5,
+    "failure_strength": 4.5,
+    "proof_strength": 4.5
+  },
+  "title": "CAPLA: improved prediction of protein\u2013ligand binding affinity by a deep learning approach based on a cross-attention mechanism",
+  "journal": "Bioinformatics",
+  "year": 2023
+}

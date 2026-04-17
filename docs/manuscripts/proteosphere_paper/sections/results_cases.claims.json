@@ -1,0 +1,112 @@
+[
+  {
+    "claim_text": "The current review package confirms 29 Tier 1 hard-failure papers.",
+    "source_path": "D:\\documents\\ProteoSphereV2\\artifacts\\status\\literature_hunt_tier1_master_summary.json",
+    "status": "supported"
+  },
+  {
+    "claim_text": "Eighteen of the Tier 1 papers were published in 2023 or later.",
+    "source_path": "D:\\documents\\ProteoSphereV2\\artifacts\\status\\literature_hunt_tier1_master_summary.json",
+    "status": "supported"
+  },
+  {
+    "claim_text": "The Tier 1 corpus is concentrated in protein-ligand / DTA papers with a smaller protein-protein subset.",
+    "source_path": "D:\\documents\\ProteoSphereV2\\artifacts\\status\\literature_hunt_tier1_master_summary.json",
+    "status": "supported"
+  },
+  {
+    "claim_text": "The Tier 1 issue-family distribution is dominated by warm-start benchmark-family failures and protein-overlapped external-family failures.",
+    "source_path": "D:\\documents\\ProteoSphereV2\\artifacts\\status\\literature_hunt_tier1_master_summary.json",
+    "status": "supported"
+  },
+  {
+    "claim_text": "The current Tier 1 set contains 14 warm-start benchmark-family failures, 12 protein-overlapped external-family failures, 1 direct reuse case, 1 invalid external-validation case, and 1 random-CV leakage case.",
+    "source_path": "D:\\documents\\ProteoSphereV2\\artifacts\\status\\literature_hunt_tier1_master_summary.json",
+    "status": "supported"
+  },
+  {
+    "claim_text": "The Tier 1 source bundle contains all 29 requested article PDFs and 119 supplemental or supporting evidence items.",
+    "source_path": "D:\\documents\\ProteoSphereV2\\docs\\reports\\literature_hunt_tier1_source_bundle.md",
+    "status": "supported"
+  },
+  {
+    "claim_text": "The review package is strongest when framed as a rigorous dataset-audit and benchmark-governance paper rather than a blanket criticism of a field.",
+    "source_path": "D:\\documents\\ProteoSphereV2\\artifacts\\status\\literature_hunt_tier1_master_summary.json",
+    "status": "supported"
+  },
+  {
+    "claim_text": "Struct2Graph reproduced 10,004 interaction rows into 8,003 train rows and 1,000 test rows with 643 shared PDB IDs across the reproduced split.",
+    "source_path": "D:\\documents\\ProteoSphereV2\\docs\\reports\\struct2graph_reproduced_overlap.md",
+    "status": "supported"
+  },
+  {
+    "claim_text": "Struct2Graph's highlight structure 4EQ6 appears 78 times in the reproduced train split and 9 times in the reproduced test split.",
+    "source_path": "D:\\documents\\ProteoSphereV2\\docs\\reports\\struct2graph_reproduced_overlap.md",
+    "status": "supported"
+  },
+  {
+    "claim_text": "The D2CP05644E benchmark training pool was reconstructed as 78 structures, with external panels of 50 PDBbind complexes, 47 nanobody complexes, and 19 metadynamics complexes.",
+    "source_path": "D:\\documents\\ProteoSphereV2\\docs\\reports\\paper_d2cp05644e_quality_assessment.md",
+    "status": "supported"
+  },
+  {
+    "claim_text": "The D2CP05644E PDBbind panel shows 4 direct protein overlaps, 4 exact-sequence overlaps, and 110 shared-partner overlaps against the recovered benchmark pool.",
+    "source_path": "D:\\documents\\ProteoSphereV2\\docs\\reports\\paper_d2cp05644e_quality_assessment.md",
+    "status": "supported"
+  },
+  {
+    "claim_text": "The D2CP05644E nanobody panel is centered on recurring lysozyme C target reuse and is blocked as a clean external benchmark.",
+    "source_path": "D:\\documents\\ProteoSphereV2\\docs\\reports\\paper_d2cp05644e_quality_assessment.md",
+    "status": "supported"
+  },
+  {
+    "claim_text": "The D2CP05644E nanobody panel shows 1 direct protein overlap, 1 exact-sequence overlap, and 16 shared-partner overlaps.",
+    "source_path": "D:\\documents\\ProteoSphereV2\\docs\\reports\\paper_d2cp05644e_quality_assessment.md",
+    "status": "supported"
+  },
+  {
+    "claim_text": "The D2CP05644E metadynamics panel shows 26 direct protein overlaps, 26 exact-sequence overlaps, and 75 shared-partner overlaps.",
+    "source_path": "D:\\documents\\ProteoSphereV2\\docs\\reports\\paper_d2cp05644e_quality_assessment.md",
+    "status": "supported"
+  },
+  {
+    "claim_text": "The DeepDTA setting1 family is a warm-start split on Davis with 68/68 test drugs and 442/442 test targets shared with training.",
+    "source_path": "D:\\documents\\ProteoSphereV2\\artifacts\\status\\literature_hunt_deep_proofs\\dta_setting1_family_audit.json",
+    "status": "supported"
+  },
+  {
+    "claim_text": "The DeepDTA setting1 family is a warm-start split on KIBA with 2027/2027 test drugs and 229/229 test targets shared with training.",
+    "source_path": "D:\\documents\\ProteoSphereV2\\artifacts\\status\\literature_hunt_deep_proofs\\dta_setting1_family_audit.json",
+    "status": "supported"
+  },
+  {
+    "claim_text": "The PDBbind core-family audit found 288 of 290 v2016 core complexes and all 108 of 108 v2013 core complexes retain direct protein overlap against the remaining general pool.",
+    "source_path": "D:\\documents\\ProteoSphereV2\\artifacts\\status\\literature_hunt_deep_proofs\\pdbbind_core_family_audit.json",
+    "status": "supported"
+  },
+  {
+    "claim_text": "The PDBbind core-family audit recorded 77 shared accessions in the v2016 comparison and 50 shared accessions in the v2013 comparison.",
+    "source_path": "D:\\documents\\ProteoSphereV2\\artifacts\\status\\literature_hunt_deep_proofs\\pdbbind_core_family_audit.json",
+    "status": "supported"
+  },
+  {
+    "claim_text": "AttentionDTA's released row-level random CV preserves entity reuse, including 68 shared drugs and 367 shared targets for Davis, 2,054 shared drugs and 229 shared targets for KIBA, and 1,206 shared drugs and 169 shared targets for Metz.",
+    "source_path": "D:\\documents\\ProteoSphereV2\\artifacts\\status\\literature_hunt_recent_expansion_proofs\\attentiondta_random_cv_family_audit.json",
+    "status": "supported"
+  },
+  {
+    "claim_text": "The current review package remains honest about scope because the strongest Tier 1 evidence is concentrated in DTA and PDBbind-style families.",
+    "source_path": "D:\\documents\\ProteoSphereV2\\artifacts\\status\\literature_hunt_tier1_master_summary.json",
+    "status": "supported"
+  },
+  {
+    "claim_text": "The manuscript should present the analyzer as a dataset reviewer that separates direct split bugs, benchmark-family contamination, invalid external validation, and stronger or mitigation-aware evaluation designs.",
+    "source_path": "D:\\documents\\ProteoSphereV2\\artifacts\\status\\literature_hunt_tier1_master_summary.json",
+    "status": "supported"
+  },
+  {
+    "claim_text": "The compact warehouse is operationally effective but not yet a full evidence-equivalent replacement for every raw artifact surface.",
+    "source_path": "D:\\documents\\ProteoSphereV2\\docs\\reports\\library_vs_broad_collection_equivalence.md",
+    "status": "supported"
+  }
+]

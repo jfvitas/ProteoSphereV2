@@ -69,7 +69,7 @@ def test_publish_open_source_bundle_stages_public_artifacts_and_writes_manifest(
         "open-source-distribution:release-benchmark-bundle-2026-03-22@2026.04.03"
     )
     assert payload["bundle_status"] == "staged_with_checksums"
-    assert payload["publication_posture"] == "staged_with_blockers"
+    assert payload["publication_posture"] == "staged"
     assert payload["release_ready"] is False
     assert payload["missing_required_artifacts"] == []
     assert payload["selected_artifact_count"] == payload["staged_artifact_count"]

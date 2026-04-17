@@ -1,0 +1,10 @@
+{
+  "paper_id": "example_overlap",
+  "claimed_dataset": "Explicit PDB benchmark",
+  "claimed_split_description": "Explicit train/test PDB membership was supplied.",
+  "split_style": "external_holdout",
+  "member_type": "pdb_id",
+  "train_members": ["1AAA", "2BBB"],
+  "test_members": ["2BBB", "3CCC"],
+  "source_families": ["rcsb_pdbe", "uniprot"]
+}

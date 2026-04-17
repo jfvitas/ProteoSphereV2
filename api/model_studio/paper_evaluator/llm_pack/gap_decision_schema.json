@@ -1,0 +1,26 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ProteoSphere Paper Dataset Evaluator Gap Decisions",
+  "type": "object",
+  "required": ["artifact_id", "schema_id", "papers"],
+  "properties": {
+    "artifact_id": { "type": "string" },
+    "schema_id": { "type": "string" },
+    "decision_model": { "type": "string" },
+    "papers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["paper_id"],
+        "properties": {
+          "paper_id": { "type": "string" },
+          "resolved_split_policy": { "type": "string" },
+          "verdict": { "type": "string" },
+          "reason_codes": { "type": "array", "items": { "type": "string" } },
+          "needs_human_review": { "type": "boolean" },
+          "llm_rationale": { "type": "string" }
+        }
+      }
+    }
+  }
+}

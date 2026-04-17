@@ -1,0 +1,43 @@
+{
+  "artifact_id": "proteosphere_paper_storage_ledger",
+  "generated_from": [
+    "D:\\documents\\ProteoSphereV2\\docs\\reports\\source_coverage_matrix.md",
+    "D:\\ProteoSphere\\reference_library",
+    "D:\\documents\\ProteoSphereV2\\data\\raw",
+    "E:\\ProteoSphere\\reference_library\\incoming_mirrors"
+  ],
+  "tracked_source_estate": {
+    "source_count": 53,
+    "present_file_count": 272752,
+    "present_byte_count": 324755949775,
+    "present_human_bytes": "302.5 GB"
+  },
+  "live_paths": {
+    "warehouse_root": {
+      "path": "D:\\ProteoSphere\\reference_library",
+      "exists": true,
+      "file_count": 1645,
+      "byte_count": 79703246157,
+      "human_bytes": "74.2 GB"
+    },
+    "repo_data_raw": {
+      "path": "D:\\documents\\ProteoSphereV2\\data\\raw",
+      "exists": true,
+      "file_count": 271607,
+      "byte_count": 1755007732004,
+      "human_bytes": "1.6 TB"
+    },
+    "incoming_mirrors": {
+      "path": "E:\\ProteoSphere\\reference_library\\incoming_mirrors",
+      "exists": true,
+      "file_count": 879,
+      "byte_count": 1680590049469,
+      "human_bytes": "1.5 TB"
+    }
+  },
+  "notes": [
+    "Tracked source estate numbers come from the checked-in source coverage matrix.",
+    "Live path sizes are current filesystem measurements in this environment and should not be treated as release-bound package sizes.",
+    "These numbers support a 'large source estate versus smaller warehouse-first evidence surface' claim, but do not justify the unsupported exact phrase '>2 TB to ~25 GB'."
+  ]
+}

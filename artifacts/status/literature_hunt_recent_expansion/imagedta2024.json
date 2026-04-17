@@ -1,0 +1,50 @@
+{
+  "paper_id": "imagedta2024",
+  "doi": "https://doi.org/10.1021/acsomega.4c02308",
+  "domain": "protein_ligand",
+  "task_family": "drug_target_affinity_prediction",
+  "benchmark_family": "deepdta_setting1_family",
+  "tier_target": "tier1_hard_failure",
+  "official_evidence_links": [
+    "https://doi.org/10.1021/acsomega.4c02308",
+    "https://github.com/neuhanli/ImageDTA",
+    "https://raw.githubusercontent.com/neuhanli/ImageDTA/main/README.md",
+    "https://raw.githubusercontent.com/neuhanli/ImageDTA/main/create_csv.py"
+  ],
+  "claimed_split_description": "The model evaluates on Davis and KIBA after converting released benchmark artifacts.",
+  "recovered_split_evidence": [
+    "The official create_csv.py script explicitly says 'convert data from DeepDTA'.",
+    "It reads train_fold_setting1.txt and test_fold_setting1.txt from the Davis and KIBA benchmark folders."
+  ],
+  "mitigation_claims": [
+    "No released cold-drug, cold-target, or novel-pair setting is used for the main results."
+  ],
+  "mitigation_audit_result": "No mitigation offsets the inherited DeepDTA setting1 leakage.",
+  "exact_failure_class": "script_proven_inherited_fold_family_failure",
+  "overlap_findings": {
+    "direct_entity_overlap": true,
+    "notes": [
+      "The official data-conversion script ties the paper directly to the DeepDTA warm-start folds."
+    ]
+  },
+  "contamination_findings": {
+    "notes": [
+      "Generalization claims remain benchmark-family limited."
+    ]
+  },
+  "blockers": [],
+  "recommended_proteosphere_treatment": "Tier 1 hard failure for generalization claims; preserve as a paper-faithful warm-start benchmark only.",
+  "provenance_notes": [
+    "Recent 2024 paper with explicit benchmark-conversion code."
+  ],
+  "raw_archive_fallback_required": false,
+  "final_status": "tier1_hard_failure",
+  "scores": {
+    "publication_utility": 4.4,
+    "failure_strength": 4.6,
+    "proof_strength": 4.8
+  },
+  "title": "ImageDTA: A Simple Model for Drug\u2013Target Binding Affinity Prediction",
+  "journal": "ACS Omega",
+  "year": 2024
+}

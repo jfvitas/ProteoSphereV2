@@ -1,0 +1,48 @@
+{
+  "paper_id": "tefdta2024",
+  "doi": "https://doi.org/10.1093/bioinformatics/btad778",
+  "domain": "protein_ligand",
+  "task_family": "drug_target_affinity_prediction",
+  "benchmark_family": "mitigation_aware_control",
+  "tier_target": "control_nonfailure",
+  "official_evidence_links": [
+    "https://doi.org/10.1093/bioinformatics/btad778",
+    "https://github.com/RefDawn-XD/TEFDTA",
+    "https://raw.githubusercontent.com/RefDawn-XD/TEFDTA/master/README.md"
+  ],
+  "claimed_split_description": "The repo releases both standard train/test and cold evaluation files for Davis and KIBA.",
+  "recovered_split_evidence": [
+    "The official repo ships Davis_train/test/cold.csv and KIBA_train/test/cold.csv."
+  ],
+  "mitigation_claims": [
+    "Cold evaluation surfaces are released for both Davis and KIBA."
+  ],
+  "mitigation_audit_result": "This is a mitigation-aware control, not a Tier 1 failure.",
+  "exact_failure_class": "none_control",
+  "overlap_findings": {
+    "direct_entity_overlap": false,
+    "notes": [
+      "A cold split is explicitly released, which is exactly the kind of mitigation the analyzer wants to see."
+    ]
+  },
+  "contamination_findings": {
+    "notes": [
+      "Useful control showing the tool can validate better benchmark design."
+    ]
+  },
+  "blockers": [],
+  "recommended_proteosphere_treatment": "Control_nonfailure.",
+  "provenance_notes": [
+    "Recent 2024 control paper with released cold splits."
+  ],
+  "raw_archive_fallback_required": false,
+  "final_status": "control_nonfailure",
+  "scores": {
+    "publication_utility": 3.8,
+    "failure_strength": 1.0,
+    "proof_strength": 4.0
+  },
+  "title": "TEFDTA: a transformer encoder and fingerprint representation combined prediction method for bonded and non-bonded drug\u2013target affinities",
+  "journal": "Bioinformatics",
+  "year": 2024
+}

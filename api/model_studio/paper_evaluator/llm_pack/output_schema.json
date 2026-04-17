@@ -1,0 +1,65 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ProteoSphere Paper Dataset Evaluator Output",
+  "type": "object",
+  "required": ["artifact_id", "schema_id", "papers"],
+  "properties": {
+    "artifact_id": { "type": "string" },
+    "schema_id": { "type": "string" },
+    "papers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "paper_id",
+          "claimed_dataset",
+          "claimed_split",
+          "claimed_split_policy",
+          "resolved_split_policy",
+          "mapping_confidence",
+          "split_parse_confidence",
+          "provenance_grade",
+          "overlap_metrics",
+          "leakage_flags",
+          "modality_status",
+          "eligibility_status",
+          "verdict",
+          "reason_codes",
+          "warnings",
+          "blockers",
+          "needs_human_review",
+          "provenance_notes"
+        ],
+        "properties": {
+          "paper_id": { "type": "string" },
+          "claimed_dataset": { "type": "string" },
+          "claimed_split": { "type": "object" },
+          "claimed_split_policy": { "type": "string" },
+          "resolved_split_policy": {
+            "oneOf": [
+              { "type": "string" },
+              {
+                "type": "object",
+                "required": ["policy"],
+                "properties": { "policy": { "type": "string" } }
+              }
+            ]
+          },
+          "mapping_confidence": { "type": "string" },
+          "split_parse_confidence": { "type": "string" },
+          "provenance_grade": { "type": "string" },
+          "overlap_metrics": { "type": "object" },
+          "leakage_flags": { "type": "array", "items": { "type": "string" } },
+          "modality_status": { "type": "object" },
+          "eligibility_status": { "type": "string" },
+          "verdict": { "type": "string" },
+          "reason_codes": { "type": "array", "items": { "type": "string" } },
+          "warnings": { "type": "array", "items": { "type": "string" } },
+          "blockers": { "type": "array", "items": { "type": "string" } },
+          "needs_human_review": { "type": "boolean" },
+          "provenance_notes": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    }
+  }
+}

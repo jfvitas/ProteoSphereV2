@@ -1,0 +1,56 @@
+{
+  "paper_id": "baranwal2022struct2graph",
+  "source": "representative reproduction of released create_examples.py logic",
+  "reproduction_seed": 1337,
+  "interaction_rows": 10004,
+  "train_rows": 8003,
+  "test_rows": 1000,
+  "dev_rows": 1001,
+  "shared_pdb_count": 643,
+  "shared_pdb_sample": [
+    "1A4E",
+    "1A5E",
+    "1AOJ",
+    "1AY0",
+    "1B6U",
+    "1BI7",
+    "1BMP",
+    "1BOR",
+    "1BUO",
+    "1CI6",
+    "1D5R",
+    "1DZF",
+    "1EFX",
+    "1EG3",
+    "1EH2",
+    "1EJP",
+    "1EK0",
+    "1EKX",
+    "1EOT",
+    "1F4J",
+    "1F9Q",
+    "1FNT",
+    "1FOS",
+    "1FOT",
+    "1G5J"
+  ],
+  "highlight_structure": {
+    "structure_id": "4EQ6",
+    "train_example_count": 78,
+    "test_example_count": 9,
+    "structure_unit_rows": [
+      {
+        "chain_id": "A",
+        "protein_ref": "protein:P40465",
+        "structure_file_path": "D:/documents/ProteoSphereV2/data/raw/local_copies/structures_rcsb/4EQ6.cif"
+      },
+      {
+        "chain_id": "B",
+        "protein_ref": "protein:Q12318",
+        "structure_file_path": "D:/documents/ProteoSphereV2/data/raw/local_copies/structures_rcsb/4EQ6.cif"
+      }
+    ],
+    "image_path": "D:\\documents\\ProteoSphereV2\\artifacts\\status\\struct2graph_overlap\\4EQ6_train_test_overlay.png",
+    "note": "Exact same PDB structure reused across reproduced train and test partitions."
+  }
+}

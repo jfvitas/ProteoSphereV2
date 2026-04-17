@@ -1,0 +1,439 @@
+{
+  "schema_id": "proteosphere-literature-hunt-manifest-2026-04-13",
+  "title": "ProteoSphere literature hunt for confirmed dataset-quality failures in protein papers",
+  "default_view": "best_evidence",
+  "warehouse_root": "D:\\ProteoSphere\\reference_library",
+  "discovery_queries": [
+    "\"protein-protein interaction\" train test leakage dataset github",
+    "\"binding affinity\" external validation benchmark overlap",
+    "\"Train_335\" \"Test_60\" site prediction",
+    "\"nanobody\" validation set benchmark overlap",
+    "\"PDBbind\" external test reuse protein",
+    "\"supplementary table\" PDB ID validation set",
+    "\"Dset_186\" \"PDBset_164\" protein interaction site prediction"
+  ],
+  "candidates": [
+    {
+      "paper_id": "baranwal2022struct2graph",
+      "title": "Struct2Graph: a graph attention network for structure based predictions of protein-protein interactions",
+      "doi": "https://doi.org/10.1186/s12859-022-04910-9",
+      "journal": "BMC Bioinformatics",
+      "year": 2022,
+      "task_family": "pair_level_ppi_prediction",
+      "benchmark_family": "struct2graph_public_pairs",
+      "source_mode": "local_artifact",
+      "local_artifact_path": "D:\\documents\\ProteoSphereV2\\artifacts\\status\\paper_split_list\\baranwal2022struct2graph.json",
+      "official_evidence_links": [
+        "https://doi.org/10.1186/s12859-022-04910-9",
+        "https://github.com/baranwa2/Struct2Graph",
+        "https://raw.githubusercontent.com/baranwa2/Struct2Graph/master/create_examples.py"
+      ],
+      "suspected_issue_classes": [
+        "direct_structure_overlap",
+        "example_level_random_split",
+        "shared_component_leakage"
+      ],
+      "candidate_role": "main"
+    },
+    {
+      "paper_id": "d2cp05644e_2023",
+      "title": "An artificial neural network model to predict structure-based protein-protein free energy of binding from Rosetta-calculated properties",
+      "doi": "https://doi.org/10.1039/D2CP05644E",
+      "journal": "Physical Chemistry Chemical Physics",
+      "year": 2023,
+      "task_family": "binding_affinity_regression",
+      "benchmark_family": "prodigy78_plus_external_panels",
+      "source_mode": "local_forensic_audit",
+      "local_artifact_path": "D:\\documents\\ProteoSphereV2\\artifacts\\status\\paper_d2cp05644e\\summary.json",
+      "official_evidence_links": [
+        "https://doi.org/10.1039/D2CP05644E",
+        "https://www.rsc.org/suppdata/d2/cp/d2cp05644e/d2cp05644e1.pdf",
+        "https://github.com/DSIMB/PPSUS"
+      ],
+      "suspected_issue_classes": [
+        "direct_protein_overlap",
+        "exact_sequence_reuse",
+        "invalid_external_validation",
+        "shared_partner_context"
+      ],
+      "candidate_role": "main"
+    },
+    {
+      "paper_id": "equippis2023",
+      "title": "EquiPPIS",
+      "doi": "https://doi.org/10.1371/journal.pcbi.1011435",
+      "journal": "PLOS Computational Biology",
+      "year": 2023,
+      "task_family": "binding_site_prediction",
+      "benchmark_family": "ppis_train335_family",
+      "source_mode": "local_artifact",
+      "local_artifact_path": "D:\\documents\\ProteoSphereV2\\artifacts\\status\\paper_split_audit_friendly\\equippis2023.json",
+      "official_evidence_links": [
+        "https://doi.org/10.1371/journal.pcbi.1011435"
+      ],
+      "suspected_issue_classes": [
+        "benchmark_family_saturation",
+        "no_out_of_family_validation"
+      ],
+      "candidate_role": "main"
+    },
+    {
+      "paper_id": "agat_ppis2023",
+      "title": "AGAT-PPIS",
+      "doi": "https://doi.org/10.1093/bib/bbad122",
+      "journal": "Briefings in Bioinformatics",
+      "year": 2023,
+      "task_family": "binding_site_prediction",
+      "benchmark_family": "ppis_train335_family",
+      "source_mode": "local_artifact",
+      "local_artifact_path": "D:\\documents\\ProteoSphereV2\\artifacts\\status\\paper_split_audit_friendly\\agat_ppis2023.json",
+      "official_evidence_links": [
+        "https://doi.org/10.1093/bib/bbad122",
+        "https://github.com/AILBC/AGAT-PPIS"
+      ],
+      "suspected_issue_classes": [
+        "benchmark_family_saturation",
+        "no_out_of_family_validation"
+      ],
+      "candidate_role": "main"
+    },
+    {
+      "paper_id": "ghgpr_ppis2023",
+      "title": "GHGPR-PPIS",
+      "doi": "https://doi.org/10.1016/j.compbiomed.2023.107683",
+      "journal": "Computers in Biology and Medicine",
+      "year": 2023,
+      "task_family": "binding_site_prediction",
+      "benchmark_family": "ppis_train335_family",
+      "source_mode": "local_artifact",
+      "local_artifact_path": "D:\\documents\\ProteoSphereV2\\artifacts\\status\\paper_split_audit_friendly\\ghgpr_ppis2023.json",
+      "official_evidence_links": [
+        "https://doi.org/10.1016/j.compbiomed.2023.107683",
+        "https://github.com/dldxzx/GHGPR-PPIS"
+      ],
+      "suspected_issue_classes": [
+        "benchmark_family_saturation",
+        "no_out_of_family_validation"
+      ],
+      "candidate_role": "main"
+    },
+    {
+      "paper_id": "gact_ppis2024",
+      "title": "GACT-PPIS",
+      "doi": "https://doi.org/10.1016/j.ijbiomac.2024.137272",
+      "journal": "International Journal of Biological Macromolecules",
+      "year": 2024,
+      "task_family": "binding_site_prediction",
+      "benchmark_family": "ppis_train335_family",
+      "source_mode": "local_artifact",
+      "local_artifact_path": "D:\\documents\\ProteoSphereV2\\artifacts\\status\\paper_split_audit_friendly\\gact_ppis2024.json",
+      "official_evidence_links": [
+        "https://doi.org/10.1016/j.ijbiomac.2024.137272"
+      ],
+      "suspected_issue_classes": [
+        "benchmark_family_saturation",
+        "no_out_of_family_validation"
+      ],
+      "candidate_role": "main"
+    },
+    {
+      "paper_id": "gte_ppis2025",
+      "title": "GTE-PPIS",
+      "doi": "https://doi.org/10.1093/bib/bbaf290",
+      "journal": "Briefings in Bioinformatics",
+      "year": 2025,
+      "task_family": "binding_site_prediction",
+      "benchmark_family": "ppis_train335_family",
+      "source_mode": "local_artifact",
+      "local_artifact_path": "D:\\documents\\ProteoSphereV2\\artifacts\\status\\paper_split_audit_friendly\\gte_ppis2025.json",
+      "official_evidence_links": [
+        "https://doi.org/10.1093/bib/bbaf290"
+      ],
+      "suspected_issue_classes": [
+        "benchmark_family_saturation",
+        "no_out_of_family_validation"
+      ],
+      "candidate_role": "main"
+    },
+    {
+      "paper_id": "asce_ppis2025",
+      "title": "ASCE-PPIS",
+      "doi": "https://doi.org/10.1093/bioinformatics/btaf423",
+      "journal": "Bioinformatics",
+      "year": 2025,
+      "task_family": "binding_site_prediction",
+      "benchmark_family": "ppis_train335_family",
+      "source_mode": "local_artifact",
+      "local_artifact_path": "D:\\documents\\ProteoSphereV2\\artifacts\\status\\paper_split_audit_friendly\\asce_ppis2025.json",
+      "official_evidence_links": [
+        "https://doi.org/10.1093/bioinformatics/btaf423"
+      ],
+      "suspected_issue_classes": [
+        "benchmark_family_saturation",
+        "no_out_of_family_validation"
+      ],
+      "candidate_role": "main"
+    },
+    {
+      "paper_id": "egcppis2025",
+      "title": "EGCPPIS",
+      "doi": "https://doi.org/10.1186/s12859-025-06328-5",
+      "journal": "BMC Bioinformatics",
+      "year": 2025,
+      "task_family": "binding_site_prediction",
+      "benchmark_family": "ppis_train335_family",
+      "source_mode": "local_artifact",
+      "local_artifact_path": "D:\\documents\\ProteoSphereV2\\artifacts\\status\\paper_split_audit_friendly\\egcppis2025.json",
+      "official_evidence_links": [
+        "https://doi.org/10.1186/s12859-025-06328-5"
+      ],
+      "suspected_issue_classes": [
+        "benchmark_family_saturation",
+        "no_out_of_family_validation"
+      ],
+      "candidate_role": "main"
+    },
+    {
+      "paper_id": "mvso_ppis2025",
+      "title": "MVSO-PPIS",
+      "doi": "https://doi.org/10.1093/bioinformatics/btaf470",
+      "journal": "Bioinformatics",
+      "year": 2025,
+      "task_family": "binding_site_prediction",
+      "benchmark_family": "ppis_train335_family",
+      "source_mode": "local_artifact",
+      "local_artifact_path": "D:\\documents\\ProteoSphereV2\\artifacts\\status\\paper_split_audit_friendly\\mvso_ppis2025.json",
+      "official_evidence_links": [
+        "https://doi.org/10.1093/bioinformatics/btaf470",
+        "https://github.com/Edwardblue282/MVSO-PPIS"
+      ],
+      "suspected_issue_classes": [
+        "benchmark_family_saturation",
+        "no_out_of_family_validation"
+      ],
+      "candidate_role": "main"
+    },
+    {
+      "paper_id": "mippis2024",
+      "title": "MIPPIS",
+      "doi": "https://doi.org/10.1186/s12859-024-05964-7",
+      "journal": "BMC Bioinformatics",
+      "year": 2024,
+      "task_family": "binding_site_prediction",
+      "benchmark_family": "ppis_train335_family",
+      "source_mode": "local_artifact",
+      "local_artifact_path": "D:\\documents\\ProteoSphereV2\\artifacts\\status\\paper_split_audit_friendly\\mippis2024.json",
+      "official_evidence_links": [
+        "https://doi.org/10.1186/s12859-024-05964-7"
+      ],
+      "suspected_issue_classes": [
+        "benchmark_family_saturation",
+        "no_out_of_family_validation"
+      ],
+      "candidate_role": "main"
+    },
+    {
+      "paper_id": "hssppi2025",
+      "title": "HSSPPI",
+      "doi": "https://doi.org/10.1093/bib/bbaf079",
+      "journal": "Briefings in Bioinformatics",
+      "year": 2025,
+      "task_family": "binding_site_prediction",
+      "benchmark_family": "hssppi_public_tasks",
+      "source_mode": "local_artifact",
+      "local_artifact_path": "D:\\documents\\ProteoSphereV2\\artifacts\\status\\paper_split_audit_friendly\\hssppi2025.json",
+      "official_evidence_links": [
+        "https://doi.org/10.1093/bib/bbaf079"
+      ],
+      "suspected_issue_classes": [
+        "legacy_benchmark_dependence",
+        "mixed_public_task_story"
+      ],
+      "candidate_role": "main"
+    },
+    {
+      "paper_id": "edg_ppis2025",
+      "title": "EDG-PPIS: an equivariant and dual-scale graph network for protein-protein interaction site prediction",
+      "doi": "https://doi.org/10.1186/s12864-025-12084-w",
+      "journal": "BMC Genomics",
+      "year": 2025,
+      "task_family": "binding_site_prediction",
+      "benchmark_family": "ppis_train335_family",
+      "source_mode": "web_verified_benchmark_family",
+      "official_evidence_links": [
+        "https://doi.org/10.1186/s12864-025-12084-w",
+        "https://bmcgenomics.biomedcentral.com/articles/10.1186/s12864-025-12084-w"
+      ],
+      "suspected_issue_classes": [
+        "benchmark_family_saturation",
+        "legacy_random_selection_ancestor",
+        "no_out_of_family_validation"
+      ],
+      "web_evidence_snippets": [
+        "The dataset used in this study is the same as AGAT-PPIS, that is, Train_335 is used as the training set, and Test_60, Test_315-28, Btest_31-6, and UBtest_31-6 are used as the test sets.",
+        "Train_335 and Test_60 were derived from Dset_186, Dset_72, and Dset_164, then 335 chains were randomly selected for training and 60 for testing."
+      ],
+      "candidate_role": "main"
+    },
+    {
+      "paper_id": "mgma_ppis2025",
+      "title": "MGMA-PPIS: Predicting the protein-protein interaction site with multiview graph embedding and multiscale attention fusion",
+      "doi": "https://doi.org/10.1093/gigascience/giaf114",
+      "journal": "GigaScience",
+      "year": 2025,
+      "task_family": "binding_site_prediction",
+      "benchmark_family": "ppis_train335_family",
+      "source_mode": "web_verified_benchmark_family",
+      "official_evidence_links": [
+        "https://doi.org/10.1093/gigascience/giaf114",
+        "https://academic.oup.com/gigascience/article/doi/10.1093/gigascience/giaf114/8270602",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC12486388/"
+      ],
+      "suspected_issue_classes": [
+        "benchmark_family_saturation",
+        "inherits_angat_graphppis_lineage",
+        "no_out_of_family_validation"
+      ],
+      "web_evidence_snippets": [
+        "The AGAT-PPIS dataset is derived from the GraphPPIS dataset, which includes the following subsets: 1 training set of Train_335-1 and 3 test sets of Test_315-28, Test_60-0, and Ubtest_31-6.",
+        "MGMA-PPIS reports its headline results on Test_60 and related inherited test sets rather than on a new independent benchmark."
+      ],
+      "candidate_role": "main"
+    },
+    {
+      "paper_id": "meg_ppis2024",
+      "title": "MEG-PPIS: a fast protein-protein interaction site prediction method based on multi-scale graph information and equivariant graph neural network",
+      "doi": "https://doi.org/10.1093/bioinformatics/btae269",
+      "journal": "Bioinformatics",
+      "year": 2024,
+      "task_family": "binding_site_prediction",
+      "benchmark_family": "ppis_train335_family",
+      "source_mode": "web_verified_benchmark_family",
+      "official_evidence_links": [
+        "https://doi.org/10.1093/bioinformatics/btae269",
+        "https://academic.oup.com/bioinformatics/article/40/5/btae269/7651199",
+        "https://github.com/dhz234/MEG-PPIS.git"
+      ],
+      "suspected_issue_classes": [
+        "benchmark_family_saturation",
+        "inherits_angat_graphppis_lineage",
+        "no_out_of_family_validation"
+      ],
+      "web_evidence_snippets": [
+        "In this study, benchmark datasets were the same as those in the previous work AGAT-PPIS, including training set (Train_335-1) and testing sets (Test_60, Test_315-28, Ubtest_31-6).",
+        "The paper frames broad gains while staying inside the same benchmark family."
+      ],
+      "candidate_role": "main"
+    },
+    {
+      "paper_id": "deepppisp2019",
+      "title": "DeepPPISP",
+      "doi": "https://doi.org/10.1093/bioinformatics/btz699",
+      "journal": "Bioinformatics",
+      "year": 2019,
+      "task_family": "binding_site_prediction",
+      "benchmark_family": "deepppisp_186_72_164",
+      "source_mode": "local_artifact",
+      "local_artifact_path": "D:\\documents\\ProteoSphereV2\\artifacts\\status\\paper_split_audit_friendly\\deepppisp2019.json",
+      "official_evidence_links": [
+        "https://doi.org/10.1093/bioinformatics/btz699",
+        "https://github.com/CSUBioGroup/DeepPPISP"
+      ],
+      "suspected_issue_classes": [
+        "under_disclosed_split_membership",
+        "legacy_benchmark_dependence"
+      ],
+      "candidate_role": "backlog"
+    },
+    {
+      "paper_id": "hn_ppisp2023",
+      "title": "HN-PPISP: a hybrid network based on MLP-Mixer for protein-protein interaction site prediction",
+      "doi": "https://doi.org/10.1093/bib/bbac480",
+      "journal": "Briefings in Bioinformatics",
+      "year": 2023,
+      "task_family": "binding_site_prediction",
+      "benchmark_family": "dset_186_72_pdb164",
+      "source_mode": "web_verified_legacy_family",
+      "official_evidence_links": [
+        "https://doi.org/10.1093/bib/bbac480",
+        "https://academic.oup.com/bib/article/24/1/bbac480/6833645"
+      ],
+      "suspected_issue_classes": [
+        "legacy_benchmark_dependence",
+        "merged_dataset_holdout_story"
+      ],
+      "web_evidence_snippets": [
+        "These three benchmark datasets are fused as a dataset, same as the datasets in prior work, called Dset_186_72_PDB164 in this work."
+      ],
+      "candidate_role": "backlog"
+    },
+    {
+      "paper_id": "dgcppisp2024",
+      "title": "DGCPPISP: a PPI site prediction model based on dynamic graph convolutional network and two-stage transfer learning",
+      "doi": "https://doi.org/10.1186/s12859-024-05864-w",
+      "journal": "BMC Bioinformatics",
+      "year": 2024,
+      "task_family": "binding_site_prediction",
+      "benchmark_family": "dset_186_72_pdb164",
+      "source_mode": "web_verified_legacy_family",
+      "official_evidence_links": [
+        "https://doi.org/10.1186/s12859-024-05864-w",
+        "https://bmcbioinformatics.biomedcentral.com/articles/10.1186/s12859-024-05864-w"
+      ],
+      "suspected_issue_classes": [
+        "legacy_benchmark_dependence",
+        "transfer_learning_on_small_reused_family"
+      ],
+      "web_evidence_snippets": [
+        "To ascertain the performance of DGCPPISP at various stages of transfer learning, we perform an experiment on Dset_186_72_PDB164."
+      ],
+      "candidate_role": "backlog"
+    },
+    {
+      "paper_id": "prob_site2022",
+      "title": "ProB-Site: Protein Binding Site Prediction Using Local Features",
+      "doi": "https://doi.org/10.3390/cells11132117",
+      "journal": "Cells",
+      "year": 2022,
+      "task_family": "binding_site_prediction",
+      "benchmark_family": "dset_186_72_pdb164",
+      "source_mode": "web_verified_legacy_family",
+      "official_evidence_links": [
+        "https://doi.org/10.3390/cells11132117",
+        "https://www.mdpi.com/2073-4409/11/13/2117",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC9266162/"
+      ],
+      "suspected_issue_classes": [
+        "legacy_benchmark_dependence",
+        "merged_dataset_holdout_story"
+      ],
+      "web_evidence_snippets": [
+        "The study incorporated three benchmark datasets: Dset_72, Dset_186, and PDBset_164.",
+        "The paper reports comparison using the Test_60 data set."
+      ],
+      "candidate_role": "backlog"
+    }
+  ],
+  "controls": [
+    {
+      "paper_id": "szymborski2022rapppid",
+      "title": "RAPPPID: towards generalizable protein interaction prediction with AWD-LSTM twin networks",
+      "doi": "https://doi.org/10.1093/bioinformatics/btac429",
+      "journal": "Bioinformatics",
+      "year": 2022,
+      "task_family": "pair_level_ppi_prediction",
+      "reason_for_control": "Published strict split artifacts and serves as a non-failure calibration case.",
+      "local_artifact_path": "D:\\documents\\ProteoSphereV2\\artifacts\\status\\paper_split_audit_friendly\\szymborski2022rapppid.json"
+    },
+    {
+      "paper_id": "graphppis2021",
+      "title": "GraphPPIS",
+      "doi": "https://doi.org/10.1093/bioinformatics/btab643",
+      "journal": "Bioinformatics",
+      "year": 2021,
+      "task_family": "binding_site_prediction",
+      "reason_for_control": "Benchmark anchor and useful non-failure calibration case; later papers inherit its benchmark family.",
+      "local_artifact_path": "D:\\documents\\ProteoSphereV2\\artifacts\\status\\paper_split_audit_friendly\\graphppis2021.json"
+    }
+  ]
+}

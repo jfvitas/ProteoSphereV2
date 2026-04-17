@@ -1,0 +1,69 @@
+{
+  "artifact_id": "proteosphere_paper_figure_manifest",
+  "figure_count": 6,
+  "figures": [
+    {
+      "token": "FIGURE_1_PATH",
+      "path": "D:\\documents\\ProteoSphereV2\\output\\pdf\\proteosphere_paper_assets\\figure_1_system_overview.png",
+      "caption": "ProteoSphere system overview: pinned source estate to warehouse-first review and canonical treatment.",
+      "sources": [
+        "D:\\ProteoSphere\\reference_library\\warehouse_summary.json",
+        "D:\\ProteoSphere\\reference_library\\warehouse_manifest.json",
+        "D:\\ProteoSphere\\reference_library\\control\\source_registry.json",
+        "D:\\documents\\ProteoSphereV2\\api\\model_studio\\reference_library.py",
+        "D:\\documents\\ProteoSphereV2\\api\\model_studio\\runtime.py"
+      ]
+    },
+    {
+      "token": "FIGURE_2_PATH",
+      "path": "D:\\documents\\ProteoSphereV2\\output\\pdf\\proteosphere_paper_assets\\figure_2_storage_footprint.png",
+      "caption": "Current local footprint and warehouse-first compactness framing. Live path sizes are environment measurements, not release-bound package sizes.",
+      "sources": [
+        "D:\\documents\\ProteoSphereV2\\artifacts\\status\\proteosphere_paper_storage_ledger.json",
+        "D:\\ProteoSphere\\reference_library\\warehouse_summary.json",
+        "D:\\ProteoSphere\\reference_library\\warehouse_manifest.json"
+      ]
+    },
+    {
+      "token": "FIGURE_3_PATH",
+      "path": "D:\\documents\\ProteoSphereV2\\output\\pdf\\proteosphere_paper_assets\\figure_3_review_logic.png",
+      "caption": "ProteoSphere review logic: recover, map, audit overlap, audit mitigation, then assign hard failure, supporting case, or control status.",
+      "sources": [
+        "D:\\documents\\ProteoSphereV2\\artifacts\\status\\literature_hunt_tier1_master_summary.json",
+        "D:\\documents\\ProteoSphereV2\\api\\model_studio\\runtime.py",
+        "D:\\documents\\ProteoSphereV2\\api\\model_studio\\reference_library.py"
+      ]
+    },
+    {
+      "token": "FIGURE_4_PATH",
+      "path": "D:\\documents\\ProteoSphereV2\\output\\pdf\\proteosphere_paper_assets\\figure_4_tier1_landscape.png",
+      "caption": "Tier 1 proof set across time, issue families, and domains.",
+      "sources": [
+        "D:\\documents\\ProteoSphereV2\\artifacts\\status\\literature_hunt_tier1_master_summary.json"
+      ]
+    },
+    {
+      "token": "FIGURE_5_PATH",
+      "path": "D:\\documents\\ProteoSphereV2\\output\\pdf\\proteosphere_paper_assets\\figure_5_flagship_cases.png",
+      "caption": "Flagship case studies spanning direct split reuse, invalid external validation, warm-start benchmark inheritance, and row-level random-CV leakage.",
+      "sources": [
+        "D:\\documents\\ProteoSphereV2\\docs\\reports\\struct2graph_reproduced_overlap.md",
+        "D:\\documents\\ProteoSphereV2\\docs\\reports\\paper_d2cp05644e_quality_assessment.md",
+        "D:\\documents\\ProteoSphereV2\\artifacts\\status\\literature_hunt_deep_proofs\\dta_setting1_family_audit.json",
+        "D:\\documents\\ProteoSphereV2\\artifacts\\status\\literature_hunt_deep_proofs\\pdbbind_core_family_audit.json",
+        "D:\\documents\\ProteoSphereV2\\artifacts\\status\\literature_hunt_recent_expansion_proofs\\attentiondta_random_cv_family_audit.json",
+        "D:\\documents\\ProteoSphereV2\\artifacts\\status\\struct2graph_overlap\\4EQ6_train_test_overlay.png"
+      ]
+    },
+    {
+      "token": "FIGURE_6_PATH",
+      "path": "D:\\documents\\ProteoSphereV2\\output\\pdf\\proteosphere_paper_assets\\figure_6_controls.png",
+      "caption": "Controls and constructive use of ProteoSphere as a reviewer rather than a takedown tool.",
+      "sources": [
+        "D:\\documents\\ProteoSphereV2\\artifacts\\status\\literature_hunt_tier1_master_summary.json",
+        "D:\\documents\\ProteoSphereV2\\artifacts\\status\\literature_hunt_deep_review.json",
+        "D:\\documents\\ProteoSphereV2\\artifacts\\status\\literature_hunt_recent_expansion.json"
+      ]
+    }
+  ]
+}
